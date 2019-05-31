@@ -33,10 +33,14 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
+html, body{
   width: 100%;
-  height: 100%;
-  text-align: center;
+  height: 100%;;
+}
+#app {
+  // width: 100%;
+  // height: 100%;
+  // text-align: center;
   font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

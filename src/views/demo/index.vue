@@ -1,6 +1,5 @@
 <template>
   <div>
-    <img src="../../assets//images/gou-red.png" alt="">
     <div>{{$t('route.dashboard')}}</div>
     <div>{{dashboard}}</div>
     <el-button type="primary" @click="setLanguage('zh')">中文</el-button>
