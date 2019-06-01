@@ -3,28 +3,26 @@ import Router from 'vue-router'
 
 Vue.use(Router);
 
+const Demo = () => import('@/views/demo/index.vue');
+const Home = () => import('@/views/home.vue');
+
+
 export default new Router({
     routes: [
-        // {
-        //     path: '/guide',
-        //     component: Layout,
-        //     redirect: '/guide/index',
-        //     children: [{
-        //       path: 'index',
-        //       component: () => import('@/views/guide/index'),
-        //       name: 'guide',
-        //       meta: { title: 'guide', icon: 'guide', noCache: true }
-        //     }]
-        // },
         {
             path: '/demo',
             name: 'demo',
-            component: () => import('@/views/demo/index.vue'),
+            component: Demo,
         },
         {
             path: '/home',
             name: 'home',
-            component: () => import('@/views/home.vue'),
-        },        
+            component: Home,
+        },
+        {
+            path: '*',
+            redirect: '/home',
+        },
+
     ]
 })
