@@ -3,12 +3,12 @@
     <div class="logo"></div>
     <div class="nav-cont flex">
       <div class="nav-bar flex">
-        <div :class="[$route.path === '/home' ? 'active' : '', 'nav-item']" @click="goPage('home')">首页</div>
-        <div :class="[$route.path === '/operation' ? 'active' : '','nav-item']" @click="goPage('operation')">如何运作</div>
-        <div :class="[$route.path === '/product' ? 'active' : '', 'nav-item']" @click="goPage('product')">产品</div>
-        <div :class="[$route.path === '/find' ? 'active' : '', 'nav-item']" @click="goPage('find')">发现</div>
-        <div :class="[$route.path === '/organization' ? 'active' : '', 'nav-item']" @click="goPage('organization')">机构</div>
-        <div :class="[$route.path === '/analysis' ? 'active' : '', 'nav-item']" @click="goPage('analysis')">免费分析</div>
+        <div :class="[path === '/home' ? 'active' : '', 'nav-item']" @click="goPage('home')">首页</div>
+        <div :class="[path === '/operation' ? 'active' : '','nav-item']" @click="goPage('operation')">如何运作</div>
+        <div :class="[path === '/product' ? 'active' : '', 'nav-item']" @click="goPage('product')">产品</div>
+        <div :class="[path === '/find' ? 'active' : '', 'nav-item']" @click="goPage('find')">发现</div>
+        <div :class="[path === '/organization' ? 'active' : '', 'nav-item']" @click="goPage('organization')">机构</div>
+        <div :class="[path === '/analysis' ? 'active' : '', 'nav-item']" @click="goPage('analysis')">免费分析</div>
       </div>
       <div class="nav-m flex hover">
         <div class="hover" @click="goPage('login')">登录</div>
@@ -26,6 +26,11 @@
 <script>
 export default {
   name: "headernav",
+  props:{
+    path: {
+      default: '/home'
+    }
+  },
   data() {
     return {};
   },

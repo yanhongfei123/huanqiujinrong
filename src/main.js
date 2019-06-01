@@ -1,4 +1,5 @@
 import '@/assets/style/reset.css' // 适配css
+import '@/assets/style/swiper.css'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -7,6 +8,8 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import i18n from './lang' // Internationalization
 
+import VueAwesomeSwiper from 'vue-awesome-swiper';
+Vue.use(VueAwesomeSwiper)
 import * as filters from './filters' // global filters
 
 Vue.use(Element, {

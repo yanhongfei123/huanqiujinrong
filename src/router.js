@@ -17,14 +17,19 @@ export default new Router({
         //     }]
         // },
         {
-            path: '/demo',
-            name: 'demo',
-            component: () => import('@/views/demo/index.vue'),
-        },
-        {
             path: '/home',
             name: 'home',
             component: () => import('@/views/home.vue'),
-        },        
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: () => import('@/views/contact.vue'),
+        },
+        {
+            path: '/introduction',
+            name: 'introduction',
+            component: () => import('@/views/introduction.vue'),
+        },         
     ]
 })
