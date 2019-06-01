@@ -22,6 +22,11 @@ export default new Router({
             component: () => import('@/views/home.vue'),
         },
         {
+            path: '/analysis',
+            name: 'analysis',
+            component: () => import('@/views/analysis.vue'),
+        },
+        {
             path: '/contact',
             name: 'contact',
             component: () => import('@/views/contact.vue'),
@@ -30,6 +35,16 @@ export default new Router({
             path: '/introduction',
             name: 'introduction',
             component: () => import('@/views/introduction.vue'),
-        },         
+        },
+        {
+            path: '/conditions',
+            name: 'conditions',
+            component: () => import('@/views/conditions.vue'),
+        },
+        {
+            path: '/questions',
+            name: 'questions',
+            component: () => import('@/views/questions.vue'),
+        },
     ]
 })

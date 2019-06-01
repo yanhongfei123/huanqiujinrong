@@ -52,14 +52,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .nav-wrap {
-
-  
   width: 1180px;
   height: 82px;
   margin: 0 auto;
   font-size: 18px;
   font-weight: bold;
-  color: #666;
+  color: #999;
   display: flex;
   align-items: center;
   justify-content: space-between;

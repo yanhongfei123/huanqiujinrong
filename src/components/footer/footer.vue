@@ -24,7 +24,7 @@
             <dt @click="goPage('about')">关于我们</dt>
             <dd @click="goPage('introduction')">团队介绍</dd>
             <dd @click="goPage('contact')">联系我们</dd>
-            <dd @click="goPage('answer')">常见回答</dd>
+            <dd @click="goPage('questions')">常见回答</dd>
             <dd @click="goPage('conditions')">条款声明</dd>
           </dl>
           <dl class="fr-r">
