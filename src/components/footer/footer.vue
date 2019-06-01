@@ -21,11 +21,11 @@
          </div>
          <div class="f-top-r">
           <dl class="fr-l">
-            <dt @click="goPage('about-us')">关于我们</dt>
-            <dd @click="goPage('team-introduction')">团队介绍</dd>
-            <dd @click="goPage('concat-us')">联系我们</dd>
-            <dd @click="goPage('common-answer')">常见回答</dd>
-            <dd @click="goPage('terms-conditions')">条款声明</dd>
+            <dt @click="goPage('about')">关于我们</dt>
+            <dd @click="goPage('introduction')">团队介绍</dd>
+            <dd @click="goPage('contact')">联系我们</dd>
+            <dd @click="goPage('answer')">常见回答</dd>
+            <dd @click="goPage('conditions')">条款声明</dd>
           </dl>
           <dl class="fr-r">
             <dt>关注我们</dt>

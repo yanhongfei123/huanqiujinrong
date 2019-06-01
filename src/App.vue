@@ -37,10 +37,21 @@ html, body{
   width: 100%;
   height: 100%;;
 }
+.com-width {
+  width: 1180px;
+  margin: 0 auto;
+}
+header {
+  position: fixed;
+  width: 100%;
+  height: 82px;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(227, 227, 227, 0.5);
+}
 #app {
-  // width: 100%;
-  // height: 100%;
-  // text-align: center;
+  margin-top: 82px;
   font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -5,6 +5,8 @@ Vue.use(Router);
 
 const Demo = () => import('@/views/demo/index.vue');
 const Home = () => import('@/views/home.vue');
+const Contact = () => import('@/views/contact.vue');
+const Introduction = () => import('@/views/introduction.vue');
 
 
 export default new Router({
@@ -23,6 +25,15 @@ export default new Router({
             path: '*',
             redirect: '/home',
         },
-
+        {
+            path: '/contact',
+            name: 'contact',
+            component: Contact,
+        },
+        {
+            path: '/introduction',
+            name: 'introduction',
+            component: Introduction,
+        },
     ]
 })

@@ -296,3 +296,13 @@ th {
   font-family: 'SourceHanSansSC-Bold';
   src: url('/src/assets/font/SourceHanSansSC-Bold.ttf');
 }
+
+.tl{
+  text-align: left;
+}
+.tc{
+  text-align: center;
+}
+.tr{
+  text-align: right;
+}
