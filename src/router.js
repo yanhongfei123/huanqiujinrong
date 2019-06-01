@@ -3,48 +3,54 @@ import Router from 'vue-router'
 
 Vue.use(Router);
 
+const Demo = () => import('@/views/demo/index.vue');
+const Home = () => import('@/views/home.vue');
+const Contact = () => import('@/views/contact.vue');
+const Introduction = () => import('@/views/introduction.vue');
+const Analysis = () => import('@/views/analysis.vue');
+const Conditions = () => import('@/views/conditions.vue');
+const Questions = () => import('@/views/questions.vue');
+
 export default new Router({
     routes: [
-        // {
-        //     path: '/guide',
-        //     component: Layout,
-        //     redirect: '/guide/index',
-        //     children: [{
-        //       path: 'index',
-        //       component: () => import('@/views/guide/index'),
-        //       name: 'guide',
-        //       meta: { title: 'guide', icon: 'guide', noCache: true }
-        //     }]
-        // },
+        {
+            path: '/demo',
+            name: 'demo',
+            component: Demo,
+        },
         {
             path: '/home',
             name: 'home',
-            component: () => import('@/views/home.vue'),
+            component: Home,
+        },
+        {
+            path: '*',
+            redirect: '/home',
         },
         {
             path: '/analysis',
             name: 'analysis',
-            component: () => import('@/views/analysis.vue'),
+            component: Analysis,
         },
         {
             path: '/contact',
             name: 'contact',
-            component: () => import('@/views/contact.vue'),
+            component: Contact,
         },
         {
             path: '/introduction',
             name: 'introduction',
-            component: () => import('@/views/introduction.vue'),
+            component: Introduction,
         },
         {
             path: '/conditions',
             name: 'conditions',
-            component: () => import('@/views/conditions.vue'),
+            component: Conditions,
         },
         {
             path: '/questions',
             name: 'questions',
-            component: () => import('@/views/questions.vue'),
+            component: Questions,
         },
     ]
 })
