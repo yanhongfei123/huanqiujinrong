@@ -53,7 +53,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-introduction {
   .barner {
     position: relative;
@@ -125,7 +125,7 @@ export default {
   .content2 {
     height: 668px;
     background: url("../assets/images/banner01.jpg") no-repeat center;
-    background-size: cover;    
+    background-size: cover;
     display: flex;
     align-items: center;
     .text{
@@ -134,7 +134,7 @@ export default {
       font-size: 28px;
       font-weight: 600;
       color: #fff;
-      line-height: 40px;      
+      line-height: 40px;
     }
   }
 }

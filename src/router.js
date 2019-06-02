@@ -12,8 +12,10 @@ const Questions = () => import('@/views/questions.vue'); //问答
 
 const Register = () => import('@/views/register.vue'); //注册
 const Login = () => import('@/views/login.vue'); //登录
-
 const ResetPwd = () => import('@/views/resetPwd.vue'); //忘记密码
+
+const UserCenter = () => import('@/views/userCenter.vue'); //个人中心
+
 
 export default new Router({
   routes: [
@@ -65,6 +67,11 @@ export default new Router({
       path: '/resetPwd',
       name: 'resetPwd',
       component: ResetPwd,
+    },
+    {
+      path: '/userCenter',
+      name: 'userCenter',
+      component: UserCenter,
     },
 
   ]

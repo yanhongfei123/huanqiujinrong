@@ -125,7 +125,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .page-resetPwd {
         padding-top: 60px;
         background: #fff;

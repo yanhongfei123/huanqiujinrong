@@ -189,7 +189,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .barner {
   position: relative;
   height: 700px;

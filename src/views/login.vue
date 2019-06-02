@@ -135,7 +135,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .page-login {
         padding-top: 60px;
         background: #fff;
