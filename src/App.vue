@@ -55,10 +55,27 @@
     }
 
     #app {
-        margin-top: 82px;
-        font-family: "Helvetica Neue", "PingFangSC-Semibold", Helvetica, "Microsoft YaHei", STHeiTi, sans-serif;
+        margin: 82px auto 0;
+        font-family: "Helvetica Neue", Helvetica, "PingFangSC-Semibold", "Microsoft YaHei", STHeiTi, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: #666;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: #666;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+        color: #666;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+        color: #666;
+    }
+
+    .el-form-item__error{
+        padding-top: 10px !important;
     }
 
     /* 可以设置不同的进入和离开动画 */

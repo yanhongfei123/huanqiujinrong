@@ -3,14 +3,6 @@
         <div class="logo"></div>
         <div class="nav-cont flex">
             <div class="nav-bar flex">
-                <div :class="[path === '/home' ? 'active' : '', 'nav-item']" @click="goPage('home')">首页</div>
-                <div :class="[path === '/operation' ? 'active' : '','nav-item']" @click="goPage('operation')">如何运作</div>
-                <div :class="[path === '/product' ? 'active' : '', 'nav-item']" @click="goPage('product')">产品</div>
-                <div :class="[path === '/find' ? 'active' : '', 'nav-item']" @click="goPage('find')">发现</div>
-                <div :class="[path === '/organization' ? 'active' : '', 'nav-item']" @click="goPage('organization')">
-                    机构
-                </div>
-                <div :class="[path === '/analysis' ? 'active' : '', 'nav-item']" @click="goPage('analysis')">免费分析</div>
             </div>
             <div class="nav-m flex hover">
                 <div class="hover" @click="goPage('login')">登录</div>
@@ -27,7 +19,7 @@
 
 <script>
   export default {
-    name: 'headernav',
+    name: 'header',
     props: {
       path: {
         default: '/home'
@@ -59,6 +51,7 @@
         margin: 0 auto;
         color: #3C3F4D;
         font-size: 18px;
+        font-weight: 600;
         line-height: 24px;
         letter-spacing: 1px;
         display: flex;
