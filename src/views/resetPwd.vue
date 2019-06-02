@@ -77,10 +77,11 @@
       };
 
       const validatePass = (rule, value, callback) => {
+        let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
         if (value == '') {
           callback(new Error('请输入密码'));
-        } else if (value.length < 6) {
-          callback(new Error('密码不能小于6位'));
+        } else if (!pwdReg.test(value)) {
+          callback(new Error('密码为8-16位，需包含大写字母、小写字母、数字'));
         } else {
           callback();
         }
