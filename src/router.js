@@ -6,7 +6,9 @@ Vue.use(Router);
 const Home = () => import('@/views/home.vue');
 const Contact = () => import('@/views/contact.vue');
 const Introduction = () => import('@/views/introduction.vue');
-
+const Analysis = () => import('@/views/analysis.vue');
+const Conditions = () => import('@/views/conditions.vue');
+const Questions = () => import('@/views/questions.vue');
 
 export default new Router({
     routes: [
@@ -20,6 +22,11 @@ export default new Router({
             redirect: '/home',
         },
         {
+            path: '/analysis',
+            name: 'analysis',
+            component: Analysis,
+        },
+        {
             path: '/contact',
             name: 'contact',
             component: Contact,
@@ -28,6 +35,16 @@ export default new Router({
             path: '/introduction',
             name: 'introduction',
             component: Introduction,
+        },
+        {
+            path: '/conditions',
+            name: 'conditions',
+            component: Conditions,
+        },
+        {
+            path: '/questions',
+            name: 'questions',
+            component: Questions,
         },
     ]
 })

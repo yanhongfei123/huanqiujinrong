@@ -60,8 +60,9 @@ export default {
   .contact-en{
     font-size:95px;
     font-weight:800;
-    color:#999;
+    color:#444857;
     line-height:137px;
+    opacity: 0.3;
   }
   .map-wrap{
     margin: 60px 0 100px;
@@ -87,5 +88,4 @@ export default {
   }
 
 }
- 
 </style>
