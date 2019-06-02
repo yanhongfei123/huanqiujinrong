@@ -3,7 +3,6 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-const Demo = () => import('@/views/demo/index.vue');
 const Home = () => import('@/views/home.vue');//首页
 const Contact = () => import('@/views/contact.vue');// 联系我们
 const Introduction = () => import('@/views/introduction.vue');//介绍
@@ -40,11 +39,6 @@ export default new Router({
             path: '/userCenter',
             name: 'userCenter',
             component: UserCenter,
-        },
-        {
-            path: '/demo',
-            name: 'demo',
-            component: Demo,
         },
         {
             path: '/home',

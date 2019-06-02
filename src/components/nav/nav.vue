@@ -20,6 +20,7 @@
         <div class="hover" @click="setLanguage('ft')">繁</div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -50,54 +51,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-<<<<<<< HEAD
-.nav-wrap {
-  width: 1180px;
-  height: 82px;
-  margin: 0 auto;
-  font-size: 18px;
-  font-weight: bold;
-  color: #999;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .active{
-    color: #333;
-  }
-  .flex {
-    display: flex;
-  }
-  .hover:hover{
-    color: #333;
-  }
-  .logo {
-    width: 179px;
-    height: 39px;
-    background: url("../../assets/images/banner01.jpg") no-repeat;
-    background-size: contain;
-  }
-  .hover:hover,
-  .nav-item:hover
-  {
-    color: #333;
-  }
-  .nav-item {
-    cursor: pointer;
-    margin-right: 40px;
-  }
-  .nav-m {
-    cursor: pointer;
-    margin-right: 40px;
-  }
-  .nav-r {
-    cursor: pointer;
-    align-items: center;
-    .line {
-      width: 2px;
-      height: 18px;
-      background: #999;
-      margin: 0 8px;
-=======
     .nav-wrap {
         width: 1180px;
         height: 82px;
@@ -146,7 +99,6 @@
                 margin: 0 8px;
             }
         }
->>>>>>> a6d11339bb935300a60bf8a085e186fc1fa73356
     }
 
 </style>
