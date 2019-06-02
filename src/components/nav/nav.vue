@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="nav-wrap">
     <div class="logo"></div>
     <div class="nav-cont flex">
@@ -20,31 +19,6 @@
         <div class="line"></div>
         <div class="hover" @click="setLanguage('ft')">繁</div>
       </div>
-=======
-    <div class="nav-wrap">
-        <div class="logo"></div>
-        <div class="nav-cont flex">
-            <div class="nav-bar flex">
-                <div :class="[path === '/home' ? 'active' : '', 'nav-item']" @click="goPage('home')">首页</div>
-                <div :class="[path === '/operation' ? 'active' : '','nav-item']" @click="goPage('operation')">如何运作</div>
-                <div :class="[path === '/product' ? 'active' : '', 'nav-item']" @click="goPage('product')">产品</div>
-                <div :class="[path === '/find' ? 'active' : '', 'nav-item']" @click="goPage('find')">发现</div>
-                <div :class="[path === '/organization' ? 'active' : '', 'nav-item']" @click="goPage('organization')">
-                    机构
-                </div>
-                <div :class="[path === '/analysis' ? 'active' : '', 'nav-item']" @click="goPage('analysis')">免费分析</div>
-            </div>
-            <div class="nav-m flex hover">
-                <div class="hover" @click="goPage('login')">登录</div>
-                <div class="hover" @click="goPage('register')">注册</div>
-            </div>
-            <div class="nav-r flex">
-                <div class="hover" @click="setLanguage('zh')">简</div>
-                <div class="line"></div>
-                <div class="hover" @click="setLanguage('ft')">繁</div>
-            </div>
-        </div>
->>>>>>> a6d11339bb935300a60bf8a085e186fc1fa73356
     </div>
 </template>
 
