@@ -189,11 +189,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .barner {
   position: relative;
   height: 700px;
-  background: url("../assets/images/banner01.jpg") no-repeat center;
+  background: url("../assets/images/lead-banner-index.png") no-repeat center;
   background-size: cover;
   .barner-content {
     width: 900px;

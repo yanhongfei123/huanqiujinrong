@@ -1,23 +1,46 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
 Vue.use(Router);
 
 const Demo = () => import('@/views/demo/index.vue');
-const Home = () => import('@/views/home.vue');
-const Contact = () => import('@/views/contact.vue');
-const Introduction = () => import('@/views/introduction.vue');
-const Analysis = () => import('@/views/analysis/index.vue');
-const Conditions = () => import('@/views/conditions.vue');
-const Questions = () => import('@/views/questions.vue');
-const Result = () => import('@/views/analysis/result.vue');
-const Answer = () => import('@/views/analysis/answer.vue');
-const Analys = () => import('@/views/analysis/analysis.vue');
-const Find = () => import('@/views/find.vue');
-const Article = () => import('@/views/article.vue');
+const Home = () => import('@/views/home.vue');//首页
+const Contact = () => import('@/views/contact.vue');// 联系我们
+const Introduction = () => import('@/views/introduction.vue');//介绍
+const Analysis = () => import('@/views/analysis/index.vue');//分析
+const Conditions = () => import('@/views/conditions.vue');//条款声明
+const Questions = () => import('@/views/questions.vue'); //问答
+const Result = () => import('@/views/analysis/result.vue');//
+const Answer = () => import('@/views/analysis/answer.vue');//
+const Analys = () => import('@/views/analysis/analysis.vue');//
+const Find = () => import('@/views/find.vue');//
+const Article = () => import('@/views/article.vue');//文章详情
 
+const Register = () => import('@/views/register.vue'); //注册
+const Login = () => import('@/views/login.vue'); //登录
+const ResetPwd = () => import('@/views/resetPwd.vue'); //忘记密码
+const UserCenter = () => import('@/views/userCenter.vue'); //个人中心
 export default new Router({
-    routes: [
+    routes: [{
+            path: '/register',
+            name: 'register',
+            component: Register,
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login,
+        },
+        {
+            path: '/resetPwd',
+            name: 'resetPwd',
+            component: ResetPwd,
+        },
+        {
+            path: '/userCenter',
+            name: 'userCenter',
+            component: UserCenter,
+        },
         {
             path: '/demo',
             name: 'demo',

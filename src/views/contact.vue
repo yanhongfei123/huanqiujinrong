@@ -47,7 +47,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-contact{
   padding-top: 60px;
   background: #F9F9F9;
