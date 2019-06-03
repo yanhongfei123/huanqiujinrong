@@ -135,7 +135,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .page-register {
         padding-top: 60px;
         background: #fff;
@@ -158,13 +158,14 @@
                 }
                 .el-form-item__content {
                     line-height: 34px;
+                    .el-input--medium .el-input__inner {
+                        border: none !important;
+                        line-height: 34px !important;
+                        height: 34px !important;
+                        color: #141416;
+                    }
                 }
-                .el-input__inner {
-                    border: none;
-                    line-height: 34px;
-                    height: 34px;
-                    color: #141416;
-                }
+
                 .btn-captcha {
                     width: 100%;
                     line-height: 22px;

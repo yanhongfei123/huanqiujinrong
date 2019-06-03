@@ -74,6 +74,10 @@
         color: #666;
     }
 
+    .el-input__inner{
+
+    }
+
     .el-form-item__error{
         padding-top: 10px !important;
     }
