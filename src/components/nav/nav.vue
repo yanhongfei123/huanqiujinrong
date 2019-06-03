@@ -55,8 +55,8 @@
         width: 1180px;
         height: 82px;
         margin: 0 auto;
-        color: #3C3F4D;
-        font-size: 18px;
+        color: #777983;
+        font-size: 16px;
         line-height: 24px;
         letter-spacing: 1px;
         display: flex;

@@ -1,7 +1,7 @@
 <template>
     <div class="page-register">
         <header>
-            <regHeader></regHeader>
+            <regHeader path="/register"></regHeader>
         </header>
         <div class="content">
             <leftImage></leftImage>

@@ -53,7 +53,7 @@
         width: 1180px;
         height: 82px;
         margin: 0 auto;
-        color: #3C3F4D;
+        color: #777983;
         font-size: 16px;
         font-weight: 600;
         line-height: 36px;
