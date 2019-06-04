@@ -104,7 +104,7 @@ export default {
     background: #fff;
   }
   .el-pagination.is-background .el-pager li:hover{
-    color: #d51d26;
+    //color: #d51d26;
   }
   .el-pagination {
     text-align: center;

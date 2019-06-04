@@ -14,6 +14,9 @@ const Answer = () => import('@/views/analysis/answer.vue');//
 const Analys = () => import('@/views/analysis/analysis.vue');//
 const Find = () => import('@/views/find.vue');//
 const Article = () => import('@/views/article.vue');//文章详情
+const Organization = () => import('@/views/organization.vue');//机构
+const Product = () => import('@/views/product.vue');//产品
+
 
 const Register = () => import('@/views/register.vue'); //注册
 const Login = () => import('@/views/login.vue'); //登录
@@ -48,6 +51,16 @@ export default new Router({
         {
             path: '*',
             redirect: '/home',
+        },
+        {
+            path: '/product',
+            name: 'product',
+            component: Product,
+        },
+        {
+            path: '/organization',
+            name: 'organization',
+            component: Organization,
         },
         {
             path: '/analysis',
