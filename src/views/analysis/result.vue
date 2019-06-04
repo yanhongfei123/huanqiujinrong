@@ -21,9 +21,25 @@
           class="tab-item"
         >{{val}}</div>
       </div>
-      <div v-show="oIndex==0" id="myChart1"></div>
-      <div v-show="oIndex==1" id="myChart2"></div>
-      <div v-show="oIndex==2" id="myChart3"></div>
+      <div v-show="oIndex==0" class="wrap1">
+        <div class="l-wrap">
+          <div class="l-item">
+            <div class="myChart" id="myChart4"></div>
+            <div class="des">15万以上的人为稳健型投资</div>
+          </div>
+          <div class="l-item">
+            <div class="myChart" id="myChart5"></div>
+            <div class="des">15万以上的人为稳健型投资</div>
+          </div>
+          <div class="l-item">
+            <div class="myChart" id="myChart6"></div>
+            <div class="des">15万以上的人为稳健型投资</div>
+          </div>
+        </div>
+        <div id="myChart1">111</div>
+      </div>
+      <div v-show="oIndex==1" class="wrap wrap2"><div id="myChart2"></div></div>
+      <div v-show="oIndex==2" class="wrap wrap3"><div id="myChart3"></div></div>
       <div class="content">
         <div class="label-cont">
           <div class="label label1">名称</div>
@@ -124,13 +140,21 @@ export default {
         //     subtext: '纯属虚构',
         //     x:'center'
         // },
+        color:['#D51D26', '#E2C6AB', '#B9BBC0'],
+        grid: {
+          top: "0%",
+          left: "0%",
+          right: "15%",
+          //bottom: '3%',
+        },
+        backgroundColor: '#fff',
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
           orient: "vertical",
-          x: "700",
+          x: "520",
           y: "center",
           itemGap: 40,
           data: ["股票 60%", "债务 30%", "其他投资 10%"]
@@ -152,7 +176,7 @@ export default {
                 shadowOffsetX: 0,
                 shadowColor: "rgba(0, 0, 0, 0.5)"
               }
-            }
+            },
             // label: {
             //         normal: {
             //             show: false,
@@ -161,11 +185,11 @@ export default {
             //         emphasis: {
             //             show: true,
             //             textStyle: {
-            //                 fontSize: '30',
+            //                 fontSize: '28',
             //                 fontWeight: 'bold'
             //             }
             //         }
-            //     },
+            // },
           }
         ]
       };
@@ -210,10 +234,11 @@ export default {
       let myChart = echarts.init(document.getElementById("myChart2"));
       // 绘制图表
       var option = {
+        backgroundColor: '#fff',
         grid: {
-          top: "10%",
-          left: "10%",
-          right: "20%",
+          top: "15%",
+          left: "15%",
+          right: "15%",
           //bottom: '3%',
           containLabel: true
         },
@@ -428,10 +453,10 @@ export default {
       };
       myChart.setOption(option);
     },
-    drawCircle() {
-      let myChart = echarts.init(document.getElementById("myChart1"));
+    drawCircle(id , color , value) {
+      let myChart = echarts.init(document.getElementById(id));
       var option = {
-        color:['#1890FF','#F0F2F5'],
+        color: color,//['#1890FF','#F0F2F5'],  //['#1890FF','#F0F2F5'],
         // 标题组件，包含主标题和副标题
         // title: {
         //   show: true,
@@ -458,7 +483,7 @@ export default {
             //name: "任务进度",
             type: "pie",
             // 饼图的半径，数组的第一项是内半径，第二项是外半径
-            radius: ["50%", "70%"],
+            radius: ["80%", "100%"],
             // 是否启用防止标签重叠策略，默认开启
             avoidLabelOverlap: false,
             hoverAnimation: false,
@@ -468,10 +493,23 @@ export default {
                 show: false
               }
             },
+            // label: {
+            //         normal: {
+            //             show: false,
+            //             position: 'center'
+            //         },
+            //         emphasis: {
+            //             show: true,
+            //             textStyle: {
+            //                 fontSize: '28',
+            //                 fontWeight: 'bold'
+            //             }
+            //         }
+            // },
             data: [
               {
                 // 数据值
-                value: 40,
+                value: value,
                 // 数据项名称
                 //name: "完成率", // 完成率
                 //该数据项是否被选中
@@ -490,11 +528,18 @@ export default {
                     },
                     // 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \n 换行
                     formatter: "{b}\n{d}%"
+                  },
+                  emphasis: {
+                      show: true,
+                      textStyle: {
+                          fontSize: '14',
+                          fontWeight: 'bold'
+                      }
                   }
                 }
               },
               {
-                value: 100,
+                value: 100 - value,
                 label: {
                   normal: {
                     show: false
@@ -513,7 +558,9 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.drawCircle();
+      this.drawCircle('myChart4', ['#1890FF','#F0F2F5'], 30);//#1890FF
+      this.drawCircle('myChart5', ['#2FC25B','#F0F2F5'], 40);// 2FC25B
+      this.drawCircle('myChart6', ['#FACC14','#F0F2F5'], 50);// FACC14
       this.drawLine();
       this.drawPie();
     }, 50);
@@ -525,19 +572,41 @@ export default {
   width: 800px;
   height: 400px;
   margin: 0 auto;
+  background: #fff;
 }
 #myChart2 {
   width: 800px;
   height: 400px;
   margin: 0 auto;
+  background: #fff;
 }
 #myChart3 {
   width: 800px;
   height: 400px;
   margin: 0 auto;
+  background: #fff;
 }
+.myChart{
+  width: 100px;
+  height: 100px;
+}
+
 .result-wrap {
   position: relative;
+  .wrap1{
+    .l-item{
+      display: flex;
+      align-items: center;
+      margin-bottom: 22px;
+      .des{
+        width: 150px;
+        font-size: 14px;
+        color:rgba(0,0,0,0.45);
+        line-height: 22px;
+        margin-left: 42px;
+      }
+    }
+  }
   .icon1 {
     position: absolute;
     left: 41%;
@@ -687,6 +756,7 @@ export default {
     }
   }
 }
+
 </style>
 
 
