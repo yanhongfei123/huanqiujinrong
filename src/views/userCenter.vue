@@ -83,8 +83,6 @@
             padding-top: 40px;
         }
         .title{
-            width:160px;
-            height: 58px;
             font-size: 40px;
             font-family: SourceHanSansSC-Medium;
             font-weight: 500;

@@ -22,7 +22,9 @@ const Register = () => import('@/views/register.vue'); //注册
 const Login = () => import('@/views/login.vue'); //登录
 const ResetPwd = () => import('@/views/resetPwd.vue'); //忘记密码
 const UserCenter = () => import('@/views/userCenter.vue'); //个人中心
-const OpenAccount = () => import('@/views/openAccount/index.vue'); //个人中心-开户
+
+const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
+const ChooseMarket = () => import('@/views/openAccount/chooseMarket.vue'); //开户-选择市场
 
 
 export default new Router({
@@ -49,7 +51,15 @@ export default new Router({
         {
             path: '/openAccount',
             name: 'openAccount',
+            redirect: '/openAccount/chooseMarket',
             component: OpenAccount,
+            children: [
+                {
+                    path: 'chooseMarket',
+                    name: 'chooseMarket',
+                    component: ChooseMarket,
+                },
+            ]
         },
         {
             path: '/home',

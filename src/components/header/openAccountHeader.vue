@@ -3,14 +3,8 @@
         <div class="logo"></div>
         <div class="nav-cont flex">
             <div class="nav-bar flex">
-                <div :class="[path === '/account' ? 'active' : '', 'nav-item']" @click="goPage('home')">账户总览</div>
-                <div :class="[path === '/operation' ? 'active' : '','nav-item']" @click="goPage('operation')">投资组合</div>
-                <div :class="[path === '/product' ? 'active' : '', 'nav-item']" @click="goPage('product')">资金出入</div>
-                <div :class="[path === '/find' ? 'active' : '', 'nav-item realName-auth']" @click="goPage('find')">实名认证</div>
             </div>
             <div class="nav-m flex hover">
-                <div class="hover" @click="goPage('login')">登录</div>
-                <div class="hover" @click="goPage('register')">注册</div>
             </div>
             <div class="nav-r flex">
                 <div class="hover" @click="setLanguage('zh')">简</div>
@@ -98,12 +92,6 @@
                 margin: 0 8px;
             }
         }
-    }
-    .realName-auth{
-        padding: 0 10px;
-        line-height: 36px;
-        border-radius: 4px;
-        border:1px solid #979797;
     }
 
 </style>
