@@ -50,7 +50,7 @@
         height: 82px;
         margin: 0 auto;
         color: #777983;
-        font-size: 16px;
+        font-size: 24px;
         font-weight: 600;
         line-height: 24px;
         letter-spacing: 1px;
@@ -89,7 +89,7 @@
             align-items: center;
             .line {
                 width: 2px;
-                height: 18px;
+                height: 24px;
                 background: #777983;
                 margin: 0 8px;
             }

@@ -106,6 +106,7 @@ export default {
 
 <style lang="scss">
 .page-product {
+  min-width: 1180px;
   background: #F9F9F9;
   .barner {
     position: relative;

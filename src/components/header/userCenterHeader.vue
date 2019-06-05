@@ -54,7 +54,7 @@
         height: 82px;
         margin: 0 auto;
         color: #777983;
-        font-size: 16px;
+        font-size: 24px;
         font-weight: 600;
         line-height: 36px;
         letter-spacing: 1px;
@@ -93,7 +93,7 @@
             align-items: center;
             .line {
                 width: 2px;
-                height: 18px;
+                height: 24px;
                 background: #3C3F4D;
                 margin: 0 8px;
             }
@@ -102,7 +102,7 @@
     .realName-auth{
         padding: 0 10px;
         line-height: 36px;
-        border-radius:4px;
+        border-radius: 4px;
         border:1px solid #979797;
     }
 
