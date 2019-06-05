@@ -24,19 +24,21 @@
           </div>
         </div>
         <div class="article-list">
-          <div @click="goArticle"
-               v-for="(val,index) in articleList"
-              :key="index"
-              class="article-item">
-              <div :style="{backgroundImage: 'url(' + val.url + ')'}" class="l-wrap"></div>
-              <div class="r-wrap">
-                <div class="title">{{val.title}}</div>
-                <div class="des">{{val.des}}</div>
-                <div class="b-wrap">
-                  <div class="time">{{val.time}}</div>
-                  <div class="has-read">{{val.read}}次阅读</div>
-                </div>
+          <div
+            @click="goArticle"
+            v-for="(val,index) in articleList"
+            :key="index"
+            class="article-item"
+          >
+            <div :style="{backgroundImage: 'url(' + val.url + ')'}" class="l-wrap"></div>
+            <div class="r-wrap">
+              <div class="title">{{val.title}}</div>
+              <div class="des">{{val.des}}</div>
+              <div class="b-wrap">
+                <div class="time">{{val.time}}</div>
+                <div class="has-read">{{val.read}}次阅读</div>
               </div>
+            </div>
           </div>
         </div>
         <el-pagination background layout="prev, pager, next" :total="500"></el-pagination>
@@ -64,24 +66,28 @@ export default {
       typeList: ["文章资讯", "活动推广", "媒体报道"],
       articleList: [
         {
-          url:require('../assets/images/banner03.jpg'),
-          title: '走出明星投资人的交易陷阱',
-          des: '(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！',
-          time: '2019-05-08 14:00',
+          url: require("../assets/images/banner03.jpg"),
+          title: "走出明星投资人的交易陷阱",
+          des:
+            "(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！",
+          time: "2019-05-08 14:00",
           read: 2000
         },
         {
-          url:require('../assets/images/banner03.jpg'),
-          title: '除了贪婪和恐惧，希望也是理性投资的敌人。',
-          des: '(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！',
-          time: '2019-05-08 14:00',
+          url: require("../assets/images/banner03.jpg"),
+          title: "除了贪婪和恐惧，希望也是理性投资的敌人。",
+          des:
+            "(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！",
+          time: "2019-05-08 14:00",
           read: 2000
         },
         {
-          url:require('../assets/images/banner03.jpg'),
-          title: '除了贪婪和恐惧，希望也是理性投资的敌人除了贪婪和恐惧，希望也是理性投资的敌希望也是理性投资的敌人除了贪人。',
-          des: '(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！',
-          time: '2019-05-08 14:00',
+          url: require("../assets/images/banner03.jpg"),
+          title:
+            "除了贪婪和恐惧，希望也是理性投资的敌人除了贪婪和恐惧，希望也是理性投资的敌希望也是理性投资的敌人除了贪人。",
+          des:
+            "(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！",
+          time: "2019-05-08 14:00",
           read: 2000
         }
       ]
@@ -91,8 +97,8 @@ export default {
     changeTab(index) {
       this.articleType = index;
     },
-    goArticle(){
-      this.$router.push('/article')
+    goArticle() {
+      this.$router.push("/article");
     }
   }
 };
@@ -100,10 +106,12 @@ export default {
 
 <style lang="scss">
 .page-find {
-  .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{
+  .el-pagination.is-background .btn-next,
+  .el-pagination.is-background .btn-prev,
+  .el-pagination.is-background .el-pager li {
     background: #fff;
   }
-  .el-pagination.is-background .el-pager li:hover{
+  .el-pagination.is-background .el-pager li:hover {
     //color: #d51d26;
   }
   .el-pagination {
@@ -116,7 +124,7 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../assets/images/banner03.jpg") no-repeat center;
+    background: url("../assets/images/news/banner_news.png") no-repeat center;
     background-size: cover;
     .barner-content {
       width: 1180px;
@@ -146,92 +154,97 @@ export default {
       font-weight: 400;
     }
   }
-  .article-nav{
+  .article-nav {
     padding: 20px 0;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid #d8d8d8;
   }
-  .art-l{
-    font-size:28px;
+  .art-l {
+    position: relative;
+    font-size: 28px;
     font-weight: bold;
     color: #333;
+    &::after {
+      @include icon1(auto, 26px, 172px, auto);
+    }
   }
-  .tab-wrap{
+  .tab-wrap {
     display: flex;
     justify-content: space-between;
-    .tab-item:nth-of-type(2){
+    .tab-item:nth-of-type(2) {
       margin: 0 40px;
     }
-    .tab-item{
+    .tab-item {
       position: relative;
-      font-size:24px;
+      font-size: 24px;
       color: #999;
-       font-weight: bold;
+      font-weight: bold;
       cursor: pointer;
-      &.active, &:hover{
+      &.active,
+      &:hover {
         color: #333;
       }
-      &.active{
-        &::after{
-          content: '';
+      &.active {
+        &::after {
+          content: "";
           position: absolute;
           width: 60px;
           height: 2px;
           left: 50%;
           bottom: -21px;
           margin-left: -30px;
-          background: #D51D26;
+          background: #d51d26;
         }
       }
     }
   }
-  .article-list{
-    .article-item{
+  .article-list {
+    .article-item {
       margin-top: 50px;
       display: flex;
       justify-content: space-between;
     }
-    .l-wrap{
-      width:390px;
-      height:260px;
+    .l-wrap {
+      width: 390px;
+      height: 260px;
       margin-right: 60px;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
     }
-    .r-wrap{
+    .r-wrap {
       width: 730px;
-      .title{
+      .title {
         height: 108px;
         margin-bottom: 14px;
-        font-size:36px;
-        font-weight:bold;
-        color:#333;
-        line-height:54px;
+        font-size: 36px;
+        font-weight: bold;
+        color: #333;
+        line-height: 54px;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
         overflow: hidden;
       }
-      .des{
+      .des {
         font-size: 20px;
         line-height: 30px;
         color: #444857;
         margin-bottom: 50px;
       }
     }
-    .b-wrap{
+    .b-wrap {
       color: #444857;
       font-size: 18px;
       display: flex;
       justify-content: space-between;
-      .has-read{
+      .has-read {
         padding-left: 30px;
-        background: url('../assets/images/gou-red.png') no-repeat left  center;
-        background-size:  auto 100%;
+        background: url("../assets/images/news/icon_news_read.png") no-repeat
+          left center;
+        background-size: auto 62%;
       }
-
     }
   }
 }

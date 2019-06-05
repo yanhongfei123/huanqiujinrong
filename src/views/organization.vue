@@ -46,7 +46,7 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../assets/images/banner03.jpg") no-repeat center;
+    background: url("../assets/images/mechanism/banner_mechanism.png") no-repeat center;
     background-size: cover;
     .barner-content {
       width: 1180px;
@@ -74,11 +74,23 @@ export default {
     overflow: hidden;
     color: #333;
     .title{
+      position: relative;
       padding-top: 295px;
       font-size:40px;
       line-height: 56px;
       margin-bottom: 57px;
       font-weight:600;
+      &::after{
+        content: '';
+        position: absolute;
+        bottom: 10px;
+        left: 160px;
+        width: 72px;
+        height: 72px;
+        background: url("../assets/images/icon1.png") no-repeat center;
+        background-size: 98%;
+      }
+
     }
     .info{
       width: 800px;

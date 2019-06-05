@@ -42,7 +42,7 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../../assets/images/banner03.jpg") no-repeat center;
+    background: url("../../assets/images/firstpage/banner_freeanalysis.png") no-repeat center;
     background-size: cover;
     .barner-content {
       width: 1180px;

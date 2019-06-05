@@ -58,7 +58,7 @@ export default {
   .barner {
     position: relative;
     height: 668px;
-    background: url("../assets/images/banner03.jpg") no-repeat center;
+    background: url("../assets/images/firstpage/banner_team.png") no-repeat center;
     background-size: cover;
     .barner-content {
       width: 900px;
@@ -90,27 +90,25 @@ export default {
     color: #141416;
     overflow: hidden;
     background: #fff;
-    // &::after {
-    //   position: absolute;
-    //   left: -100px;
-    //   bottom: 0;
-    //   border-color: transparent transparent #D51D26;
-    //   border-style: none solid solid;
-    //   border-width: 0 450px 463px;
-    //   content: "";
-    //   display: block;
-    //   height: 0;
-    //   width: 400px;
-    // }
+    &::after {
+      content: '';
+      width:660px;
+      height: 464px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background: url("../assets/images/firstpage//bg_team.png") no-repeat left center;
+      background-size: auto 100%;
+    }
     .com-width {
       padding-top: 216px;
     }
     .title {
       float: right;
-      width: 530px;
+      width: 522px;
       font-size: 40px;
       padding: 12px 0 12px 120px;
-      background: url("../assets//images/gou-red.png") no-repeat left center;
+      background: url("../assets//images/firstpage/icon_team.png") no-repeat left center;
       background-size: auto 100%;
       margin-bottom: 100px;
     }
@@ -124,7 +122,7 @@ export default {
   }
   .content2 {
     height: 668px;
-    background: url("../assets/images/banner01.jpg") no-repeat center;
+    background: url("../assets/images/firstpage//banner_team2.png") no-repeat center;
     background-size: cover;
     display: flex;
     align-items: center;

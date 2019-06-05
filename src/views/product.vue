@@ -11,20 +11,24 @@
     </section>
     <section class="content tc">
       <div class="com-width">
-        <h1>产品介绍</h1>
-        <div class="des">Product introduction</div>
+        <h1>以目标市场分</h1>
+        <div class="des">Target market share</div>
         <div class="intro-wrap tl">
           <div class="l-wrap"></div>
           <div class="r-wrap">
-            <h2>ETF.COOL | 易酷</h2>
-            <div class="b-info">ETF费用低且透明，操作流程简单，覆盖范围广，涵盖全球范围内多种资产门类，美国、香港作为两大金融中心，涵盖世界几乎所有地区与资产类别，市场开放程度高，基础建设健全</div>
             <div class="m-info">
               <div class="icon icon1"></div>
-              <div class="text">发达而开放的现代金融市场为普通人享受上述红利提供了可能，除了代表公司所有权的基础证券之外，发达的基金行业为普通投资者排除了大部分道德风险。</div>
+              <div class="text-wrap">
+                <div class="title">香港交易所交易基金组合（HK Listed ETF Portfolio）</div>
+                <div class="des-info">作为全世界进入中国的最佳窗口与全球最开放的金融市场之一，香港交易所（HKEx）提供了除中国大陆本土之外，最全面最深入的中国市场投资标的。通过港交所的各种交易所上市基金，我们用最低廉的成本使您从中国经济的成长中受益。与此同时，您的投资将置于一个无外汇管制的开放环境中，为未来的调整和部署保留无限的可能性。</div>
+              </div>
             </div>
             <div class="m-info">
               <div class="icon icon2"></div>
-              <div class="text">发达而开放的现代金融市场为普通人享受上述红利提供了可能，除了代表公司所有权的基础证券之外。</div>
+              <div class="text-wrap">
+                <div class="title">美国交易所交易基金组合（US Listed ETF Portfolio）</div>
+                <div class="des-info">作为全世界最成熟但又最具活力的金融创新中心，美国的证券市场为投资者提供了最多的可能性。通过这里，您可以将您的投资延展到世界的每一个角落。这里是您投资大中华区之外地区的最佳选择。</div>
+              </div>
             </div>
           </div>
         </div>
@@ -34,48 +38,34 @@
       <div class="mask">
         <div class="com-width">
         <div class="m-lw">
-          <h2>市场因素</h2>
-          <div class="t-en">market factors</div>
-          <div class="item">
+          <h2>以风险偏好分</h2>
+          <div class="t-en">Risk preference score</div>
+          <div class="line"></div>
+          <div class="cont2-des">根据客户就风险问卷所提供的不同风险偏好以及承受能力，我们针对您的答案定制不同的投资组合以求更好的满足您的投资需求和人生目标</div>
+          <div class="item item2">
             <div class="circle"><div>1</div></div>
             <div class="r-item">
-              <div class="label">条件限制</div>
+              <div class="label">快速成长（Growth）</div>
               <div class="line"></div>
-              <div class="text">普通投资者的限制条件，全球化的投资方式并不普及，即使是在市场极其开放的香港，大众也并不是普遍拥有全球化资产配置，而仅限于高净值认识和机构投资者。</div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="circle"><div>2</div></div>
-            <div class="r-item">
-              <div class="label">政策因素</div>
-              <div class="line"></div>
-              <div class="text">中国内地仍然受外汇管制等政策因素所影响，获取数据成本及数据处理能力要求高。</div>
+              <div class="text">以权益基金为主的投资组合，在风险可控的情况下，优先追求回报，力求使您充分享受到这个世界每一个行业和角落的进步与成长。</div>
             </div>
           </div>
         </div>
         <div class="m-rw">
-          <div class="item">
+          <div class="item item1">
+            <div class="circle"><div>2</div></div>
+            <div class="r-item">
+              <div class="label">稳健收益（Balanced）</div>
+              <div class="line"></div>
+              <div class="text">平衡布局于权益类基金与债权类基金，兼顾成长与稳定的现金流。在您事业的黄金期既提供足够的保障，又能保有享受世界进步的可能性。</div>
+            </div>
+          </div>
+          <div class="item item3">
             <div class="circle"><div>3</div></div>
             <div class="r-item">
-              <div class="label">价格不菲</div>
+              <div class="label">持重守成（Conservative）</div>
               <div class="line"></div>
-              <div class="text">虽然科技进步，财经数据获取的成本较低，但是大规模的高阶数据购买费用仍然不菲（学术数据库，彭博客户端等）。</div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="circle"><div>4</div></div>
-            <div class="r-item">
-              <div class="label">要求较高</div>
-              <div class="line"></div>
-              <div class="text">大规模的数据处理和计算对个人能力要求较高（如数学统计能力，计算机编程能力）</div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="circle"><div>5</div></div>
-            <div class="r-item">
-              <div class="label">噪音过多</div>
-              <div class="line"></div>
-              <div class="text">短期市场波动产生的恐慌情绪，以佣金为收入的经纪商引导（证券，数字货币及其他另类投资品种）</div>
+              <div class="text">以债权类基金为主要成分，尽可能的追求低风险环境下稳定的成长，侧重现金收益，使您尽可能的避开不必要的市场波动和风险。</div>
             </div>
           </div>
         </div>
@@ -110,7 +100,7 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../assets/images/banner03.jpg") no-repeat center;
+    background: url("../assets/images/ourproducts/banner_products.png") no-repeat center;
     background-size: cover;
     .barner-content {
       width: 1180px;
@@ -135,6 +125,12 @@ export default {
   .content{
     padding: 120px 0;
     background: #F9F9F9;
+    .com-width{
+      position: relative;
+      &::after{
+        @include icon1(44px, auto,auto,52px);
+      }
+    }
     h1{
       font-size:40px;
       font-weight:bold;
@@ -153,29 +149,18 @@ export default {
 
     .intro-wrap{
       display: flex;
+      align-items: center;
       justify-content: space-between;
       margin-top: 60px;
       .l-wrap{
-          width: 550px;
-          background: url("../assets/images/banner03.jpg") no-repeat center;
+          width: 400px;
+          height: 288px;
+          margin-right: 40px;
+          background: url("../assets/images/ourproducts/bg_target.png") no-repeat center;
           background-size: cover;
       }
       .r-wrap{
-        width: 550px;
-      }
-      h2{
-        font-size:28px;
-        font-weight:bold;
-        color:rgba(51,51,51,1);
-        line-height:30px;
-        margin-bottom: 35px;
-      }
-      .b-info{
-        font-size:20px;
-        font-weight:500;
-        color:rgba(51,51,51,1);
-        line-height:30px;
-        margin-bottom: 40px;
+        flex: 1;
       }
       .m-info{
         font-size:18px;
@@ -183,14 +168,35 @@ export default {
         line-height:30px;
         margin-bottom: 40px;
         display: flex;
-        align-items: center;
         justify-content: space-between;
         .icon{
           width: 80px;
           height: 80px;
-          margin-right: 10px;
-          background: url("../assets/images/gou-red.png") no-repeat center;
+          margin-right: 20px;
+        }
+        .icon1{
+          background: url("../assets/images/ourproducts/icon_products_hk.png") no-repeat center;
           background-size: cover;
+        }
+        .icon2{
+          background: url("../assets/images/ourproducts/icon_products_us.png") no-repeat center;
+          background-size: cover;
+        }
+        .text-wrap{
+          width: 640px;
+          .title{
+            font-size:20px;
+            font-weight:600;
+            color:#333;
+            line-height:30px;
+            margin-bottom: 10px;
+          }
+          .des-info{
+            font-size:18px;
+            color:rgba(68,72,87,1);
+            line-height:30px;
+            text-align: justify;
+          }
         }
         .text{
           flex: 1;
@@ -202,7 +208,7 @@ export default {
   .content2{
     position: relative;
     height: 668px;
-    background: url('../assets/images/banner03.jpg') no-repeat center;
+    background: url('../assets/images/ourproducts/bg_products.png') no-repeat center;
     background-size: cover;
     .mask{
       position: absolute;
@@ -214,6 +220,16 @@ export default {
       display: flex;
       justify-content: space-between;
     }
+    .item{
+      display: flex;
+      margin-top: 120px;
+    }
+    .item2{
+      margin: 0;
+    }
+    .item3{
+      margin-top: 110px;
+    }
     h2{
       font-size:40px;
       font-weight:bold;
@@ -222,15 +238,25 @@ export default {
       letter-spacing:3px;
       margin: 40px 0 10px;
     }
+    .line{
+      width:40px;
+      height:2px;
+      margin: 20px 0;
+      background:rgba(255,255,255,1)
+     }
     .t-en{
       font-size:32px;
       color:rgba(255,255,255,1);
       line-height:46px;
       opacity: 0.5;
     }
-    .item{
-      display: flex;
-      margin-top: 60px;
+    .cont2-des{
+      width: 580px;
+      font-size:20px;
+      font-weight:500;
+      color:rgba(255,255,255,1);
+      line-height:30px;
+      margin-bottom: 110px
     }
     .circle{
       width: 74px;
@@ -261,12 +287,6 @@ export default {
         font-weight:bold;
         color:rgba(255,255,255,1);
         line-height:30px;
-      }
-      .line{
-        width:40px;
-        height:2px;
-        margin: 20px 0;
-        background:rgba(255,255,255,1)
       }
       .text{
         width: 426px;

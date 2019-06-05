@@ -1,5 +1,5 @@
 <template>
-  <div class="result-wrap">
+  <div id="" class="result-wrap">
     <span class="icon icon1"></span>
     <span class="icon icon2"></span>
     <span class="icon icon3"></span>
@@ -36,11 +36,15 @@
             <div class="des">15万以上的人为稳健型投资</div>
           </div>
         </div>
-        <div id="myChart1">111</div>
+        <div id="myChart1"></div>
       </div>
-      <div v-show="oIndex==1" class="wrap wrap2"><div id="myChart2"></div></div>
-      <div v-show="oIndex==2" class="wrap wrap3"><div id="myChart3"></div></div>
-      <div class="content">
+      <div v-show="oIndex==1" class="wrap wrap2">
+        <div id="myChart2"></div>
+      </div>
+      <div v-show="oIndex==2" class="wrap wrap3">
+        <div id="myChart3"></div>
+      </div>
+      <div v-show="oIndex==2" class="content">
         <div class="label-cont">
           <div class="label label1">名称</div>
           <div class="label label2">代码</div>
@@ -75,6 +79,89 @@
           <div :style="{textIndent: '203px'}" class="label label4">{{ getThousand(525465666)}}</div>
         </div>
       </div>
+
+      <div v-show="oIndex!=2" class="btn-wrap">
+        <div @click="$router.push('/analysis/analys')" class="btn-item btn1">再次诊断</div>
+        <div @click="showmask=true" class="btn-item btn2">详细设定</div>
+        <div @click="$router.push('/register')" class="btn-item btn3">注册</div>
+      </div>
+      <div v-show="showmask" id="mask">
+        <div class="center">
+          <el-button @click="showmask=false">关闭</el-button>
+          <div class="slide-cont">
+          <div class="slide-item">
+            <div class="label">目标金额</div>
+            <div class="text">万元</div>
+            <el-slider
+              :min="1000"
+              :max="10000"
+              :step="2500"
+              v-model="value1"
+              :show-input-controls="false"
+              show-stops
+              show-input
+              :show-tooltip="false"
+            ></el-slider>
+          </div>
+          <div class="slide-item">
+            <div class="label">预计投资金额</div>
+            <div class="text">万元</div>
+            <el-slider
+              :min="10"
+              :max="400"
+              :step="100"
+              v-model="value2"
+              :show-input-controls="false"
+              show-stops
+              show-input
+              :show-tooltip="false"
+            ></el-slider>
+          </div>
+          <div class="slide-item">
+            <div class="label">每月储备金额</div>
+            <div class="text">万元</div>
+            <el-slider
+              :min="1"
+              :max="20"
+              :step="5"
+              v-model="value3"
+              :show-input-controls="false"
+              show-stops
+              show-input
+              :show-tooltip="false"
+            ></el-slider>
+          </div>
+          <div class="slide-item">
+            <div class="label">运用期间</div>
+            <div class="text">万元</div>
+            <el-slider
+              :min="10"
+              :max="30"
+              :step="5"
+              v-model="value4"
+              :show-input-controls="false"
+              show-stops
+              show-input
+              :show-tooltip="false"
+            ></el-slider>
+          </div>
+          <div class="slide-item">
+            <div class="label">风险承受能力</div>
+            <div class="text">万元</div>
+            <el-slider
+              :min="1"
+              :max="5"
+              :step="1"
+              v-model="value5"
+              :show-input-controls="false"
+              show-stops
+              show-input
+              :show-tooltip="false"
+            ></el-slider>
+          </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -85,7 +172,13 @@ export default {
   name: "result",
   data() {
     return {
+      value1: 1000,
+      value2: 10,
+      value3: 1,
+      value4: 10,
+      value5: 1,
       oIndex: 0,
+      showmask: false,
       typeList: ["未来预测", "过去分析", "投资组合"],
       datas: [
         {
@@ -140,14 +233,14 @@ export default {
         //     subtext: '纯属虚构',
         //     x:'center'
         // },
-        color:['#D51D26', '#E2C6AB', '#B9BBC0'],
+        color: ["#D51D26", "#E2C6AB", "#B9BBC0"],
         grid: {
           top: "0%",
           left: "0%",
-          right: "15%",
+          right: "15%"
           //bottom: '3%',
         },
-        backgroundColor: '#fff',
+        //backgroundColor: "#fff",
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -163,7 +256,7 @@ export default {
           {
             name: "投资类型",
             type: "pie",
-            radius: ["38%", "55%"],
+            radius: ["56%", "74%"],
             center: ["30%", "50%"],
             data: [
               { value: 335, name: "股票 60%" },
@@ -176,7 +269,7 @@ export default {
                 shadowOffsetX: 0,
                 shadowColor: "rgba(0, 0, 0, 0.5)"
               }
-            },
+            }
             // label: {
             //         normal: {
             //             show: false,
@@ -234,7 +327,7 @@ export default {
       let myChart = echarts.init(document.getElementById("myChart2"));
       // 绘制图表
       var option = {
-        backgroundColor: '#fff',
+        backgroundColor: "#fff",
         grid: {
           top: "15%",
           left: "15%",
@@ -453,10 +546,10 @@ export default {
       };
       myChart.setOption(option);
     },
-    drawCircle(id , color , value) {
+    drawCircle(id, color, value) {
       let myChart = echarts.init(document.getElementById(id));
       var option = {
-        color: color,//['#1890FF','#F0F2F5'],  //['#1890FF','#F0F2F5'],
+        color: color, //['#1890FF','#F0F2F5'],  //['#1890FF','#F0F2F5'],
         // 标题组件，包含主标题和副标题
         // title: {
         //   show: true,
@@ -520,21 +613,21 @@ export default {
                     // 是显示标签
                     show: true,
                     position: "center",
-                   // fontSize: 30,
+                    // fontSize: 30,
                     textStyle: {
-                      color: '#333',
-                      fontSize: 18,
+                      color: "#333",
+                      fontSize: 18
                       //fontWeight: "bold",
                     },
                     // 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \n 换行
                     formatter: "{b}\n{d}%"
                   },
                   emphasis: {
-                      show: true,
-                      textStyle: {
-                          fontSize: '14',
-                          fontWeight: 'bold'
-                      }
+                    show: true,
+                    textStyle: {
+                      fontSize: "14",
+                      fontWeight: "bold"
+                    }
                   }
                 }
               },
@@ -558,9 +651,9 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.drawCircle('myChart4', ['#1890FF','#F0F2F5'], 30);//#1890FF
-      this.drawCircle('myChart5', ['#2FC25B','#F0F2F5'], 40);// 2FC25B
-      this.drawCircle('myChart6', ['#FACC14','#F0F2F5'], 50);// FACC14
+      this.drawCircle("myChart4", ["#1890FF", "#F0F2F5"], 30); //#1890FF
+      this.drawCircle("myChart5", ["#2FC25B", "#F0F2F5"], 40); // 2FC25B
+      this.drawCircle("myChart6", ["#FACC14", "#F0F2F5"], 50); // FACC14
       this.drawLine();
       this.drawPie();
     }, 50);
@@ -568,40 +661,117 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+#mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  .el-button{
+    width: 100%;
+  }
+  .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .slide-item {
+    position: relative;
+    height: 100px;
+    width: 410px;
+    overflow: hidden;
+    margin: 35px auto 0;
+    color: #fff;
+    .label {
+      font-size: 20px;
+      float: left;
+    }
+    .text {
+      font-size: 20px;
+      float: right;
+    }
+  }
+}
 #myChart1 {
   width: 800px;
   height: 400px;
   margin: 0 auto;
-  background: #fff;
 }
 #myChart2 {
   width: 800px;
   height: 400px;
   margin: 0 auto;
-  background: #fff;
 }
 #myChart3 {
   width: 800px;
   height: 400px;
   margin: 0 auto;
-  background: #fff;
 }
-.myChart{
+.myChart {
   width: 100px;
   height: 100px;
+}
+.btn-wrap {
+  position: relative;
+  top: -90px;
+  display: flex;
+  justify-content: center;
+  .btn-item {
+    width: 160px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.9;
+    text-align: center;
+    background-position: center;
+    background-size: contain;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .btn1 {
+    color: #3c3f4d;
+    background-image: url("../../assets/images/other_btn/btn_yellow160.png");
+  }
+  .btn2 {
+    margin: 0 40px;
+    color: #fff;
+    background-image: url("../../assets/images/other_btn/btn_pink160.png");
+  }
+  .btn3 {
+    color: #fff;
+    background-image: url("../../assets/images/other_btn/btn_red160.png");
+  }
 }
 
 .result-wrap {
   position: relative;
-  .wrap1{
-    .l-item{
+  .wrap2 {
+    background: #fff;
+    padding-bottom: 100px;
+  }
+  .wrap1 {
+    height: 600px;
+    padding: 80px 0 0 100px;
+    box-sizing: border-box;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    .l-item {
       display: flex;
       align-items: center;
       margin-bottom: 22px;
-      .des{
+      .des {
         width: 150px;
         font-size: 14px;
-        color:rgba(0,0,0,0.45);
+        color: rgba(0, 0, 0, 0.45);
         line-height: 22px;
         margin-left: 42px;
       }
@@ -610,32 +780,44 @@ export default {
   .icon1 {
     position: absolute;
     left: 41%;
-    top: 153px;
-    width: 67px;
-    height: 67px;
-    background: url("../../assets/images/gou-red.png") no-repeat center;
+    top: 186px;
+    width: 72px;
+    height: 72px;
+    background: url("../../assets/images/icon1.png") no-repeat center;
     background-size: contain;
   }
   .icon2 {
     position: absolute;
-    right: 196px;
-    top: 408px;
-    width: 59px;
-    height: 61px;
-    background: url("../../assets/images/gou-red.png") no-repeat center;
+    right: 60px;
+    top: 474px;
+    width: 72px;
+    height: 72px;
+    background: url("../../assets/images/icon2.png") no-repeat center;
     background-size: contain;
   }
   .icon3 {
     position: absolute;
     left: 0;
-    top: 408px;
-    width: 67px;
-    height: 67px;
-    background: url("../../assets/images/gou-red.png") no-repeat center;
+    bottom: -30px;
+    width: 72px;
+    height: 72px;
+    background: url("../../assets/images/icon1.png") no-repeat center;
     background-size: contain;
   }
   .top-wrap {
-    padding: 35px 0 100px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 100px 100px;
+    .tw-l {
+    }
+    .tw-r {
+      width: 550px;
+      height: 318px;
+      background: url("../../assets/images/firstpage/bg_risk.png") no-repeat
+        center;
+      background-size: contain;
+    }
   }
   .info {
     font-size: 20px;
@@ -756,7 +938,6 @@ export default {
     }
   }
 }
-
 </style>
 
 

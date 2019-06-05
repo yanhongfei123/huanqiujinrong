@@ -23,8 +23,8 @@
         >免费分析</div>
       </div>
       <div class="nav-m flex">
-        <div class="hover" @click="goPage('login')">登录</div>
-        <div class="hover" @click="goPage('register')">注册</div>
+        <div class="hover" @click="goPage('/login')">登录</div>
+        <div class="hover" @click="goPage('/register')">注册</div>
       </div>
       <div class="nav-r flex">
         <div class="hover" @click="setLanguage('zh')">简</div>

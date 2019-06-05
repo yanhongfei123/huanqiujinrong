@@ -67,7 +67,7 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../assets/images/banner03.jpg") no-repeat center;
+    background: url("../assets/images/firstpage//banner_conditions.png") no-repeat center;
     background-size: cover;
     .barner-content {
       width: 1180px;
@@ -81,7 +81,7 @@ export default {
       font-weight:800;
       color:#fff;
       line-height:137px;
-      opacity: 0.3;
+      opacity: 0.5;
     }
     .barner-title {
       font-size: 64px;

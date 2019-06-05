@@ -16,6 +16,8 @@ const Find = () => import('@/views/find.vue');//
 const Article = () => import('@/views/article.vue');//文章详情
 const Organization = () => import('@/views/organization.vue');//机构
 const Product = () => import('@/views/product.vue');//产品
+const Operation = () => import('@/views/operation.vue');//如何运作
+
 
 
 const Register = () => import('@/views/register.vue'); //注册
@@ -51,6 +53,11 @@ export default new Router({
         {
             path: '*',
             redirect: '/home',
+        },
+        {
+            path: '/operation',
+            name: 'operation',
+            component: Operation,
         },
         {
             path: '/product',

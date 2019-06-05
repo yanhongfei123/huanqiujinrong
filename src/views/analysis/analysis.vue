@@ -30,10 +30,10 @@ export default {};
     left: -67px;
     bottom: -67px;
     content: "";
-    width: 67px;
-    height: 67px;
-    background: url("../../assets/images/gou-red.png") no-repeat center;
-    background-size: cover;
+    width: 72px;
+    height: 72px;
+    background: url("../../assets/images/icon1.png") no-repeat center;
+    background-size: contain;
   }
 }
 .start-btn {
@@ -68,9 +68,9 @@ dl {
     left: 71%;
     top: 10px;
     content: "";
-    width: 59px;
-    height: 51px;
-    background: url("../../assets/images/gou-red.png") no-repeat center;
+    width: 72px;
+    height: 72px;
+    background: url("../../assets/images/icon2.png") no-repeat center;
     background-size: contain;
   }
 }

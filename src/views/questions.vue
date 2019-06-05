@@ -94,7 +94,7 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../assets/images/banner03.jpg") no-repeat center;
+    background: url("../assets/images/firstpage/banner_question1.png") no-repeat center;
     background-size: cover;
     .barner-content {
       width: 1180px;
@@ -102,6 +102,7 @@ export default {
       position: relative;
       color: #fff;
       top: 100px;
+      left: 100px;
     }
     .barner-title {
       font-size: 95px;
@@ -136,15 +137,8 @@ export default {
         font-weight: bold;
         border-bottom-color: #d51d26;
         &::after {
-          content: "";
-          position: absolute;
-          left: 50%;
-          top: -30px;
-          width: 22px;
-          height: 19px;
-          margin-left: -11px;
-          background: url("../assets/images/gou-red.png") no-repeat center;
-          background-size: contain;
+          @include icon2(-70px, auto,auto,-20px);
+          background-size: 50%;
         }
       }
     }

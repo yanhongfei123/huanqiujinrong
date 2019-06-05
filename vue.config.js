@@ -6,7 +6,7 @@ module.exports = {
     css: {  // 一次配置，全局使用，这个scss 因为每个文件都要引入
         loaderOptions: {
             sass: {
-                //data: `@import "./src/assets/style/bg-image.scss";`
+                data: `@import "./src/assets/style/bg-image.scss";`
             }
         }
     },
@@ -28,7 +28,7 @@ module.exports = {
                 // '@h':path.resolve(__dirname, './src/assets/hotcss'),
                 // '@s':path.resolve(__dirname, './src/assets/style'),
                 // '@i':path.resolve(__dirname, './src/assets/images'),
-            } 
+            }
         }
     }
 }
