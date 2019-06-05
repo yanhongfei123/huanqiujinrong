@@ -5,8 +5,6 @@
             <div class="nav-bar flex">
             </div>
             <div class="nav-m flex hover">
-                <div :class="[path === '/login' ? 'active' : '']"  class="hover" @click="goPage('login')">登录</div>
-                <div :class="[path === '/register' ? 'active' : '']" class="hover" @click="goPage('register')">注册</div>
             </div>
             <div class="nav-r flex">
                 <div class="hover" @click="setLanguage('zh')">简</div>
@@ -22,7 +20,7 @@
     name: 'header',
     props: {
       path: {
-        default: '/login'
+        default: '/home'
       }
     },
     data() {
@@ -52,7 +50,7 @@
         color: #777983;
         font-size: 24px;
         font-weight: 600;
-        line-height: 24px;
+        line-height: 36px;
         letter-spacing: 1px;
         display: flex;
         align-items: center;
