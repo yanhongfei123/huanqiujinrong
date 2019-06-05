@@ -22,6 +22,9 @@ const Register = () => import('@/views/register.vue'); //注册
 const Login = () => import('@/views/login.vue'); //登录
 const ResetPwd = () => import('@/views/resetPwd.vue'); //忘记密码
 const UserCenter = () => import('@/views/userCenter.vue'); //个人中心
+const OpenAccount = () => import('@/views/openAccount/index.vue'); //个人中心-开户
+
+
 export default new Router({
     routes: [{
             path: '/register',
@@ -42,6 +45,11 @@ export default new Router({
             path: '/userCenter',
             name: 'userCenter',
             component: UserCenter,
+        },
+        {
+            path: '/openAccount',
+            name: 'openAccount',
+            component: OpenAccount,
         },
         {
             path: '/home',
