@@ -1,12 +1,12 @@
 <template>
-  <div id="" class="result-wrap">
+  <div id class="result-wrap">
     <span class="icon icon1"></span>
     <span class="icon icon2"></span>
     <span class="icon icon3"></span>
     <div class="top-wrap">
       <div class="tw-l">
         <div class="info">根据您的回答，您的风险承受类型为</div>
-        <div class="result">稳健型</div>
+        <div class="result">{{type}}</div>
         <div @click="$router.push('/analysis/analys')" class="restart">重新测评</div>
       </div>
       <div class="tw-r"></div>
@@ -89,76 +89,76 @@
         <div class="center">
           <el-button @click="showmask=false">关闭</el-button>
           <div class="slide-cont">
-          <div class="slide-item">
-            <div class="label">目标金额</div>
-            <div class="text">万元</div>
-            <el-slider
-              :min="1000"
-              :max="10000"
-              :step="2500"
-              v-model="value1"
-              :show-input-controls="false"
-              show-stops
-              show-input
-              :show-tooltip="false"
-            ></el-slider>
-          </div>
-          <div class="slide-item">
-            <div class="label">预计投资金额</div>
-            <div class="text">万元</div>
-            <el-slider
-              :min="10"
-              :max="400"
-              :step="100"
-              v-model="value2"
-              :show-input-controls="false"
-              show-stops
-              show-input
-              :show-tooltip="false"
-            ></el-slider>
-          </div>
-          <div class="slide-item">
-            <div class="label">每月储备金额</div>
-            <div class="text">万元</div>
-            <el-slider
-              :min="1"
-              :max="20"
-              :step="5"
-              v-model="value3"
-              :show-input-controls="false"
-              show-stops
-              show-input
-              :show-tooltip="false"
-            ></el-slider>
-          </div>
-          <div class="slide-item">
-            <div class="label">运用期间</div>
-            <div class="text">万元</div>
-            <el-slider
-              :min="10"
-              :max="30"
-              :step="5"
-              v-model="value4"
-              :show-input-controls="false"
-              show-stops
-              show-input
-              :show-tooltip="false"
-            ></el-slider>
-          </div>
-          <div class="slide-item">
-            <div class="label">风险承受能力</div>
-            <div class="text">万元</div>
-            <el-slider
-              :min="1"
-              :max="5"
-              :step="1"
-              v-model="value5"
-              :show-input-controls="false"
-              show-stops
-              show-input
-              :show-tooltip="false"
-            ></el-slider>
-          </div>
+            <div class="slide-item">
+              <div class="label">目标金额</div>
+              <div class="text">万元</div>
+              <el-slider
+                :min="1000"
+                :max="10000"
+                :step="2500"
+                v-model="value1"
+                :show-input-controls="false"
+                show-stops
+                show-input
+                :show-tooltip="false"
+              ></el-slider>
+            </div>
+            <div class="slide-item">
+              <div class="label">预计投资金额</div>
+              <div class="text">万元</div>
+              <el-slider
+                :min="10"
+                :max="400"
+                :step="100"
+                v-model="value2"
+                :show-input-controls="false"
+                show-stops
+                show-input
+                :show-tooltip="false"
+              ></el-slider>
+            </div>
+            <div class="slide-item">
+              <div class="label">每月储备金额</div>
+              <div class="text">万元</div>
+              <el-slider
+                :min="1"
+                :max="20"
+                :step="5"
+                v-model="value3"
+                :show-input-controls="false"
+                show-stops
+                show-input
+                :show-tooltip="false"
+              ></el-slider>
+            </div>
+            <div class="slide-item">
+              <div class="label">运用期间</div>
+              <div class="text">万元</div>
+              <el-slider
+                :min="10"
+                :max="30"
+                :step="5"
+                v-model="value4"
+                :show-input-controls="false"
+                show-stops
+                show-input
+                :show-tooltip="false"
+              ></el-slider>
+            </div>
+            <div class="slide-item">
+              <div class="label">风险承受能力</div>
+              <div class="text">万元</div>
+              <el-slider
+                :min="1"
+                :max="5"
+                :step="1"
+                v-model="value5"
+                :show-input-controls="false"
+                show-stops
+                show-input
+                :show-tooltip="false"
+              ></el-slider>
+            </div>
           </div>
         </div>
       </div>
@@ -179,6 +179,7 @@ export default {
       value5: 1,
       oIndex: 0,
       showmask: false,
+      type: "",
       typeList: ["未来预测", "过去分析", "投资组合"],
       datas: [
         {
@@ -269,20 +270,20 @@ export default {
                 shadowOffsetX: 0,
                 shadowColor: "rgba(0, 0, 0, 0.5)"
               }
+            },
+            label: {
+              normal: {
+                show: false,
+                position: "center"
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: "28",
+                  fontWeight: "bold"
+                }
+              }
             }
-            // label: {
-            //         normal: {
-            //             show: false,
-            //             position: 'center'
-            //         },
-            //         emphasis: {
-            //             show: true,
-            //             textStyle: {
-            //                 fontSize: '28',
-            //                 fontWeight: 'bold'
-            //             }
-            //         }
-            // },
           }
         ]
       };
@@ -649,6 +650,9 @@ export default {
       return toThousandslsFilter(num);
     }
   },
+  created() {
+    this.type = localStorage.getItem("type") || "保守型";
+  },
   mounted() {
     setTimeout(() => {
       this.drawCircle("myChart4", ["#1890FF", "#F0F2F5"], 30); //#1890FF
@@ -672,7 +676,7 @@ export default {
   align-content: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
-  .el-button{
+  .el-button {
     width: 100%;
   }
   .center {

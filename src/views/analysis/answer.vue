@@ -10,7 +10,7 @@
       <div class="as-list">
         <div
           class="as-item"
-          @click="chooseAnswer(item)"
+          @click="chooseAnswer(item, index)"
           v-for="(item, index) in sub.asall"
           :key="index"
         >
@@ -20,12 +20,10 @@
           </div>
         </div>
       </div>
-      <div @click="getNextSub()" class="next-btn">下一题</div>
+      <div v-if="index != 0" @click="getPrevSub()" class="next-btn">上一题</div>
     </div>
   </div>
 </template>
-
-
 <script>
 export default {
   name: "answer",
@@ -43,62 +41,177 @@ export default {
           }
         ]
       },
+      typeList: [
+        {
+          type: "保守型",
+          score: "6-9"
+        },
+        {
+          type: "谨慎型",
+          score: "10-13"
+        },
+        {
+          type: "稳健型",
+          score: "14-17"
+        },
+        {
+          type: "进取型",
+          score: "18-21"
+        },
+        {
+          type: "激进型",
+          score: "22-24"
+        }
+      ],
       questionList: [
         {
           fq: "您的年龄？",
           asall: [
             {
+              score: 1,
               as: "18-30岁",
               checked: false
             },
             {
-              as: "18-30岁",
+              score: 2,
+              as: "31-45岁",
               checked: false
             },
             {
-              as: "18-30岁",
+              score: 3,
+              as: "41-60岁",
               checked: false
             },
             {
-              as: "18-30岁",
+              score: 4,
+              as: "61岁以上",
               checked: false
             }
           ]
         },
         {
-          fq: "您的月收入？",
+          fq: "您的年收入为(港币)？",
           asall: [
             {
-              as: "3000",
+              score: 1,
+              as: "25万以下",
               checked: false
             },
             {
-              as: "5000",
+              score: 2,
+              as: "25-70万",
               checked: false
             },
             {
-              as: "8000",
+              score: 3,
+              as: "71万-300万",
+              checked: false
+            },
+            {
+              score: 4,
+              as: "300万以上",
               checked: false
             }
           ]
         },
         {
-          fq: "您的年龄？",
+          fq:
+            "您的总资产中（自住房屋除外），愿意投资于股票与债权等金融产品的比例？",
           asall: [
             {
-              as: "18-30岁",
+              score: 1,
+              as: "低于10%",
               checked: false
             },
             {
-              as: "18-30岁",
+              score: 2,
+              as: "10%-25%",
               checked: false
             },
             {
-              as: "18-30岁",
+              score: 3,
+              as: "25%-50%",
               checked: false
             },
             {
-              as: "18-30岁",
+              score: 4,
+              as: "50%以上",
+              checked: false
+            }
+          ]
+        },
+        {
+          fq: "您进行全球资产配置的年限为？",
+          asall: [
+            {
+              score: 1,
+              as: "1-3年",
+              checked: false
+            },
+            {
+              score: 2,
+              as: "3-5年",
+              checked: false
+            },
+            {
+              score: 3,
+              as: "5-10年",
+              checked: false
+            },
+            {
+              score: 4,
+              as: "10年以上",
+              checked: false
+            }
+          ]
+        },
+        {
+          fq: "下列哪一项最符合您的投资经验？",
+          asall: [
+            {
+              score: 1,
+              as: "相对有限",
+              checked: false
+            },
+            {
+              score: 2,
+              as: "有一些，但需要听取专业人士的意见",
+              checked: false
+            },
+            {
+              score: 3,
+              as: "比较丰富，基本可以独立判断和承担风险",
+              checked: false
+            },
+            {
+              score: 4,
+              as: "具有专业投资资格和经验",
+              checked: false
+            }
+          ]
+        },
+        {
+          fq:
+            "假设有两种投资：投资A预期收益为10%,可能最大亏损为5%；投资B预期收益为30%,可能晨大亏损为15%。您会怎么选择？",
+          asall: [
+            {
+              score: 1,
+              as: "全部投资于收荒较小且风险较小的A",
+              checked: false
+            },
+            {
+              score: 2,
+              as: "大部分资金投法于收益较小且风险较小的A",
+              checked: false
+            },
+            {
+              score: 3,
+              as: "大部分资金投资于收益较大且风险较大的8",
+              checked: false
+            },
+            {
+              score: 4,
+              as: "全部投资于收益较大且风险较大的B",
               checked: false
             }
           ]
@@ -111,35 +224,51 @@ export default {
     this.sub = this.questionList[0];
   },
   methods: {
-    chooseAnswer(item) {
-      this.sub.asall.map(item => (item.checked = false));
-      item.checked = true;
+    renderSubs() {
+      this.sub = this.questionList[this.index];
     },
-    getNextSub() {
-      var answer = this.sub.asall.findIndex(
-        (value, index, arr) => value.checked
-      );
-      if (answer == -1) {
-        this.$alert("您还没选择题目答案哦", "提示", {
-          confirmButtonText: "确定",
-          callback: action => {
-            // this.$message({
-            //   type: "info",
-            //   message: `action: ${action}`
-            // });
-          }
-        });
-        return;
-      }
-      if (this.index + 1 !== this.questionList.length) {
-        this.index++;
+    getScore(index) {
+      var score = this.questionList[this.index].asall[index].score;
+      if (this.answer[this.index]) {
+        this.answer[this.index] = score;
       } else {
-        this.step = 3;
+        this.answer.push(score);
+      }
+      var totalScore = eval(this.answer.join("+"));
+      localStorage.setItem("type", this.getType(totalScore));
+      console.log(this.answer);
+      console.log("总得分===" + totalScore);
+      console.log(this.getType(totalScore));
+    },
+    chooseAnswer(item, index) {
+      item.checked = true;
+      if (this.index + 1 !== this.questionList.length) {
+        this.getScore(index);
+        this.index++;
+        setTimeout(() => {
+          this.sub = this.questionList[this.index];
+        }, 100);
+      } else {
+        this.getScore(index);
         this.$router.push("/analysis/result");
       }
-      this.answer.push(answer + 1);
+    },
+    getPrevSub() {
+      this.index--;
       this.sub = this.questionList[this.index];
-      console.log(this.answer);
+      this.sub.asall.map(item => (item.checked = false));
+    },
+    getType(score) {
+      var type;
+      this.typeList.map(item => {
+        var scoreList = item.score.split("-");
+        var minScore = parseInt(scoreList[0]);
+        var maxScore = parseInt(scoreList[1]);
+        if (score >= minScore && score <= maxScore) {
+          type = item.type;
+        }
+      });
+      return type;
     }
   }
 };
@@ -192,7 +321,7 @@ export default {
       align-items: center;
       margin-bottom: 32px;
     }
-    width: 300px;
+    width: 320px;
     margin: 60px auto 80px;
   }
   .circle {
@@ -221,7 +350,7 @@ export default {
     line-height: 80px;
     font-size: 20px;
     color: #fff;
-    background: #d51d26;
+    background: #ccc;
     cursor: pointer;
     &::after {
       position: absolute;
@@ -231,7 +360,7 @@ export default {
       width: 0;
       height: 0;
       border: 40px solid transparent;
-      border-left-color: #be1a21;
+      border-left-color: #999;
     }
   }
 }
