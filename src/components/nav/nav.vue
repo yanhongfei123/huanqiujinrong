@@ -3,33 +3,33 @@
     <div class="logo"></div>
     <div class="nav-cont flex">
       <div class="nav-bar flex">
-        <div :class="[path === '/home' ? 'active' : '', 'nav-item']" @click="goPage('/home')">首页</div>
+        <div :class="[path === '/home' ? 'active' : '', 'nav-item']" @click="goPage('/home')">{{$t('nav.home')}}</div>
         <div
           :class="[path === '/operation' ? 'active' : '','nav-item']"
           @click="goPage('/operation')"
-        >如何运作</div>
+        >{{$t('nav.operation')}}</div>
         <div
           :class="[path === '/product' ? 'active' : '', 'nav-item']"
           @click="goPage('/product')"
-        >产品</div>
-        <div :class="[path === '/find' ? 'active' : '', 'nav-item']" @click="goPage('/find')">发现</div>
+        >{{$t('nav.product')}}</div>
+        <div :class="[path === '/find' ? 'active' : '', 'nav-item']" @click="goPage('/find')">{{$t('nav.find')}}</div>
         <div
           :class="[path === '/organization' ? 'active' : '', 'nav-item']"
           @click="goPage('/organization')"
-        >机构</div>
+        >{{$t('nav.organization')}}</div>
         <div
           :class="[path === '/analysis/analys' ? 'active' : '', 'nav-item']"
           @click="goPage('/analysis/analys')"
-        >免费分析</div>
+        >{{$t('nav.analysis')}}</div>
       </div>
       <div class="nav-m flex">
-        <div class="hover" @click="goPage('/login')">登录</div>
-        <div class="hover" @click="goPage('/register')">注册</div>
+        <div class="hover" @click="goPage('/login')">{{$t('nav.login')}}</div>
+        <div class="hover" @click="goPage('/register')">{{$t('nav.register')}}</div>
       </div>
       <div class="nav-r flex">
-        <div class="hover" @click="setLanguage('zh')">简</div>
+        <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">简</div>
         <div class="line"></div>
-        <div class="hover" @click="setLanguage('ft')">繁</div>
+        <div :class="[$i18n.locale === 'ft'?'active':'']" class="hover" @click="setLanguage('ft')">繁</div>
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@ export default {
       margin: 0 8px;
     }
   }
-  .active {
+  .active,.nav-r .active  {
     color: #141416;
     opacity: 1;
   }

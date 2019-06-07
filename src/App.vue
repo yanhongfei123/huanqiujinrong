@@ -39,12 +39,14 @@ body {
   width: 100%;
   height: 100%;
 }
-
+.el-button--primary {
+  background-color: #D51D26!important;
+  border-color: #D51D26!important;
+}
 .com-width {
   width: 1180px;
   margin: 0 auto;
 }
-
 header {
   position: fixed;
   width: 100%;
@@ -99,6 +101,9 @@ header {
     border-radius: 0;
     border-bottom: 2px solid #d51d26;
   }
+  .el-textarea__inner{
+    min-height: 72px!important;
+  }
 }
 
 #app {
@@ -107,6 +112,26 @@ header {
     "Microsoft YaHei", STHeiTi, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  .el-radio{
+    color: #3C3F4D
+  }
+  .el-radio__inner{
+    width: 16px;
+    height: 16px;
+  }
+  .el-radio__inner:after{
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: #D51D26;
+  }
+  .el-radio__input.is-checked .el-radio__inner{
+        border-color: #444857;
+        background: none;
+  }
+  .el-radio__input.is-checked+.el-radio__label{
+    color: #606266
+  }
 }
 
 ::-webkit-input-placeholder {

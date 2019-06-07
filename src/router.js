@@ -25,12 +25,11 @@ const Login = () => import('@/views/login.vue'); //登录
 const ResetPwd = () => import('@/views/resetPwd.vue'); //忘记密码
 const UserCenter = () => import('@/views/userCenter/index.vue'); //个人中心
 const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-我的账户
-//const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-入金指引
-//const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-我的汇款账户
-//const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-存款通知
+const Guide = () => import('@/views/userCenter/guide.vue'); //个人中心-入金指引
+const RemittanceAccount = () => import('@/views/userCenter/remittanceAccount.vue'); //个人中心-我的汇款账户
+const DepositNotice = () => import('@/views/userCenter/depositNotice.vue'); //个人中心-存款通知
 //const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-提取资金
 //const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-资金记录
-
 
 const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
 const ChooseMarket = () => import('@/views/openAccount/chooseMarket.vue'); //开户-选择市场
@@ -61,6 +60,21 @@ export default new Router({
                     path: 'myAccount',
                     name: 'myAccount',
                     component: MyAccount,
+                },
+                {
+                    path: 'guide',
+                    name: 'guide',
+                    component: Guide,
+                },
+                {
+                    path: 'remittanceAccount',
+                    name: 'remittanceAccount',
+                    component: RemittanceAccount,
+                },
+                {
+                    path: 'depositNotice',
+                    name: 'depositNotice',
+                    component: DepositNotice,
                 },
 
             ]

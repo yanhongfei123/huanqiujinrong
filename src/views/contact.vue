@@ -7,7 +7,7 @@
       <div class="contact">联系我们</div>
       <div class="contact-en">CONTACT US</div>
       <div class="map-wrap">
-      <img width="1180" src="../assets/images/banner03.jpg" alt="">
+      <img width="1180" src="../assets/images/firstpage/banner_conditions.png" alt="">
       <div class="btm-wrap">
         <div class="l-wrap">+852 XXXXXXX</div>
         <div class="r-wrap">info@etf.cool</div>

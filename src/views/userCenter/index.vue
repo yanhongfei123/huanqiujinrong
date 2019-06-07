@@ -47,28 +47,28 @@
       <div v-if="openStatus==5" class="user-wrap">
         <div class="l-wrap">
           <div :class="[$route.path==='/userCenter/myAccount'?'active':'']" class="item item1">
-            <router-link to="/openAccount">我的账户</router-link>
+            <router-link to="/userCenter/myAccount">我的账户</router-link>
           </div>
           <div class="line"></div>
           <dl>
             <dt>存入资金</dt>
-            <dd class="item2" :class="[$route.path==='/userCenter/aaa'?'active':'']">
-              <router-link to="/openAccount">入金指引</router-link>
+            <dd class="item2" :class="[$route.path==='/userCenter/guide'?'active':'']">
+              <router-link to="/userCenter/guide">入金指引</router-link>
             </dd>
-            <dd class="item3" :class="[$route.path==='/userCenter/myAccount11'?'active':'']">
-              <router-link to="/openAccount">汇款账户</router-link>
+            <dd class="item3" :class="[$route.path==='/userCenter/remittanceAccount'?'active':'']">
+              <router-link to="/userCenter/remittanceAccount">汇款账户</router-link>
             </dd>
-            <dd class="item4" :class="[$route.path==='/userCenter/myAccount11'?'active':'']">
-              <router-link to="/openAccount">存款通知</router-link>
+            <dd class="item4" :class="[$route.path==='/userCenter/depositNotice'?'active':'']">
+              <router-link to="/userCenter/depositNotice">存款通知</router-link>
             </dd>
           </dl>
           <div class="line"></div>
           <div :class="[$route.path==='/userCenter/myAccount11'?'active':'']" class="item item5">
-            <router-link to="/openAccount">提取资金</router-link>
+            <router-link to="/userCenter/guide">提取资金</router-link>
           </div>
           <div class="line"></div>
           <div :class="[$route.path==='/userCenter/myAccount11'?'active':'']" class="item item6">
-            <router-link to="/openAccount">资金记录</router-link>
+            <router-link to="/userCenter/guide">资金记录</router-link>
           </div>
         </div>
         <div class="r-wrap">
@@ -137,6 +137,7 @@ export default {
   }
   .user-wrap {
     display: flex;
+    margin-top: 40px;
     .line {
       width: 170px;
       height: 1px;
@@ -160,9 +161,8 @@ export default {
     dd {
       a {
         font-size: 18px;
-        color: #3c3f4d;
+        color:rgba(60,63,77,0.8);
         font-weight: normal;
-        opacity: 0.8;
       }
     }
     .item a::after,
@@ -178,16 +178,16 @@ export default {
       background-size: 100%;
     }
     .item1 a::after {
-      background-image: url("../../assets/images/user_center/icon_account_black@3x.png");
+      background-image: url("../../assets/images/user_center/icon_account_black.png");
     }
     dt::after {
-      background-image: url("../../assets/images/user_center/icon_deposit_black@3x.png");
+      background-image: url("../../assets/images/user_center/icon_deposit_black.png");
     }
     .item5 a::after {
-      background-image: url("../../assets/images/user_center/icon_takeout_black@3x.png");
+      background-image: url("../../assets/images/user_center/icon_takeout_black.png");
     }
     .item6 a::after {
-      background-image: url("../../assets/images/user_center/icon_record_black@3x.png");
+      background-image: url("../../assets/images/user_center/icon_record_black.png");
     }
     dd {
       position: relative;
@@ -198,15 +198,18 @@ export default {
       width: 4px;
       height: 4px;
       border-radius: 5px;
-      background: #666;
+      background: #3C3F4D;
       left: 60px;
       top: 50%;
       margin-top: -2px;
     }
     .active {
+      &::after{
+        background:#fff;
+      }
       a {
         color: #fff;
-        background: #d51d26;
+        background: #D51D26;
       }
       &.item1 a::after {
         background-image: url("../../assets/images/user_center/icon_account_white.png");
@@ -220,15 +223,16 @@ export default {
     }
     .l-wrap {
       width: 250px;
-      height: 508px;
+      min-height: 508px;
       padding-top: 34px;
       box-sizing: border-box;
       background: #f3f3f3;
     }
     .r-wrap {
-      flex: 1;
+      width: 930px;
       background: #fff;
       padding: 0 40px 0 40px;
+      box-sizing: border-box;
     }
   }
   .title {

@@ -66,7 +66,7 @@ export default {
       typeList: ["文章资讯", "活动推广", "媒体报道"],
       articleList: [
         {
-          url: require("../assets/images/banner03.jpg"),
+          url: require("../assets/images/firstpage/banner_conditions.png"),
           title: "走出明星投资人的交易陷阱",
           des:
             "(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！",
@@ -74,7 +74,7 @@ export default {
           read: 2000
         },
         {
-          url: require("../assets/images/banner03.jpg"),
+          url: require("../assets/images/firstpage/banner_conditions.png"),
           title: "除了贪婪和恐惧，希望也是理性投资的敌人。",
           des:
             "(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！",
@@ -82,7 +82,7 @@ export default {
           read: 2000
         },
         {
-          url: require("../assets/images/banner03.jpg"),
+          url: require("../assets/images/firstpage/banner_conditions.png"),
           title:
             "除了贪婪和恐惧，希望也是理性投资的敌人除了贪婪和恐惧，希望也是理性投资的敌希望也是理性投资的敌人除了贪人。",
           des:
