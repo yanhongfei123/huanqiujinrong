@@ -11,14 +11,17 @@
           <div class="tbl-item">
             <div class="label">
               冻结金额（港币）
-              <tips top="3px"  right="-20px">冻结金额冻结金额冻结金额冻结金额冻结金额冻结金额,冻结金额冻结金额冻结金额冻结金额冻结金额冻结金额</tips>
+              <tips top="3px" right="-20px">冻结金额冻结金额冻结金额冻结金额冻结金额冻结金额,冻结金额冻结金额冻结金额冻结金额冻结金额冻结金额</tips>
             </div>
             <div class="acount">39870</div>
           </div>
         </div>
       </div>
       <div class="item">
-        <div class="type">一. 证券账户信息 <router-link to="/">查看证券详情</router-link></div>
+        <div class="type">
+          一. 证券账户信息
+          <router-link to="/">查看证券详情</router-link>
+        </div>
         <div class="tb-wrap">
           <div class="tbl-item tbl-item1">
             <div class="label">证券账号</div>
@@ -44,31 +47,34 @@
   </div>
 </template>
 <script>
-import Tips from '../../components/tips.vue';
+import Tips from "../../components/tips.vue";
 
 export default {
   name: "account",
-  components:{
+  components: {
     Tips
   },
   data() {
     return {
       qList: [
         {
-          showanswer:false,
-          title: '最低投资金额是多少？',
-          answer: '最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。'
+          showanswer: false,
+          title: "最低投资金额是多少？",
+          answer:
+            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
         },
         {
-          showanswer:false,
-          title: '最低投资金额是多少？',
-          answer: '最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。'
+          showanswer: false,
+          title: "最低投资金额是多少？",
+          answer:
+            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
         },
         {
-          showanswer:false,
-          title: '最低投资金额是多少？',
-          answer: '最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。'
-        },
+          showanswer: false,
+          title: "最低投资金额是多少？",
+          answer:
+            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
+        }
       ]
     };
   }
@@ -85,21 +91,21 @@ export default {
   .item {
     width: 400px;
   }
-  .item1{
+  .item1 {
     margin-right: 66px;
   }
   .type {
     height: 64px;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(20, 20, 22, 1);
     margin-bottom: 20px;
     line-height: 64px;
     border-bottom: 1px solid #d8d8d8;
-    a{
+    a {
       float: right;
       font-size: 16px;
-      color: #D51D26;
+      color: #d51d26;
     }
   }
   .tb-wrap {
@@ -107,12 +113,12 @@ export default {
     .tbl-item {
       text-align: center;
     }
-    .tbl-item1{
+    .tbl-item1 {
       margin-right: 130px;
     }
     .label {
       position: relative;
-      color:rgba(20,20,22,0.5);
+      color: rgba(20, 20, 22, 0.5);
       font-size: 16px;
       margin-bottom: 36px;
     }
@@ -123,40 +129,43 @@ export default {
       line-height: 32px;
     }
   }
-  .btm-wrap{
-    .q-title{
-        font-size:16px;
-        font-weight:500;
-        color:rgba(20,20,22,1);
-        line-height:24px;
-        margin-top: 20px;
-        cursor: pointer;
+  .btm-wrap {
+    .type {
+      margin: 0;
+      border: none;
     }
-    .q-answer{
-      font-size:14px;
-      color:rgba(60,63,77,1);
-      line-height:20px;
-      margin-top: 10px;
+    .q-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(20, 20, 22, 1);
+      line-height: 24px;
+      margin-bottom: 20px;
+      cursor: pointer;
     }
-    .q-list{
+    .q-answer {
+      font-size: 14px;
+      color: rgba(60, 63, 77, 1);
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+    .q-list {
       margin-left: 35px;
     }
-    .q-item{
+    .q-item {
       position: relative;
     }
-    .icon{
+    .icon {
       position: absolute;
       top: 5px;
       left: -35px;
       width: 16px;
       height: 16px;
-      background: url('../../assets/images/user_center/btn_jia.png');
+      background: url("../../assets/images/user_center/btn_jia.png");
       background-size: contain;
     }
-    .show{
-      background: url('../../assets/images/user_center/btn_expand.png');
+    .show {
+      background: url("../../assets/images/user_center/btn_expand.png");
     }
-
   }
 }
 </style>

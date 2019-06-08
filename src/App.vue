@@ -29,6 +29,12 @@ export default {
   mounted() {
     console.log(this.showtoast);
     console.log(this._showtoast);
+  },
+  methods:{
+    // showMenu(event){
+    //   console.log(event.target)
+    //   this.$store.dispatch('showMenu', false)
+    // }
   }
 };
 </script>
@@ -112,6 +118,54 @@ header {
     "Microsoft YaHei", STHeiTi, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  table{
+    .el-select{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      left: 0;
+      top: -14px;
+      opacity: 0;
+    }
+    .el-input__icon{
+
+    }
+    .el-input__suffix{
+      right: 0;
+    }
+    .el-icon-arrow-up:before{
+      font-size: 18px;
+      content: '';
+    }
+    .el-input--suffix .el-input__inner{
+      padding-right: 0;
+    }
+    .el-input__inner{
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+    .el-input--medium .el-input__inner{
+      width: 100%;
+    }
+  }
+  .el-pagination.is-background .btn-next,
+  .el-pagination.is-background .btn-prev,
+  .el-pagination.is-background .el-pager li {
+    background: #fff;
+    border:1px solid rgba(217,217,217,1);
+  }
+  .el-pagination.is-background .el-pager li:hover {
+    //color: #d51d26;
+  }
+  .el-pagination {
+    text-align: center;
+    margin-top: 60px;
+  }
+  .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #d51d26;
+  }
   .el-radio{
     color: #3C3F4D
   }

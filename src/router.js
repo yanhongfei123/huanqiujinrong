@@ -17,9 +17,6 @@ const Article = () => import('@/views/article.vue'); //文章详情
 const Organization = () => import('@/views/organization.vue'); //机构
 const Product = () => import('@/views/product.vue'); //产品
 const Operation = () => import('@/views/operation.vue'); //如何运作
-
-
-
 const Register = () => import('@/views/register.vue'); //注册
 const Login = () => import('@/views/login.vue'); //登录
 const ResetPwd = () => import('@/views/resetPwd.vue'); //忘记密码
@@ -28,8 +25,15 @@ const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中�
 const Guide = () => import('@/views/userCenter/guide.vue'); //个人中心-入金指引
 const RemittanceAccount = () => import('@/views/userCenter/remittanceAccount.vue'); //个人中心-我的汇款账户
 const DepositNotice = () => import('@/views/userCenter/depositNotice.vue'); //个人中心-存款通知
-//const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-提取资金
-//const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-资金记录
+const ExtractFunds = () => import('@/views/userCenter/extractFunds.vue'); //个人中心-提取资金
+const FundRecords = () => import('@/views/userCenter/fundRecords.vue'); //个人中心-资金记录
+
+const Setting = () => import('@/views/setting/index.vue'); //个人设置
+const Information = () => import('@/views/setting/information.vue'); //个人设置-个人资料
+const ResetLoginPas = () => import('@/views/setting/resetLoginPas.vue'); //个人设置-修改登录密码
+const ResetTranPas = () => import('@/views/setting/resetTranPas.vue'); //个人设置-修改交易密码
+
+
 
 const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
 const ChooseMarket = () => import('@/views/openAccount/chooseMarket.vue'); //开户-选择市场
@@ -76,7 +80,38 @@ export default new Router({
                     name: 'depositNotice',
                     component: DepositNotice,
                 },
-
+                {
+                    path: 'extractFunds',
+                    name: 'extractFunds',
+                    component: ExtractFunds,
+                },
+                {
+                    path: 'fundRecords',
+                    name: 'fundRecords',
+                    component: FundRecords,
+                },
+            ]
+        },
+        {
+            path: '/setting',
+            name: 'setting',
+            redirect: '/setting/information',
+            component: Setting,
+            children: [{
+                    path: 'information',
+                    name: 'information',
+                    component: Information,
+                },
+                {
+                    path: 'resetTranPas',
+                    name: 'resetTranPas',
+                    component: ResetTranPas,
+                },
+                {
+                    path: 'resetLoginPas',
+                    name: 'resetLoginPas',
+                    component: ResetLoginPas,
+                },
             ]
         },
         {

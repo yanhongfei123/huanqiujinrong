@@ -1,0 +1,172 @@
+<template>
+  <div class="page-register">
+    <div class="content">
+      <el-form class="form" :model="regForm" :rules="regRules" ref="regForm">
+        <el-form-item prop="account">
+          <el-input v-model="regForm.account" type="text" placeholder="手机号/邮箱地址"></el-input>
+        </el-form-item>
+        <el-form-item prop="smsCode">
+          <el-row>
+            <el-col :span="20">
+              <el-input v-model="regForm.smsCode" type="tel" maxlength="6" placeholder="验证码"></el-input>
+            </el-col>
+            <el-col :span="4">
+              <el-button type="text" class="btn-captcha">获取验证码</el-button>
+            </el-col>
+          </el-row>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input maxlength="6" v-model="regForm.password" type="password" placeholder="请设置6位新交易密码"></el-input>
+        </el-form-item>
+        <div class="btn btn-register" @click="confirm('regForm')">确认修改</div>
+      </el-form>
+    </div>
+  </div>
+</template>
+
+<script>
+import regHeader from "@/components/header/header.vue";
+import footerBar from "@/components/footer/footer.vue";
+import leftImage from "@/components/common/leftImage.vue";
+
+export default {
+  name: "register",
+  components: {
+    regHeader,
+    footerBar,
+    leftImage
+  },
+  data() {
+    const validateAccount = (rule, value, callback) => {
+      let mobileReg = /^1\d{10}$/;
+      let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+      if (value == "") {
+        callback(new Error("请输入手机号/邮箱"));
+      }
+      if (value.indexOf("@") > -1) {
+        if (!mailReg.test(value)) {
+          callback(new Error("请输入正确的邮箱"));
+        } else {
+          callback();
+        }
+      } else {
+        if (!mobileReg.test(value)) {
+          callback(new Error("请输入正确的手机号"));
+        } else {
+          callback();
+        }
+      }
+    };
+    const validateSmsCode = (rule, value, callback) => {
+      let smsReg = /^\d{6}$/;
+      if (value == "") {
+        callback(new Error("请输入短信验证码"));
+      } else if (!smsReg.test(value)) {
+        callback(new Error("请输入正确的短信验证码"));
+      } else {
+        callback();
+      }
+    };
+
+    const validatePass = (rule, value, callback) => {
+      let pwdReg = /^\d{6}$/;
+      if (value == "") {
+        callback(new Error("请输入6位新交易密码"));
+      } else if (!pwdReg.test(value)) {
+        callback(new Error("请输入6位数字的新交易密码,"));
+      } else {
+        callback();
+      }
+    };
+
+    return {
+      regForm: {
+        account: "",
+        smsCode: "",
+        password: ""
+      },
+      regRules: {
+        account: [
+          { required: true, trigger: "change,blur", validator: validateAccount }
+        ],
+        smsCode: [
+          { required: true, trigger: "change,blur", validator: validateSmsCode }
+        ],
+        password: [
+          { required: true, trigger: "change,blur", validator: validatePass }
+        ]
+      }
+    };
+  },
+  computed: {},
+  methods: {
+    goPage(path) {
+      this.$router.push(path);
+    },
+    confirm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          alert("submit!");
+        }
+      });
+    }
+  },
+  mounted() {}
+};
+</script>
+
+<style lang="scss">
+.page-register {
+  padding-top: 60px;
+  background: #fff;
+  font-size: 14px;
+  .content {
+    position: relative;
+    overflow: hidden;
+    .form {
+      width: 250px;
+      margin: 0 auto;
+      .el-form-item {
+        width: 100%;
+        padding-top: 22px;
+        margin-bottom: 0;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .el-form-item__content {
+        line-height: 34px;
+        .el-input--medium .el-input__inner {
+          border: none !important;
+          line-height: 34px !important;
+          height: 34px !important;
+          color: #141416;
+        }
+      }
+
+      .btn-captcha {
+        width: 100%;
+        line-height: 22px;
+        padding: 0;
+        color: #d51d26;
+        font-size: 12px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        text-align: right;
+        cursor: pointer;
+      }
+      .btn {
+        width: 100%;
+        height: 36px;
+        line-height: 36px;
+        color: #fff;
+        text-align: center;
+        background: url('../../assets/images/other_btn/btn_signin.png') no-repeat center;
+        background-size: contain;
+        cursor: pointer;
+        &.btn-register {
+          margin-top: 90px;
+        }
+      }
+    }
+  }
+}
+</style>

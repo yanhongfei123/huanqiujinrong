@@ -1,82 +1,87 @@
 <template>
   <div class="user-container">
     <header>
-      <userCenterHeader></userCenterHeader>
+      <userCenterHeader path="/userCenter/myAccount"></userCenterHeader>
     </header>
-    <div class="content">
-      <div class="title">个人中心</div>
+    <div @click="hideMenu($event)" class="user-content">
+      <div class="content">
+        <div class="title">个人中心</div>
 
-      <!-- 已经进行了资产配置就显示个人中心主页，否则显示当前进度条状态 -->
+        <!-- 已经进行了资产配置就显示个人中心主页，否则显示当前进度条状态 -->
 
-      <div v-if="openStatus != 5">
-        <div class="progress-ctn">
-          <div
-            :class="[index <= openStatus ? 'active' : '']"
-            class="progress"
-            v-for="(val, index) in openStatusList"
-            :key="index"
-          >
-            <div class="num">{{index + 1}}</div>
-            <p>{{val.progressTitle}}</p>
-          </div>
-        </div>
-        <div
-          class="btn-openAccount active"
-          @click="goPage(openStatusList[openStatus].path)"
-        >{{ openStatusList[openStatus].btnText }}</div>
-        <div v-if="openStatus == 1" class="review-ctn">
-          <div class="img-review"></div>
-          <div class="review-info">
-            <div class="review-result">您的资料已被提交，正在审核，请您耐心等待</div>
-            <div class="btn-openAccount disabled">请前往开户</div>
-            <div class="review-tip">
-              如您需补交资料，客服人员将会与您联络。温馨提示：完成开户流程预计3-7天。
-              <router-link to="/openAccount">查看开户指引</router-link>
+        <div v-if="openStatus != 5">
+          <div class="progress-ctn">
+            <div
+              :class="[index <= openStatus ? 'active' : '']"
+              class="progress"
+              v-for="(val, index) in openStatusList"
+              :key="index"
+            >
+              <div class="num">{{index + 1}}</div>
+              <p>{{val.progressTitle}}</p>
             </div>
           </div>
+          <div
+            class="btn-openAccount active"
+            @click="goPage(openStatusList[openStatus].path)"
+          >{{ openStatusList[openStatus].btnText }}</div>
+          <div v-if="openStatus == 1" class="review-ctn">
+            <div class="img-review"></div>
+            <div class="review-info">
+              <div class="review-result">您的资料已被提交，正在审核，请您耐心等待</div>
+              <div class="btn-openAccount disabled">请前往开户</div>
+              <div class="review-tip">
+                如您需补交资料，客服人员将会与您联络。温馨提示：完成开户流程预计3-7天。
+                <router-link to="/openAccount">查看开户指引</router-link>
+              </div>
+            </div>
+          </div>
+          <div class="tips-ctn">
+            <div class="tips-title">开户说明</div>
+            <p class="tips-desc">
+              1. 在用户正式开启投资前，需要完成提交开户信息、注入资金、风险测评3个阶段的工作。整个过程需要填写资料、审核等程序，最快需X-Y个工作日，请耐心等待与配合。
+              <br>2. 提交开户信息后，平台需对资料进行审核。为完成香港证监会的监管要求，您将被邀请在香港与我司持牌人士进行线下当面见证，完成见证程序后方可继续开立账户。
+              <br>3. 证券账户开通后，方可注入资金。资金到账需等待一段时间。
+            </p>
+          </div>
         </div>
-        <div class="tips-ctn">
-          <div class="tips-title">开户说明</div>
-          <p class="tips-desc">
-            1. 在用户正式开启投资前，需要完成提交开户信息、注入资金、风险测评3个阶段的工作。整个过程需要填写资料、审核等程序，最快需X-Y个工作日，请耐心等待与配合。
-            <br>2. 提交开户信息后，平台需对资料进行审核。为完成香港证监会的监管要求，您将被邀请在香港与我司持牌人士进行线下当面见证，完成见证程序后方可继续开立账户。
-            <br>3. 证券账户开通后，方可注入资金。资金到账需等待一段时间。
-          </p>
+        <div v-if="openStatus==5" class="user-wrap">
+          <div class="l-wrap">
+            <div :class="[$route.path==='/userCenter/myAccount'?'active':'']" class="item item1">
+              <router-link to="/userCenter/myAccount">我的账户</router-link>
+            </div>
+            <div class="line"></div>
+            <dl>
+              <dt>存入资金</dt>
+              <dd class="item2" :class="[$route.path==='/userCenter/guide'?'active':'']">
+                <router-link to="/userCenter/guide">入金指引</router-link>
+              </dd>
+              <dd
+                class="item3"
+                :class="[$route.path==='/userCenter/remittanceAccount'?'active':'']"
+              >
+                <router-link to="/userCenter/remittanceAccount">汇款账户</router-link>
+              </dd>
+              <dd class="item4" :class="[$route.path==='/userCenter/depositNotice'?'active':'']">
+                <router-link to="/userCenter/depositNotice">存款通知</router-link>
+              </dd>
+            </dl>
+            <div class="line"></div>
+            <div :class="[$route.path==='/userCenter/extractFunds'?'active':'']" class="item item5">
+              <router-link to="/userCenter/extractFunds">提取资金</router-link>
+            </div>
+            <div class="line"></div>
+            <div :class="[$route.path==='/userCenter/fundRecords'?'active':'']" class="item item6">
+              <router-link to="/userCenter/fundRecords">资金记录</router-link>
+            </div>
+          </div>
+          <div class="r-wrap">
+            <router-view/>
+          </div>
         </div>
       </div>
-      <div v-if="openStatus==5" class="user-wrap">
-        <div class="l-wrap">
-          <div :class="[$route.path==='/userCenter/myAccount'?'active':'']" class="item item1">
-            <router-link to="/userCenter/myAccount">我的账户</router-link>
-          </div>
-          <div class="line"></div>
-          <dl>
-            <dt>存入资金</dt>
-            <dd class="item2" :class="[$route.path==='/userCenter/guide'?'active':'']">
-              <router-link to="/userCenter/guide">入金指引</router-link>
-            </dd>
-            <dd class="item3" :class="[$route.path==='/userCenter/remittanceAccount'?'active':'']">
-              <router-link to="/userCenter/remittanceAccount">汇款账户</router-link>
-            </dd>
-            <dd class="item4" :class="[$route.path==='/userCenter/depositNotice'?'active':'']">
-              <router-link to="/userCenter/depositNotice">存款通知</router-link>
-            </dd>
-          </dl>
-          <div class="line"></div>
-          <div :class="[$route.path==='/userCenter/myAccount11'?'active':'']" class="item item5">
-            <router-link to="/userCenter/guide">提取资金</router-link>
-          </div>
-          <div class="line"></div>
-          <div :class="[$route.path==='/userCenter/myAccount11'?'active':'']" class="item item6">
-            <router-link to="/userCenter/guide">资金记录</router-link>
-          </div>
-        </div>
-        <div class="r-wrap">
-          <router-view/>
-        </div>
-      </div>
+      <footerBar></footerBar>
     </div>
-    <footerBar></footerBar>
   </div>
 </template>
 
@@ -121,6 +126,9 @@ export default {
   methods: {
     goPage(path) {
       this.$router.push(path);
+    },
+    hideMenu(flag) {
+      this.$store.dispatch("showMenu", false);
     }
   },
   mounted() {}
@@ -161,7 +169,7 @@ export default {
     dd {
       a {
         font-size: 18px;
-        color:rgba(60,63,77,0.8);
+        color: rgba(60, 63, 77, 0.8);
         font-weight: normal;
       }
     }
@@ -198,18 +206,18 @@ export default {
       width: 4px;
       height: 4px;
       border-radius: 5px;
-      background: #3C3F4D;
+      background: #3c3f4d;
       left: 60px;
       top: 50%;
       margin-top: -2px;
     }
     .active {
-      &::after{
-        background:#fff;
+      &::after {
+        background: #fff;
       }
       a {
         color: #fff;
-        background: #D51D26;
+        background: #d51d26;
       }
       &.item1 a::after {
         background-image: url("../../assets/images/user_center/icon_account_white.png");
@@ -231,7 +239,7 @@ export default {
     .r-wrap {
       width: 930px;
       background: #fff;
-      padding: 0 40px 0 40px;
+      padding: 0 0 0 40px;
       box-sizing: border-box;
     }
   }

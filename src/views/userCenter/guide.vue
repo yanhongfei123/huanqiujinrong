@@ -34,6 +34,9 @@
 export default {};
 </script>
 <style lang="scss" scoped>
+.guide-wrap{
+  padding-right: 40px;
+}
 .step-wrap {
   display: flex;
   justify-content: center;

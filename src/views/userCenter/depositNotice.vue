@@ -156,8 +156,13 @@ export default {
     font-size: 28px;
     color: #fff;
     text-align: center;
+    cursor: pointer;
+    opacity: 0.9;
     background: url('../../assets/images/other_btn/btn_red400.png') no-repeat center;
     background-size: 100%;
+    &:hover{
+      opacity: 1;
+    }
   }
 }
 </style>
