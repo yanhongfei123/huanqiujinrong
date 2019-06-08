@@ -165,7 +165,7 @@
         ],
         industryList: [],
         addressInfo: {
-            
+
         },
       };
     },

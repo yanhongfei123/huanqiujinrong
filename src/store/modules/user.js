@@ -12,6 +12,7 @@ import Cookies from 'js-cookie';
 
 const user = {
     state: {
+        showmenu: false,
         showtoast: false,
         title: '',
         token: getToken(),
@@ -19,6 +20,9 @@ const user = {
     },
 
     mutations: {
+        SHOW_MENU: (state, showmenu) => {
+            state.showmenu = showmenu;
+        },
         SET_TOKEN: (state, token) => {
             state.token = token;
         },
@@ -42,6 +46,11 @@ const user = {
             commit
         }, language) {
             commit('SET_LANGUAGE', language)
+        },
+        showMenu({
+            commit
+        }, showmenu) {
+            commit('SHOW_MENU', showmenu)
         },
         showToast({
             commit

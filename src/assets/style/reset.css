@@ -308,6 +308,13 @@ th {
 .tr{
   text-align: right;
 }
+.fl{
+  float: left;
+}
+.fr{
+  float: right
+}
+
 /*清除浮动代码*/
 .clear:after{display:block;clear:both;content:"";visibility:hidden;height:0}
 
