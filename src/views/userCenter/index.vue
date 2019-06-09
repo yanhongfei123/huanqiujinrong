@@ -9,7 +9,7 @@
 
         <!-- 已经进行了资产配置就显示个人中心主页，否则显示当前进度条状态 -->
 
-        <div v-if="openStatus != 5">
+        <div v-if="openStatus != 5 ">
           <div class="progress-ctn">
             <div
               :class="[index <= openStatus ? 'active' : '']"
@@ -21,11 +21,13 @@
               <p>{{val.progressTitle}}</p>
             </div>
           </div>
+
           <div
             class="btn-openAccount active"
             @click="goPage(openStatusList[openStatus].path)"
           >{{ openStatusList[openStatus].btnText }}</div>
-          <div v-if="openStatus == 1" class="review-ctn">
+
+          <div class="review-ctn">
             <div class="img-review"></div>
             <div class="review-info">
               <div class="review-result">您的资料已被提交，正在审核，请您耐心等待</div>
@@ -97,7 +99,22 @@ export default {
   },
   data() {
     return {
-      openStatus: 5,
+      openStatus: 1,
+      checkStatus: 1,
+      checkStatusObj:{
+        0: {
+          text: '您的资料已被提交，正在审核，请您耐心等待',
+          btnText:'请前往开户',
+        },
+        1: {
+          text: '您的入金正在审核中 请等待……',
+          btnText:'请前往注入资金',
+        },
+        2: {
+          text: '您的配置正在审核中 请等待……',
+          btnText:'请前往资产配置',
+        },
+      },
       openStatusList: [
         {
           progressTitle: "提交开户信息",
