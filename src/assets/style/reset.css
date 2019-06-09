@@ -322,3 +322,11 @@ th {
   line-height: 32px !important;
   padding: 0 !important;
 }
+
+.el-form-item__label,.el-radio__label{
+  font-size: 16px !important;
+}
+
+.el-form-item .el-form-item{
+  margin-bottom: 22px !important;
+}
