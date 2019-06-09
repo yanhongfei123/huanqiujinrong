@@ -32,7 +32,7 @@
   import footerBar from '@/components/footer/footer.vue';
 
   export default {
-    name: 'openAccount',
+    name: 'chooseMarket',
     components: {
       openAccountHeader,
       footerBar,
@@ -45,7 +45,7 @@
       selectMarket(type) {
         console.log(type);
         this.$router.replace({
-          name: 'submitUserInfo',
+          name: 'userInfo',
           query: { type: type }
         });
       }

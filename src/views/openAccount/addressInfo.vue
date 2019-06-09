@@ -101,7 +101,7 @@
                 <div class="btn-wrap">
                     <div @click="saveAddressInfo('addressInfoForm')" class="btn-item btn1">保存</div>
                     <div @click="goSubmitUserInfo" class="btn-item btn2">上一步</div>
-                    <div @click="goSubmitAddressInfo" class="btn-item btn3">下一步</div>
+                    <div @click="submitAddressInfo('addressInfoForm')" class="btn-item btn3">下一步</div>
                 </div>
             </div>
 
@@ -116,7 +116,7 @@
   import openAccountSteps from '@/components/common/openAccountSteps.vue';
 
   export default {
-    name: 'submitInfoStepOne',
+    name: 'addressInfo',
     components: {
       openAccountHeader,
       footerBar,
@@ -201,21 +201,26 @@
     },
     methods: {
       saveAddressInfo(formName) {
-        console.log('保存');
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
+            //...请求接口后提示
+            this.$message.success('保存成功');
           }
         });
       },
       goSubmitUserInfo() {
-        this.$router.replace({ name: 'submitUserInfo' });
+        this.$router.replace({ name: 'userInfo' });
       },
-      goSubmitAddressInfo() {
-        this.$router.replace({ name: 'submitAddressInfo' });
+      submitAddressInfo(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //...请求接口后跳转
+            this.$router.replace({ name: 'regulatoryInfo' });
+          }else{
+            //测试
+            this.$router.replace({ name: 'regulatoryInfo' });
+          }
+        });
       }
     },
     mounted() {

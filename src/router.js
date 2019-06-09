@@ -38,8 +38,10 @@ const ResetTranPas = () => import('@/views/setting/resetTranPas.vue'); //个人�
 
 const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
 const ChooseMarket = () => import('@/views/openAccount/chooseMarket.vue'); //开户-选择市场
-const SubmitUserInfo = () => import('@/views/openAccount/submitUserInfo.vue'); //开户-提交个人信息第一步
-const SubmitAddressInfo = () => import('@/views/openAccount/submitAddressInfo.vue'); //开户-提交个人信息第二步
+const UserInfo = () => import('@/views/openAccount/userInfo.vue'); //开户-提交个人信息第一步
+const AddressInfo = () => import('@/views/openAccount/addressInfo.vue'); //开户-提交个人信息第二步
+const RegulatoryInfo = () => import('@/views/openAccount/regulatoryInfo.vue'); //开户-规管信息
+
 
 
 export default new Router({
@@ -129,15 +131,21 @@ export default new Router({
           component: ChooseMarket,
         },
         {
-          path: 'submitUserInfo',
-          name: 'submitUserInfo',
-          component: SubmitUserInfo,
+          path: 'userInfo',
+          name: 'userInfo',
+          component: UserInfo,
         },
         {
-          path: 'submitAddressInfo',
-          name: 'submitAddressInfo',
-          component: SubmitAddressInfo,
+          path: 'addressInfo',
+          name: 'addressInfo',
+          component: AddressInfo,
         },
+        {
+          path: 'regulatoryInfo',
+          name: 'regulatoryInfo',
+          component: RegulatoryInfo,
+        },
+
       ]
     },
     {

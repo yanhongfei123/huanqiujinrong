@@ -146,7 +146,7 @@
                 <div class="btn-wrap">
                     <div @click="saveUserInfo('userInfoForm')" class="btn-item btn1">保存</div>
                     <div @click="chooseMarket" class="btn-item btn2">上一步</div>
-                    <div @click="goSubmitAddressInfo" class="btn-item btn3">下一步</div>
+                    <div @click="goSubmitAddressInfo('userInfoForm')" class="btn-item btn3">下一步</div>
                 </div>
             </div>
 
@@ -156,12 +156,13 @@
 </template>
 
 <script>
+
   import openAccountHeader from '@/components/header/openAccountHeader.vue';
   import footerBar from '@/components/footer/footer.vue';
   import openAccountSteps from '@/components/common/openAccountSteps.vue';
 
   export default {
-    name: 'submitInfoStepOne',
+    name: 'userInfo',
     components: {
       openAccountHeader,
       footerBar,
@@ -169,10 +170,10 @@
     },
     data() {
       const validateIdCard = (rule, value, callback) => {
-        let mobileReg = /^(5|6|8|9)\\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
+        let idCardReg = /^([A-Z]{1,2})([0-9]{6})([A0-9])$/; //香港身份证
         if (value == '') {
           callback(new Error('请输入香港身份证号'));
-        } else if (!mobileReg.test(value)) {
+        } else if (!idCardReg.test(value)) {
           callback(new Error('请输入正确的香港身份证号'));
         } else {
           callback();
@@ -180,7 +181,7 @@
       };
 
       const validateMobile = (rule, value, callback) => {
-        let mobileReg = /^([A-Z]{1,2})([0-9]{6})([A0-9])$/; //香港身份证
+        let mobileReg = /^(5|6|8|9)\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
         if (value == '') {
           callback(new Error('请输入香港手机号码'));
         } else if (!mobileReg.test(value)) {
@@ -372,21 +373,26 @@
     },
     methods: {
       saveUserInfo(formName) {
-        console.log('保存');
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
+            //...请求接口后提示
+            this.$message.success('保存成功');
           }
         });
       },
       chooseMarket() {
         this.$router.replace({ name: 'chooseMarket' });
       },
-      goSubmitAddressInfo() {
-        this.$router.replace({ name: 'submitAddressInfo' });
+      goSubmitAddressInfo(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //...请求接口后跳转
+            this.$router.replace({ name: 'addressInfo' });
+          }else{
+            //测试
+            this.$router.replace({ name: 'addressInfo' });
+          }
+        });
       }
     },
     mounted() {
