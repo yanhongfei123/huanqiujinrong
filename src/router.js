@@ -55,10 +55,7 @@ const UserInfo = () => import('@/views/openAccount/userInfo.vue'); //开户-提�
 const AddressInfo = () => import('@/views/openAccount/addressInfo.vue'); //开户-提交个人信息第二步
 const RegulatoryInfo = () => import('@/views/openAccount/regulatoryInfo.vue'); //开户-规管信息
 
-
-
 export default new Router({
-<<<<<<< HEAD
     routes: [{
             path: '/register',
             name: 'register',
@@ -172,6 +169,34 @@ export default new Router({
             }, ]
         },
         {
+            path: '/openAccount',
+            name: 'openAccount',
+            redirect: '/openAccount/chooseMarket',
+            component: OpenAccount,
+            children: [
+              {
+                path: 'chooseMarket',
+                name: 'chooseMarket',
+                component: ChooseMarket,
+              },
+              {
+                path: 'userInfo',
+                name: 'userInfo',
+                component: UserInfo,
+              },
+              {
+                path: 'addressInfo',
+                name: 'addressInfo',
+                component: AddressInfo,
+              },
+              {
+                path: 'regulatoryInfo',
+                name: 'regulatoryInfo',
+                component: RegulatoryInfo,
+              },
+            ]
+        },
+        {
             path: '/setTransPas',
             name: 'setTransPas',
             component: SetTransPas,
@@ -263,185 +288,4 @@ export default new Router({
         },
     ]
 })
-=======
-  routes: [{
-    path: '/register',
-    name: 'register',
-    component: Register,
-  },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-    },
-    {
-      path: '/resetPwd',
-      name: 'resetPwd',
-      component: ResetPwd,
-    },
-    {
-      path: '/userCenter',
-      name: 'userCenter',
-      redirect: '/userCenter/myAccount',
-      component: UserCenter,
-      children: [{
-        path: 'myAccount',
-        name: 'myAccount',
-        component: MyAccount,
-      },
-        {
-          path: 'guide',
-          name: 'guide',
-          component: Guide,
-        },
-        {
-          path: 'remittanceAccount',
-          name: 'remittanceAccount',
-          component: RemittanceAccount,
-        },
-        {
-          path: 'depositNotice',
-          name: 'depositNotice',
-          component: DepositNotice,
-        },
-        {
-          path: 'extractFunds',
-          name: 'extractFunds',
-          component: ExtractFunds,
-        },
-        {
-          path: 'fundRecords',
-          name: 'fundRecords',
-          component: FundRecords,
-        },
-      ]
-    },
-    {
-      path: '/setting',
-      name: 'setting',
-      redirect: '/setting/information',
-      component: Setting,
-      children: [{
-        path: 'information',
-        name: 'information',
-        component: Information,
-      },
-        {
-          path: 'resetTranPas',
-          name: 'resetTranPas',
-          component: ResetTranPas,
-        },
-        {
-          path: 'resetLoginPas',
-          name: 'resetLoginPas',
-          component: ResetLoginPas,
-        },
-      ]
-    },
-    {
-      path: '/openAccount',
-      name: 'openAccount',
-      redirect: '/openAccount/chooseMarket',
-      component: OpenAccount,
-      children: [
-        {
-          path: 'chooseMarket',
-          name: 'chooseMarket',
-          component: ChooseMarket,
-        },
-        {
-          path: 'userInfo',
-          name: 'userInfo',
-          component: UserInfo,
-        },
-        {
-          path: 'addressInfo',
-          name: 'addressInfo',
-          component: AddressInfo,
-        },
-        {
-          path: 'regulatoryInfo',
-          name: 'regulatoryInfo',
-          component: RegulatoryInfo,
-        },
 
-      ]
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Home,
-    },
-    {
-      path: '*',
-      redirect: '/home',
-    },
-    {
-      path: '/operation',
-      name: 'operation',
-      component: Operation,
-    },
-    {
-      path: '/product',
-      name: 'product',
-      component: Product,
-    },
-    {
-      path: '/organization',
-      name: 'organization',
-      component: Organization,
-    },
-    {
-      path: '/analysis',
-      name: 'analysis',
-      component: Analysis,
-      children: [{
-        path: 'analys',
-        name: 'analys',
-        component: Analys,
-      },
-        {
-          path: 'answer',
-          name: 'answer',
-          component: Answer,
-        },
-        {
-          path: 'result',
-          name: 'result',
-          component: Result,
-        }
-      ]
-    },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: Contact,
-    },
-    {
-      path: '/introduction',
-      name: 'introduction',
-      component: Introduction,
-    },
-    {
-      path: '/conditions',
-      name: 'conditions',
-      component: Conditions,
-    },
-    {
-      path: '/questions',
-      name: 'questions',
-      component: Questions,
-    },
-    {
-      path: '/find',
-      name: 'find',
-      component: Find,
-    },
-    {
-      path: '/article',
-      name: 'article',
-      component: Article,
-    },
-  ]
-});
->>>>>>> 8cdbcd795e19388f56a17fd58a9a4b34ed4edbdf
