@@ -99,7 +99,7 @@ export default {
   },
   data() {
     return {
-      openStatus: 1,
+      openStatus: 5,
       checkStatus: 1,
       checkStatusObj:{
         0: {

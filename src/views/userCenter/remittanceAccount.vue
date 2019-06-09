@@ -6,7 +6,7 @@
         <el-radio v-model="radio1" label="1">港币</el-radio>
       </div>
       <div class>
-        <el-radio v-model="radio1" label="2">美元</el-radio>
+        <el-radio disabled  v-model="radio1" label="2">美元</el-radio>
       </div>
     </div>
     <div class="item">
