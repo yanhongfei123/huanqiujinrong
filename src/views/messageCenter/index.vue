@@ -5,23 +5,19 @@
     </header>
     <div @click="hideMenu($event)" class="user-content">
       <div class="content">
-        <div class="title">个人设置</div>
+        <div class="title">消息中心</div>
         <div class="user-wrap">
           <div class="l-wrap">
-            <div :class="[$route.path==='/setting/information'?'active':'']" class="item item1">
-              <router-link to="/setting/information">个人资料</router-link>
+            <div :class="[$route.path==='/messageCenter/announcement'?'active':'']" class="item item1">
+              <router-link to="/messageCenter/announcement">站内公告</router-link>
             </div>
             <div class="line"></div>
-            <div :class="[$route.path==='/setting/resetLoginPas'?'active':'']" class="item item2">
-              <router-link to="/setting/resetLoginPas">修改登录密码</router-link>
+            <div :class="[$route.path==='/messageCenter/informationPush'?'active':'']" class="item item2">
+              <router-link to="/messageCenter/informationPush">资讯推送</router-link>
             </div>
             <div class="line"></div>
-            <div :class="[$route.path==='/setting/resetTranPas'?'active':'']" class="item item3">
-              <router-link to="/setting/resetTranPas">修改交易密码</router-link>
-            </div>
-            <div class="line"></div>
-            <div :class="[$route.path==='/setting/customerFeedback'?'active':'']" class="item item4">
-              <router-link to="/setting/customerFeedback">用户反馈</router-link>
+            <div :class="[$route.path==='/messageCenter/myMessage'?'active':'']" class="item item3">
+              <router-link to="/messageCenter/myMessage"><span class="message">我的消息<i></i></span></router-link>
             </div>
           </div>
           <div class="r-wrap">
@@ -92,9 +88,6 @@ export default {
       text-align: center;
       line-height: 40px;
     }
-    .item2,.item3{
-      text-indent: 42px;
-    }
     .item a::after{
       position: absolute;
       content: "";
@@ -107,16 +100,13 @@ export default {
       background-size: 100%;
     }
     .item1 a::after {
-      background-image: url("../../assets/images/personal/icon_data_black.png");
+      background-image: url("../../assets/images/personal/icon_notice_black.png");
     }
     .item2 a::after {
-      background-image: url("../../assets/images/personal/icon_modify_black.png");
+      background-image: url("../../assets/images/personal/icon_information_black.png");
     }
     .item3 a::after {
-      background-image: url("../../assets/images/personal/icon_transaction_black.png");
-    }
-    .item4 a::after {
-      background-image: url("../../assets/images/personal/icon_feedback_black.png");
+      background-image: url("../../assets/images/personal/icon_mine_black.png");
     }
     .active {
       &::after {
@@ -127,16 +117,13 @@ export default {
         background: #d51d26;
       }
       &.item1 a::after {
-        background-image: url("../../assets/images/personal/icon_data_white.png");
+        background-image: url("../../assets/images/personal/icon_notice_white.png");
       }
       &.item2 a::after {
-        background-image: url("../../assets/images/personal/icon_modify_white.png");
+        background-image: url("../../assets/images/personal/icon_information_white.png");
       }
       &.item3 a::after {
-        background-image: url("../../assets/images/personal/icon_transaction_white.png");
-      }
-      &.item4 a::after {
-        background-image: url("../../assets/images/personal/icon_feedback_white.png");
+        background-image: url("../../assets/images/personal/icon_mine_white.png");
       }
     }
     .l-wrap {
@@ -149,16 +136,27 @@ export default {
     .r-wrap {
       width: 930px;
       background: #fff;
-      padding: 0 0 0 40px;
+      padding: 20px 40px 40px;
       box-sizing: border-box;
     }
   }
   .title {
     font-size: 40px;
-    font-family: SourceHanSansSC-Medium;
     font-weight: 500;
     color: rgba(60, 63, 77, 1);
     line-height: 58px;
+  }
+  .message{
+    position: relative;
+    i {
+      position: absolute;
+      right: -8px;
+      top: -2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 3px;
+      background: #d51d26;
+    }
   }
 }
 </style>

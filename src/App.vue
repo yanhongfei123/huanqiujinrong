@@ -62,6 +62,11 @@ header {
   background: #fff;
   box-shadow: 0 2px 4px 0 rgba(227, 227, 227, 0.5);
 }
+.mask{
+  .el-button--medium{
+    padding: 10px 0;
+  }
+}
 #mask {
   .el-slider {
     margin-top: 65px;
@@ -118,6 +123,22 @@ header {
     "Microsoft YaHei", STHeiTi, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  .el-pagination.is-background .btn-next,
+  .el-pagination.is-background .btn-prev,
+  .el-pagination.is-background .el-pager li {
+    background: #fff;
+    border:1px solid rgba(217,217,217,1);
+  }
+  .el-pagination.is-background .el-pager li:hover {
+    //color: #d51d26;
+  }
+  .el-pagination {
+    text-align: center;
+    margin-top: 60px;
+  }
+  .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #d51d26;
+  }
   table{
     .el-select{
       position: absolute;
@@ -149,22 +170,6 @@ header {
     .el-input--medium .el-input__inner{
       width: 100%;
     }
-  }
-  .el-pagination.is-background .btn-next,
-  .el-pagination.is-background .btn-prev,
-  .el-pagination.is-background .el-pager li {
-    background: #fff;
-    border:1px solid rgba(217,217,217,1);
-  }
-  .el-pagination.is-background .el-pager li:hover {
-    //color: #d51d26;
-  }
-  .el-pagination {
-    text-align: center;
-    margin-top: 60px;
-  }
-  .el-pagination.is-background .el-pager li:not(.disabled).active {
-    background-color: #d51d26;
   }
   .el-radio{
     color: #3C3F4D

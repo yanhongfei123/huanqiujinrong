@@ -106,21 +106,6 @@ export default {
 
 <style lang="scss">
 .page-find {
-  .el-pagination.is-background .btn-next,
-  .el-pagination.is-background .btn-prev,
-  .el-pagination.is-background .el-pager li {
-    background: #fff;
-  }
-  .el-pagination.is-background .el-pager li:hover {
-    //color: #d51d26;
-  }
-  .el-pagination {
-    text-align: center;
-    margin-top: 60px;
-  }
-  .el-pagination.is-background .el-pager li:not(.disabled).active {
-    background-color: #d51d26;
-  }
   .barner {
     position: relative;
     height: 400px;

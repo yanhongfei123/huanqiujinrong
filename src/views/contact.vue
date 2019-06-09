@@ -78,12 +78,12 @@ export default {
   }
   .l-wrap{
     padding-left: 42px;
-    background: url("../assets/images/firstpage/icon_phone.png") no-repeat;
+    background: url("../assets/images/icon_phone.png") no-repeat;
     background-size:auto 100%;
   }
   .r-wrap{
     padding-left: 42px;
-    background: url("../assets/images/firstpage//icon_mail.png") no-repeat;
+    background: url("../assets/images/icon_mail.png") no-repeat;
     background-size: auto 100%;
   }
 

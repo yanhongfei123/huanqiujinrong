@@ -1,5 +1,5 @@
 <template>
-  <div class="page-register">
+  <div class="page-resettrans">
     <div class="content">
       <el-form class="form" :model="regForm" :rules="regRules" ref="regForm">
         <el-form-item prop="account">
@@ -7,7 +7,7 @@
         </el-form-item>
         <el-form-item prop="smsCode">
           <el-row>
-            <el-col :span="20">
+            <el-col :span="18">
               <el-input v-model="regForm.smsCode" type="tel" maxlength="6" placeholder="验证码"></el-input>
             </el-col>
             <el-col :span="4">
@@ -25,16 +25,10 @@
 </template>
 
 <script>
-import regHeader from "@/components/header/header.vue";
-import footerBar from "@/components/footer/footer.vue";
-import leftImage from "@/components/common/leftImage.vue";
-
 export default {
   name: "register",
   components: {
-    regHeader,
-    footerBar,
-    leftImage
+
   },
   data() {
     const validateAccount = (rule, value, callback) => {
@@ -116,7 +110,7 @@ export default {
 </script>
 
 <style lang="scss">
-.page-register {
+.page-resettrans {
   padding-top: 60px;
   background: #fff;
   font-size: 14px;

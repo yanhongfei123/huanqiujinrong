@@ -1,0 +1,36 @@
+<template>
+  <div class="address-wrap">
+    <div class="item item1">香港 中环 金融街8号国际金融中心二期大厦 19楼101室</div>
+    <div class="item item1">香港数码港道100号数码港1座10楼1102室</div>
+    <div class="item item2">+852 XXXXXXX</div>
+    <div class="item item3">info@etf.cool</div>
+  </div>
+</template>
+<script>
+export default {};
+</script>
+<style lang="scss">
+.address-wrap {
+  width: 450px;
+  margin: 100px auto 0;
+  .item {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 1);
+    line-height: 24px;
+    margin-bottom: 40px;
+    padding-left: 40px;
+  }
+  .item1 {
+    background: url("../../assets/images/location.png") no-repeat;
+    background-size: auto 100%;
+  }
+  .item2 {
+    background: url("../../assets/images/icon_phone.png") no-repeat;
+    background-size: auto 100%;
+  }
+  .item3 {
+    background: url("../../assets/images/icon_mail.png") no-repeat;
+    background-size: auto 100%;
+  }
+}
+</style>

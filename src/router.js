@@ -32,7 +32,20 @@ const Setting = () => import('@/views/setting/index.vue'); //个人设置
 const Information = () => import('@/views/setting/information.vue'); //个人设置-个人资料
 const ResetLoginPas = () => import('@/views/setting/resetLoginPas.vue'); //个人设置-修改登录密码
 const ResetTranPas = () => import('@/views/setting/resetTranPas.vue'); //个人设置-修改交易密码
+const CustomerFeedback = () => import('@/views/setting/customerFeedback.vue'); //个人设置-用户反馈
 
+const MessageCenter = () => import('@/views/messageCenter/index.vue'); //消息中心
+const Announcement = () => import('@/views/messageCenter/announcement.vue'); //消息中心-站内公告
+const InformationPush = () => import('@/views/messageCenter/informationPush.vue'); //消息中心-资讯推送
+const MyMessage = () => import('@/views/messageCenter/myMessage.vue'); //消息中心-我的消息
+
+const SetTransPas = () => import('@/views/setTransactionPas.vue'); //设置交易密码
+const RiskTest = () => import('@/views/riskTest.vue'); //风险评测
+const RiskTestResult = () => import('@/views/riskTestResult.vue'); //风险评测结果
+
+
+
+// configAssets 资产配置
 
 
 const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
@@ -112,6 +125,33 @@ export default new Router({
                     name: 'resetLoginPas',
                     component: ResetLoginPas,
                 },
+                {
+                    path: 'customerFeedback',
+                    name: 'customerFeedback',
+                    component: CustomerFeedback,
+                },
+            ]
+        },
+        {
+            path: '/messageCenter',
+            name: 'messageCenter',
+            redirect: '/messageCenter/announcement',
+            component: MessageCenter,
+            children: [{
+                    path: 'announcement',
+                    name: 'announcement',
+                    component: Announcement,
+                },
+                {
+                    path: 'informationPush',
+                    name: 'informationPush',
+                    component: InformationPush,
+                },
+                {
+                    path: 'myMessage',
+                    name: 'myMessage',
+                    component: MyMessage,
+                },
             ]
         },
         {
@@ -124,6 +164,21 @@ export default new Router({
                 name: 'chooseMarket',
                 component: ChooseMarket,
             }, ]
+        },
+        {
+            path: '/setTransPas',
+            name: 'setTransPas',
+            component: SetTransPas,
+        },
+        {
+            path: '/riskTest',
+            name: 'riskTest',
+            component: RiskTest,
+        },
+        {
+            path: '/riskTestResult',
+            name: 'riskTestResult',
+            component: RiskTestResult,
         },
         {
             path: '/home',
