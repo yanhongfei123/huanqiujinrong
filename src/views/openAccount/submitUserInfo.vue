@@ -9,16 +9,18 @@
                 <div class="tips"><label>* </label>您正在申请的是{{type==1?'美国':'香港'}}上市交易的ETF</div>
                 <openAccountSteps :step=step></openAccountSteps>
                 <div class="info-title">个人信息</div>
-                <el-form title="个人信息" class="userInfoForm" :label-position="labelPosition" label-width="80px" :model="userInfo">
+                <el-form title="个人信息" class="userInfoForm" :label-position="labelPosition" label-width="80px"
+                         :model="userInfo" ref="userInfoForm" :rules="userInfoRules">
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="姓（中文）:" prop="cnLastName" required>
-                                <el-input  placeholder="请确保您填写的姓名与身份证件上的信息完全一致" v-model="userInfo.cnLastName"></el-input>
+                                <el-input placeholder="请确保您填写的姓名与身份证件上的信息完全一致" v-model="userInfo.cnLastName"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="名（中文）:" prop="cnFirstName" required>
-                                <el-input  placeholder="请确保您填写的姓名与身份证件上的信息完全一致" v-model="userInfo.cnFirstName"></el-input>
+                                <el-input placeholder="请确保您填写的姓名与身份证件上的信息完全一致"
+                                          v-model="userInfo.cnFirstName"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -30,19 +32,21 @@
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="名（英文/拼音）:" prop="enFirstName" required>
-                                <el-input placeholder="请确保您填写的姓名与身份证件上的信息完全一致" v-model="userInfo.enFirstName"></el-input>
+                                <el-input placeholder="请确保您填写的姓名与身份证件上的信息完全一致"
+                                          v-model="userInfo.enFirstName"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="出生日期:" prop="birthDate" required>
-                                <el-date-picker type="date" placeholder="请选择" v-model="userInfo.birthDate" style="width: 100%;"></el-date-picker>
+                                <el-date-picker type="date" placeholder="请选择" v-model="userInfo.birthDate"
+                                                style="width: 100%;" :editable=false></el-date-picker>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="香港身份证号码:" prop="idNo" required>
-                                <el-input placeholder="请确保与您证件上的号码完全一致，包括英文大小写、符号等" v-model="userInfo.idNo"></el-input>
+                            <el-form-item label="香港身份证号码:" prop="idCardNo" required>
+                                <el-input placeholder="请确保与您证件上的号码完全一致，包括英文大小写、符号等" v-model="userInfo.idCardNo"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -60,7 +64,7 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="婚姻状况:" prop="gender" required>
+                            <el-form-item label="婚姻状况:" prop="marriage" required>
                                 <el-select v-model="userInfo.marriage" placeholder="请选择" style="width: 100%;">
                                     <el-option
                                             v-for="item in maritalStatus"
@@ -140,7 +144,7 @@
 
                 </el-form>
                 <div class="btn-wrap">
-                    <div @click="saveUserInfo" class="btn-item btn1">保存</div>
+                    <div @click="saveUserInfo('userInfoForm')" class="btn-item btn1">保存</div>
                     <div @click="chooseMarket" class="btn-item btn2">上一步</div>
                     <div @click="goSubmitAddressInfo" class="btn-item btn3">下一步</div>
                 </div>
@@ -156,8 +160,6 @@
   import footerBar from '@/components/footer/footer.vue';
   import openAccountSteps from '@/components/common/openAccountSteps.vue';
 
-
-
   export default {
     name: 'submitInfoStepOne',
     components: {
@@ -166,6 +168,40 @@
       openAccountSteps
     },
     data() {
+      const validateIdCard = (rule, value, callback) => {
+        let mobileReg = /^(5|6|8|9)\\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
+        if (value == '') {
+          callback(new Error('请输入香港身份证号'));
+        } else if (!mobileReg.test(value)) {
+          callback(new Error('请输入正确的香港身份证号'));
+        } else {
+          callback();
+        }
+      };
+
+      const validateMobile = (rule, value, callback) => {
+        let mobileReg = /^([A-Z]{1,2})([0-9]{6})([A0-9])$/; //香港身份证
+        if (value == '') {
+          callback(new Error('请输入香港手机号码'));
+        } else if (!mobileReg.test(value)) {
+          callback(new Error('请输入正确的香港手机号码'));
+        } else {
+          callback();
+        }
+      };
+
+      const validateEmail = (rule, value, callback) => {
+        let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if (value == '') {
+          callback(new Error('请输入电子邮箱地址'));
+        } else if (!mailReg.test(value)) {
+          callback(new Error('请输入正确的电子邮箱地址'));
+        } else {
+          callback();
+        }
+      };
+
+
       return {
         type: this.$route.query.type,
         step: 1,
@@ -287,11 +323,64 @@
         userInfo: {
           currency: '0'
         },
+        userInfoRules: {
+          cnLastName: [
+            { required: true, message: "请输入姓（中文）" },
+          ],
+          cnFirstName: [
+            { required: true, message: '请输入名（中文）'}
+          ],
+          enLastName: [
+            { required: true, message: '请输入姓（英文/拼音）' }
+          ],
+          enFirstName: [
+            { required: true, message: '请输入名（英文/拼音）' }
+          ],
+          birthDate: [
+            { required: true, message: '请选择出生日期',  trigger: 'blur' }
+          ],
+          idCardNo: [
+            { required: true, message: '请输入香港身份证号' },
+            { validator: validateIdCard, trigger: 'blur'}
+          ],
+          gender: [
+            { required: true, message: '请选择性别',  trigger: 'change' }
+          ],
+          marriage: [
+            { required: true, message: '请选择婚姻状态',  trigger: 'change' }
+          ],
+          mobile: [
+            { required: true, message: '请输入香港手机号码' },
+            { validator: validateMobile, trigger: 'blur'}
+          ],
+          email: [
+            { required: true, message: '请输入电子邮箱地址' },
+            { validator: validateEmail, trigger: 'blur'}
+          ],
+          familyNumber: [
+            { required: true, message: '请选择家庭成员人数',  trigger: 'change' }
+          ],
+          accountType: [
+            { required: true, message: '请选择账户类型',  trigger: 'change' }
+          ],
+          depositWay: [
+            { required: true, message: '请选择入金方式',  trigger: 'change' }
+          ],
+
+        }
       };
     },
     methods: {
-      saveUserInfo() {
+      saveUserInfo(formName) {
         console.log('保存');
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
       },
       chooseMarket() {
         this.$router.replace({ name: 'chooseMarket' });
@@ -321,29 +410,29 @@
             color: rgba(60, 63, 77, 1);
             line-height: 58px;
         }
-        .info-wrapper{
+        .info-wrapper {
             padding: 20px 116px 100px;
-            .tips{
+            .tips {
                 padding-bottom: 16px;
-                font-size:16px;
-                font-family:SourceHanSansSC-Regular;
-                font-weight:400;
+                font-size: 16px;
+                font-family: SourceHanSansSC-Regular;
+                font-weight: 400;
                 color: #3B4859;
-                line-height:24px;
-                label{
+                line-height: 24px;
+                label {
                     color: #F50000;
                 }
             }
-            .info-title{
+            .info-title {
                 margin-top: 80px;
                 margin-bottom: 30px;
                 font-size: 24px;
                 font-family: SourceHanSansSC-Medium;
-                font-weight:500;
+                font-weight: 500;
                 color: #3B4859;
                 line-height: 24px;
             }
-            .userInfoForm{
+            .userInfoForm {
                 width: 780px;
                 margin: 0 auto;
             }
@@ -383,7 +472,6 @@
             }
         }
     }
-
 
 
 </style>

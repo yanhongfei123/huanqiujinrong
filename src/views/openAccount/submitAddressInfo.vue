@@ -9,12 +9,12 @@
                 <div class="tips"><label>* </label>您正在申请的是{{type==1?'美国':'香港'}}上市交易的ETF</div>
                 <openAccountSteps :step=step></openAccountSteps>
                 <el-form title="个人信息" class="addressInfoForm" :label-position="labelPosition" label-width="80px"
-                         :model="addressInfo" ref="addressInfoForm">
+                         :model="addressInfo" ref="addressInfoForm" :rules="addressInfoRules">
                     <div class="info-title title1">一.居民地址</div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="详细居住地址:" prop="address" required>
-                                <el-input placeholder="请与身份证明文件上地址保持一致。" v-model="addressInfo.address"></el-input>
+                            <el-form-item label="详细居住地址:" prop="residenceAddress" required>
+                                <el-input placeholder="请与身份证明文件上地址保持一致。" maxlength="50" v-model="addressInfo.residenceAddress"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -35,7 +35,7 @@
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="详细通讯地址:" prop="contactDetailAddress" required>
-                                <el-input placeholder="请填写详细通讯地址请"
+                                <el-input placeholder="请填写详细通讯地址请" maxlength="50"
                                           v-model="addressInfo.contactDetailAddress"></el-input>
                             </el-form-item>
                         </el-col>
@@ -44,7 +44,7 @@
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="纳税识别号:" prop="taxNo" required>
-                                <el-input placeholder="请填写纳税识别号" v-model="addressInfo.taxNo"></el-input>
+                                <el-input placeholder="请填写纳税识别号" maxlength="20" v-model="addressInfo.taxNo"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col class="tip">
@@ -67,7 +67,7 @@
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="雇佣单位:" prop="company" required>
-                                <el-input placeholder="请填写雇佣单位" v-model="addressInfo.company"></el-input>
+                                <el-input placeholder="请填写雇佣单位" maxlength="20" v-model="addressInfo.company"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -86,20 +86,20 @@
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="职位:" prop="job" required>
-                                <el-input placeholder="请填写职位" v-model="addressInfo.job"></el-input>
+                                <el-input placeholder="请填写职位" maxlength="10" v-model="addressInfo.job"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="详细通讯地址:" prop="companyDetailAddress" required>
-                                <el-input placeholder="请填写单位详细地址" v-model="addressInfo.companyDetailAddress"></el-input>
+                                <el-input placeholder="请填写单位详细地址" maxlength="50" v-model="addressInfo.companyDetailAddress"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                 </el-form>
                 <div class="btn-wrap">
-                    <div @click="saveAddressInfo" class="btn-item btn1">保存</div>
+                    <div @click="saveAddressInfo('addressInfoForm')" class="btn-item btn1">保存</div>
                     <div @click="goSubmitUserInfo" class="btn-item btn2">上一步</div>
                     <div @click="goSubmitAddressInfo" class="btn-item btn3">下一步</div>
                 </div>
@@ -164,14 +164,52 @@
           },
         ],
         industryList: [],
+        addressInfoRules: {
+          residenceAddress: [
+            { required: true, message: "请输入居住地址" },
+          ],
+          contactCountry: [
+            { required: true, message: '请选择通讯地址所在国家/地区',  trigger: 'blur' }
+          ],
+          contactDetailAddress: [
+            { required: true, message: "请输入详细通讯地址" },
+          ],
+          taxNo: [
+            { required: true, message: "请输入纳税识别号" },
+          ],
+          jobType: [
+            { required: true, message: '请选择就业类型',  trigger: 'blur' }
+          ],
+          industry: [
+            { required: true, message: '请选择商业性质',  trigger: 'blur' }
+          ],
+          company: [
+            { required: true, message: "请输入雇佣单位名称" },
+          ],
+          job: [
+            { required: true, message: "请输入职位" },
+          ],
+          companyDetailAddress: [
+            { required: true, message: "请输入单位详细地址" },
+          ],
+
+        },
         addressInfo: {
 
         },
       };
     },
     methods: {
-      saveAddressInfo() {
+      saveAddressInfo(formName) {
         console.log('保存');
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
       },
       goSubmitUserInfo() {
         this.$router.replace({ name: 'submitUserInfo' });
