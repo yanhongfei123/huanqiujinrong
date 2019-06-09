@@ -13,13 +13,13 @@
                     <div class="market-img"></div>
                     <p class="market-info">美国上市交易的ETF</p>
                     <p class="market-info">投资门槛 50,000 USD</p>
-                    <div class="btn btn-confirm">确认开户</div>
+                    <div class="btn btn-confirm" @click="selectMarket(1)" data-type="1">确认开户</div>
                 </div>
                 <div class="market-item market-hk">
                     <div class="market-img"></div>
                     <p class="market-info">香港上市交易的ETF</p>
                     <p class="market-info">投资门槛 100,000 HKD</p>
-                    <div class="btn btn-confirm">确认开户</div>
+                    <div class="btn btn-confirm" @click="selectMarket(2)" data-type="2">确认开户</div>
                 </div>
             </div>
         </div>
@@ -28,23 +28,31 @@
 </template>
 
 <script>
-    import openAccountHeader from '@/components/header/openAccountHeader.vue';
-    import footerBar from '@/components/footer/footer.vue';
+  import openAccountHeader from '@/components/header/openAccountHeader.vue';
+  import footerBar from '@/components/footer/footer.vue';
 
-    export default {
-        name: 'openAccount',
-        components: {
-            openAccountHeader,
-            footerBar,
-        },
-        data() {
-            return {};
-        },
-        computed: {},
-        methods: {},
-        mounted() {
-        },
-    };
+  export default {
+    name: 'chooseMarket',
+    components: {
+      openAccountHeader,
+      footerBar,
+    },
+    data() {
+      return {};
+    },
+    computed: {},
+    methods: {
+      selectMarket(type) {
+        console.log(type);
+        this.$router.replace({
+          name: 'userInfo',
+          query: { type: type }
+        });
+      }
+    },
+    mounted() {
+    },
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -116,7 +124,7 @@
                     padding-top: 14px;
                 }
 
-                .btn{
+                .btn {
                     margin: 40px auto 0;
                     position: relative;
                     width: 240px;
@@ -125,11 +133,11 @@
                     line-height: 60px;
                     font-size: 18px;
                     font-weight: 500;
-                    font-family:PingFangSC-Medium;
+                    font-family: PingFangSC-Medium;
                     color: #fff;
                     background: #d51d26;
                     cursor: pointer;
-                    &:after{
+                    &:after {
                         position: absolute;
                         top: 0;
                         left: 0;
