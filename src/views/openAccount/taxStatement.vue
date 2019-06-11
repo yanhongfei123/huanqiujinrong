@@ -137,9 +137,9 @@
                     </div>
                 </el-form>
                 <div class="btn-wrap">
-                    <div @click="saveRegulatoryInfo('regulatoryInfoForm')" class="btn-item btn1">保存</div>
-                    <div @click="goSubmitAddressInfo" class="btn-item btn2">上一步</div>
-                    <div @click="goTaxStatement('regulatoryInfoForm')" class="btn-item btn3">下一步</div>
+                    <div @click="saveStatementInfo('statementInfoForm')" class="btn-item btn1">保存</div>
+                    <div @click="goSubmitRegulatoryInfo" class="btn-item btn2">上一步</div>
+                    <div @click="goDisclosure('statementInfoForm')" class="btn-item btn3">本人同意</div>
                 </div>
             </div>
 
@@ -203,10 +203,7 @@
             },
         },
         methods: {
-            changeInvestTarget() {
-
-            },
-            saveRegulatoryInfo(formName) {
+            saveStatementInfo(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后提示
@@ -214,17 +211,17 @@
                     }
                 });
             },
-            goSubmitAddressInfo() {
-                this.$router.replace({name: 'addressInfo'});
+            goSubmitRegulatoryInfo() {
+                this.$router.replace({name: 'regulatoryInfo'});
             },
-            goTaxStatement(formName) {
+            goDisclosure(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后跳转
-                        this.$router.replace({name: 'taxStatement'});
+                        this.$router.replace({name: 'disClosure'});
                     } else {
                         //测试
-                        this.$router.replace({name: 'taxStatement'});
+                        this.$router.replace({name: 'disClosure'});
                     }
                 });
             }
