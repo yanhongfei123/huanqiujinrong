@@ -319,7 +319,6 @@ th {
 .clear:after{display:block;clear:both;content:"";visibility:hidden;height:0}
 
 .el-form-item--medium .el-form-item__content, .el-form-item--medium .el-form-item__label{
-  line-height: 32px !important;
   padding: 0 !important;
 }
 
