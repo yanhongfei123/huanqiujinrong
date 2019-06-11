@@ -6,7 +6,7 @@
           STEP
           <span>1</span>
         </div>
-        <div class="step-info">选择入金方式，采用电汇或者支票</div>
+        <div class="step-info">{{$t('userCenter.guide.text1')}}</div>
       </div>
       <div class="arrow"></div>
       <div class="step step2">
@@ -14,7 +14,7 @@
           STEP
           <span>2</span>
         </div>
-        <div class="step-info">按照“我的汇款账号”进行汇款</div>
+        <div class="step-info">{{$t('userCenter.guide.text2')}}</div>
       </div>
       <div class="arrow"></div>
       <div class="step step2">
@@ -22,19 +22,19 @@
           STEP
           <span>3</span>
         </div>
-        <div class="step-info">汇款完成后，在本网站按要求填写存款通知</div>
+        <div class="step-info">{{$t('userCenter.guide.text3')}}</div>
       </div>
     </div>
-    <div class="beizhu">备注说明</div>
-    <p class="btm-tips">您必须使用您的同名银行账户进行出入金操作。建议使用香港银行账户。</p>
-    <p class="btm-tips">请您于账户开立后30天内存入款项激活。</p>
+    <div class="beizhu">{{$t('userCenter.guide.text4')}}</div>
+    <p class="btm-tips">{{$t('userCenter.guide.text5')}}</p>
+    <p class="btm-tips">{{$t('userCenter.guide.text6')}}</p>
   </div>
 </template>
 <script>
 export default {};
 </script>
 <style lang="scss" scoped>
-.guide-wrap{
+.guide-wrap {
   padding-right: 40px;
 }
 .step-wrap {

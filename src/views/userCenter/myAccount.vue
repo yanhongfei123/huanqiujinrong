@@ -2,16 +2,19 @@
   <div class="account-wrap">
     <div class="top-wrap">
       <div class="item item1">
-        <div class="type">一. 我的金额</div>
+        <div class="type">一. {{$t('userCenter.myAccount.text1')}}</div>
         <div class="tb-wrap">
           <div class="tbl-item tbl-item1">
-            <div class="label">可投资金额</div>
+            <div class="label">{{$t('userCenter.myAccount.text2')}}</div>
             <div class="acount">398741100</div>
           </div>
           <div class="tbl-item">
             <div class="label">
-              冻结金额（港币）
-              <tips top="3px" right="-20px">冻结金额冻结金额冻结金额冻结金额冻结金额冻结金额,冻结金额冻结金额冻结金额冻结金额冻结金额冻结金额</tips>
+              {{$t('userCenter.myAccount.text3')}}（港币）
+              <tips
+                top="3px"
+                right="-20px"
+              >{{$t('userCenter.myAccount.text4')}}（产品名称）{{$t('userCenter.myAccount.text4_1')}}</tips>
             </div>
             <div class="acount">39870</div>
           </div>
@@ -19,28 +22,28 @@
       </div>
       <div class="item">
         <div class="type">
-          一. 证券账户信息
-          <router-link to="/">查看证券详情</router-link>
+          一. {{$t('userCenter.myAccount.text5')}}
+          <router-link to="/">{{$t('userCenter.myAccount.text6')}}</router-link>
         </div>
         <div class="tb-wrap">
           <div class="tbl-item tbl-item1">
-            <div class="label">证券账号</div>
+            <div class="label">{{$t('userCenter.myAccount.text7')}}</div>
             <div class="acount">xyz39870</div>
           </div>
           <div class="tbl-item">
-            <div class="label">用户名</div>
+            <div class="label">{{$t('userCenter.myAccount.text8')}}</div>
             <div class="acount">xyz39870</div>
           </div>
         </div>
       </div>
     </div>
     <div class="btm-wrap">
-      <div class="type">三. 常见问题</div>
+      <div class="type">三. {{$t('userCenter.myAccount.text9')}}</div>
       <div class="q-list">
         <div class="q-item" v-for="(val,index) in qList" :key="index">
           <div :class="[val.showanswer?'show':'']" class="icon"></div>
           <div @click="val.showanswer=!val.showanswer" class="q-title">{{val.title}}</div>
-          <div v-show="val.showanswer" class="q-answer">{{val.answer}}</div>
+          <div :class="[val.showanswer?'height-auto':'']" class="q-answer">{{val.answer}}</div>
         </div>
       </div>
     </div>
@@ -143,11 +146,19 @@ export default {
       cursor: pointer;
     }
     .q-answer {
+      height: 0;
+      overflow: hidden;
       font-size: 14px;
       color: rgba(60, 63, 77, 1);
       line-height: 20px;
-      margin-bottom: 20px;
+      &.height-auto {
+        height: 40px;
+        margin-bottom: 20px;
+        transition: height 0.3s;
+        -webkit-transition: height 0.3s;
+      }
     }
+
     .q-list {
       margin-left: 35px;
     }

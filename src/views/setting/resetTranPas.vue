@@ -3,22 +3,36 @@
     <div class="content">
       <el-form class="form" :model="regForm" :rules="regRules" ref="regForm">
         <el-form-item prop="account">
-          <el-input v-model="regForm.account" type="text" placeholder="手机号/邮箱地址"></el-input>
+          <el-input
+            v-model="regForm.account"
+            type="text"
+            :placeholder="$t('setting.resetTrans.text1')"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="smsCode">
           <el-row>
             <el-col :span="18">
-              <el-input v-model="regForm.smsCode" type="tel" maxlength="6" placeholder="验证码"></el-input>
+              <el-input
+                v-model="regForm.smsCode"
+                type="tel"
+                maxlength="6"
+                :placeholder="$t('setting.resetTrans.text2')"
+              ></el-input>
             </el-col>
             <el-col :span="4">
-              <el-button type="text" class="btn-captcha">获取验证码</el-button>
+              <el-button type="text" class="btn-captcha">{{$t('setting.resetTrans.text3')}}</el-button>
             </el-col>
           </el-row>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input maxlength="6" v-model="regForm.password" type="password" placeholder="请设置6位新交易密码"></el-input>
+          <el-input
+            maxlength="6"
+            v-model="regForm.password"
+            type="password"
+            :placeholder="$t('setting.resetTrans.text4')"
+          ></el-input>
         </el-form-item>
-        <div class="btn btn-register" @click="confirm('regForm')">确认修改</div>
+        <div class="btn btn-register" @click="confirm('regForm')">{{$t('setting.resetTrans.text5')}}</div>
       </el-form>
     </div>
   </div>
@@ -27,25 +41,23 @@
 <script>
 export default {
   name: "register",
-  components: {
-
-  },
+  components: {},
   data() {
     const validateAccount = (rule, value, callback) => {
       let mobileReg = /^1\d{10}$/;
       let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
       if (value == "") {
-        callback(new Error("请输入手机号/邮箱"));
+        callback(new Error(this.$t("setting.resetTrans.error.text1")));
       }
       if (value.indexOf("@") > -1) {
         if (!mailReg.test(value)) {
-          callback(new Error("请输入正确的邮箱"));
+          callback(new Error(this.$t("setting.resetTrans.error.text2")));
         } else {
           callback();
         }
       } else {
         if (!mobileReg.test(value)) {
-          callback(new Error("请输入正确的手机号"));
+          callback(new Error(this.$t("setting.resetTrans.error.text3")));
         } else {
           callback();
         }
@@ -54,9 +66,9 @@ export default {
     const validateSmsCode = (rule, value, callback) => {
       let smsReg = /^\d{6}$/;
       if (value == "") {
-        callback(new Error("请输入短信验证码"));
+        callback(new Error(this.$t("setting.resetTrans.error.text4")));
       } else if (!smsReg.test(value)) {
-        callback(new Error("请输入正确的短信验证码"));
+        callback(new Error(this.$t("setting.resetTrans.error.text5")));
       } else {
         callback();
       }
@@ -65,9 +77,9 @@ export default {
     const validatePass = (rule, value, callback) => {
       let pwdReg = /^\d{6}$/;
       if (value == "") {
-        callback(new Error("请输入6位新交易密码"));
+        callback(new Error(this.$t("setting.resetTrans.error.text6")));
       } else if (!pwdReg.test(value)) {
-        callback(new Error("请输入6位数字的新交易密码,"));
+        callback(new Error(this.$t("setting.resetTrans.error.text6")));
       } else {
         callback();
       }
@@ -153,7 +165,8 @@ export default {
         line-height: 36px;
         color: #fff;
         text-align: center;
-        background: url('../../assets/images/other_btn/btn_signin.png') no-repeat center;
+        background: url("../../assets/images/other_btn/btn_signin.png")
+          no-repeat center;
         background-size: contain;
         cursor: pointer;
         &.btn-register {

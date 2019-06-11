@@ -6,23 +6,24 @@
     <section class="barner">
       <div class="barner-content">
         <div class="barner-title">
-          <span>ETF</span>.COOL | 易酷
+          <span>ETF</span>
+          .COOL | {{$t('introduction.text1')}}
         </div>
         <div
           class="barner-info"
-        >我们是一群分别来自于美国、香港和中国内地的从事金融和计算机技术的小伙伴。我们拥有不同的专业领域，文化背景，职业经历乃至生活方式，但是我们走到一起共同创立【ETF.cool|易酷】。</div>
+        >{{$t('introduction.text2')}}【ETF.cool|{{$t('introduction.text1')}}】。</div>
       </div>
     </section>
     <section class="content1">
       <div class="com-width tr">
-        <div class="title">我们坚信以下三件事情</div>
-        <div class="info">技术能够使世界更美好，能够将在过去只属于少数人的知识，技能和服务分享给更多的人。</div>
-        <div class="info">时代总是在进步，而且每个人都应该享受到这种进步带来的果实。</div>
-        <div class="info">我们坚信长期情况下，经典资产配置理论和金融市场的有效性是成立的。</div>
+        <div class="title">{{$t('introduction.text3')}}</div>
+        <div class="info">{{$t('introduction.text4')}}</div>
+        <div class="info">{{$t('introduction.text5')}}</div>
+        <div class="info">{{$t('introduction.text6')}}</div>
       </div>
     </section>
     <section class="content2">
-      <div class="text tc">我们希望更多认同我们以上理念的小伙伴们一起加入我们 证明大家是对的。</div>
+      <div class="text tc">{{$t('introduction.text7')}}</div>
     </section>
     <footerBar></footerBar>
   </div>
@@ -58,7 +59,8 @@ export default {
   .barner {
     position: relative;
     height: 668px;
-    background: url("../assets/images/firstpage/banner_team.png") no-repeat center;
+    background: url("../assets/images/firstpage/banner_team.png") no-repeat
+      center;
     background-size: cover;
     .barner-content {
       width: 900px;
@@ -91,13 +93,14 @@ export default {
     overflow: hidden;
     background: #fff;
     &::after {
-      content: '';
-      width:660px;
+      content: "";
+      width: 660px;
       height: 464px;
       position: absolute;
       left: 0;
       bottom: 0;
-      background: url("../assets/images/firstpage//bg_team.png") no-repeat left center;
+      background: url("../assets/images/firstpage//bg_team.png") no-repeat left
+        center;
       background-size: auto 100%;
     }
     .com-width {
@@ -108,7 +111,8 @@ export default {
       width: 522px;
       font-size: 40px;
       padding: 12px 0 12px 120px;
-      background: url("../assets//images/firstpage/icon_team.png") no-repeat left center;
+      background: url("../assets//images/firstpage/icon_team.png") no-repeat
+        left center;
       background-size: auto 100%;
       margin-bottom: 100px;
     }
@@ -122,11 +126,12 @@ export default {
   }
   .content2 {
     height: 668px;
-    background: url("../assets/images/firstpage//banner_team2.png") no-repeat center;
+    background: url("../assets/images/firstpage//banner_team2.png") no-repeat
+      center;
     background-size: cover;
     display: flex;
     align-items: center;
-    .text{
+    .text {
       width: 700px;
       margin: 0 auto;
       font-size: 28px;

@@ -3,17 +3,23 @@
     <div class="logo"></div>
     <div class="nav-cont flex">
       <div class="nav-bar flex">
-        <div :class="[path === '/account' ? 'active' : '', 'nav-item']" @click="goPage('/')">账户总览</div>
-        <div :class="[path === '/operation' ? 'active' : '','nav-item']" @click="goPage('/')">投资组合</div>
+        <div
+          :class="[path === '/account' ? 'active' : '', 'nav-item']"
+          @click="goPage('/')"
+        >{{$t('userCenterNav.account')}}</div>
+        <div
+          :class="[path === '/operation' ? 'active' : '','nav-item']"
+          @click="goPage('/')"
+        >{{$t('userCenterNav.operation')}}</div>
         <div
           :class="[path === '/userCenter/myAccount' ? 'active' : '', 'nav-item']"
           @click="goPage('/userCenter/myAccount')"
-        >资金出入</div>
+        >{{$t('userCenterNav.myAccount')}}</div>
         <div
           v-if="!isshowusername"
           :class="[path === '/find' ? 'active' : '', 'nav-item realName-auth']"
           @click="goPage('/openAccount')"
-        >请实名</div>
+        >{{$t('userCenterNav.realName')}}</div>
       </div>
       <div v-if="isshowusername" class="user-wrap nav-item active">
         <span @click="goPage('/messageCenter')" class="notice">
@@ -21,9 +27,9 @@
         </span>
         <span @click="showMenu($event)">刘某某</span>
         <ul v-show="showmenu" :class="[showmenu?'show':'']" class="dropMenu">
-          <li @click="goPage('/userCenter')" class="user-center">个人中心</li>
-          <li @click="goPage('/setting')" class="setting">个人设置</li>
-          <li @click="goPage('/loginOut')" class="login-out">退出登录</li>
+          <li @click="goPage('/userCenter')" class="user-center">{{$t('userCenterNav.userCenter')}}</li>
+          <li @click="goPage('/setting')" class="setting">{{$t('userCenterNav.setting')}}</li>
+          <li @click="goPage('/loginOut')" class="login-out">{{$t('userCenterNav.loginOut')}}</li>
         </ul>
       </div>
       <!-- <div class="nav-m flex hover">
@@ -31,9 +37,9 @@
         <div class="hover" @click="goPage('register')">注册</div>
       </div>-->
       <div class="nav-r flex">
-        <div class="hover" @click="setLanguage('zh')">简</div>
+        <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">简</div>
         <div class="line"></div>
-        <div class="hover" @click="setLanguage('ft')">繁</div>
+        <div :class="[$i18n.locale === 'ft'?'active':'']" class="hover" @click="setLanguage('ft')">繁</div>
       </div>
     </div>
   </div>
@@ -62,12 +68,10 @@ export default {
   },
   methods: {
     showMenu(event) {
-      console.log(event.target);
       this.$store.dispatch("showMenu", true);
     },
     goPage(path) {
       if (path == "/loginOut") {
-        alert("退出登录");
         return;
       }
       this.$router.push(path);
@@ -168,7 +172,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .active {
+  .active,
+  .nav-r .active {
     color: #141416;
   }
   .flex {

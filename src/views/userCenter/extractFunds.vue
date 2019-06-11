@@ -1,17 +1,17 @@
 <template>
   <div class="extractFunds">
     <div class="cash-wrap">
-      <div class="label">一.现金余额 (*准确金额以IB账户内现金结余为准)</div>
+      <div class="label">一.{{$t('userCenter.extractFunds.text1')}}</div>
       <div class="wrap clear">
         <div class="item item1 fl">
-          <div class="type">港币</div>
+          <div class="type">{{$t('userCenter.extractFunds.text2')}}</div>
           <div class="amount">
             HKD
             <span>39,870.00</span>
           </div>
         </div>
         <div class="item fl">
-          <div class="type">美元</div>
+          <div class="type">{{$t('userCenter.extractFunds.text3')}}</div>
           <div class="amount">
             USD
             <span>39,870.00</span>
@@ -20,38 +20,43 @@
       </div>
     </div>
     <div class="info-wrap">
-      <div class="label">二.出金须知</div>
-      <div class="info">您的证券持仓及资金被托管在盈透证券香港有限公司（“盈透证券”）及其托管银行。您于（产品名称）系统卖出持仓后，将需要登入盈透证券系统提取资金。</div>
+      <div class="label">二.{{$t('userCenter.extractFunds.text4')}}</div>
+      <div class="info">{{$t('userCenter.extractFunds.text5')}}</div>
       <div class="info">
-        点击查看
-        <span>详细指引</span>
+        {{$t('userCenter.extractFunds.text6')}}
+        <span>{{$t('userCenter.extractFunds.text7')}}</span>
       </div>
-      <div class="info">您需要使用您的同名银行账户进行资金提取。我们建议您使用香港银行账户。</div>
+      <div class="info">{{$t('userCenter.extractFunds.text8')}}</div>
     </div>
     <div class="btm-wrap">
-      <div class="label">三. 常见问题</div>
+      <div class="label">三. {{$t('userCenter.extractFunds.text9')}}</div>
       <div class="q-list">
         <div class="q-item" v-for="(val,index) in qList" :key="index">
           <div :class="[val.showanswer?'show':'']" class="icon"></div>
           <div @click="val.showanswer=!val.showanswer" class="q-title">{{val.title}}</div>
-          <div v-show="val.showanswer" class="q-answer">{{val.answer}}</div>
+          <div :class="[val.showanswer?'height-auto':'']" class="q-answer">{{val.answer}}</div>
         </div>
       </div>
     </div>
-    <div class="label">四.如您希望提取投资组合中的全部资产，请您点击“卖出全部持仓”</div>
-    <div @click="showmask=true" class="submit">卖出全部持仓</div>
+    <div class="label">四.{{$t('userCenter.extractFunds.text10')}}</div>
+    <div @click="showmask=true" class="submit">{{$t('userCenter.extractFunds.text11')}}</div>
     <div v-if="showmask" class="mask">
       <div class="content">
         <div @click="showmask=false" class="close"></div>
-        <div class="title">输入交易密码</div>
-        <div class="des tl">卖出持仓后，您将无法享受到收益，请慎重决定！如已考虑清楚，请在下方输入交易密码。</div>
+        <div class="title">{{$t('userCenter.extractFunds.text12')}}</div>
+        <div class="des tl">{{$t('userCenter.extractFunds.text13')}}</div>
         <div class="pas-wrap">
-          <el-input maxlength="6" placeholder="请输入6位交易密码" v-model="password" clearable></el-input>
+          <el-input
+            maxlength="6"
+            :placeholder="$t('userCenter.extractFunds.text16')"
+            v-model="password"
+            clearable
+          ></el-input>
         </div>
         <div class="tips">
-          <span v-show="showerror">请输入正确的交易密码</span>
+          <span v-show="showerror">{{$t('userCenter.extractFunds.text14')}}</span>
         </div>
-        <el-button class="confirm" type="primary">确 定</el-button>
+        <el-button class="confirm" type="primary">{{$t('userCenter.extractFunds.text15')}}</el-button>
       </div>
     </div>
   </div>
@@ -138,11 +143,19 @@ export default {
     cursor: pointer;
   }
   .q-answer {
+    height: 0;
+    overflow: hidden;
     font-size: 14px;
     color: rgba(60, 63, 77, 1);
     line-height: 20px;
-    margin-bottom: 20px;
+    &.height-auto {
+      height: 40px;
+      margin-bottom: 20px;
+      transition: height 0.3s;
+      -webkit-transition: height 0.3s;
+    }
   }
+
   .q-list {
     margin-left: 35px;
   }

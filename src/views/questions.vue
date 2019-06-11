@@ -6,7 +6,7 @@
     <section class="barner">
       <div class="barner-content">
         <div class="barner-title">Q & A</div>
-        <div class="barner-info">常见问题</div>
+        <div class="barner-info">{{this.$t("question.text1")}}</div>
       </div>
     </section>
     <section class="content">
@@ -21,11 +21,9 @@
           >{{val}}</div>
         </div>
         <div @click="toggle(val)" v-for="(val,index) in fqList" :key="index" class="question">
+          <div :class="[val.isshow?'show':'']" class="icon"></div>
           <div class="q-title">{{val.fq}}</div>
-          <div
-            v-show="val.isshow"
-            class="answer"
-          >{{val.as}}</div>
+          <div :class="[val.isshow?'height-auto':'']" class="answer">{{val.as}}</div>
         </div>
       </div>
     </section>
@@ -44,18 +42,21 @@ export default {
     headerNav,
     footerBar
   },
-  computed: {},
+  computed: {
+    typeList() {
+      return [
+        this.$t("question.text1"),
+        this.$t("question.text2"),
+        this.$t("question.text3"),
+        this.$t("question.text4"),
+        this.$t("question.text5"),
+        this.$t("question.text6")
+      ];
+    }
+  },
   data() {
     return {
       oIndex: 0,
-      typeList: [
-        "常见问题",
-        "开户相关",
-        "出入金相关",
-        "投资相关",
-        "具体收费",
-        "安全"
-      ],
       fqList: [
         {
           isshow: false,
@@ -82,7 +83,7 @@ export default {
     changeTab(index) {
       this.oIndex = index;
     },
-    toggle(item){
+    toggle(item) {
       item.isshow = !item.isshow;
     }
   }
@@ -94,7 +95,8 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../assets/images/firstpage/banner_question1.png") no-repeat center;
+    background: url("../assets/images/firstpage/banner_question1.png") no-repeat
+      center;
     background-size: cover;
     .barner-content {
       width: 1180px;
@@ -137,23 +139,44 @@ export default {
         font-weight: bold;
         border-bottom-color: #d51d26;
         &::after {
-          @include icon2(-70px, auto,auto,-20px);
+          @include icon2(-70px, auto, auto, -20px);
           background-size: 50%;
         }
       }
     }
   }
   .question {
+    position: relative;
     color: #141416;
     .q-title {
       font-size: 24px;
       font-weight: bold;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
     .answer {
+      height: 0;
+      overflow: hidden;
       font-size: 20px;
       line-height: 28px;
-      margin: 38px 0 20px;
+      opacity: 0.8;
+      &.height-auto {
+        height: 56px;
+        margin: 28px 0 20px;
+        transition: height 0.3s;
+        -webkit-transition: height 0.3s;
+      }
+    }
+    .icon {
+      position: absolute;
+      top: 8px;
+      left: -35px;
+      width: 16px;
+      height: 16px;
+      background: url("../assets/images/user_center/btn_jia.png");
+      background-size: contain;
+    }
+    .show {
+      background: url("../assets/images/user_center/btn_expand.png");
     }
   }
 }

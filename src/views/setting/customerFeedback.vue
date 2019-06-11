@@ -1,7 +1,7 @@
 <template>
   <div class="address-wrap">
-    <div class="item item1">香港 中环 金融街8号国际金融中心二期大厦 19楼101室</div>
-    <div class="item item1">香港数码港道100号数码港1座10楼1102室</div>
+    <div class="item item1">{{$t('setting.address.text1')}}</div>
+    <div class="item item1">{{$t('setting.address.text2')}}</div>
     <div class="item item2">+852 XXXXXXX</div>
     <div class="item item3">info@etf.cool</div>
   </div>
@@ -29,7 +29,7 @@ export default {};
     background-size: auto 100%;
   }
   .item3 {
-    background: url("../../assets/images/icon_mail.png") no-repeat;
+    background: url("../../assets/images/icon_mail.png") no-repeat 3px center;
     background-size: auto 100%;
   }
 }

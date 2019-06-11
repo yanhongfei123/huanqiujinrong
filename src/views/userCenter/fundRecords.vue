@@ -1,22 +1,22 @@
 <template>
   <div class="fundRecords">
     <div class="top-wrap">
-      <div class="label">历史记录</div>
+      <div class="label">{{$t('userCenter.fundRecords.text1')}}</div>
       <div class="date-wrap">
         <el-date-picker
           v-model="date"
           type="daterange"
           range-separator="～"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          :start-placeholder="$t('userCenter.fundRecords.text2')"
+          :end-placeholder="$t('userCenter.fundRecords.text3')"
         ></el-date-picker>
       </div>
     </div>
     <table>
       <thead>
-        <th>交易日期</th>
+        <th>{{$t('userCenter.fundRecords.text4')}}</th>
         <th class="select-wrap">
-          <span>资金类型</span>
+          <span>{{$t('userCenter.fundRecords.text5')}}</span>
           <span class="icon"></span>
           <el-select @change="selectChange" v-model="value" placeholder="请选择">
             <el-option
@@ -27,9 +27,9 @@
             ></el-option>
           </el-select>
         </th>
-        <th>对应资产</th>
-        <th>币种</th>
-        <th>金额</th>
+        <th>{{$t('userCenter.fundRecords.text6')}}</th>
+        <th>{{$t('userCenter.fundRecords.text7')}}</th>
+        <th>{{$t('userCenter.fundRecords.text8')}}</th>
       </thead>
       <tbody>
         <tr v-for="(val,index) in data" :key="index">
@@ -41,12 +41,17 @@
         </tr>
       </tbody>
     </table>
-    <el-pagination @current-change="currentChange" background layout="prev, pager, next" :total="total/100"></el-pagination>
+    <el-pagination
+      @current-change="currentChange"
+      background
+      layout="prev, pager, next"
+      :total="total/100"
+    ></el-pagination>
   </div>
 </template>
 
 <script>
-import { setTimeout } from 'timers';
+import { setTimeout } from "timers";
 export default {
   name: "records",
   data() {
@@ -111,9 +116,9 @@ export default {
   methods: {
     selectChange(item) {
       this.showLoading();
-      setTimeout(()=>{
-        this.hideLoading()
-      }, 2000)
+      setTimeout(() => {
+        this.hideLoading();
+      }, 2000);
       console.log(item);
     },
     showLoading() {
@@ -127,12 +132,11 @@ export default {
     hideLoading() {
       this.loading.close();
     },
-    currentChange(currentpage){
+    currentChange(currentpage) {
       console.log(currentpage);
     }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 <style lang="scss" scoped>
@@ -164,16 +168,16 @@ table {
     line-height: 60px;
     text-align: center;
   }
-  .select-wrap{
+  .select-wrap {
     position: relative;
-    .icon{
+    .icon {
       position: absolute;
       right: 10px;
       top: 36%;
       z-index: 0;
       width: 20px;
       height: 20px;
-      background: url('../../assets/images//icon_choose.png') no-repeat center;
+      background: url("../../assets/images//icon_choose.png") no-repeat center;
       background-size: contain;
     }
   }

@@ -3,15 +3,30 @@
     <div class="content">
       <el-form class="form" :model="resetForm" :rules="resetRules" ref="resetForm">
         <el-form-item prop="oldPassword">
-          <el-input maxlength="16" v-model="resetForm.oldPassword" type="text" placeholder="请输入原密码"></el-input>
+          <el-input
+            maxlength="16"
+            v-model="resetForm.oldPassword"
+            type="text"
+            :placeholder="$t('setting.resetPwd.text1')"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="newPassword">
-          <el-input maxlength="16" v-model="resetForm.newPassword" type="password" placeholder="请设置新的6-16位密码"></el-input>
+          <el-input
+            maxlength="16"
+            v-model="resetForm.newPassword"
+            type="password"
+            :placeholder="$t('setting.resetPwd.text2')"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="confirmNewPassword">
-          <el-input maxlength="16" v-model="resetForm.confirmNewPassword" type="password" placeholder="确认新的6-16位密码"></el-input>
+          <el-input
+            maxlength="16"
+            v-model="resetForm.confirmNewPassword"
+            type="password"
+            :placeholder="$t('setting.resetPwd.text3')"
+          ></el-input>
         </el-form-item>
-        <div class="btn btn-reset" @click="resetPwd('resetForm')">确定修改</div>
+        <div class="btn btn-reset" @click="resetPwd('resetForm')">{{$t('setting.resetPwd.text4')}}</div>
       </el-form>
     </div>
   </div>
@@ -21,11 +36,12 @@
 export default {
   name: "resetPwd",
   components: {},
+  computed: {},
   data() {
     const validateOldPassword = (rule, value, callback) => {
-      console.log(value)
+      console.log(value);
       if (value == "") {
-        callback(new Error("请输入原密码"));
+        callback(new Error(this.$t("setting.resetPwd.error.text1")));
       } else {
         callback();
       }
@@ -34,21 +50,20 @@ export default {
     const validateNewPassword = (rule, value, callback) => {
       let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,16}$/;
       if (value == "") {
-        callback(new Error("请设置新的6-16位密码"));
+        callback(new Error(this.$t("setting.resetPwd.error.text2")));
       } else if (!pwdReg.test(value)) {
-        callback(new Error("密码为6-16位，需包含大写字母、小写字母、数字"));
+        callback(new Error(this.$t("setting.resetPwd.error.text3")));
       } else {
         callback();
       }
     };
 
     const validateConfirmNewPassword = (rule, value, callback) => {
-      if (value == '') {
-        callback(new Error("确认新的6-16位密码"));
-      } else if (value != this.resetForm.newPassword){
-        callback(new Error("两次输入不一致"));
-      }
-       else {
+      if (value == "") {
+        callback(new Error(this.$t("setting.resetPwd.error.text4")));
+      } else if (value != this.resetForm.newPassword) {
+        callback(new Error(this.$t("setting.resetPwd.error.text5")));
+      } else {
         callback();
       }
     };
@@ -61,13 +76,25 @@ export default {
       },
       resetRules: {
         oldPassword: [
-          { required: true, trigger: "change,blur", validator: validateOldPassword }
+          {
+            required: true,
+            trigger: "change,blur",
+            validator: validateOldPassword
+          }
         ],
         newPassword: [
-          { required: true, trigger: "change,blur", validator: validateNewPassword }
+          {
+            required: true,
+            trigger: "change,blur",
+            validator: validateNewPassword
+          }
         ],
         confirmNewPassword: [
-          { required: true, trigger: "change,blur", validator: validateConfirmNewPassword }
+          {
+            required: true,
+            trigger: "change,blur",
+            validator: validateConfirmNewPassword
+          }
         ]
       }
     };
@@ -128,11 +155,12 @@ export default {
       }
       .btn {
         width: 100%;
-        height:36px;
+        height: 36px;
         line-height: 36px;
         color: #fff;
         text-align: center;
-        background: url('../../assets/images/other_btn/btn_signin.png') no-repeat center;
+        background: url("../../assets/images/other_btn/btn_signin.png")
+          no-repeat center;
         background-size: contain;
         cursor: pointer;
         &.btn-reset {

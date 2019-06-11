@@ -1,28 +1,31 @@
 <template>
   <div class="depositNotice">
-    <div class="info">如果您已汇款，请提交以下表单，方便我们查收入账。</div>
+    <div class="info">{{$t('userCenter.depositNotice.text1')}}</div>
     <div class="item">
       <div class="label">
-        <span>*</span>1.您已经选择的币种
+        <span>*</span>
+        1.{{$t('userCenter.depositNotice.text2')}}
       </div>
       <div class="radio-wrap">
-        <el-radio v-model="radio" label="1">港币</el-radio>
+        <el-radio v-model="radio" label="1">{{$t('userCenter.depositNotice.text3')}}</el-radio>
       </div>
       <div class>
-        <el-radio disabled v-model="radio" label="2">美元</el-radio>
+        <el-radio disabled v-model="radio" label="2">{{$t('userCenter.depositNotice.text4')}}</el-radio>
       </div>
     </div>
     <div class="item mar0">
       <div class="label">
-        <span>*</span>2.详细通讯地址：
+        <span>*</span>
+        2.{{$t('userCenter.depositNotice.text5')}}
       </div>
       <div class="address shadow">
-        <el-input placeholder="请填写详细通讯地址" v-model="address" clearable></el-input>
+        <el-input :placeholder="$t('userCenter.depositNotice.text6')" v-model="address" clearable></el-input>
       </div>
     </div>
     <div class="item mar0">
       <div class="label">
-        <span>*</span>3.上传凭证，用于银行对账以加快到账速度（照片文件不能超过10M)：
+        <span>*</span>
+        3.{{$t('userCenter.depositNotice.text7')}})：
       </div>
       <div class="upload-wrap">
         <el-upload
@@ -38,18 +41,23 @@
         >
           <div class="upload-btn">
             <div class="add"></div>
-            <div class="text">点击上传</div>
+            <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
           </div>
         </el-upload>
       </div>
     </div>
     <div class="item mar0">
-      <div class="label">4.留言备注：</div>
+      <div class="label">4.{{$t('userCenter.depositNotice.text9')}}</div>
       <div class="textarea-wrap shadow">
-        <el-input type="textarea" :rows="3" placeholder="最长50字" v-model="textarea"></el-input>
+        <el-input
+          type="textarea"
+          :rows="3"
+          :placeholder="$t('userCenter.depositNotice.text10')"
+          v-model="textarea"
+        ></el-input>
       </div>
     </div>
-    <div class="submit">提交</div>
+    <div class="submit">{{$t('userCenter.depositNotice.text11')}}</div>
   </div>
 </template>
 <script>

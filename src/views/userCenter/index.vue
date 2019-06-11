@@ -5,7 +5,7 @@
     </header>
     <div @click="hideMenu($event)" class="user-content">
       <div class="content">
-        <div class="title">个人中心</div>
+        <div class="title">{{$t('userCenter.text1')}}</div>
 
         <!-- 已经进行了资产配置就显示个人中心主页，否则显示当前进度条状态 -->
 
@@ -33,48 +33,50 @@
               <div class="review-result">您的资料已被提交，正在审核，请您耐心等待</div>
               <div class="btn-openAccount disabled">请前往开户</div>
               <div class="review-tip">
-                如您需补交资料，客服人员将会与您联络。温馨提示：完成开户流程预计3-7天。
-                <router-link to="/openAccount">查看开户指引</router-link>
+                {{$t('userCenter.text3')}}
+                <router-link to="/openAccount">{{$t('userCenter.text4')}}</router-link>
               </div>
             </div>
           </div>
           <div class="tips-ctn">
-            <div class="tips-title">开户说明</div>
+            <div class="tips-title">{{$t('userCenter.text5')}}</div>
             <p class="tips-desc">
-              1. 在用户正式开启投资前，需要完成提交开户信息、注入资金、风险测评3个阶段的工作。整个过程需要填写资料、审核等程序，最快需X-Y个工作日，请耐心等待与配合。
-              <br>2. 提交开户信息后，平台需对资料进行审核。为完成香港证监会的监管要求，您将被邀请在香港与我司持牌人士进行线下当面见证，完成见证程序后方可继续开立账户。
-              <br>3. 证券账户开通后，方可注入资金。资金到账需等待一段时间。
+              {{$t('userCenter.text6')}}
+              <br>
+              {{$t('userCenter.text7')}}
+              <br>
+              {{$t('userCenter.text8')}}
             </p>
           </div>
         </div>
         <div v-if="openStatus==5" class="user-wrap">
           <div class="l-wrap">
             <div :class="[$route.path==='/userCenter/myAccount'?'active':'']" class="item item1">
-              <router-link to="/userCenter/myAccount">我的账户</router-link>
+              <router-link to="/userCenter/myAccount">{{$t('userCenter.text9')}}</router-link>
             </div>
             <div class="line"></div>
             <dl>
-              <dt>存入资金</dt>
+              <dt>{{$t('userCenter.text10')}}</dt>
               <dd class="item2" :class="[$route.path==='/userCenter/guide'?'active':'']">
-                <router-link to="/userCenter/guide">入金指引</router-link>
+                <router-link to="/userCenter/guide">{{$t('userCenter.text11')}}</router-link>
               </dd>
               <dd
                 class="item3"
                 :class="[$route.path==='/userCenter/remittanceAccount'?'active':'']"
               >
-                <router-link to="/userCenter/remittanceAccount">汇款账户</router-link>
+                <router-link to="/userCenter/remittanceAccount">{{$t('userCenter.text12')}}</router-link>
               </dd>
               <dd class="item4" :class="[$route.path==='/userCenter/depositNotice'?'active':'']">
-                <router-link to="/userCenter/depositNotice">存款通知</router-link>
+                <router-link to="/userCenter/depositNotice">{{$t('userCenter.text13')}}</router-link>
               </dd>
             </dl>
             <div class="line"></div>
             <div :class="[$route.path==='/userCenter/extractFunds'?'active':'']" class="item item5">
-              <router-link to="/userCenter/extractFunds">提取资金</router-link>
+              <router-link to="/userCenter/extractFunds">{{$t('userCenter.text14')}}</router-link>
             </div>
             <div class="line"></div>
             <div :class="[$route.path==='/userCenter/fundRecords'?'active':'']" class="item item6">
-              <router-link to="/userCenter/fundRecords">资金记录</router-link>
+              <router-link to="/userCenter/fundRecords">{{$t('userCenter.text15')}}</router-link>
             </div>
           </div>
           <div class="r-wrap">
@@ -101,39 +103,39 @@ export default {
     return {
       openStatus: 5,
       checkStatus: 1,
-      checkStatusObj:{
+      checkStatusObj: {
         0: {
-          text: '您的资料已被提交，正在审核，请您耐心等待',
-          btnText:'请前往开户',
+          text: this.$t("userCenter.checkStatusObj.0.text"),
+          btnText: this.$t("userCenter.checkStatusObj.0.btnText")
         },
         1: {
-          text: '您的入金正在审核中 请等待……',
-          btnText:'请前往注入资金',
+          text: this.$t("userCenter.checkStatusObj.1.text"),
+          btnText: this.$t("userCenter.checkStatusObj.1.btnText")
         },
         2: {
-          text: '您的配置正在审核中 请等待……',
-          btnText:'请前往资产配置',
-        },
+          text: this.$t("userCenter.checkStatusObj.2.text"),
+          btnText: this.$t("userCenter.checkStatusObj.2.btnText")
+        }
       },
       openStatusList: [
         {
-          progressTitle: "提交开户信息",
-          btnText: "请前往开户",
+          progressTitle: this.$t("userCenter.openStatusList[0].progressTitle"),
+          btnText: this.$t("userCenter.openStatusList[0].btnText"),
           path: "/openAccount"
         },
         {
-          progressTitle: "注入资金",
-          btnText: "请前往注入资金",
+          progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
+          btnText: this.$t("userCenter.openStatusList[1].btnText"),
           path: "/injectFunds"
         },
         {
-          progressTitle: "风险测评",
-          btnText: "请前往风险评测",
+          progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
+          btnText: this.$t("userCenter.openStatusList[2].btnText"),
           path: "/analysis/analys"
         },
         {
-          progressTitle: "开始配置",
-          btnText: "请前往资产配置",
+          progressTitle: this.$t("userCenter.openStatusList[3].progressTitle"),
+          btnText: this.$t("userCenter.openStatusList[3].btnText"),
           path: "/configAssets"
         }
       ]

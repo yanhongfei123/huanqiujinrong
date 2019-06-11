@@ -6,36 +6,39 @@
     <section class="barner">
       <div class="barner-content">
         <div class="barner-title-en">Terms & conditions</div>
-        <div class="barner-title">条款声明</div>
-        <div class="barner-info">请各位客户下载并仔细阅读以下各类条款声明</div>
+        <div class="barner-title">{{$t('conditions.text1')}}</div>
+        <div class="barner-info">{{$t('conditions.text2')}}</div>
       </div>
     </section>
     <section class="content">
       <div class="com-width">
         <div class="l-wrap">
           <dl>
-            <dt>服务相关</dt>
-            <dd>开户文档（（产品名称） SmartGlobal-HK用户）</dd>
-            <dd>客户协议书</dd>
-            <dd>（产品名称）客户首次配置须知简介</dd>
-            <dd>盈透证券开户文件</dd>
-            <dd>什么是交易所交易基金（ETF）？</dd>
+            <dt>{{$t('conditions.text3')}}</dt>
+            <dd>{{$t('conditions.text4')}}</dd>
+            <dd>{{$t('conditions.text5')}}</dd>
+            <dd>{{$t('conditions.text6')}}</dd>
+            <dd>{{$t('conditions.text7')}}</dd>
+            <dd>{{$t('conditions.text8')}}</dd>
           </dl>
           <dl>
-            <dt>表格下载</dt>
-            <dd>更改账户资料表</dd>
-            <dd>法律实体披露</dd>
-            <dd>执行经纪披露</dd>
-            <dd>更改账户资料表</dd>
+            <dt>{{$t('conditions.text9')}}</dt>
+            <dd>{{$t('conditions.text10')}}</dd>
+          </dl>
+          <dl>
+            <dt>{{$t('conditions.text20')}}</dt>
+            <dd>{{$t('conditions.text11')}}</dd>
+            <dd>{{$t('conditions.text12')}}</dd>
+            <dd>{{$t('conditions.text19')}}</dd>
           </dl>
         </div>
         <div class="r-wrap">
           <dl>
-            <dt>常规条款</dt>
-            <dd>网站使用须知</dd>
-            <dd>免责声明</dd>
-            <dd>隐私政策</dd>
-            <dd>版权声明</dd>
+            <dt>{{$t('conditions.text14')}}</dt>
+            <dd>{{$t('conditions.text15')}}</dd>
+            <dd>{{$t('conditions.text16')}}</dd>
+            <dd>{{$t('conditions.text17')}}</dd>
+            <dd>{{$t('conditions.text18')}}</dd>
           </dl>
         </div>
       </div>
@@ -67,7 +70,8 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../assets/images/firstpage//banner_conditions.png") no-repeat center;
+    background: url("../assets/images/firstpage//banner_conditions.png")
+      no-repeat center;
     background-size: cover;
     .barner-content {
       width: 1180px;
@@ -76,11 +80,11 @@ export default {
       color: #fff;
       top: 86px;
     }
-    .barner-title-en{
-      font-size:95px;
-      font-weight:800;
-      color:#fff;
-      line-height:137px;
+    .barner-title-en {
+      font-size: 95px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 137px;
       opacity: 0.5;
     }
     .barner-title {
@@ -99,28 +103,26 @@ export default {
   .content {
     padding: 100px 0;
     background: #f9f9f9;
-    .com-width{
+    .com-width {
       display: flex;
       font-size: 20px;
-      font-weight:400;
-      .l-wrap{
+      font-weight: 400;
+      .l-wrap {
         margin-right: 160px;
       }
-      dt{
+      dt {
         color: #444857;
-        margin-bottom: 60px;
+        margin: 60px 0;
       }
-      dd{
-        color: #BE1A21;
+      dd {
+        color: #be1a21;
         margin-bottom: 40px;
-        &:hover{
+        &:hover {
           color: #141416;
           cursor: pointer;
         }
       }
-
     }
-
   }
 }
 </style>

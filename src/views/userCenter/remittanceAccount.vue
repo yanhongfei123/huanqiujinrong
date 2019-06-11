@@ -1,78 +1,76 @@
 <template>
   <div class="remittanceAccount clear">
     <div class="item">
-      <div class="label">1.您已经选择的币种</div>
+      <div class="label">1.{{$t('userCenter.remittanceAccount.text1')}}</div>
       <div class="radio-wrap">
-        <el-radio v-model="radio1" label="1">港币</el-radio>
+        <el-radio v-model="radio1" label="1">{{$t('userCenter.remittanceAccount.text2')}}</el-radio>
       </div>
       <div class>
-        <el-radio disabled v-model="radio1" label="2">美元</el-radio>
+        <el-radio disabled v-model="radio1" label="2">{{$t('userCenter.remittanceAccount.text3')}}</el-radio>
       </div>
     </div>
     <div class="item">
-      <div class="label">2.请选择您的入金方式</div>
+      <div class="label">2.{{$t('userCenter.remittanceAccount.text4')}}</div>
       <div class="radio-wrap">
-        <el-radio v-model="radio2" label="1">电汇</el-radio>
+        <el-radio v-model="radio2" label="1">{{$t('userCenter.remittanceAccount.text5')}}</el-radio>
       </div>
       <div class>
-        <el-radio v-model="radio2" label="2">支票</el-radio>
+        <el-radio v-model="radio2" label="2">{{$t('userCenter.remittanceAccount.text6')}}</el-radio>
       </div>
     </div>
     <div class="clear" v-if="radio2 == 1">
       <div class="item">
-        <div class="label">3.银行名称：</div>
+        <div class="label">3.{{$t('userCenter.remittanceAccount.text7')}}</div>
         <div class="text">Citibank, N.A. (Hong Kong Branch)</div>
       </div>
       <div class="item">
-        <div class="label">4.银行地址：</div>
+        <div class="label">4.{{$t('userCenter.remittanceAccount.text8')}}</div>
         <div class="text">50/F Citibank Tower Plaza, 3 Garden Road, Central HK, Hong Kong</div>
       </div>
       <div class="item">
-        <div class="label">5.SWIFT BIC代码：</div>
+        <div class="label">5.SWIFT BIC{{$t('userCenter.remittanceAccount.text19')}}：</div>
         <div class="text">CITIHKHX</div>
       </div>
       <div class="item">
-        <div class="label">6.银行代码：</div>
+        <div class="label">6.{{$t('userCenter.remittanceAccount.text9')}}</div>
         <div class="text">6</div>
       </div>
       <div class="item">
-        <div class="label">7.分行代码：</div>
+        <div class="label">7.{{$t('userCenter.remittanceAccount.text10')}}</div>
         <div class="text">391</div>
       </div>
       <div class="item">
-        <div class="label">8.银行账户名称：</div>
+        <div class="label">8.{{$t('userCenter.remittanceAccount.text11')}}</div>
         <div class="text">Interactive Brokers Hong Kong Limited</div>
       </div>
       <div class="item">
-        <div class="label">9.银行账户地址：</div>
+        <div class="label">9.{{$t('userCenter.remittanceAccount.text12')}}</div>
         <div class="text">Suite 1512, Two pacific Place 88 Queensway, Hong Kong</div>
       </div>
       <div class="item">
-        <div class="label">10.银行账户号码：</div>
+        <div class="label">10.{{$t('userCenter.remittanceAccount.text13')}}</div>
         <div class="text">410345170</div>
       </div>
       <div class="item">
-        <div class="label">11.收益方：</div>
+        <div class="label">11.{{$t('userCenter.remittanceAccount.text14')}}</div>
         <div class="text">U10179873 / SAI CHUNG LUi</div>
       </div>
     </div>
     <div class="clear" v-if="radio2 == 2">
       <div class="item">
-        <div class="label">3.支票抬头：</div>
+        <div class="label">3.{{$t('userCenter.remittanceAccount.text15')}}</div>
         <div class="text">Interactive Brokers HONG KONG Limited</div>
       </div>
       <div class="item">
-        <div class="label">4.盈透证券办公室地址：</div>
+        <div class="label">4.{{$t('userCenter.remittanceAccount.text16')}}</div>
         <div class="text">Suite 1512, Two Pacific Place, 88 Queensway. Hong Kong</div>
       </div>
       <div class="item">
         <div class="label">5.Attn：</div>
         <div class="text">IBCD</div>
       </div>
-      <div
-        class="msg"
-      >6.请您填写金额，日期及签署,请将您的姓名全拼写在支票背面方便我们核对（支票入金的最低金额为80,000港元），请您将完成填写的支票拍照，于存款通知界面上传。并直接将支票寄往盈透证券办公室。</div>
-      <div class="msg">以陈小姐入金100,000.00港币为例</div>
+      <div class="msg">6.{{$t('userCenter.remittanceAccount.text17')}}</div>
+      <div class="msg">{{$t('userCenter.remittanceAccount.text18')}}</div>
       <div class="ticket">
         <img
           class="l-img"

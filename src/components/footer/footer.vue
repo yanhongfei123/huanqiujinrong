@@ -6,37 +6,37 @@
           <img width="179" height="39" src="../../assets//images/icon1.png" alt>
           <ul class="l-ul">
             <li>
-              <div class="label">电话 :</div>
+              <div class="label">{{$t('footer.text1')}} :</div>
               <div>+852XXXXXXX</div>
             </li>
             <li>
-              <div class="label">邮箱 :</div>
+              <div class="label">{{$t('footer.text2')}} :</div>
               <div>12345678901@163.com</div>
             </li>
             <li>
-              <div class="label">地址 :</div>
-              <div class="address">香港中环金融街8号国际金融中心二期大厦 19楼101室</div>
+              <div class="label">{{$t('footer.text3')}} :</div>
+              <div class="address">{{$t('footer.text4')}}</div>
             </li>
           </ul>
         </div>
         <div class="f-top-r">
           <dl class="fr-l">
-            <dt @click="goPage('about')">关于我们</dt>
-            <dd @click="goPage('introduction')">团队介绍</dd>
-            <dd @click="goPage('contact')">联系我们</dd>
-            <dd @click="goPage('questions')">常见回答</dd>
-            <dd @click="goPage('conditions')">条款声明</dd>
+            <dt @click="goPage('about')">{{$t('footer.text5')}}</dt>
+            <dd @click="goPage('introduction')">{{$t('footer.text6')}}</dd>
+            <dd @click="goPage('contact')">{{$t('footer.text7')}}</dd>
+            <dd @click="goPage('questions')">{{$t('footer.text8')}}</dd>
+            <dd @click="goPage('conditions')">{{$t('footer.text9')}}</dd>
           </dl>
           <dl class="fr-r">
-            <dt>关注我们</dt>
+            <dt>{{$t('footer.text10')}}</dt>
             <dd>
               <div class="mar28">
                 <img width="80" height="80" src="../../assets/images/icon1.png" alt>
-                <div class="img-wrap wechat">微信公众号</div>
+                <div class="img-wrap wechat">{{$t('footer.text11')}}</div>
               </div>
               <div>
                 <img width="80" height="80" src="../../assets/images/icon1.png" alt>
-                <div class="img-wrap weibo">新浪微博</div>
+                <div class="img-wrap weibo">{{$t('footer.text12')}}</div>
               </div>
             </dd>
           </dl>
@@ -45,12 +45,11 @@
       <div class="f-line"></div>
       <div class="f-bom">
         <div class="fbm-l">
-          粤ICP备XXXXX号
-          <br>Copyright &#169 2019XX科技有限公司 版权所有
+          {{$t('footer.text13')}}
+          <br>
+          Copyright &#169 {{$t('footer.text14')}}
         </div>
-        <div
-          class="fbm-r"
-        >本网站由XXX有限公司（“XXX”），香港科技大学孵化的金融科技公司开发并维护。www.XXX.com，以及XXX网站是由弘量研究开发的。网站所述目标回报和数字只为信息演示所用，并不是暗示、预测或者保证未来任何组合投资的表现结果，在将来可能会在没有通知的情况下进行改变。各种情况，如经济环境、利率、市场趋势和商业环境等都会影响表现。一个投资组合是否能达到设定目标取决于主观预测和并不完全准确的假设条件。XXXX不为目标收益承担责任，也不会为投资方式，目标回报计算方法的准确度和合理性提供担保性陈述。本网站使用者所见内容并不代表任何隐含担保。</div>
+        <div class="fbm-r">{{$t('footer.text15')}}</div>
       </div>
     </div>
   </div>
@@ -146,11 +145,13 @@ export default {
         padding-left: 20px;
         background-size: contain;
       }
-      .wechat{
-        background: url("../../assets/images/icon_wechat.png") no-repeat left center;
+      .wechat {
+        background: url("../../assets/images/icon_wechat.png") no-repeat left
+          center;
       }
-      .weibo{
-        background: url("../../assets/images/icon_weibo.png") no-repeat left center;
+      .weibo {
+        background: url("../../assets/images/icon_weibo.png") no-repeat left
+          center;
       }
     }
   }

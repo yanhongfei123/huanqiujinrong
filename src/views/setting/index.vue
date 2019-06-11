@@ -5,23 +5,26 @@
     </header>
     <div @click="hideMenu($event)" class="user-content">
       <div class="content">
-        <div class="title">个人设置</div>
+        <div class="title">{{$t('setting.text1')}}</div>
         <div class="user-wrap">
           <div class="l-wrap">
             <div :class="[$route.path==='/setting/information'?'active':'']" class="item item1">
-              <router-link to="/setting/information">个人资料</router-link>
+              <router-link to="/setting/information">{{$t('setting.text2')}}</router-link>
             </div>
             <div class="line"></div>
             <div :class="[$route.path==='/setting/resetLoginPas'?'active':'']" class="item item2">
-              <router-link to="/setting/resetLoginPas">修改登录密码</router-link>
+              <router-link to="/setting/resetLoginPas">{{$t('setting.text3')}}</router-link>
             </div>
             <div class="line"></div>
             <div :class="[$route.path==='/setting/resetTranPas'?'active':'']" class="item item3">
-              <router-link to="/setting/resetTranPas">修改交易密码</router-link>
+              <router-link to="/setting/resetTranPas">{{$t('setting.text4')}}</router-link>
             </div>
             <div class="line"></div>
-            <div :class="[$route.path==='/setting/customerFeedback'?'active':'']" class="item item4">
-              <router-link to="/setting/customerFeedback">用户反馈</router-link>
+            <div
+              :class="[$route.path==='/setting/customerFeedback'?'active':'']"
+              class="item item4"
+            >
+              <router-link to="/setting/customerFeedback">{{$t('setting.text5')}}</router-link>
             </div>
           </div>
           <div class="r-wrap">
@@ -45,9 +48,7 @@ export default {
     footerBar
   },
   data() {
-    return {
-
-    };
+    return {};
   },
   computed: {},
   methods: {
@@ -92,10 +93,11 @@ export default {
       text-align: center;
       line-height: 40px;
     }
-    .item2,.item3{
+    .item2,
+    .item3 {
       text-indent: 42px;
     }
-    .item a::after{
+    .item a::after {
       position: absolute;
       content: "";
       width: 24px;
