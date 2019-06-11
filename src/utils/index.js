@@ -1,3 +1,29 @@
+import question from '@/utils/question'
+import i18n from '../lang'
+
+export function getType(score) {
+  var type;
+  var lang = i18n.locale;
+  question.typeList.map(item => {
+    var scoreList = item.score.split("-");
+    var minScore = parseInt(scoreList[0]);
+    var maxScore = parseInt(scoreList[1]);
+    if (score >= minScore && score <= maxScore) {
+      switch (lang) {
+        case "zh":
+          type = item.type;
+          break;
+        case "ft":
+          type = item.typeft;
+          break;
+        default:
+          type = item.typeen;
+          break;
+      }
+    }
+  });
+  return type;
+}
 
 export function toThousandslsFilter(num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
@@ -84,7 +110,9 @@ export function getByteLen(val) {
   for (let i = 0; i < val.length; i++) {
     if (val[i].match(/[^\x00-\xff]/ig) != null) {
       len += 1
-    } else { len += 0.5 }
+    } else {
+      len += 0.5
+    }
   }
   return Math.floor(len)
 }
@@ -104,7 +132,7 @@ export function scrollTo(element, to, duration) {
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
-  const later = function() {
+  const later = function () {
     // 据上一次触发时间间隔
     const last = +new Date() - timestamp
 
@@ -121,7 +149,7 @@ export function debounce(func, wait, immediate) {
     }
   }
 
-  return function(...args) {
+  return function (...args) {
     context = this
     timestamp = +new Date()
     const callNow = immediate && !timeout

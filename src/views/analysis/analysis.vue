@@ -1,15 +1,19 @@
 <template>
   <div class="step1-wrap">
     <div class="top-des tc">
-      我们将通过6到简单的问题分析出您的风险承受能力。
-      <br>我们根据分析结果为您寻找最佳投资组合（金融资产组合）。
+      {{$t('analysis.analysis.text1')}}
+      <br>
+      {{$t('analysis.analysis.text2')}}
     </div>
-    <div @click="$router.push('/analysis/answer')" class="start-btn">开启免费分析</div>
+    <div
+      @click="$router.push('/analysis/answer')"
+      class="start-btn"
+    >{{$t('analysis.analysis.text3')}}</div>
     <dl>
-      <dt>什么是风险承受能力？</dt>
-      <dd>“风险承受能力 ”是指资产管理中接受的风险水平。</dd>
-      <dd>一般而言，具有高回报的资产配置往往具有高风险，而低风险的资产配置往往会降低回报。</dd>
-      <dd>ET.COOL将在提出投资组合提案之前进行风险承受能力评估，风险承受能力将决定适合您投资的金融资产的类型和数量。</dd>
+      <dt>{{$t('analysis.analysis.text4')}}</dt>
+      <dd>{{$t('analysis.analysis.text5')}}</dd>
+      <dd>{{$t('analysis.analysis.text6')}}</dd>
+      <dd>{{$t('analysis.analysis.text7')}}</dd>
     </dl>
   </div>
 </template>

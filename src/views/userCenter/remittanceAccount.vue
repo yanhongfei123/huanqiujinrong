@@ -1,12 +1,12 @@
 <template>
   <div class="remittanceAccount clear">
     <div class="item">
-      <div class="label">1.请选择您的币种</div>
+      <div class="label">1.您已经选择的币种</div>
       <div class="radio-wrap">
         <el-radio v-model="radio1" label="1">港币</el-radio>
       </div>
       <div class>
-        <el-radio disabled  v-model="radio1" label="2">美元</el-radio>
+        <el-radio disabled v-model="radio1" label="2">美元</el-radio>
       </div>
     </div>
     <div class="item">
@@ -69,11 +69,19 @@
         <div class="label">5.Attn：</div>
         <div class="text">IBCD</div>
       </div>
-      <div class="msg">6.请您填写金额，日期及签署,请将您的姓名全拼写在支票背面方便我们核对（支票入金的最低金额为80,000港元），请您将完成填写的支票拍照，于存款通知界面上传。并直接将支票寄往盈透证券办公室。</div>
+      <div
+        class="msg"
+      >6.请您填写金额，日期及签署,请将您的姓名全拼写在支票背面方便我们核对（支票入金的最低金额为80,000港元），请您将完成填写的支票拍照，于存款通知界面上传。并直接将支票寄往盈透证券办公室。</div>
       <div class="msg">以陈小姐入金100,000.00港币为例</div>
       <div class="ticket">
-        <img class="l-img" width="340"  height="193" src="../../assets/images/firstpage/banner_conditions.png" alt="">
-        <img width="340"  height="193" src="../../assets/images/firstpage/banner_conditions.png" alt="">
+        <img
+          class="l-img"
+          width="340"
+          height="193"
+          src="../../assets/images/user_center/bg_check1.png"
+          alt
+        >
+        <img width="340" height="193" src="../../assets/images/user_center/bg_check2.png" alt>
       </div>
     </div>
   </div>
@@ -106,22 +114,22 @@ export default {
     margin-bottom: 20px;
     opacity: 0.8;
   }
-  .text{
-    color: #3C3F4D;
+  .text {
+    color: #3c3f4d;
     font-weight: bold;
   }
   .radio-wrap {
     margin-bottom: 20px;
   }
-  .msg{
+  .msg {
     clear: both;
-    font-size:16px;
-    color:rgba(20,20,22,0.8);
-    line-height:32px;
+    font-size: 16px;
+    color: rgba(20, 20, 22, 0.8);
+    line-height: 32px;
   }
-  .ticket{
+  .ticket {
     margin-top: 20px;
-    .l-img{
+    .l-img {
       margin-right: 70px;
     }
   }

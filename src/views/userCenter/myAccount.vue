@@ -137,7 +137,7 @@ export default {
     .q-title {
       font-size: 16px;
       font-weight: 500;
-      color: rgba(20, 20, 22, 1);
+      color: rgba(20, 20, 22, 0.8);
       line-height: 24px;
       margin-bottom: 20px;
       cursor: pointer;

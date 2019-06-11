@@ -1,5 +1,34 @@
 // set function parseTime,formatTime to filter
-export { parseTime, formatTime } from '@/utils'
+export {
+  parseTime,
+  formatTime
+}
+from '@/utils'
+import i18n from '../lang'
+
+export function renderFq(sub) {
+  var lang = i18n.locale;
+  switch (lang) {
+    case "zh":
+      return sub["fq"];
+    case "ft":
+      return sub["fqft"];
+    default:
+      return sub["fqen"];
+  }
+}
+
+export function renderAnswer(item) {
+  var lang = i18n.locale;
+  switch (lang) {
+    case "zh":
+      return item["as"];
+    case "ft":
+      return item["asft"] ? item["asft"] : item["as"];
+    default:
+      return item["asen"];
+  }
+}
 
 function pluralize(time, label) {
   if (time === 1) {
@@ -21,13 +50,30 @@ export function timeAgo(time) {
 
 /* 数字 格式化*/
 export function numberFormatter(num, digits) {
-  const si = [
-    { value: 1E18, symbol: 'E' },
-    { value: 1E15, symbol: 'P' },
-    { value: 1E12, symbol: 'T' },
-    { value: 1E9, symbol: 'G' },
-    { value: 1E6, symbol: 'M' },
-    { value: 1E3, symbol: 'k' }
+  const si = [{
+      value: 1E18,
+      symbol: 'E'
+    },
+    {
+      value: 1E15,
+      symbol: 'P'
+    },
+    {
+      value: 1E12,
+      symbol: 'T'
+    },
+    {
+      value: 1E9,
+      symbol: 'G'
+    },
+    {
+      value: 1E6,
+      symbol: 'M'
+    },
+    {
+      value: 1E3,
+      symbol: 'k'
+    }
   ]
   for (let i = 0; i < si.length; i++) {
     if (num >= si[i].value) {

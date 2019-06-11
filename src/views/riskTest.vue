@@ -12,7 +12,7 @@
           <div class="item clear" v-for="(item, index) in questionList" :key="index">
             <div class="label">
               <span>*</span>
-              {{`${index + 1}.${item.fq}`}}
+              {{`${index + 1}.`}} {{item | renderFq}}
             </div>
             <div
               class="radio-wrap fl"
@@ -23,7 +23,7 @@
               <div class="circle fl" :class="[val.checked?'checked':'']">
                 <div class="inner"></div>
               </div>
-              <span class="as fl">{{`${letterMap[i]}.${val.as}`}}</span>
+              <span class="as fl">{{`${letterMap[i]}.`}} {{val | renderAnswer}}</span>
               <!-- <el-radio :v-model="`radio${index + 1}`" :label="i+1">{{`${letterMap[i]}.${val.as}`}}</el-radio> -->
             </div>
           </div>
@@ -40,7 +40,11 @@
           <div class="des">本人保证以上填写符合我的个人情况。</div>
           <div class="btn-wrap clear">
             <el-button @click="showmask=false" class="check-btn fl">我再检查一下</el-button>
-            <el-button @click="$router.push('/riskTestResult')" class="confirm fr" type="primary">确 定</el-button>
+            <el-button
+              @click="$router.push('/riskTestResult')"
+              class="confirm fr"
+              type="primary"
+            >确 定</el-button>
           </div>
         </div>
       </div>
@@ -50,7 +54,8 @@
 </template>
 <script>
 import HeaderBar from "@/components/header/openAccountHeader.vue";
-
+import { deepClone, getType } from "@/utils";
+import question from "@/utils/question";
 export default {
   name: "",
   components: {
@@ -61,194 +66,13 @@ export default {
       showmask: false,
       isshow: false,
       answer: [0, 0, 0, 0, 0, 0],
-      typeList: [
-        {
-          type: "保守型",
-          score: "6-9"
-        },
-        {
-          type: "谨慎型",
-          score: "10-13"
-        },
-        {
-          type: "稳健型",
-          score: "14-17"
-        },
-        {
-          type: "进取型",
-          score: "18-21"
-        },
-        {
-          type: "激进型",
-          score: "22-24"
-        }
-      ],
-      radio1: "1",
-      radio2: "1",
-      radio3: "2",
-      radio4: "2",
-      radio5: "3",
-      radio6: "4",
+      questionList: deepClone(question.questionList),
       letterMap: {
         0: "A",
         1: "B",
         2: "C",
         3: "D"
-      },
-      questionList: [
-        {
-          fq: "您的年龄？",
-          asall: [
-            {
-              score: 1,
-              as: "18-30岁",
-              checked: false
-            },
-            {
-              score: 2,
-              as: "31-45岁",
-              checked: false
-            },
-            {
-              score: 3,
-              as: "41-60岁",
-              checked: false
-            },
-            {
-              score: 4,
-              as: "61岁以上",
-              checked: false
-            }
-          ]
-        },
-        {
-          fq: "您的年收入为(港币)？",
-          asall: [
-            {
-              score: 1,
-              as: "25万以下",
-              checked: false
-            },
-            {
-              score: 2,
-              as: "25-70万",
-              checked: false
-            },
-            {
-              score: 3,
-              as: "71万-300万",
-              checked: false
-            },
-            {
-              score: 4,
-              as: "300万以上",
-              checked: false
-            }
-          ]
-        },
-        {
-          fq:
-            "您的总资产中（自住房屋除外），愿意投资于股票与债权等金融产品的比例？",
-          asall: [
-            {
-              score: 1,
-              as: "低于10%",
-              checked: false
-            },
-            {
-              score: 2,
-              as: "10%-25%",
-              checked: false
-            },
-            {
-              score: 3,
-              as: "25%-50%",
-              checked: false
-            },
-            {
-              score: 4,
-              as: "50%以上",
-              checked: false
-            }
-          ]
-        },
-        {
-          fq: "您进行全球资产配置的年限为？",
-          asall: [
-            {
-              score: 1,
-              as: "1-3年",
-              checked: false
-            },
-            {
-              score: 2,
-              as: "3-5年",
-              checked: false
-            },
-            {
-              score: 3,
-              as: "5-10年",
-              checked: false
-            },
-            {
-              score: 4,
-              as: "10年以上",
-              checked: false
-            }
-          ]
-        },
-        {
-          fq: "下列哪一项最符合您的投资经验？",
-          asall: [
-            {
-              score: 1,
-              as: "相对有限",
-              checked: false
-            },
-            {
-              score: 2,
-              as: "有一些，但需要听取专业人士的意见",
-              checked: false
-            },
-            {
-              score: 3,
-              as: "比较丰富，基本可以独立判断和承担风险",
-              checked: false
-            },
-            {
-              score: 4,
-              as: "具有专业投资资格和经验",
-              checked: false
-            }
-          ]
-        },
-        {
-          fq:
-            "假设有两种投资：投资A预期收益为10%,可能最大亏损为5%；投资B预期收益为30%,可能晨大亏损为15%。您会怎么选择？",
-          asall: [
-            {
-              score: 1,
-              as: "全部投资于收荒较小且风险较小的A",
-              checked: false
-            },
-            {
-              score: 2,
-              as: "大部分资金投法于收益较小且风险较小的A",
-              checked: false
-            },
-            {
-              score: 3,
-              as: "大部分资金投资于收益较大且风险较大的8",
-              checked: false
-            },
-            {
-              score: 4,
-              as: "全部投资于收益较大且风险较大的B",
-              checked: false
-            }
-          ]
-        }
-      ]
+      }
     };
   },
   computed: {},
@@ -261,22 +85,10 @@ export default {
     getScore(item, index) {
       this.answer[index] = item.score;
       var totalScore = eval(this.answer.join("+"));
-      localStorage.setItem("riskType", this.getType(totalScore));
+      localStorage.setItem("riskType", getType(totalScore));
       console.log(this.answer);
       console.log("总得分===" + totalScore);
-      console.log(this.getType(totalScore));
-    },
-    getType(score) {
-      var type;
-      this.typeList.map(item => {
-        var scoreList = item.score.split("-");
-        var minScore = parseInt(scoreList[0]);
-        var maxScore = parseInt(scoreList[1]);
-        if (score >= minScore && score <= maxScore) {
-          type = item.type;
-        }
-      });
-      return type;
+      console.log(getType(totalScore));
     },
     submit() {
       var isNotChooseAll = this.answer.some(item => item == 0);
@@ -285,7 +97,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.answer.length);
+    console.log(question);
   }
 };
 </script>
@@ -409,7 +221,7 @@ export default {
       margin-bottom: 10px;
       font-weight: bold;
     }
-    .des{
+    .des {
       font-size: 14px;
       color: #666;
     }
@@ -422,7 +234,7 @@ export default {
       background: url("../assets/images/icon_delete.png");
       background-size: contain;
     }
-    .icon-waring{
+    .icon-waring {
       width: 40px;
       height: 40px;
       margin: 20px auto;
@@ -432,14 +244,14 @@ export default {
     .pas-wrap {
       box-shadow: 0px 0px 8px 1px rgba(239, 242, 247, 1);
     }
-    .btn-wrap{
+    .btn-wrap {
       margin-top: 25px;
     }
-    .confirm, .check-btn {
+    .confirm,
+    .check-btn {
       width: 100px;
       height: 36px;
-      padding: 10px!important 0px!important;
-
+      padding: 10px!important 0px !important;
     }
   }
 }

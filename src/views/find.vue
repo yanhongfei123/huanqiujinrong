@@ -6,13 +6,13 @@
     <section class="barner">
       <div class="barner-content">
         <div class="barner-title-en">LATEST NEWS</div>
-        <div class="barner-title">最新动态</div>
+        <div class="barner-title">{{$t('find.text1')}}</div>
       </div>
     </section>
     <section class="content">
       <div class="com-width">
         <div class="article-nav">
-          <div class="art-l">全部最新动态</div>
+          <div class="art-l">{{$t('find.text2')}}</div>
           <div class="tab-wrap">
             <div
               @click="changeTab(index)"
@@ -59,11 +59,18 @@ export default {
     headerNav,
     footerBar
   },
-  computed: {},
+  computed: {
+    typeList() {
+      return [
+        this.$t("find.text3"),
+        this.$t("find.text4"),
+        this.$t("find.text5")
+      ];
+    }
+  },
   data() {
     return {
       articleType: 0,
-      typeList: ["文章资讯", "活动推广", "媒体报道"],
       articleList: [
         {
           url: require("../assets/images/firstpage/banner_conditions.png"),

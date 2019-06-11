@@ -6,8 +6,8 @@
     <section class="barner">
       <div class="barner-content">
         <div class="barner-title-en">Free analysis</div>
-        <div class="barner-title">免费分析</div>
-        <div class="barner-info">6道题 仅需1分钟</div>
+        <div class="barner-title">{{$t('analysis.text1')}}</div>
+        <div class="barner-info">{{$t('analysis.text2')}}</div>
       </div>
     </section>
     <section class="content">
@@ -42,7 +42,8 @@ export default {
   .barner {
     position: relative;
     height: 400px;
-    background: url("../../assets/images/firstpage/banner_freeanalysis.png") no-repeat center;
+    background: url("../../assets/images/firstpage/banner_freeanalysis.png")
+      no-repeat center;
     background-size: cover;
     .barner-content {
       width: 1180px;

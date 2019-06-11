@@ -42,7 +42,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "header",
+  name: "headerNav",
   props: {
     path: {
       default: "/home"

@@ -24,6 +24,11 @@ Object.keys(filters).forEach(key => {
 
 Vue.config.productionTip = false;
 
+// 路由跳转后页面回到顶部
+router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0);
+});
+
 new Vue({
     router,
     store,

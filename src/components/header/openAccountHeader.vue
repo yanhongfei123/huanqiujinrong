@@ -6,9 +6,17 @@
         <div class="nav-bar flex"></div>
         <div class="nav-m flex hover"></div>
         <div class="nav-r flex">
-          <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">简</div>
+          <div
+            :class="[$i18n.locale === 'zh'?'active':'']"
+            class="hover"
+            @click="setLanguage('zh')"
+          >简</div>
           <div class="line"></div>
-          <div :class="[$i18n.locale === 'ft'?'active':'']" class="hover" @click="setLanguage('ft')">繁</div>
+          <div
+            :class="[$i18n.locale === 'ft'?'active':'']"
+            class="hover"
+            @click="setLanguage('ft')"
+          >繁</div>
         </div>
       </div>
     </div>
@@ -17,7 +25,7 @@
 
 <script>
 export default {
-  name: "header",
+  name: "headerNav",
   props: {
     path: {
       default: "/home"

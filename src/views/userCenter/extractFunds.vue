@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="label">四.如您希望提取投资组合中的全部资产，请您点击“卖出全部持仓”</div>
-    <div @click="showmask=true"  class="submit">卖出全部持仓</div>
+    <div @click="showmask=true" class="submit">卖出全部持仓</div>
     <div v-if="showmask" class="mask">
       <div class="content">
         <div @click="showmask=false" class="close"></div>
@@ -48,7 +48,9 @@
         <div class="pas-wrap">
           <el-input maxlength="6" placeholder="请输入6位交易密码" v-model="password" clearable></el-input>
         </div>
-        <div class="tips"><span v-show="showerror">请输入正确的交易密码</span></div>
+        <div class="tips">
+          <span v-show="showerror">请输入正确的交易密码</span>
+        </div>
         <el-button class="confirm" type="primary">确 定</el-button>
       </div>
     </div>
@@ -61,7 +63,7 @@ export default {
   data() {
     return {
       password: "",
-      showmask:false,
+      showmask: false,
       showerror: true,
       qList: [
         {
@@ -130,7 +132,7 @@ export default {
   .q-title {
     font-size: 16px;
     font-weight: 500;
-    color: rgba(20, 20, 22, 1);
+    color: rgba(20, 20, 22, 0.8);
     line-height: 24px;
     margin-bottom: 20px;
     cursor: pointer;
@@ -177,15 +179,15 @@ export default {
     opacity: 1;
   }
 }
-.mask{
+.mask {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
-  .content{
+  background: rgba(0, 0, 0, 0.5);
+  .content {
     position: relative;
     width: 416px;
     height: 280px;
@@ -199,44 +201,41 @@ export default {
     margin: -140px 0 0 -208px;
     box-shadow: 0px 0px 12px 3px #666;
   }
-  .title{
-    font-size:18px;
+  .title {
+    font-size: 18px;
     color: #333;
     margin-bottom: 20px;
     font-weight: bold;
   }
-  .des{
-    font-size:14px;
-    font-weight:400;
-    color:rgba(102,102,102,1);
-    line-height:21px;
+  .des {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(102, 102, 102, 1);
+    line-height: 21px;
     margin-bottom: 20px;
   }
-  .tips{
+  .tips {
     height: 40px;
     line-height: 40px;
     font-size: 12px;
-    color: #D51D26;
+    color: #d51d26;
     text-align: left;
   }
-  .close{
+  .close {
     width: 24px;
     height: 24px;
     position: absolute;
     right: 10px;
     top: 10px;
-    background: url('../../assets/images/icon_delete.png');
+    background: url("../../assets/images/icon_delete.png");
     background-size: contain;
   }
   .pas-wrap {
     box-shadow: 0px 0px 8px 1px rgba(239, 242, 247, 1);
   }
-  .confirm{
+  .confirm {
     width: 100%;
     height: 36px;
   }
-
-
 }
-
 </style>
