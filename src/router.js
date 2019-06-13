@@ -51,6 +51,8 @@ const AddressInfo = () => import('@/views/openAccount/addressInfo.vue'); //开�
 const RegulatoryInfo = () => import('@/views/openAccount/regulatoryInfo.vue'); //开户-规管信息
 const TaxStatement = () => import('@/views/openAccount/taxStatement.vue'); //开户-税务声明
 const DisClosure = () => import('@/views/openAccount/disClosure.vue'); //开户-协议披露
+const UploadInfo = () => import('@/views/openAccount/uploadInfo.vue'); //开户-上传证件
+const Witness = () => import('@/views/openAccount/witness.vue'); //开户-见证
 
 
 export default new Router({
@@ -192,6 +194,16 @@ export default new Router({
                     name: 'disClosure',
                     component: DisClosure,
                 },
+                {
+                    path: 'uploadInfo',
+                    name: 'uploadInfo',
+                    component: UploadInfo,
+                },
+                {
+                    path: 'witness',
+                    name: 'witness',
+                    component: Witness,
+                }
             ]
         },
         {
