@@ -43,6 +43,12 @@ const MyMessage = () => import('@/views/messageCenter/myMessage.vue'); //消息�
 const SetTransPas = () => import('@/views/setTransactionPas.vue'); //设置交易密码
 const RiskTest = () => import('@/views/riskTest.vue'); //风险评测
 const RiskTestResult = () => import('@/views/riskTestResult.vue'); //风险评测结果
+const AccountPreView = () => import('@/views/accountPreView.vue'); //账户总览
+
+const InvestCombination = () => import('@/views/investCombination/index.vue'); //投资组合
+const AccountDetail = () => import('@/views/investCombination/accountDetail.vue'); //组合详情
+
+
 
 const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
 const ChooseMarket = () => import('@/views/openAccount/chooseMarket.vue'); //开户-选择市场
@@ -71,6 +77,28 @@ export default new Router({
             path: '/resetPwd',
             name: 'resetPwd',
             component: ResetPwd,
+        },
+        {
+            path: '/accountPreView',
+            name: 'accountPreView',
+            component: AccountPreView,
+        },
+        {
+            path: '/accountDetail',
+            name: 'accountDetail',
+            component: AccountDetail,
+        },
+        {
+            path: '/investCombination',
+            name: 'investCombination',
+            redirect: '/investCombination/accountDetail',
+            component: InvestCombination,
+            children: [{
+                path: 'accountDetail',
+                name: 'accountDetail',
+                component: AccountDetail,
+            },
+            ]
         },
         {
             path: '/userCenter',

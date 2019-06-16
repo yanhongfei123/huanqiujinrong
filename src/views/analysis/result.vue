@@ -49,7 +49,7 @@
           <div class="label label1">名称</div>
           <div class="label label2">代码</div>
           <div class="label label3">预计权重</div>
-          <div class="label label4">预计投资金额（港币）</div>
+          <div :style="{textIndent: '72px'}" class="label label4">预计投资金额（港币）</div>
         </div>
         <div class="type-list">
           <div class="item" v-for="(val,index) in datas" :key="index">
@@ -72,7 +72,7 @@
             </div>
           </div>
         </div>
-        <div class="label-cont">
+        <div class="label-cont label-cont-btm">
           <div class="label label1">总计</div>
           <div class="label label2"></div>
           <div class="label label3">100.00%</div>
@@ -251,7 +251,7 @@ export default {
           x: "520",
           y: "center",
           itemGap: 40,
-          data: ["股票 60%", "债务 30%", "其他投资 10%"]
+          data: ["40%", "50%", "10%"]
         },
         series: [
           {
@@ -260,9 +260,9 @@ export default {
             radius: ["56%", "74%"],
             center: ["30%", "50%"],
             data: [
-              { value: 335, name: "股票 60%" },
-              { value: 310, name: "债务 30%" },
-              { value: 234, name: "其他投资 10%" }
+              { value: 40, name: "40%" },
+              { value: 30, name: "50%" },
+              { value: 30, name: "10%" }
             ],
             itemStyle: {
               emphasis: {
@@ -273,8 +273,8 @@ export default {
             },
             label: {
               normal: {
-                show: false,
-                position: "center"
+                show: true,
+                position: "inside"
               },
               emphasis: {
                 show: true,
@@ -863,6 +863,11 @@ export default {
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid #444857;
+    &.label-cont-btm{
+      margin-top: 40px ;
+      border-bottom: none;
+      border-top: 1px solid #444857;
+    }
     .label {
       text-align: center;
       font-size: 20px;
