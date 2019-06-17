@@ -4,12 +4,12 @@
     <div class="nav-cont flex">
       <div class="nav-bar flex">
         <div
-          :class="[path === '/account' ? 'active' : '', 'nav-item']"
-          @click="goPage('/')"
+          :class="[path === '/accountPreView' ? 'active' : '', 'nav-item']"
+          @click="goPage('/accountPreView')"
         >{{$t('userCenterNav.account')}}</div>
         <div
-          :class="[path === '/operation' ? 'active' : '','nav-item']"
-          @click="goPage('/')"
+          :class="[path === '/investCombination/accountDetail' ? 'active' : '','nav-item']"
+          @click="goPage('/investCombination/accountDetail')"
         >{{$t('userCenterNav.operation')}}</div>
         <div
           :class="[path === '/userCenter/myAccount' ? 'active' : '', 'nav-item']"

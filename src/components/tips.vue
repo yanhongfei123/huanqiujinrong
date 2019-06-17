@@ -22,7 +22,10 @@ export default {
     position: absolute;
     width: 16px;
     height: 16px;
-    z-index: 9;
+    line-height:22px;
+    z-index: 99;
+    font-size: 14px;
+    color:rgba(20,20,22,0.7);
     background: url('../assets/images/user_center/btn_doubt.png');
     background-size: contain;
     .content {
