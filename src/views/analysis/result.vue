@@ -5,9 +5,12 @@
     <span class="icon icon3"></span>
     <div class="top-wrap">
       <div class="tw-l">
-        <div class="info">根据您的回答，您的风险承受类型为</div>
+        <div class="info">{{$t('analysis.result.text1')}}</div>
         <div class="result">{{type}}</div>
-        <div @click="$router.push('/analysis/analys')" class="restart">重新测评</div>
+        <div
+          @click="$router.push('/analysis/analys')"
+          class="restart"
+        >{{$t('analysis.result.text13')}}</div>
       </div>
       <div class="tw-r"></div>
     </div>
@@ -46,10 +49,10 @@
       </div>
       <div v-show="oIndex==2" class="content">
         <div class="label-cont">
-          <div class="label label1">名称</div>
-          <div class="label label2">代码</div>
-          <div class="label label3">预计权重</div>
-          <div class="label label4">预计投资金额（港币）</div>
+          <div class="label label1">{{$t('analysis.result.text14')}}</div>
+          <div class="label label2">{{$t('analysis.result.text15')}}</div>
+          <div class="label label3">{{$t('analysis.result.text16')}}</div>
+          <div class="label label4">{{$t('analysis.result.text17')}}</div>
         </div>
         <div class="type-list">
           <div class="item" v-for="(val,index) in datas" :key="index">
@@ -73,7 +76,7 @@
           </div>
         </div>
         <div class="label-cont">
-          <div class="label label1">总计</div>
+          <div class="label label1">{{$t('analysis.result.text18')}}</div>
           <div class="label label2"></div>
           <div class="label label3">100.00%</div>
           <div :style="{textIndent: '203px'}" class="label label4">{{ getThousand(525465666)}}</div>
@@ -81,17 +84,24 @@
       </div>
 
       <div v-show="oIndex!=2" class="btn-wrap">
-        <div @click="$router.push('/analysis/analys')" class="btn-item btn1">再次诊断</div>
-        <div @click="showmask=true" class="btn-item btn2">详细设定</div>
-        <div @click="$router.push('/register')" class="btn-item btn3">注册</div>
+        <div
+          @click="$router.push('/analysis/analys')"
+          class="btn-item btn1"
+        >{{$t('analysis.result.text5')}}</div>
+        <div @click="showmask=true" class="btn-item btn2">{{$t('analysis.result.text6')}}</div>
+        <div
+          @click="$router.push('/register')"
+          class="btn-item btn3"
+        >{{$t('analysis.result.text7')}}</div>
       </div>
+
       <div v-show="showmask" id="mask">
         <div class="center">
           <el-button @click="showmask=false">关闭</el-button>
           <div class="slide-cont">
             <div class="slide-item">
-              <div class="label">目标金额</div>
-              <div class="text">万元</div>
+              <div class="label">{{$t('analysis.result.text8')}}</div>
+              <div class="text">{{$t('analysis.result.text19')}}</div>
               <el-slider
                 :min="1000"
                 :max="10000"
@@ -104,8 +114,8 @@
               ></el-slider>
             </div>
             <div class="slide-item">
-              <div class="label">预计投资金额</div>
-              <div class="text">万元</div>
+              <div class="label">{{$t('analysis.result.text9')}}</div>
+              <div class="text">{{$t('analysis.result.text19')}}</div>
               <el-slider
                 :min="10"
                 :max="400"
@@ -118,8 +128,8 @@
               ></el-slider>
             </div>
             <div class="slide-item">
-              <div class="label">每月储备金额</div>
-              <div class="text">万元</div>
+              <div class="label">{{$t('analysis.result.text10')}}</div>
+              <div class="text">{{$t('analysis.result.text19')}}</div>
               <el-slider
                 :min="1"
                 :max="20"
@@ -132,8 +142,8 @@
               ></el-slider>
             </div>
             <div class="slide-item">
-              <div class="label">运用期间</div>
-              <div class="text">万元</div>
+              <div class="label">{{$t('analysis.result.text11')}}</div>
+              <div class="text">{{$t('analysis.result.text19')}}</div>
               <el-slider
                 :min="10"
                 :max="30"
@@ -146,8 +156,8 @@
               ></el-slider>
             </div>
             <div class="slide-item">
-              <div class="label">风险承受能力</div>
-              <div class="text">万元</div>
+              <div class="label">{{$t('analysis.result.text12')}}</div>
+              <div class="text">{{$t('analysis.result.text19')}}</div>
               <el-slider
                 :min="1"
                 :max="5"
@@ -167,9 +177,21 @@
 </template>
 
 <script>
-import { toThousandslsFilter } from "@/utils";
+import { toThousandslsFilter, getType } from "@/utils";
 export default {
   name: "result",
+  computed: {
+    type() {
+      return getType(localStorage.getItem("totalScore"));
+    },
+    typeList() {
+      return [
+        this.$t("analysis.result.text2"),
+        this.$t("analysis.result.text3"),
+        this.$t("analysis.result.text4")
+      ];
+    }
+  },
   data() {
     return {
       value1: 1000,
@@ -179,8 +201,6 @@ export default {
       value5: 1,
       oIndex: 0,
       showmask: false,
-      type: "",
-      typeList: ["未来预测", "过去分析", "投资组合"],
       datas: [
         {
           type: "股票类",
@@ -338,7 +358,7 @@ export default {
         },
         tooltip: {
           trigger: "axis",
-          formatter: "{b}, 本金: {c}"
+          formatter: "{b}, 原本: {c}"
         },
         xAxis: {
           boundaryGap: false,
@@ -399,7 +419,7 @@ export default {
                     },
                     position: "bottom",
                     formatter: function(param) {
-                      return "总资产" + param.data.yAxis;
+                      return "总资产" + param.data.yAxis + "万";
                     }
                   }
                 }
@@ -438,7 +458,7 @@ export default {
               data: [
                 [
                   {
-                    name: "本金800万",
+                    name: "原本800万",
                     itemStyle: {
                       normal: {
                         show: true,
@@ -650,9 +670,7 @@ export default {
       return toThousandslsFilter(num);
     }
   },
-  created() {
-    this.type = localStorage.getItem("type") || "保守型";
-  },
+  created() {},
   mounted() {
     setTimeout(() => {
       this.drawCircle("myChart4", ["#1890FF", "#F0F2F5"], 30); //#1890FF

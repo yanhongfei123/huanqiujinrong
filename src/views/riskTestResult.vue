@@ -2,44 +2,44 @@
   <div class="riskTestResult-wrap">
     <HeaderBar/>
     <div class="com-width">
-      <div class="btitle">风险测评</div>
+      <div class="btitle">{{$t('riskTestResult.text1')}}</div>
       <div class="top-wrap">
         <div class="tw-l">
-          <div class="info">根据您的回答，您的风险承受类型为</div>
+          <div class="info">{{$t('riskTestResult.text2')}}</div>
           <div class="result">{{type}}</div>
-          <div class="time">测评时间：2019-05-08</div>
+          <div class="time">{{$t('riskTestResult.text3')}}：2019-05-08</div>
         </div>
         <div class="tw-r"></div>
       </div>
       <div class="btn-wrap">
-        <div @click="goPage('/riskTest')" class="restart">重新评测</div>
-        <div @click="goPage('/configAssets')" class="next">确认并进行资产配置</div>
+        <div @click="goPage('/riskTest')" class="restart">{{$t('riskTestResult.text4')}}</div>
+        <div @click="goPage('/configAssets')" class="next">{{$t('riskTestResult.text5')}}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import HeaderBar from "@/components/header/openAccountHeader.vue";
-
+import { getType } from "@/utils";
 export default {
   name: "",
   components: {
     HeaderBar
   },
   data() {
-    return {
-      type: ''
-    };
+    return {};
   },
-  computed: {},
-  methods: {
-    goPage(path){
-      this.$router.push(path)
+  computed: {
+    type() {
+      return getType(localStorage.getItem("totalScore"));
     }
   },
-  mounted() {
-    this.type = localStorage.getItem("riskType") || "保守型";
-  }
+  methods: {
+    goPage(path) {
+      this.$router.push(path);
+    }
+  },
+  mounted() {}
 };
 </script>
 
@@ -64,8 +64,7 @@ export default {
     .tw-r {
       width: 550px;
       height: 318px;
-      background: url("../assets/images/firstpage/bg_risk.png") no-repeat
-        center;
+      background: url("../assets/images/firstpage/bg_risk.png") no-repeat center;
       background-size: contain;
     }
     .info {
@@ -86,13 +85,13 @@ export default {
       line-height: 22px;
     }
   }
-  .btn-wrap{
+  .btn-wrap {
     text-align: center;
     margin-top: 194px;
-    div{
+    div {
       width: 240px;
       height: 48px;
-      font-size:18px;
+      font-size: 18px;
       line-height: 48px;
       margin: 0 20px;
       cursor: pointer;
@@ -100,13 +99,13 @@ export default {
       background-position: center;
       background-size: contain;
     }
-    .restart{
-      color: #3C3F4D;
-      background-image: url('../assets/images//other_btn//btn_yellow240_48.png')
+    .restart {
+      color: #3c3f4d;
+      background-image: url("../assets/images//other_btn//btn_yellow240_48.png");
     }
-    .next{
+    .next {
       color: #fff;
-      background-image: url('../assets/images//other_btn/btn_red240_48.png')
+      background-image: url("../assets/images//other_btn/btn_red240_48.png");
     }
   }
 }

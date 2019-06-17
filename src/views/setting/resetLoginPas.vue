@@ -26,6 +26,7 @@
             :placeholder="$t('setting.resetPwd.text3')"
           ></el-input>
         </el-form-item>
+        <el-button disabled>默认按钮</el-button>
         <div class="btn btn-reset" @click="resetPwd('resetForm')">{{$t('setting.resetPwd.text4')}}</div>
       </el-form>
     </div>

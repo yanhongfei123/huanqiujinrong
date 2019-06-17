@@ -24,7 +24,7 @@
       <div class="info">{{$t('userCenter.extractFunds.text5')}}</div>
       <div class="info">
         {{$t('userCenter.extractFunds.text6')}}
-        <span>{{$t('userCenter.extractFunds.text7')}}</span>
+        <span> {{$t('userCenter.extractFunds.text7')}}</span>
       </div>
       <div class="info">{{$t('userCenter.extractFunds.text8')}}</div>
     </div>
@@ -127,9 +127,15 @@ export default {
   .info {
     font-size: 14px;
     font-weight: 500;
-    color: rgba(20, 20, 22, 1);
+    color: rgba(20, 20, 22, 0.8);
     line-height: 20px;
     margin-bottom: 20px;
+    span{
+      color: #D51D26;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
   }
 }
 

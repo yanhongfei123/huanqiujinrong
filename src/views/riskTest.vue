@@ -2,12 +2,12 @@
   <div class="riskTest-wrap">
     <HeaderBar/>
     <div class="com-width">
-      <div class="btitle">风险测评</div>
+      <div class="btitle">{{$t('riskTest.text1')}}</div>
       <div class="content">
-        <div class="sub-title">风险测评说明</div>
-        <div class="info">1.为了更好的了解您的投资风格，保障您的投资安全，根据相关法规，您在投资前需完成风险承受能力测评。</div>
-        <div class="info">2.请根据个人情况如实填写。若因偏离事实的填写而产生的后果需本人承担。</div>
-        <div class="info">3.平台承诺保障您的资料安全。风险承受能力测评结果仅用于向您个人展示，不会对外公布。</div>
+        <div class="sub-title">{{$t('riskTest.text2')}}</div>
+        <div class="info">1.{{$t('riskTest.text3')}}</div>
+        <div class="info">2.{{$t('riskTest.text4')}}</div>
+        <div class="info">3.{{$t('riskTest.text5')}}</div>
         <div class="question-wrap">
           <div class="item clear" v-for="(item, index) in questionList" :key="index">
             <div class="label">
@@ -30,25 +30,25 @@
         </div>
       </div>
       <div class="error">
-        <span v-show="isshow">请完成全部问题</span>
+        <span v-show="isshow">{{this.$t('riskTest.text6')}}</span>
       </div>
       <div v-if="showmask" class="mask">
         <div class="content">
           <div @click="showmask=false" class="close"></div>
           <div class="icon-waring"></div>
-          <div class="title">测评提示</div>
-          <div class="des">本人保证以上填写符合我的个人情况。</div>
+          <div class="title">{{this.$t('riskTest.text7')}}</div>
+          <div class="des">{{this.$t('riskTest.text8')}}</div>
           <div class="btn-wrap clear">
-            <el-button @click="showmask=false" class="check-btn fl">我再检查一下</el-button>
+            <el-button @click="showmask=false" class="check-btn fl">{{this.$t('riskTest.text9')}}</el-button>
             <el-button
-              @click="$router.push('/riskTestResult')"
+              @click="goPage"
               class="confirm fr"
               type="primary"
-            >确 定</el-button>
+            >{{this.$t('riskTest.text10')}}</el-button>
           </div>
         </div>
       </div>
-      <div @click="submit" class="submit">提交评测</div>
+      <div @click="submit" class="submit">{{this.$t('riskTest.text11')}}</div>
     </div>
   </div>
 </template>
@@ -84,21 +84,22 @@ export default {
     },
     getScore(item, index) {
       this.answer[index] = item.score;
-      var totalScore = eval(this.answer.join("+"));
-      localStorage.setItem("riskType", getType(totalScore));
+      this.totalScore = eval(this.answer.join("+"));
       console.log(this.answer);
-      console.log("总得分===" + totalScore);
-      console.log(getType(totalScore));
+      console.log("总得分===" + this.totalScore);
+      console.log(getType(this.totalScore));
     },
     submit() {
       var isNotChooseAll = this.answer.some(item => item == 0);
       this.isshow = isNotChooseAll;
       this.showmask = !isNotChooseAll;
+    },
+    goPage() {
+      localStorage.setItem("totalScore", this.totalScore);
+      this.$router.push("/riskTestResult");
     }
   },
-  mounted() {
-    console.log(question);
-  }
+  mounted() {}
 };
 </script>
 

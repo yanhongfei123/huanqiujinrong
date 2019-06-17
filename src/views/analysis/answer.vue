@@ -59,10 +59,9 @@ export default {
       } else {
         this.answer.push(score);
       }
-      var totalScore = eval(this.answer.join("+"));
-      localStorage.setItem("type", getType(totalScore));
+      this.totalScore = eval(this.answer.join("+"));
       console.log(this.answer);
-      console.log("总得分===" + totalScore);
+      console.log("总得分===" + this.totalScore);
     },
     chooseAnswer(item, index) {
       item.checked = true;
@@ -74,6 +73,7 @@ export default {
         }, 100);
       } else {
         this.getScore(index);
+        localStorage.setItem("totalScore", this.totalScore);
         this.$router.push("/analysis/result");
       }
     },

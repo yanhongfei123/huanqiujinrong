@@ -27,7 +27,7 @@
             <dd @click="goPage('questions')">{{$t('footer.text8')}}</dd>
             <dd @click="goPage('conditions')">{{$t('footer.text9')}}</dd>
           </dl>
-          <dl class="fr-r">
+          <!-- <dl class="fr-r">
             <dt>{{$t('footer.text10')}}</dt>
             <dd>
               <div class="mar28">
@@ -39,7 +39,7 @@
                 <div class="img-wrap weibo">{{$t('footer.text12')}}</div>
               </div>
             </dd>
-          </dl>
+          </dl> -->
         </div>
       </div>
       <div class="f-line"></div>
