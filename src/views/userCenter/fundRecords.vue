@@ -118,7 +118,6 @@ export default {
       setTimeout(() => {
         this.hideLoading();
       }, 2000);
-      console.log(item);
     },
     showLoading() {
       this.loading = this.$loading({

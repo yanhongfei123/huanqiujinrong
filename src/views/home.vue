@@ -209,7 +209,7 @@ export default {
               tablist[this.activeIndex].className + " active";
           },
           slideChangeTransitionEnd() {
-            console.log(this.activeIndex);
+           
           }
         }
         // more Swiper configs and callbacks...

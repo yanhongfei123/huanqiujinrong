@@ -1,8 +1,6 @@
 import {
-    loginByUsername,
-    logout,
-    getUserInfo
-} from '@/api/login'
+    login,
+} from '@/api'
 import {
     getToken,
     setToken,

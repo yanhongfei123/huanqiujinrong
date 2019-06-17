@@ -5,9 +5,9 @@
         </header>
         <div class="content">
             <leftImage></leftImage>
-            <el-form class="form" :model="regForm" :rules="regRules" ref="regForm">
+            <el-form class="form" :model="regForm" :rules="rules" ref="regForm">
                 <el-form-item prop="account">
-                    <el-input v-model="regForm.account" type="text" placeholder="手机号/邮箱地址"></el-input>
+                    <el-input maxlength="11" v-model="regForm.account" type="text" placeholder="手机号/邮箱地址"></el-input>
                 </el-form-item>
                 <el-form-item prop="smsCode">
                     <el-row>
@@ -15,7 +15,7 @@
                             <el-input v-model="regForm.smsCode" type="tel" maxlength="6" placeholder="验证码"></el-input>
                         </el-col>
                         <el-col :span="4">
-                            <el-button type="text" class="btn-captcha">获取验证码</el-button>
+                            <el-button @click="sendCode" type="text" class="btn-captcha">获取验证码</el-button>
                         </el-col>
                     </el-row>
                 </el-form-item>
@@ -32,7 +32,7 @@
                     </el-col>
                 </el-row>
 
-                <div class="btn btn-register" @click="register('regForm')">注册</div>
+                <div class="btn btn-register" @click="registerHandle('regForm')">注册</div>
 
             </el-form>
         </div>
@@ -42,9 +42,11 @@
 </template>
 
 <script>
+  import { Message } from 'element-ui';
   import regHeader from '@/components/header/header.vue';
   import footerBar from '@/components/footer/footer.vue';
   import leftImage from '@/components/common/leftImage.vue';
+  import { register, sendCode } from '@/api';
 
   export default {
     name: 'register',
@@ -87,21 +89,27 @@
       };
 
       const validatePass = (rule, value, callback) => {
-        let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+        let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,16}$/;
         if (value == '') {
           callback(new Error('请输入密码'));
         } else if (!pwdReg.test(value)) {
-          callback(new Error('密码为8-16位，需包含大写字母、小写字母、数字'));
+          callback(new Error('密码为6-16位，需包含大写字母、小写字母、数字'));
         } else {
           callback();
         }
       };
 
       return {
+        rules:{},
         regForm: {
           account: '',
           smsCode: '',
           password: ''
+        },
+        regsmsRules: {
+          account: [
+            { required: true, trigger: 'change,blur', validator: validateAccount },
+          ],
         },
         regRules: {
           account: [
@@ -118,16 +126,64 @@
     },
     computed: {},
     methods: {
+      sendCode(){
+        this.rules = this.regsmsRules;
+        setTimeout(()=>{
+          this.$refs.regForm.validate((valid) => {
+            if (valid) {
+              const { account } = this.regForm;
+              let params = {
+                type: 'REGISTER',
+              };
+              if (this.regForm.account.indexOf('@') > -1) {
+                params['email'] = this.regForm.account
+              } else {
+                params['phone'] = this.regForm.account
+              };
+              sendCode(params).then(res=>{
+                Message({
+                  message: '验证码已发送',
+                  type: 'success'
+                });
+              })
+            }
+          });
+        }, 10)
+      },
       goPage(path) {
         this.$router.push(path);
       },
-      register(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          }
-        });
-      }
+      registerHandle(formName) {
+        this.rules = this.regRules;
+        setTimeout(()=>{
+          this.$refs.regForm.validate((valid) => {
+            if (valid) {
+              const { account, smsCode, password } = this.regForm;
+              let params = {
+                code: smsCode,
+                passWord: password,
+              };
+              if (this.regForm.account.indexOf('@') > -1) {
+                params['email'] = this.regForm.account
+              } else {
+                params['phone'] = this.regForm.account
+              }
+              register(params).then(res=>{
+                console.log(res)
+                Message({
+                  message: '注册成功',
+                  type: 'success'
+                });
+                setTimeout(()=>{
+                  this.$router.push('/login')
+                }, 2500)
+              }).catch(error => {
+                this.$refs.regForm.resetFields();
+              })
+            }
+          });
+        }, 10)
+      },
     },
     mounted() {
 

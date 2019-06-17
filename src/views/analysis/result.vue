@@ -471,7 +471,7 @@ export default {
                             //fontWeight: "bold",
                           },
                           formatter: function(params) {
-                            console.log(params);
+                            
                           }
                         }
                       }
@@ -506,7 +506,7 @@ export default {
                             //fontWeight: "normal",
                           },
                           formatter: function(params) {
-                            console.log(params);
+                            
                           }
                         }
                       }

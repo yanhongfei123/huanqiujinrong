@@ -243,7 +243,6 @@ export default {
       this.myChart.setOption(option);
       this.myChart.on("mouseover", e => {
         //当检测到鼠标悬停事件，取消默认选中高亮
-        console.log(e);
         domType.innerHTML = e.dataIndex;
         this.myChart.dispatchAction({
           type: "downplay",

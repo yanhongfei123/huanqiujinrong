@@ -40,7 +40,6 @@ export default {
   computed: {},
   data() {
     const validateOldPassword = (rule, value, callback) => {
-      console.log(value);
       if (value == "") {
         callback(new Error(this.$t("setting.resetPwd.error.text1")));
       } else {

@@ -27,8 +27,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.showtoast);
-    console.log(this._showtoast);
+    
   },
   methods:{
     // showMenu(event){

@@ -85,7 +85,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route)
+    
   },
   methods: {
     changeTab(path) {

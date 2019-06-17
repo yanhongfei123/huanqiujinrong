@@ -13,12 +13,22 @@ module.exports = {
   lintOnSave: false,  // 关闭eslint
   productionSourceMap: false,  // 生产环境是否生成 sourceMap 文件
   devServer: {   // 配置服务器
-    port: 8081,
+    port: 8003,
     open: true,
     https: false,
     overlay: {
       warnings: true,
       errors: true
+    },
+    proxy: {
+      '/api': {
+        target: 'http://47.91.214.249:8003/', //对应自己的接口
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
     }
   },
   configureWebpack: {  // 覆盖webpack默认配置的都在这里
