@@ -24,9 +24,18 @@
                 <p class="title-desc">客户在此输入签名即表示确认所填写的内容准确或同意以上所有条款 ,本人了解并同意此电子签名等同于手写签名。</p>
                 <el-form title="合规信息" class="form" :label-position="labelPosition" label-width="80px"
                          :model="disclosureInfo" ref="disclosureInfoForm" :rules="disclosureInfoRules">
-                    <el-form-item label="签名：" prop="signName" required>
-                        <el-input v-model="disclosureInfo.signName" placeholder="请输入签名，名与姓之间有一个空格"></el-input>
-                    </el-form-item>
+                    <el-row>
+                        <el-col style="width:380px">
+                            <el-form-item label="签名：" prop="signName" required>
+                                <el-input v-model="disclosureInfo.signName" placeholder="请输入签名，名与姓之间有一个空格"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col style="margin-left: 20px"><div class="sign-date">日期： 2019-06-12</div></el-col>
+                    </el-row>
+                    <div class="important-tips">
+                        重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
+                    </div>
+
                 </el-form>
                 <div class="btn-wrap">
                     <div @click="saveInfo('disclosureInfoForm')" class="btn-item btn1">保存</div>
@@ -220,10 +229,17 @@
 
             .form {
                 width: 780px;
-                margin: 0 auto;
                 .el-form-item {
                     margin-bottom: 40px !important;
                 }
+            }
+            .important-tips{
+                padding: 40px 0 22px;
+                font-size:16px;
+                font-family: SourceHanSansSC-Medium;
+                font-weight:500;
+                color: #000;
+                line-height:32px;
             }
         }
 

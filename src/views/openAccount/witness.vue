@@ -8,19 +8,19 @@
             <div class="info-wrapper">
                 <div class="tips"><label>* </label>您正在申请的是{{type==1?'美国':'香港'}}上市交易的ETF</div>
                 <openAccountSteps :step=step></openAccountSteps>
-                <el-form title="合规信息" class="uploadInfoForm" :label-position="labelPosition" label-width="80px"
-                         :model="uploadInfo" ref="uploadInfoForm" :rules="uploadInfoRules">
-                    <div class="info-title title1">一. 上传证件</div>
-                    <div class="title-desc">如果暂时不想通过以上方式上传您的相关证件，您可以先选择“跳过”完成网上开户流程，然后通过以下方式提交证件资料：</div>
-                    <div class="label">您必须提交的文件（支持.jpg, .jpeg, .png格式，单个文件小于10M）1.香港居民身份证影印本（包括正反面）2.护照影印本（包括照片页和署名页）3.居住地址证明影印本（最近三个月内银行信件或水电煤单）</div>
-                    <div class="important-tips">
-                        重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
+                <div class="success-wrapper">
+                    <div class="img-success"></div>
+                    <div class="text-wrapper">
+                        <div class="success-title">恭喜您，开户申请已成功提交</div>
+                        <div class="success-detail">为符合香港证监会的要求，您将被要求完成线下见证并签署确认函。此步骤是为了证明您的身份证明文件真实有效，并确认收到您的身份信息。
+                        </div>
                     </div>
-                </el-form>
+                </div>
                 <div class="btn-wrap">
-                    <div @click="escapeStep('InfoForm')" class="btn-item btn1">跳过</div>
+                    <div @click="escapeStep('InfoForm')" class="btn-item btn">完成</div>
                 </div>
             </div>
+            <div class="title">开户见证指引</div>
 
         </div>
         <footerBar></footerBar>
@@ -29,50 +29,49 @@
 
 <script>
 
-    import openAccountHeader from '@/components/header/openAccountHeader.vue';
-    import footerBar from '@/components/footer/footer.vue';
-    import openAccountSteps from '@/components/common/openAccountSteps.vue';
-    import { parseTime } from '@/utils/index.js';
+  import openAccountHeader from '@/components/header/openAccountHeader.vue';
+  import footerBar from '@/components/footer/footer.vue';
+  import openAccountSteps from '@/components/common/openAccountSteps.vue';
+  import { parseTime } from '@/utils/index.js';
 
-    export default {
-        name: 'uploadInfo',
-        components: {
-            openAccountHeader,
-            footerBar,
-            openAccountSteps
-        },
-        data() {
-            return {
-                type: this.$route.query.type,
-                step: 2,
-                labelPosition: 'top',
-                uploadInfoRules: {},
-                uploadInfo: {
-                }
-            };
-        },
-        methods: {
-            escapeStep() {
-                this.$router.replace({name: 'regulatoryInfo'});
-            },
-            goDisclosure() {
-                this.$router.replace({name: 'disclosure'});
-            },
-            agree(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后跳转
-                        this.$router.replace({name: 'disclosure'});
-                    } else {
-                        //测试
-                        this.$router.replace({name: 'disclosure'});
-                    }
-                });
-            }
-        },
-        mounted() {
-        }
-    };
+  export default {
+    name: 'uploadInfo',
+    components: {
+      openAccountHeader,
+      footerBar,
+      openAccountSteps
+    },
+    data() {
+      return {
+        type: this.$route.query.type,
+        step: 4,
+        labelPosition: 'top',
+        uploadInfoRules: {},
+        uploadInfo: {}
+      };
+    },
+    methods: {
+      escapeStep() {
+        this.$router.replace({ name: 'regulatoryInfo' });
+      },
+      goDisclosure() {
+        this.$router.replace({ name: 'disclosure' });
+      },
+      agree(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //...请求接口后跳转
+            this.$router.replace({ name: 'disclosure' });
+          } else {
+            //测试
+            this.$router.replace({ name: 'disclosure' });
+          }
+        });
+      }
+    },
+    mounted() {
+    }
+  };
 </script>
 <style lang="scss">
     .el-radio-group {
@@ -99,7 +98,7 @@
         }
 
         .info-wrapper {
-            padding: 20px 116px 100px;
+            padding: 20px 116px 40px;
             .tips {
                 padding-bottom: 16px;
                 font-size: 16px;
@@ -124,20 +123,20 @@
                     margin-top: 80px;
                 }
             }
-            .title-desc{
+            .title-desc {
                 margin-top: 20px;
-                font-size:16px;
-                font-family:SourceHanSansSC-Regular;
-                font-weight:400;
-                color: rgba(60,63,77,0.5);
-                line-height:32px;
+                font-size: 16px;
+                font-family: SourceHanSansSC-Regular;
+                font-weight: 400;
+                color: rgba(60, 63, 77, 0.5);
+                line-height: 32px;
             }
-            .label{
-                font-size:16px;
-                font-family:SourceHanSansSC-Regular;
-                font-weight:400;
-                color:rgba(60,63,77,1);
-                line-height:32px;
+            .label {
+                font-size: 16px;
+                font-family: SourceHanSansSC-Regular;
+                font-weight: 400;
+                color: rgba(60, 63, 77, 1);
+                line-height: 32px;
             }
         }
 
@@ -157,26 +156,49 @@
                 text-align: center;
                 background-position: center;
                 background-size: contain;
+                color: #fff;
 
                 &:hover {
                     opacity: 1;
                 }
             }
 
-            .btn1 {
-                color: #3c3f4d;
-                background-image: url("~@/assets/images/other_btn/btn_yellow160.png");
-            }
-
-            .btn2 {
-                margin: 0 40px;
-                color: #fff;
-                background-image: url("~@/assets/images/other_btn/btn_pink160.png");
-            }
-
-            .btn3 {
-                color: #fff;
+            .btn {
                 background-image: url("~@/assets/images/other_btn/btn_red160.png");
+            }
+        }
+
+        .success-wrapper {
+            margin-top: 48px;
+            position: relative;
+            overflow: hidden;
+            .img-success {
+                float: left;
+                width: 436px;
+                height: 318px;
+                background: url("~@/assets/images/personal/bg_succeed.png") no-repeat center center;
+                background-size: contain;
+            }
+            .text-wrapper {
+                float: right;
+                text-align: right;
+                width: 477px;
+                margin-top: 46px;
+                .success-title {
+                    font-size: 36px;
+                    font-family: SourceHanSansSC-Bold;
+                    font-weight: bold;
+                    color: #141416;
+                    line-height: 52px;
+                }
+                .success-detail {
+                    margin-top: 20px;
+                    font-size: 20px;
+                    font-family: SourceHanSansSC-Regular;
+                    font-weight: 400;
+                    color: #444857;
+                    line-height: 29px;
+                }
             }
         }
     }
