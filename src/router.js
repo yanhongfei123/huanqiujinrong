@@ -43,10 +43,11 @@ const MyMessage = () => import('@/views/messageCenter/myMessage.vue'); //消息�
 const SetTransPas = () => import('@/views/setTransactionPas.vue'); //设置交易密码
 const RiskTest = () => import('@/views/riskTest.vue'); //风险评测
 const RiskTestResult = () => import('@/views/riskTestResult.vue'); //风险评测结果
+const AccountPreView = () => import('@/views/accountPreView.vue'); //账户总览
 
+const InvestCombination = () => import('@/views/investCombination/index.vue'); //投资组合
+const AccountDetail = () => import('@/views/investCombination/accountDetail.vue'); //组合详情
 
-
-// configAssets 资产配置
 
 
 const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
@@ -54,9 +55,15 @@ const ChooseMarket = () => import('@/views/openAccount/chooseMarket.vue'); //开
 const UserInfo = () => import('@/views/openAccount/userInfo.vue'); //开户-提交个人信息第一步
 const AddressInfo = () => import('@/views/openAccount/addressInfo.vue'); //开户-提交个人信息第二步
 const RegulatoryInfo = () => import('@/views/openAccount/regulatoryInfo.vue'); //开户-规管信息
+const TaxStatement = () => import('@/views/openAccount/taxStatement.vue'); //开户-税务声明
+const DisClosure = () => import('@/views/openAccount/disClosure.vue'); //开户-协议披露
+const UploadInfo = () => import('@/views/openAccount/uploadInfo.vue'); //开户-上传证件
+const Witness = () => import('@/views/openAccount/witness.vue'); //开户-见证
+
 
 export default new Router({
-    routes: [{
+    routes: [
+        {
             path: '/register',
             name: 'register',
             component: Register,
@@ -72,15 +79,37 @@ export default new Router({
             component: ResetPwd,
         },
         {
+            path: '/accountPreView',
+            name: 'accountPreView',
+            component: AccountPreView,
+        },
+        {
+            path: '/accountDetail',
+            name: 'accountDetail',
+            component: AccountDetail,
+        },
+        {
+            path: '/investCombination',
+            name: 'investCombination',
+            redirect: '/investCombination/accountDetail',
+            component: InvestCombination,
+            children: [{
+                path: 'accountDetail',
+                name: 'accountDetail',
+                component: AccountDetail,
+            },
+            ]
+        },
+        {
             path: '/userCenter',
             name: 'userCenter',
             redirect: '/userCenter/myAccount',
             component: UserCenter,
             children: [{
-                    path: 'myAccount',
-                    name: 'myAccount',
-                    component: MyAccount,
-                },
+                path: 'myAccount',
+                name: 'myAccount',
+                component: MyAccount,
+            },
                 {
                     path: 'guide',
                     name: 'guide',
@@ -114,10 +143,10 @@ export default new Router({
             redirect: '/setting/information',
             component: Setting,
             children: [{
-                    path: 'information',
-                    name: 'information',
-                    component: Information,
-                },
+                path: 'information',
+                name: 'information',
+                component: Information,
+            },
                 {
                     path: 'resetTranPas',
                     name: 'resetTranPas',
@@ -141,10 +170,10 @@ export default new Router({
             redirect: '/messageCenter/announcement',
             component: MessageCenter,
             children: [{
-                    path: 'announcement',
-                    name: 'announcement',
-                    component: Announcement,
-                },
+                path: 'announcement',
+                name: 'announcement',
+                component: Announcement,
+            },
                 {
                     path: 'informationPush',
                     name: 'informationPush',
@@ -162,38 +191,47 @@ export default new Router({
             name: 'openAccount',
             redirect: '/openAccount/chooseMarket',
             component: OpenAccount,
-            children: [{
-                path: 'chooseMarket',
-                name: 'chooseMarket',
-                component: ChooseMarket,
-            }, ]
-        },
-        {
-            path: '/openAccount',
-            name: 'openAccount',
-            redirect: '/openAccount/chooseMarket',
-            component: OpenAccount,
             children: [
-              {
-                path: 'chooseMarket',
-                name: 'chooseMarket',
-                component: ChooseMarket,
-              },
-              {
-                path: 'userInfo',
-                name: 'userInfo',
-                component: UserInfo,
-              },
-              {
-                path: 'addressInfo',
-                name: 'addressInfo',
-                component: AddressInfo,
-              },
-              {
-                path: 'regulatoryInfo',
-                name: 'regulatoryInfo',
-                component: RegulatoryInfo,
-              },
+                {
+                    path: 'chooseMarket',
+                    name: 'chooseMarket',
+                    component: ChooseMarket,
+                },
+                {
+                    path: 'userInfo',
+                    name: 'userInfo',
+                    component: UserInfo,
+                },
+                {
+                    path: 'addressInfo',
+                    name: 'addressInfo',
+                    component: AddressInfo,
+                },
+                {
+                    path: 'regulatoryInfo',
+                    name: 'regulatoryInfo',
+                    component: RegulatoryInfo,
+                },
+                {
+                    path: 'taxStatement',
+                    name: 'taxStatement',
+                    component: TaxStatement,
+                },
+                {
+                    path: 'disClosure',
+                    name: 'disClosure',
+                    component: DisClosure,
+                },
+                {
+                    path: 'uploadInfo',
+                    name: 'uploadInfo',
+                    component: UploadInfo,
+                },
+                {
+                    path: 'witness',
+                    name: 'witness',
+                    component: Witness,
+                }
             ]
         },
         {
@@ -240,10 +278,10 @@ export default new Router({
             name: 'analysis',
             component: Analysis,
             children: [{
-                    path: 'analys',
-                    name: 'analys',
-                    component: Analys,
-                },
+                path: 'analys',
+                name: 'analys',
+                component: Analys,
+            },
                 {
                     path: 'answer',
                     name: 'answer',

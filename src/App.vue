@@ -45,6 +45,9 @@ body {
   width: 100%;
   height: 100%;
 }
+.pointer{
+  cursor: pointer;
+}
 .el-button--primary {
   background-color: #D51D26!important;
   border-color: #D51D26!important;

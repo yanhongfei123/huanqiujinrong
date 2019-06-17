@@ -1,0 +1,473 @@
+<template>
+  <div class="account-preview">
+    <header>
+      <userCenterHeader path="/accountPreView"></userCenterHeader>
+    </header>
+    <div @click="hideMenu($event)" class="content">
+      <div class="com-width">
+        <div class="title">{{$t('userCenter.text1')}}</div>
+        <div class="main">
+          <div class="wrap1">
+            <div class="item">
+              <div class="label">投资金额（港币）</div>
+              <div class="amount">3,000,000.00</div>
+            </div>
+            <div class="item">
+              <div class="label">
+                <span>
+                  累计收益（港币）
+                  <tips top="0" right="-20px">您的账户中可能包含以其他币种计费的利息或分红。其价值将按照当日参考汇率以港币显示并计入收益中。</tips>
+                </span>
+              </div>
+              <div class="amount">3,000,000.00</div>
+            </div>
+            <div class="item">
+              <div class="label">
+                <span>
+                  收益率（%）
+                  <tips
+                    top="0"
+                    right="-20px"
+                  >是指根据该账户不同时期的投资金额，计算其首次配置以来整个时间区间收益率的几何平均数，即时间加权收益率。其优点是考虑了资金的时间价值，不受现金流的影响，是业界常用的回报计算方式。</tips>
+                </span>
+              </div>
+              <div class="amount">3,000,000.00</div>
+            </div>
+          </div>
+          <div class="wrap2 clear">
+            <div class="l-w fl">
+              <div class="fl w2-title">风险承受类型</div>
+              <div  @click="$router.push('/investCombination/accountDetail')" class="fr detail pointer">查看投资组合详情</div>
+              <span id="type">进取型</span>
+              <div id="echarts"></div>
+              <div class="legend">
+                <div
+                  @mouseover="highlight(index)"
+                  @mouseout="downplay(index)"
+                  v-for="(val,index) in colors"
+                  :key="index"
+                  class="legend-item"
+                >
+                  <div :style="{backgroundColor:val}" class="color"></div>
+                  <div class="pecent">60.00%</div>
+                  <div class="type">股票</div>
+                </div>
+              </div>
+            </div>
+            <div class="r-w fr">
+              <div class="w2-title">我的余额</div>
+              <div class="cont">
+                <div class="rw-label rw-label1">当前账户余额（港币）</div>
+                <div class="rw-amount rw-amount">3,000,000.00</div>
+                <div class="line"></div>
+                <div class="rw-label rw-label1">近一个月收益率</div>
+                <div class="rw-amount rw-amount">12.18%</div>
+                <div class="btm-wrap clear">
+                  <div @click="$router.push('/userCenter/guide')" class="l-btn fl">我要入金</div>
+                  <div @click="$router.push('/userCenter/extractFunds')" class="r-btn fr">我要提取资金</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fundRecords">
+            <div class="top-wrap">
+              <div class="label">近期资金记录</div>
+              <div @click="$router.push('/userCenter/fundRecords')" class="records pointer">查看更多资金记录>></div>
+            </div>
+            <table>
+              <thead>
+                <th>{{$t('userCenter.fundRecords.text4')}}</th>
+                <th class="select-wrap">
+                  <span>{{$t('userCenter.fundRecords.text5')}}</span>
+                </th>
+                <th>{{$t('userCenter.fundRecords.text6')}}</th>
+                <th>{{$t('userCenter.fundRecords.text7')}}</th>
+                <th>{{$t('userCenter.fundRecords.text8')}}</th>
+              </thead>
+              <tbody>
+                <tr v-for="(val,index) in data" :key="index">
+                  <td>{{val.date}}</td>
+                  <td>{{val.type}}</td>
+                  <td>{{val.origin}}</td>
+                  <td>{{val.bi}}</td>
+                  <td>{{val.amount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footerBar></footerBar>
+  </div>
+</template>
+<script>
+import Tips from "@/components/tips.vue";
+import userCenterHeader from "@/components/header/userCenterHeader.vue";
+import footerBar from "@/components/footer/footer.vue";
+export default {
+  name: "accountPreview",
+  components: {
+    Tips,
+    userCenterHeader,
+    footerBar
+  },
+  data() {
+    return {
+      colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
+            data: [
+        {
+          date: "2019-04-30",
+          type: "交易",
+          origin: "BMO亚洲投资债",
+          bi: "港币",
+          amount: "352015255"
+        },
+        {
+          date: "2019-04-30",
+          type: "交易",
+          origin: "BMO亚洲投资债",
+          bi: "港币",
+          amount: "352015255"
+        },
+        {
+          date: "2019-04-30",
+          type: "交易",
+          origin: "BMO亚洲投资债",
+          bi: "港币",
+          amount: "352015255"
+        },
+        {
+          date: "2019-04-30",
+          type: "交易",
+          origin: "BMO亚洲投资债",
+          bi: "港币",
+          amount: "352015255"
+        }
+      ]
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.drawPie();
+    }, 50);
+  },
+  methods: {
+    hideMenu(flag) {
+      this.$store.dispatch("showMenu", false);
+    },
+    highlight(index) {
+      // this.myChart.dispatchAction({
+      //   type: 'downplay',
+      //   seriesIndex: 0,
+      //   dataIndex: [0,1,2]
+      // });
+      // this.myChart.dispatchAction({
+      //   type: 'highlight',
+      //   seriesIndex: 0,
+      //   dataIndex: index
+      // });
+    },
+    downplay(index) {
+      // this.myChart.dispatchAction({
+      //   type: 'downplay',
+      //   seriesIndex: 0,
+      //   dataIndex: index
+      // });
+    },
+    drawPie() {
+      // 基于准备好的dom，初始化echarts实例
+      let domType = document.getElementById("type");
+      this.myChart = echarts.init(document.getElementById("echarts"));
+      // 绘制图表
+      var option = {
+        // title : {
+        //     text: '某站点用户访问来源',
+        //     subtext: '纯属虚构',
+        //     x:'center'
+        // },
+        color: this.colors,
+        grid: {
+          top: "0%",
+          left: "0%",
+          // right: "15%"
+          bottom: "3%"
+        },
+        //backgroundColor: "#fff",
+        // tooltip: {
+        //   trigger: "item",
+        //   formatter: "{a} <br/>{b} : {c} ({d}%)"
+        // },
+        // legend: {
+        //   orient: "vertical",
+        //   x: "20",
+        //   y: "center",
+        //   itemGap: 40,
+        //   data: ["60%", "30%", "10%"]
+        // },
+        series: [
+          {
+            name: "投资类型",
+            type: "pie",
+            radius: ["40%", "54%"],
+            center: ["50%", "40%"],
+            data: [
+              { value: 60, name: "60%" },
+              { value: 30, name: "30%" },
+              { value: 10, name: "10%" }
+            ],
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)"
+              }
+            },
+            label: {
+              normal: {
+                show: true,
+                position: "inside"
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: "18",
+                  fontWeight: "bold"
+                }
+              }
+            }
+          }
+        ]
+      };
+      this.myChart.setOption(option);
+      this.myChart.on("mouseover", e => {
+        //当检测到鼠标悬停事件，取消默认选中高亮
+        console.log(e);
+        domType.innerHTML = e.dataIndex;
+        this.myChart.dispatchAction({
+          type: "downplay",
+          seriesIndex: 0,
+          dataIndex: [0, 1, 2]
+        });
+        this.myChart.dispatchAction({
+          type: "highlight",
+          seriesIndex: 0,
+          dataIndex: e.dataIndex
+        });
+      });
+      this.myChart.on("mouseout", e => {
+        this.myChart.dispatchAction({
+          type: "downplay",
+          seriesIndex: 0,
+          dataIndex: e.dataIndex
+        });
+      });
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.account-preview {
+  background: #f9f9f9;
+  .content {
+    padding-top: 40px;
+  }
+  .main {
+    width: 1020px;
+    margin: 55px auto 100px;
+  }
+  .title {
+    font-size: 40px;
+    font-family: SourceHanSansSC-Medium;
+    font-weight: 500;
+    color: rgba(60, 63, 77, 1);
+    line-height: 58px;
+  }
+  .wrap1 {
+    display: flex;
+    justify-content: space-between;
+    .item {
+      width: 312px;
+      height: 106px;
+      padding-top: 22px;
+      background: #fff;
+      text-align: center;
+    }
+    .label {
+      font-size: 16px;
+      color: rgba(20, 20, 22, 1);
+      line-height: 22px;
+      font-weight: normal;
+      span {
+        position: relative;
+      }
+    }
+    .amount {
+      font-size: 24px;
+      font-weight: bold;
+      color: rgba(20, 20, 22, 1);
+      line-height: 32px;
+      margin-top: 6px;
+    }
+  }
+  .wrap2 {
+    margin-top: 40px;
+    .l-w {
+      position: relative;
+      padding: 20px;
+      background: #fff;
+    }
+    .r-w {
+      width: 490px;
+      height: 470px;
+      padding: 20px;
+      background: #fff;
+    }
+    .cont {
+      width: 410px;
+      margin: 60px auto 0;
+      text-align: center;
+      .rw-label {
+        font-size: 16px;
+        color: rgba(20, 20, 22, 0.5);
+        line-height: 22px;
+        margin-bottom: 30px;
+      }
+      .line {
+        width: 410px;
+        height: 1px;
+        margin: 28px 0;
+        background: rgba(216, 216, 216, 1);
+      }
+      .rw-amount {
+        font-size: 32px;
+        font-weight: bold;
+        color: rgba(20, 20, 22, 1);
+        line-height: 32px;
+      }
+      .btm-wrap {
+        margin-top: 45px;
+        div {
+          width: 160px;
+          height: 48px;
+          line-height: 48px;
+          font-size: 18px;
+          background-size: contain;
+          cursor: pointer;
+        }
+        .l-btn {
+          color: #3c3f4d;
+          background-image: url("../assets/images/other_btn/btn_yellow160.png");
+        }
+        .r-btn {
+          color: #fff;
+          background-image: url("../assets/images/other_btn/btn_red160.png");
+        }
+      }
+    }
+    #echarts {
+      width: 450px;
+      height: 430px;
+    }
+    #type {
+      position: absolute;
+      width: 100px;
+      top: 44%;
+      left: 50%;
+      margin-left: -50px;
+      color: #141416;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .w2-title {
+      font-size: 24px;
+      color: rgba(59, 72, 89, 1);
+    }
+    .detail {
+      font-size: 16px;
+      color: rgba(213, 29, 38, 1);
+    }
+    .legend {
+      padding: 0 40px 0 70px;
+      position: absolute;
+      bottom: 24px;
+      width: 450px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+    }
+    .pecent {
+      font-size: 20px;
+      color: rgba(20, 20, 22, 1);
+      line-height: 28px;
+      margin-bottom: 5px;
+    }
+    .type {
+      font-size: 18px;
+      color: rgba(20, 20, 22, 0.5);
+      line-height: 25px;
+    }
+    .legend-item {
+      position: relative;
+      .color {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 3px;
+        left: -30px;
+      }
+    }
+  }
+}
+
+.fundRecords {
+  padding: 20px 0;
+  margin-top: 40px;
+  height: 100%;
+  background: #fff;
+}
+.records{
+  color: #D51D26;
+}
+.top-wrap {
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-content: flex-end;
+}
+.label {
+  font-size: 20px;
+  color: #141416;
+  font-weight: bold;
+}
+table {
+  width: 100%;
+  margin-top: 20px;
+  thead {
+    background: rgba(20, 20, 22, 0.1);
+  }
+  th,
+  td {
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+  }
+  .select-wrap {
+    position: relative;
+    .icon {
+      position: absolute;
+      right: 10px;
+      top: 36%;
+      z-index: 0;
+      width: 20px;
+      height: 20px;
+      background: url("../assets/images//icon_choose.png") no-repeat center;
+      background-size: contain;
+    }
+  }
+}
+</style>
