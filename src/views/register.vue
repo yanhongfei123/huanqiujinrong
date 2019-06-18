@@ -75,7 +75,6 @@
             callback();
           }
         }
-
       };
       const validateSmsCode = (rule, value, callback) => {
         let smsReg = /^\d{6}$/;
