@@ -126,17 +126,17 @@ export default {
         {
           progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
           btnText: this.$t("userCenter.openStatusList[1].btnText"),
-          path: "/injectFunds"
+          path: "/userCenter/guide"
         },
         {
           progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
           btnText: this.$t("userCenter.openStatusList[2].btnText"),
-          path: "/analysis/analys"
+          path: "/riskTest"
         },
         {
           progressTitle: this.$t("userCenter.openStatusList[3].progressTitle"),
           btnText: this.$t("userCenter.openStatusList[3].btnText"),
-          path: "/configAssets"
+          path: "/setTransPas"
         }
       ]
     };

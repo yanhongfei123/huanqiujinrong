@@ -1,7 +1,12 @@
 import axios from 'axios'
-import { Message, MessageBox } from 'element-ui'
+import {
+  Message,
+  MessageBox
+} from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import {
+  getToken
+} from '@/utils/auth'
 import router from '../router'
 // create an axios instance
 const service = axios.create({
@@ -36,42 +41,48 @@ service.interceptors.response.use(
     console.log(response)
     if (res.code !== '0000') {
 
-      MessageBox.confirm(res.msg, '提示', {
-        confirmButtonText: '我知道了',
-        showCancelButton: false,
-        type: 'warning'
-      })
+      switch (res.code) {
+        case '0005':
+          MessageBox.confirm('登录已过期，请重新登录', '提示', {
+            confirmButtonText: '重新登录',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            router.push('/login')
+            // store.dispatch('FedLogOut').then(() => {
+            //   location.reload() // 为了重新实例化vue-router对象 避免bug
+            // })
+          })
+          break;
 
-      if (res.code === '0005') {
-        MessageBox.confirm('登录已失效，请重新登录', '提示', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          //router.push('/login')
-          // store.dispatch('FedLogOut').then(() => {
-          //   location.reload() // 为了重新实例化vue-router对象 避免bug
-          // })
-        })
-      }
-      if (res.code === '0220') {
-        MessageBox.confirm('该手机号/邮箱尚未注册', '提示', {
-          confirmButtonText: '我知道了',
-          showCancelButton: false,
-          type: 'warning'
-        }).then(() => {
-          router.push('/register')
-        })
+        case '0220':
+          MessageBox.confirm('该手机号/邮箱尚未注册', '提示', {
+            confirmButtonText: '我知道了',
+            showCancelButton: false,
+            type: 'warning'
+          }).then(() => {
+            router.push('/register')
+          })
+          break;
+
+        case '0225':
+          MessageBox.confirm('该手机号/邮箱已注册', '提示', {
+            confirmButtonText: '我知道了',
+            showCancelButton: false,
+            type: 'warning'
+          })
+          break;
+
+        default:
+          MessageBox.confirm(res.msg, '提示', {
+            confirmButtonText: '我知道了',
+            showCancelButton: false,
+            type: 'warning'
+          });
+
       }
 
-      if (res.code === '0225') {
-        MessageBox.confirm('该手机号/邮箱已注册', '提示', {
-          confirmButtonText: '我知道了',
-          showCancelButton: false,
-          type: 'warning'
-        })
-      }
-      return Promise.reject('error')
+      return Promise.reject('error');
     } else {
       return response.data
     }
