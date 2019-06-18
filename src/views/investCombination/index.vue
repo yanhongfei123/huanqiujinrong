@@ -79,13 +79,13 @@ export default {
         },
         {
           title: "投资记录",
-          path: "/investCombination/xxxx"
+          path: "/investCombination/investRecords"
         }
       ]
     };
   },
   mounted() {
-    
+
   },
   methods: {
     changeTab(path) {
