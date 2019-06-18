@@ -185,7 +185,47 @@
                         label: '新加坡'
                     },
                 ],
-                statementInfoRules: {},
+                statementInfoRules: {
+                    beneficiary: [
+                        { required: true, message: "请输入收益所有人名称" },
+                    ],
+                    nationality: [
+                        { required: true, message: "请输入国籍" },
+                    ],
+                    residentAddress: [
+                        { required: true, message: "请输入居住地址" },
+                    ],
+                    birthDate: [
+                        { required: true, message: "请选择出生日期" },
+                    ],
+                    hasTaxNo: [
+                        { required: true, message: "请选择" },
+                    ],
+                    taxNo: [
+                        { required: true, message: "请填写纳税识别号" },
+                    ],
+                    hasTaxIncentives: [
+                        { required: true, message: "请选择" },
+                    ],
+                    taxIncentivesCountry: [
+                        { required: true, message: "请选择优惠国家" },
+                    ],
+                    birthCountry: [
+                        { required: true, message: "请选择出生国家/地区" },
+                    ],
+                    taxCountry: [
+                        { required: true, message: "请选择税务居住国家/地区" },
+                    ],
+                    usTaxNo: [
+                        { required: true, message: "请填写美国纳税人识别号码" },
+                    ],
+                    signName: [
+                        { required: true, message: "请填写签名" },
+                    ],
+                    agreement: [
+                        { required: true, message: "请选择" },
+                    ]
+                },
                 statementInfo: {
                     taxCountry: '中国香港',
                     usTaxNo: '678419198501107657',
