@@ -407,6 +407,33 @@ export default {
     text4: '重新评测',
     text5: '确认并进行资产配置',
   },
+  investCombination: {
+    historyRecords: {
+      tabHistory: '历史记录',
+      tabStatement: '账户结单',
+      tabBilling: '计费',
+      history: {
+        date: '日期',
+        assetType: '资金类型',
+        asset: '对应资产',
+        currency: '币种',
+        amount: '金额',
+        placeholder: '請选择'
+      },
+      statement: {
+        date: '结单日期',
+        desc: '描述',
+        amount: '结单金额（港币）'
+      },
+      billing: {
+        date: '结单日期',
+        desc: '描述',
+        amount: '金额（港币）',
+        payingAmount: '待支付总额（港币）',
+        total: '合计'
+      }
+    }
+  }
 
 
 

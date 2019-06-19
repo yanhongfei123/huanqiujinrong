@@ -1,6 +1,6 @@
 <template>
     <div class="invest-records">
-        <div class="date-wrap">
+        <div class="date-wrap" v-show="activeName != 'statement'">
             <el-date-picker
                     v-model="date"
                     type="daterange"
@@ -10,18 +10,16 @@
             ></el-date-picker>
         </div>
         <el-tabs v-model="activeName">
-            <el-tab-pane name="history" label="历史记录">
-                <div class="fundRecords">
-                    <div class="top-wrap">
-                        <div class="label">{{$t('userCenter.fundRecords.text1')}}</div>
-                    </div>
+            <el-tab-pane name="history" :label="$t('investCombination.historyRecords.tabHistory')">
+                <div class="records">
                     <table>
                         <thead>
-                        <th>{{$t('userCenter.fundRecords.text4')}}</th>
+                        <th>{{$t('investCombination.historyRecords.history.date')}}</th>
                         <th class="select-wrap">
-                            <span>{{$t('userCenter.fundRecords.text5')}}</span>
+                            <span>{{$t('investCombination.historyRecords.history.assetType')}}</span>
                             <span class="icon"></span>
-                            <el-select @change="selectChange" v-model="value" placeholder="请选择">
+                            <el-select @change="selectChange" v-model="value"
+                                       :placeholder="$t('investCombination.historyRecords.history.placeholder')">
                                 <el-option
                                         v-for="item in options"
                                         :key="item.value"
@@ -30,12 +28,12 @@
                                 ></el-option>
                             </el-select>
                         </th>
-                        <th>{{$t('userCenter.fundRecords.text6')}}</th>
-                        <th>{{$t('userCenter.fundRecords.text7')}}</th>
-                        <th>{{$t('userCenter.fundRecords.text8')}}</th>
+                        <th>{{$t('investCombination.historyRecords.history.asset')}}</th>
+                        <th>{{$t('investCombination.historyRecords.history.currency')}}</th>
+                        <th>{{$t('investCombination.historyRecords.history.amount')}}</th>
                         </thead>
                         <tbody>
-                        <tr v-for="(val,index) in data" :key="index">
+                        <tr v-for="(val,index) in historyList" :key="index">
                             <td>{{val.date}}</td>
                             <td>{{val.type}}</td>
                             <td>{{val.origin}}</td>
@@ -52,9 +50,73 @@
                     ></el-pagination>
                 </div>
             </el-tab-pane>
-            <el-tab-pane name="statement" label="账户结单"></el-tab-pane>
-            <el-tab-pane name="billing" label="计费"></el-tab-pane>
+            <el-tab-pane name="statement" :label="$t('investCombination.historyRecords.tabStatement')">
+                <div class="records">
+                    <table>
+                        <thead>
+                            <th>{{$t('investCombination.historyRecords.statement.date')}}</th>
+                            <th>{{$t('investCombination.historyRecords.statement.desc')}}</th>
+                            <th>{{$t('investCombination.historyRecords.statement.amount')}}</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(val,index) in statementList" :key="index">
+                                <td>{{val.date}}</td>
+                                <td>{{val.title}}</td>
+                                <td>{{val.amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <el-pagination
+                            @current-change="currentChange"
+                            background
+                            layout="prev, pager, next"
+                            :total="total/100"
+                    ></el-pagination>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane name="billing" :label="$t('investCombination.historyRecords.tabBilling')">
+                <div class="records billingRecords">
+                    <table>
+                        <thead>
+                            <th>{{$t('investCombination.historyRecords.billing.date')}}</th>
+                            <th>{{$t('investCombination.historyRecords.billing.desc')}}</th>
+                            <th>{{$t('investCombination.historyRecords.billing.amount')}}</th>
+                            <th>{{$t('investCombination.historyRecords.billing.payingAmount')}}</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(val,index) in billingList" :key="index">
+                                <td>{{val.date}}</td>
+                                <td>{{val.desc}}</td>
+                                <td>{{val.amount}}</td>
+                                <th>{{val.payingAmount}}</th>
+                            </tr>
+                            <tr>
+                                <td>{{$t('investCombination.historyRecords.billing.total')}}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ totalAmount }}</td>
+                            </tr>
+                        </tbody>
+                        <div class="line"></div>
+                    </table>
+                    <el-pagination
+                            @current-change="currentChange"
+                            background
+                            layout="prev, pager, next"
+                            :total="total/100"
+                    ></el-pagination>
+                </div>
+            </el-tab-pane>
         </el-tabs>
+        <div class="title">投资咨询费说明</div>
+        <div class="desc">
+            <p>投资咨询费将根据该客户投资组合资产净值计算，并于下月月初从客户的账户中扣除。每日的投资咨询费按前一日香港时间18:00时客户投资组合的资产净值的0.8%年费率计提。计算方法如下：</p>
+            <p>C ＝ D × 0.8% ÷ N</p>
+            <p>C为每日投资咨询费</p>
+            <p>D为客户前一日香港时间18:00时投资组合的资产净值</p>
+            <p>N 为当年天数（正常年份为365，如遇闰年为366）</p>
+            <p>请注意，该页面仅展示客户与智能投顾相关的投资咨询费。客户或需支付一定的交易费用，详情请咨询交易执行券商。</p>
+        </div>
 
     </div>
 </template>
@@ -90,7 +152,7 @@
                     }
                 ],
                 value: "选项1",
-                data: [
+                historyList: [
                     {
                         date: "2019-04-30",
                         type: "交易",
@@ -119,22 +181,98 @@
                         bi: "港币",
                         amount: "352015255"
                     }
+                ],
+                statementList: [
+                    {
+                        date: "2019-04-30",
+                        title: "2019年4月投资咨询费",
+                        amount: "35，540.90"
+                    },
+                    {
+                        date: "2019-04-30",
+                        title: "2019年4月投资咨询费",
+                        amount: "35，540.90"
+                    },
+                    {
+                        date: "2019-04-30",
+                        title: "2019年4月投资咨询费",
+                        amount: "35，540.90"
+                    },
+                    {
+                        date: "2019-04-30",
+                        title: "2019年4月投资咨询费",
+                        amount: "35，540.90"
+                    }
+                ],
+                billingList: [
+                    {
+                        date: "2019-04-30",
+                        desc: "投资咨询费",
+                        amount: "15.05",
+                        payingAmount: "3554090"
+                    },
+                    {
+                        date: "2019-04-30",
+                        desc: "投资咨询费",
+                        amount: "15.05",
+                        payingAmount: "3554090"
+                    },
+                    {
+                        date: "2019-04-30",
+                        desc: "投资咨询费",
+                        amount: "15.05",
+                        payingAmount: "3554090"
+                    },
                 ]
+            }
+        },
+        computed: {
+            totalAmount() {
+                let total = 0;
+                this.billingList.map(item => {
+                    total += parseInt(item.payingAmount);
+                });
+                return total;
+            }
+        },
+        methods: {
+            selectChange(item) {
+                this.showLoading();
+                setTimeout(() => {
+                    this.hideLoading();
+                }, 2000);
+            },
+            showLoading() {
+                this.loading = this.$loading({
+                    lock: true,
+                    // text: 'Loading',
+                    // spinner: 'el-icon-loading',
+                    background: "rgba(0, 0, 0, 0.7)"
+                });
+            },
+            hideLoading() {
+                this.loading.close();
+            },
+            currentChange(currentpage) {
+                console.log(currentpage);
             }
         }
     }
 </script>
 <style lang="scss">
     .invest-records {
-        .el-tabs--border-card > .el-tabs__header {
+        .el-tabs__header {
             background-color: #fff !important;
+            margin: 0;
         }
+
         .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
             padding-left: 20px;
         }
-        .el-tabs__item{
+
+        .el-tabs__item {
             padding: 0 30px;
-            color:rgba(59,72,89,0.5);
+            color: rgba(59, 72, 89, 0.5);
             font-size: 24px;
             font-family: SourceHanSansSC-Medium;
             font-weight: 500;
@@ -142,7 +280,7 @@
             height: 64px;
         }
 
-        .el-tabs__header .el-tabs__item.is-active, .el-tabs__header .el-tabs__item:hover{
+        .el-tabs__header .el-tabs__item.is-active, .el-tabs__header .el-tabs__item:hover {
             color: #d51d26;
         }
 
@@ -154,7 +292,7 @@
             background: #d8d8d8;
         }
 
-        .el-date-editor--daterange.el-input__inner{
+        .el-date-editor--daterange.el-input__inner {
             width: 250px;
         }
     }
@@ -163,32 +301,37 @@
 
     .invest-records {
         position: relative;
-        .date-wrap{
+
+        .date-wrap {
             position: absolute;
             top: 14px;
             right: 20px;
             width: 250px;
+            z-index: 1;
         }
-        .fundRecords {
-            padding: 20px 0 40px;
+
+        .records {
+            padding-bottom: 60px;
             height: 100%;
-            .top-wrap {
-                padding-right: 40px;
-                display: flex;
-                justify-content: space-between;
-                align-content: flex-end;
-            }
+
             .label {
                 font-size: 20px;
                 color: #141416;
                 font-weight: bold;
             }
+
             table {
+                position: relative;
                 width: 100%;
-                margin-top: 20px;
+
                 thead {
-                    background: rgba(20, 20, 22, 0.1);
+                    background: rgba(20, 20, 22, 0.0504);
                 }
+
+                tbody {
+                    background: #fff;
+                }
+
                 th,
                 td {
                     font-size: 20px;
@@ -196,8 +339,10 @@
                     line-height: 60px;
                     text-align: center;
                 }
+
                 .select-wrap {
                     position: relative;
+
                     .icon {
                         position: absolute;
                         right: 10px;
@@ -209,6 +354,45 @@
                         background-size: contain;
                     }
                 }
+
+                .line {
+                    height: 1px;
+                    background: #444857;
+                    position: absolute;
+                    left: 40px;
+                    right: 40px;
+                    bottom: 60px;
+                }
+            }
+        }
+
+        .billingRecords {
+            tr:last-child {
+                font-family: PingFangSC-Semibold;
+                font-weight: 600;
+                margin: 0 40px;
+                background-color: #fff;
+            }
+        }
+
+        .title {
+            font-size: 24px;
+            font-family: PingFangSC-Medium;
+            font-weight: 500;
+            color: rgba(20, 20, 22, 1);
+            line-height: 33px;
+        }
+
+        .desc {
+            padding-top: 20px;
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            color: rgba(20, 20, 22, 1);
+            line-height: 20px;
+
+            p {
+                padding-top: 20px;
             }
         }
     }

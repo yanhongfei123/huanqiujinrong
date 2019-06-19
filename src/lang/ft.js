@@ -317,6 +317,7 @@ export default {
       text7: '幣種',
       text8: '金額',
     },
+
   },
   setting: {
     text1: '個人設置',
@@ -407,5 +408,31 @@ export default {
     text4: '重新評測',
     text5: '確認並進行資産配置',
   },
-
+  investCombination: {
+    historyRecords: {
+      tabHistory: '曆史記錄',
+      tabStatement: '賬戶結單',
+      tabBilling: '計費',
+      history: {
+        date: '日期',
+        assetType: '資金類型',
+        asset: '對應資産',
+        currency: '幣種',
+        amount: '金額',
+        placeholder: '請選擇'
+      },
+      statement: {
+        date: '結單日期',
+        desc: '描述',
+        amount: '結單金額（港幣）'
+      },
+      billing: {
+        date: '結單日期',
+        desc: '描述',
+        amount: '金額（港幣）',
+        payingAmount: '待支付金額（港幣）',
+        total: '合計'
+      }
+    }
+  }
 }
