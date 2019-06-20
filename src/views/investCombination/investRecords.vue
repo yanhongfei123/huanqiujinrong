@@ -108,14 +108,14 @@
                 </div>
             </el-tab-pane>
         </el-tabs>
-        <div class="title">投资咨询费说明</div>
+        <div class="title">{{$t('investCombination.historyRecords.descTitle')}}</div>
         <div class="desc">
-            <p>投资咨询费将根据该客户投资组合资产净值计算，并于下月月初从客户的账户中扣除。每日的投资咨询费按前一日香港时间18:00时客户投资组合的资产净值的0.8%年费率计提。计算方法如下：</p>
+            <p>{{$t('investCombination.historyRecords.descContent1')}}</p>
             <p>C ＝ D × 0.8% ÷ N</p>
-            <p>C为每日投资咨询费</p>
-            <p>D为客户前一日香港时间18:00时投资组合的资产净值</p>
-            <p>N 为当年天数（正常年份为365，如遇闰年为366）</p>
-            <p>请注意，该页面仅展示客户与智能投顾相关的投资咨询费。客户或需支付一定的交易费用，详情请咨询交易执行券商。</p>
+            <p>{{$t('investCombination.historyRecords.descContent2')}}</p>
+            <p>{{$t('investCombination.historyRecords.descContent3')}}</p>
+            <p>{{$t('investCombination.historyRecords.descContent4')}}</p>
+            <p>{{$t('investCombination.historyRecords.descContent5')}}</p>
         </div>
 
     </div>

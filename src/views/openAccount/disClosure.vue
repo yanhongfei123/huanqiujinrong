@@ -54,7 +54,7 @@
     import footerBar from '@/components/footer/footer.vue';
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
     import {parseTime} from '@/utils/index.js';
-    import Cookies from 'js-cookie'
+    import Cookies from 'js-cookie';
 
     export default {
         name: 'disclosureInfo',
@@ -65,7 +65,7 @@
         },
         data() {
             return {
-                locale: Cookies.get('language') || 'zh',
+                locale: Cookies.get('language') || 'zh-TW',
                 type: this.$route.query.type,
                 step: 2,
                 labelPosition: 'top',
