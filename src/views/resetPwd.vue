@@ -26,7 +26,6 @@
 
             </el-form>
         </div>
-        <div class="bg-bottom"></div>
         <footerBar></footerBar>
     </div>
 </template>
@@ -178,11 +177,6 @@
                     }
                 }
             }
-        }
-        .bg-bottom {
-            height: 246px;
-            background: url("../assets/images/user/bg-bottom.jpg") no-repeat center center;
-            background-size: contain;
         }
     }
 </style>

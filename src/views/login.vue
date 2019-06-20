@@ -15,7 +15,9 @@
                             <el-input v-model="loginForm.smsCode" type="tel" maxlength="6" placeholder="验证码"></el-input>
                         </el-col>
                         <el-col :span="4">
-                            <el-button type="text" class="btn-captcha">获取验证码</el-button>
+                            <el-button @click="sendSmsCode" type="text" :class="{'disabled': disabledBtn}"
+                                       class="btn-captcha">{{btnText}}
+                            </el-button>
                         </el-col>
                     </el-row>
                 </el-form-item>
@@ -42,97 +44,176 @@
 </template>
 
 <script>
-  import regHeader from '@/components/header/header.vue';
-  import footerBar from '@/components/footer/footer.vue';
-  import leftImage from '@/components/common/leftImage.vue';
+    import {Message} from 'element-ui';
+    import regHeader from '@/components/header/header.vue';
+    import footerBar from '@/components/footer/footer.vue';
+    import leftImage from '@/components/common/leftImage.vue';
+    import {login, sendCode} from '@/api';
 
-  export default {
-    name: 'register',
-    components: {
-      regHeader,
-      footerBar,
-      leftImage
-    },
-    data() {
-      const validateAccount = (rule, value, callback) => {
-        let mobileReg = /^1\d{10}$/;
-        let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-        if (value == '') {
-          callback(new Error('请输入手机号/邮箱'));
-        }
-        if (value.indexOf('@') > -1) {
-          if (!mailReg.test(value)) {
-            callback(new Error('请输入正确的邮箱'));
-          } else {
-            callback();
-          }
-        } else {
-          if (!mobileReg.test(value)) {
-            callback(new Error('请输入正确的手机号'));
-          } else {
-            callback();
-          }
-        }
-
-      };
-      const validateSmsCode = (rule, value, callback) => {
-        let smsReg = /^\d{6}$/;
-        if (value == '') {
-          callback(new Error('请输入短信验证码'));
-        } else if (!smsReg.test(value)) {
-          callback(new Error('请输入正确的短信验证码'));
-        } else {
-          callback();
-        }
-      };
-
-      const validatePass = (rule, value, callback) => {
-        let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
-        if (value == '') {
-          callback(new Error('请输入密码'));
-        } else if (!pwdReg.test(value)) {
-          callback(new Error('密码为8-16位，需包含大写字母、小写字母、数字'));
-        } else {
-          callback();
-        }
-      };
-
-      return {
-        loginForm: {
-          account: '',
-          smsCode: '',
-          password: ''
+    export default {
+        name: 'login',
+        components: {
+            regHeader,
+            footerBar,
+            leftImage
         },
-        loginRules: {
-          account: [
-            { required: true, trigger: 'change,blur', validator: validateAccount },
-          ],
-          smsCode: [
-            { required: true, trigger: 'change,blur', validator: validateSmsCode }
-          ],
-          password: [
-            { required: true, trigger: 'change,blur', validator: validatePass }
-          ],
-        }
-      };
-    },
-    computed: {},
-    methods: {
-      goPage(path) {
-        this.$router.push(path);
-      },
-      login(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          }
-        });
-      }
-    },
-    mounted() {
+        data() {
+            const validateAccount = (rule, value, callback) => {
+                let mobileReg = /^(5|6|8|9)\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
+                let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+                if (value == '') {
+                    callback(new Error('请输入手机号/邮箱'));
+                }
+                if (value.indexOf('@') > -1) {
+                    if (!mailReg.test(value)) {
+                        callback(new Error('请输入正确的邮箱'));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    if (!mobileReg.test(value)) {
+                        callback(new Error('请输入正确的手机号'));
+                    } else {
+                        callback();
+                    }
+                }
 
-    },
-  };
+            };
+            const validateSmsCode = (rule, value, callback) => {
+                let smsReg = /^\d{6}$/;
+                if (value == '') {
+                    callback(new Error('请输入短信验证码'));
+                } else if (!smsReg.test(value)) {
+                    callback(new Error('请输入正确的短信验证码'));
+                } else {
+                    callback();
+                }
+            };
+
+            const validatePass = (rule, value, callback) => {
+                let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+                if (value == '') {
+                    callback(new Error('请输入密码'));
+                } else if (!pwdReg.test(value)) {
+                    callback(new Error('密码为8-16位，需包含大写字母、小写字母、数字'));
+                } else {
+                    callback();
+                }
+            };
+
+            return {
+                loginForm: {
+                    account: '',
+                    smsCode: '',
+                    password: ''
+                },
+                loginSmsRules: {
+                    account: [
+                        {required: true, trigger: 'blur', validator: validateAccount}
+                    ]
+                },
+                loginRules: {
+                    account: [
+                        {required: true, trigger: 'blur', validator: validateAccount},
+                    ],
+                    smsCode: [
+                        {required: true, trigger: 'blur', validator: validateSmsCode}
+                    ],
+                    password: [
+                        {required: true, trigger: 'blur', validator: validatePass}
+                    ],
+                },
+                time: 60,
+                timer: null, // 定时器
+                disabledBtn: false,
+                btnText: '获取验证码'
+            };
+        },
+        computed: {},
+        methods: {
+            getSmsCodeHandler() {
+                this.disabledBtn = true;
+                this.btnText = `${this.time}s`;
+                this.timer = setInterval(() => {
+                    --this.time;
+                    if (this.time >= 0) {
+                        this.btnText = `${this.time}s`;
+                        return;
+                    }
+                    this.resetCountdown();
+                }, 1000);
+            },
+            resetCountdown() {
+                clearInterval(this.timer);
+                this.time = 60;
+                this.disabledBtn = false;
+                this.btnText = '重新获取';
+                this.timer = null;
+            },
+            sendSmsCode() {
+                if (this.timer) return;
+                this.rules = this.loginSmsRules;
+                setTimeout(() => {
+                    this.$refs.loginForm.validate((valid) => {
+                        if (valid) {
+                            let params = {
+                                type: 'LOGIN',
+                            };
+                            if (this.regForm.account.indexOf('@') > -1) {
+                                params['email'] = this.regForm.account
+                            } else {
+                                params['phone'] = this.regForm.account
+                            }
+                            sendCode(params).then(res => {
+                                this.getSmsCodeHandler();
+                                Message({
+                                    message: '验证码已发送',
+                                    type: 'success'
+                                });
+                            })
+                        }
+                    });
+                }, 10)
+            },
+            goPage(path) {
+                this.$router.push(path);
+            },
+            login() {
+                this.rules = this.regRules;
+                setTimeout(() => {
+                    this.$refs.loginForm.validate((valid) => {
+                        if (valid) {
+                            const {account, smsCode, password} = this.loginForm;
+                            let params = {
+                                code: smsCode,
+                                passWord: password,
+                            };
+                            if (this.loginForm.account.indexOf('@') > -1) {
+                                params['email'] = this.loginForm.account
+                            } else {
+                                params['phone'] = this.loginForm.account
+                            }
+                            login(params).then(res => {
+                                console.log(res);
+                                Message({
+                                    message: '登录成功',
+                                    type: 'success'
+                                });
+                                setTimeout(() => {
+                                    this.$router.push('/userCenter')
+                                }, 2500)
+                            }).catch(error => {
+                                this.$refs.regForm.resetFields();
+                            })
+                        }
+                    });
+                }, 10)
+            }
+        },
+        mounted() {
+            this.rules = this.loginRules;
+        },
+    };
 </script>
 
 <style lang="scss">
@@ -140,31 +221,37 @@
         padding-top: 60px;
         background: #fff;
         font-size: 14px;
+
         .content {
             width: 1180px;
             margin: 0 auto;
             position: relative;
             overflow: hidden;
+
             .form {
                 float: right;
                 width: 420px;
                 margin-top: 16px;
                 padding-left: 160px;
+
                 .el-form-item {
                     width: 100%;
                     padding-top: 22px;
                     margin-bottom: 0;
                     border-bottom: 1px solid #D8D8D8;
                 }
+
                 .el-form-item__content {
                     line-height: 34px;
                 }
+
                 .el-input__inner {
                     border: none;
                     line-height: 34px;
                     height: 34px;
                     color: #141416;
                 }
+
                 .btn-captcha {
                     width: 100%;
                     line-height: 22px;
@@ -176,20 +263,24 @@
                     text-align: right;
                     cursor: pointer;
                 }
+
                 .form-action {
                     color: #666;
                     margin-top: 60px;
                     font-size: 12px;
                     line-height: 1.4;
+
                     .login {
                         color: #D51D26;
                         text-decoration: underline;
                         cursor: pointer;
                     }
+
                     .forget-pwd {
                         cursor: pointer;
                     }
                 }
+
                 .btn {
                     width: 100%;
                     height: 44px;
@@ -199,6 +290,7 @@
                     color: #fff;
                     text-align: center;
                     cursor: pointer;
+
                     &.btn-login {
                         margin-top: 10px;
                     }
@@ -206,9 +298,10 @@
 
             }
         }
+
         .bg-bottom {
             height: 246px;
-            background: url("../assets/images/user/bg-bottom.jpg") no-repeat center center;
+            background: url("../assets/images/signin/bg_bottom.png") no-repeat center center;
             background-size: contain;
         }
     }
