@@ -24,6 +24,15 @@ export function sendCode(data) {
   })
 }
 
+
+export function findPassword(data) {
+  return request({
+    url: '/index/findPassword',
+    method: 'post',
+    data
+  })
+}
+
 // export function getUserInfo(token) {
 //   return request({
 //     url: '/user/info',

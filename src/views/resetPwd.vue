@@ -10,10 +10,10 @@
                 </el-form-item>
                 <el-form-item prop="smsCode">
                     <el-row>
-                        <el-col :span="20">
+                        <el-col :span="16">
                             <el-input v-model="resetForm.smsCode" type="tel" maxlength="6" placeholder="验证码"></el-input>
                         </el-col>
-                        <el-col :span="4">
+                        <el-col :span="8">
                             <el-button type="text" class="btn-captcha">获取验证码</el-button>
                         </el-col>
                     </el-row>
@@ -34,6 +34,7 @@
   import regHeader from '@/components/header/header.vue';
   import footerBar from '@/components/footer/footer.vue';
   import leftImage from '@/components/common/leftImage.vue';
+  import {findPassword, sendCode} from '@/api';
 
   export default {
     name: 'resetPwd',
@@ -135,11 +136,11 @@
             position: relative;
             overflow: hidden;
             .form {
-                width: 420px;
-                margin: 16px auto 0;
+                width: 324px;
+                margin: 16px auto 226px;
                 .el-form-item {
                     width: 100%;
-                    padding-top: 22px;
+                    padding-top: 28px;
                     margin-bottom: 0;
                     border-bottom: 1px solid #D8D8D8;
                 }
@@ -151,13 +152,14 @@
                     line-height: 34px;
                     height: 34px;
                     color: #141416;
+                    font-size: 16px;
                 }
                 .btn-captcha {
                     width: 100%;
-                    line-height: 22px;
+                    line-height: 30px;
                     padding: 0;
                     color: #D51D26;
-                    font-size: 12px;
+                    font-size: 16px;
                     font-family: PingFangSC-Regular;
                     font-weight: 400;
                     text-align: right;
@@ -165,10 +167,11 @@
                 }
                 .btn {
                     width: 100%;
-                    height: 44px;
-                    line-height: 44px;
-                    background: #D51D26;
-                    border-radius: 22px;
+                    height: 48px;
+                    line-height: 48px;
+                    font-size: 18px;
+                    background: url("../assets/images/signin/btn_signin.png") no-repeat center center;
+                    background-size: cover;
                     color: #fff;
                     text-align: center;
                     cursor: pointer;
@@ -177,6 +180,10 @@
                     }
                 }
             }
+        }
+
+        .el-form-item__error{
+            font-size: 14px;
         }
     }
 </style>
