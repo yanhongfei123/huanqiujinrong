@@ -114,21 +114,7 @@ export default {
   },
   methods: {
     selectChange(item) {
-      this.showLoading();
-      setTimeout(() => {
-        this.hideLoading();
-      }, 2000);
-    },
-    showLoading() {
-      this.loading = this.$loading({
-        lock: true,
-        // text: 'Loading',
-        // spinner: 'el-icon-loading',
-        background: "rgba(0, 0, 0, 0.7)"
-      });
-    },
-    hideLoading() {
-      this.loading.close();
+
     },
     currentChange(currentpage) {
       console.log(currentpage);

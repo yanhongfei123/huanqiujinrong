@@ -6,6 +6,13 @@ export {
 from '@/utils'
 import i18n from '../lang'
 
+// 传中文字段进来，根据当前语言类型取对应语言的字段
+export function filterByLanguage(value, key) {
+  var lang = i18n.locale;
+  return lang == 'zh' ? value[key] : value[`${key}_${lang}`];
+}
+
+
 export function renderFq(sub) {
   var lang = i18n.locale;
   switch (lang) {

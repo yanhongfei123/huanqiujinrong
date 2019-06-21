@@ -15,12 +15,12 @@
           <div class="art-l">{{$t('find.text2')}}</div>
           <div class="tab-wrap">
             <div
-              @click="changeTab(index)"
-              :class="[articleType===index?'active':'']"
+              @click="changeTab(val.dictCode, index)"
+              :class="[oIndex===index?'active':'']"
               v-for="(val,index) in typeList"
               :key="index"
               class="tab-item"
-            >{{val}}</div>
+            >{{ val | filterByLanguage('dictLabel') }}</div>
           </div>
         </div>
         <div class="article-list">
@@ -41,7 +41,15 @@
             </div>
           </div>
         </div>
-        <el-pagination background layout="prev, pager, next" :total="500"></el-pagination>
+        <el-pagination
+          @current-change="currentChange"
+          v-if="total>1"
+          background
+          layout="prev, pager, next"
+          :page-size="1"
+          :current-page="currentPage"
+          :total="total"
+        ></el-pagination>
       </div>
     </section>
     <footerBar></footerBar>
@@ -52,6 +60,7 @@
 // @ is an alias to /src
 import headerNav from "@/components/nav/nav.vue";
 import footerBar from "@/components/footer/footer.vue";
+import { getArticleList } from "@/api/article";
 
 export default {
   name: "contact",
@@ -60,53 +69,57 @@ export default {
     footerBar
   },
   computed: {
-    typeList() {
-      return [
-        this.$t("find.text3"),
-        this.$t("find.text4"),
-        this.$t("find.text5")
-      ];
-    }
+    // typeList() {
+    //   return [
+    //     this.$t("find.text3"),
+    //     this.$t("find.text4"),
+    //     this.$t("find.text5")
+    //   ];
+    // }
   },
   data() {
     return {
-      articleType: 0,
-      articleList: [
-        {
-          url: require("../assets/images/firstpage/banner_conditions.png"),
-          title: "走出明星投资人的交易陷阱",
-          des:
-            "(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！",
-          time: "2019-05-08 14:00",
-          read: 2000
-        },
-        {
-          url: require("../assets/images/firstpage/banner_conditions.png"),
-          title: "除了贪婪和恐惧，希望也是理性投资的敌人。",
-          des:
-            "(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！",
-          time: "2019-05-08 14:00",
-          read: 2000
-        },
-        {
-          url: require("../assets/images/firstpage/banner_conditions.png"),
-          title:
-            "除了贪婪和恐惧，希望也是理性投资的敌人除了贪婪和恐惧，希望也是理性投资的敌希望也是理性投资的敌人除了贪人。",
-          des:
-            "(产品名称)最新产品Smart Investment Engine，以AI算法为基础的投资生命周期管理工具，上线了！",
-          time: "2019-05-08 14:00",
-          read: 2000
-        }
-      ]
+      total:0,
+      oIndex: 0,
+      currentPage: 1,
+      articleType: '',
+      articleList: [],
+      typeList: []
     };
   },
   methods: {
-    changeTab(index) {
-      this.articleType = index;
+    getArticleList(articleType, pageNum){
+      getArticleList({
+        articleType,
+        pageNum,
+      }).then(res => {
+        this.articleList = res.data.list;
+        this.total = res.data.total;
+      });
+    },
+    changeTab(articleType, index) {
+      this.oIndex = index;
+      this.articleType = articleType;
+      this.currentPage = 1;
+      this.getArticleList(articleType, 1)
+    },
+    currentChange(pageNum){
+      this.currentPage = pageNum;
+      this.getArticleList(this.articleType, pageNum)
     },
     goArticle() {
       this.$router.push("/article");
-    }
+    },
+  },
+  async mounted() {
+    var res = await this.getGlobalData("sys_article_type");
+    var list = res.data.list;
+    list.map(item => {
+      item.dictLabel_ft =  item.dictLabel + '_繁体';
+      item.dictLabel_en =  item.dictLabel + '_英文';
+    })
+    this.typeList = list;
+    this.changeTab(list[0].dictCode, 0);
   }
 };
 </script>

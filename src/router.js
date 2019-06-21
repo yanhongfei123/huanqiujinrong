@@ -48,7 +48,8 @@ const AccountPreView = () => import('@/views/accountPreView.vue'); //账户总�
 const InvestCombination = () => import('@/views/investCombination/index.vue'); //投资组合
 const AccountDetail = () => import('@/views/investCombination/accountDetail.vue'); //组合详情
 const InvestRecords = () => import('@/views/investCombination/investRecords.vue'); //投资记录
-
+const HistoricalPerformance = () => import('@/views/investCombination/history.vue'); //历史表现
+//const CombinedAnalysis = () => import('@/views/investCombination/combinedAnalysis.vue'); //组合分析
 
 const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
 const ChooseMarket = () => import('@/views/openAccount/chooseMarket.vue'); //开户-选择市场
@@ -104,6 +105,12 @@ export default new Router({
                     name: 'investRecords',
                     component: InvestRecords,
                 },
+                {
+                    path: 'history',
+                    name: 'history',
+                    component: HistoricalPerformance,
+                },
+
             ]
         },
         {

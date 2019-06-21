@@ -11,6 +11,9 @@ import i18n from './lang' // Internationalization
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 Vue.use(VueAwesomeSwiper);
 import * as filters from './filters' // global filters
+import { getGlobalData } from '@/api';
+
+Vue.prototype.getGlobalData = getGlobalData;
 
 Vue.use(Element, {
     size: 'medium', // set element-ui default size
