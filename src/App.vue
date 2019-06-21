@@ -11,7 +11,6 @@
 <script>
 import { mapGetters } from "vuex";
 import Toast from "@/components/toast.vue";
-
 export default {
   name: "app",
   components: {
@@ -27,13 +26,9 @@ export default {
     }
   },
   mounted() {
-    
   },
-  methods:{
-    // showMenu(event){
-    //   console.log(event.target)
-    //   this.$store.dispatch('showMenu', false)
-    // }
+  methods: {
+
   }
 };
 </script>
@@ -44,12 +39,17 @@ body {
   width: 100%;
   height: 100%;
 }
-.pointer{
+html{
+  .el-loading-parent--hidden{
+    overflow: visible!important;
+  }
+}
+.pointer {
   cursor: pointer;
 }
 .el-button--primary {
-  background-color: #D51D26!important;
-  border-color: #D51D26!important;
+  background-color: #d51d26 !important;
+  border-color: #d51d26 !important;
 }
 .com-width {
   width: 1180px;
@@ -64,8 +64,8 @@ header {
   background: #fff;
   box-shadow: 0 2px 4px 0 rgba(227, 227, 227, 0.5);
 }
-.mask{
-  .el-button--medium{
+.mask {
+  .el-button--medium {
     padding: 10px 0;
   }
 }
@@ -114,8 +114,8 @@ header {
     border-radius: 0;
     border-bottom: 2px solid #d51d26;
   }
-  .el-textarea__inner{
-    min-height: 72px!important;
+  .el-textarea__inner {
+    min-height: 72px !important;
   }
 }
 
@@ -129,7 +129,7 @@ header {
   .el-pagination.is-background .btn-prev,
   .el-pagination.is-background .el-pager li {
     background: #fff;
-    border:1px solid rgba(217,217,217,1);
+    border: 1px solid rgba(217, 217, 217, 1);
   }
   .el-pagination.is-background .el-pager li:hover {
     //color: #d51d26;
@@ -141,8 +141,8 @@ header {
   .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #d51d26;
   }
-  table{
-    .el-select{
+  table {
+    .el-select {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -151,47 +151,46 @@ header {
       top: -14px;
       opacity: 0;
     }
-    .el-input__icon{
-
+    .el-input__icon {
     }
-    .el-input__suffix{
+    .el-input__suffix {
       right: 0;
     }
-    .el-icon-arrow-up:before{
+    .el-icon-arrow-up:before {
       font-size: 18px;
-      content: '';
+      content: "";
     }
-    .el-input--suffix .el-input__inner{
+    .el-input--suffix .el-input__inner {
       padding-right: 0;
     }
-    .el-input__inner{
+    .el-input__inner {
       padding: 0;
       border: none;
       background: transparent;
     }
-    .el-input--medium .el-input__inner{
+    .el-input--medium .el-input__inner {
       width: 100%;
     }
   }
-  .el-radio{
-    color: #3C3F4D
+  .el-radio {
+    color: #3c3f4d;
   }
-  .el-radio__inner{
+  .el-radio__inner {
     width: 16px;
     height: 16px;
   }
-  .el-radio__inner:after{
-      width: 8px;
-      height: 8px;
-      border-radius: 100%;
-      background-color: #D51D26;
+  .el-radio__inner:after {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background-color: #d51d26;
   }
-  .el-radio__input.is-checked .el-radio__inner{
-        border-color: #444857;
-        background: none;
+  .el-radio__input.is-checked .el-radio__inner {
+    border-color: #444857;
+    background: none;
   }
-  .el-radio__input.is-checked+.el-radio__label{
-    color: #606266
+  .el-radio__input.is-checked + .el-radio__label {
+    color: #606266;
   }
 }
 
@@ -217,6 +216,44 @@ header {
 
 .el-form-item__error {
   padding-top: 10px !important;
+}
+
+.invest-records {
+  .el-tabs__header {
+    background-color: #fff !important;
+    margin: 0;
+  }
+
+  .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
+    padding-left: 20px;
+  }
+
+  .el-tabs__item {
+    padding: 0 30px;
+    color: rgba(59, 72, 89, 0.5);
+    font-size: 24px;
+    font-family: SourceHanSansSC-Medium;
+    font-weight: 500;
+    line-height: 64px;
+    height: 64px;
+  }
+
+  .el-tabs__header .el-tabs__item.is-active,
+  .el-tabs__header .el-tabs__item:hover {
+    color: #d51d26;
+  }
+
+  .el-tabs__active-bar {
+    background-color: #d51d26;
+  }
+
+  .el-tabs__nav-wrap::after {
+    background: #d8d8d8;
+  }
+
+  .el-date-editor--daterange.el-input__inner {
+    width: 250px;
+  }
 }
 
 /* 可以设置不同的进入和离开动画 */

@@ -1,0 +1,196 @@
+<template>
+  <div class="invest-records">
+    <div class="time-wrap">
+      <div
+        @click="changeTab(index)"
+        v-for="(val,index) in timeList"
+        :key="index"
+        class="item"
+        :class="[oIndex == index ? 'active' : '']"
+      >{{val}}</div>
+    </div>
+    <el-tabs v-model="activeName">
+      <el-tab-pane name="accountIncome" label="账户收益">
+        <div id="myChart"></div>
+      </el-tab-pane>
+      <el-tab-pane name="time" label="时间加权收益率"></el-tab-pane>
+    </el-tabs>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "history",
+  data() {
+    return {
+      oIndex: 0,
+      activeName: "accountIncome",
+      timeList: ["近一个月", "近三个月", "近一年", "自配置以来"],
+      data:[
+        ["2000-06-05", 116,],
+        ["2000-06-06", 129],
+        ["2000-06-07", 135],
+        ["2000-06-08", 86],
+        ["2000-06-09", 73],
+        ["2000-06-10", 85],
+        ["2000-06-11", 73],
+        ["2000-06-12", 68],
+        ["2000-06-13", 92],
+        ["2000-06-14", 130],
+        ["2000-06-15", 245],
+        ["2000-06-16", 139],
+        ["2000-06-17", 115],
+        ["2000-06-18", 111],
+        ["2000-06-19", 309],
+        ["2000-06-20", 206],
+        ["2000-06-21", 137],
+        ["2000-06-22", 128],
+        ["2000-06-23", 85],
+        ["2000-06-24", 94],
+        ["2000-06-25", 71],
+        ["2000-06-26", 106],
+        ["2000-06-27", 120],
+        ["2000-06-28", 130],
+        ["2000-06-29", 200]
+      ],
+    };
+  },
+  computed: {},
+  mounted(){
+    setTimeout(()=>{
+      this.renderEcharts(this.data);
+    }, 100);
+  },
+  methods: {
+    showLoading() {
+      this.loading = this.$loading({
+        lock: true,
+        // text: 'Loading',
+        // spinner: 'el-icon-loading',
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+    },
+    hideLoading() {
+      this.loading.close();
+    },
+    renderEcharts(data) {// [220, 182, 191, 234, 290, 330, 310]
+      var dateList = data.map(function(item) {
+        return item[0];
+      });
+      var valueList = data.map(function(item) {
+        return item[1];
+      });
+      // 基于准备好的dom，初始化echarts实例
+      this.myChart = echarts.init(document.getElementById("myChart"));
+      // 绘制图表
+      var option = {
+        backgroundColor: "#fff",
+        grid: {
+          top: "50",
+          left: "25",
+          right: "25",
+          bottom: '50',
+          containLabel: true,
+        },
+        tooltip: {
+          trigger: "axis",
+          formatter: "{b}, 原本: {c}"
+        },
+        xAxis: {
+          data: dateList,
+          splitLine: {
+            show: false
+            // lineStyle: {
+            // color: '#00ff00',
+            // width: 2
+            // },
+          },
+          axisTick: {
+            alignWithLabel: true
+          },
+          axisLabel: {
+            //formatter: "{value}",
+            show:true,              //是否显示
+            interval:"auto",        //坐标轴刻度标签的显示间隔，在类目轴中有效。默认会采用标签不重叠的策略间隔显示标签。可以设置成 0 强制显示所有标签。如果设置为 1，表示『隔一个标签显示一个标签』，如果值为 2，表示隔两个标签显示一个标签，以此类推
+            inside:false,           //刻度标签是否朝内，默认朝外
+            rotate:40,               //刻度标签旋转的角度，旋转的角度从 -90 度到 90 度
+            margin:12,               //刻度标签与轴线之间的距离
+            formatter: function (value, index) {            //使用函数模板，函数参数分别为刻度数值（类目），刻度的索引
+                return value;
+            },
+          },
+        },
+        yAxis: {
+          type: "value",
+          //type: 'category',
+          splitLine: {
+            show: true
+          },
+          axisLabel: {
+            formatter: "{value}"
+          },
+          boundaryGap: false,
+          data: ["0", "10", "20", "30", "40", "50", "60", "70", "80"]
+        },
+        series: [
+          {
+            name: "哈哈哈",
+            data: valueList ,
+            type: "line",
+            symbol: "none",
+            //smooth: true,
+            lineStyle: {
+              normal: {
+                width: 2,
+                color: "#1890FF" // 1890FF
+              }
+            },
+          }
+        ]
+      };
+      this.myChart.setOption(option);
+    },
+    initEcharts(index){
+      if (this.activeName == 'accountIncome') {
+        this.renderEcharts(this.data.slice(0, 10 + index))
+      } else {
+
+      }
+    },
+    changeTab(index){
+      if(this.oIndex == index) return;
+      this.oIndex = index;
+      this.initEcharts(index);
+    }
+  }
+};
+</script>
+<style scoped lang="scss">
+#myChart {
+  width: 1020px;
+  height: 500px;
+  margin: 0 auto;
+}
+.invest-records {
+  position: relative;
+  .time-wrap {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 360px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .item {
+      font-size: 16px;
+      color: rgba(59, 72, 89, 0.5);
+      cursor: pointer;
+      &.active,
+      &:hover {
+        color: #d51d26;
+      }
+    }
+  }
+}
+</style>

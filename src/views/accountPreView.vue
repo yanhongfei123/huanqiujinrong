@@ -50,7 +50,6 @@
           </div>
         </div>
 
-
         <div v-if="openStatus == 5 " class="main">
           <div class="wrap1">
             <div class="item">
@@ -82,7 +81,10 @@
           <div class="wrap2 clear">
             <div class="l-w fl">
               <div class="fl w2-title">风险承受类型</div>
-              <div  @click="$router.push('/investCombination/accountDetail')" class="fr detail pointer">查看投资组合详情</div>
+              <div
+                @click="$router.push('/investCombination/accountDetail')"
+                class="fr detail pointer"
+              >查看投资组合详情</div>
               <span id="type">进取型</span>
               <div id="echarts"></div>
               <div class="legend">
@@ -118,7 +120,10 @@
           <div class="fundRecords">
             <div class="top-wrap">
               <div class="label">近期资金记录</div>
-              <div @click="$router.push('/userCenter/fundRecords')" class="records pointer">查看更多资金记录>></div>
+              <div
+                @click="$router.push('/userCenter/fundRecords')"
+                class="records pointer"
+              >查看更多资金记录>></div>
             </div>
             <table>
               <thead>
@@ -160,7 +165,7 @@ export default {
   },
   data() {
     return {
-      openStatus: 1,
+      openStatus: 5,
       checkStatus: 1,
       checkStatusObj: {
         0: {
@@ -199,7 +204,7 @@ export default {
         }
       ],
       colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
-            data: [
+      data: [
         {
           date: "2019-04-30",
           type: "交易",
@@ -239,8 +244,8 @@ export default {
     }
   },
   methods: {
-    goPage(path){
-      this.$router.push(path)
+    goPage(path) {
+      this.$router.push(path);
     },
     hideMenu(flag) {
       this.$store.dispatch("showMenu", false);
@@ -670,8 +675,8 @@ export default {
   height: 100%;
   background: #fff;
 }
-.records{
-  color: #D51D26;
+.records {
+  color: #d51d26;
 }
 .top-wrap {
   padding: 0 20px;

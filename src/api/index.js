@@ -1,5 +1,15 @@
 import request from '@/utils/request'
 
+export function getGlobalData(dictType) {
+  return request({
+    url: '/index/getSysDictDataList',
+    method: 'post',
+    data:{
+      dictType,
+    }
+  })
+}
+
 export function register(data) {
   return request({
     url: '/index/register',

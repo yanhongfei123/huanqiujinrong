@@ -259,44 +259,6 @@
         }
     }
 </script>
-<style lang="scss">
-    .invest-records {
-        .el-tabs__header {
-            background-color: #fff !important;
-            margin: 0;
-        }
-
-        .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
-            padding-left: 20px;
-        }
-
-        .el-tabs__item {
-            padding: 0 30px;
-            color: rgba(59, 72, 89, 0.5);
-            font-size: 24px;
-            font-family: SourceHanSansSC-Medium;
-            font-weight: 500;
-            line-height: 64px;
-            height: 64px;
-        }
-
-        .el-tabs__header .el-tabs__item.is-active, .el-tabs__header .el-tabs__item:hover {
-            color: #d51d26;
-        }
-
-        .el-tabs__active-bar {
-            background-color: #D51D26;
-        }
-
-        .el-tabs__nav-wrap::after {
-            background: #d8d8d8;
-        }
-
-        .el-date-editor--daterange.el-input__inner {
-            width: 250px;
-        }
-    }
-</style>
 <style scoped lang="scss">
 
     .invest-records {
