@@ -153,7 +153,7 @@ export default {
     z-index: -1;
     width: 100%;
     height: 376px;
-    background: url("../assets/images/signin/bg2_signin.png") no-repeat center;
+    background: url("../assets/images/signin/bg_bottom.png") no-repeat center;
     background-size: cover;
   }
   .title {

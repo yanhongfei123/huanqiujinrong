@@ -47,7 +47,7 @@ const AccountPreView = () => import('@/views/accountPreView.vue'); //账户总�
 
 const InvestCombination = () => import('@/views/investCombination/index.vue'); //投资组合
 const AccountDetail = () => import('@/views/investCombination/accountDetail.vue'); //组合详情
-
+const InvestRecords = () => import('@/views/investCombination/investRecords.vue'); //投资记录
 
 
 const OpenAccount = () => import('@/views/openAccount/index.vue'); //开户
@@ -93,11 +93,17 @@ export default new Router({
             name: 'investCombination',
             redirect: '/investCombination/accountDetail',
             component: InvestCombination,
-            children: [{
-                path: 'accountDetail',
-                name: 'accountDetail',
-                component: AccountDetail,
-            },
+            children: [
+                {
+                    path: 'accountDetail',
+                    name: 'accountDetail',
+                    component: AccountDetail,
+                },
+                {
+                    path: 'investRecords',
+                    name: 'investRecords',
+                    component: InvestRecords,
+                },
             ]
         },
         {

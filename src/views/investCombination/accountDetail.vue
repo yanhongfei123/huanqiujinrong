@@ -83,10 +83,12 @@
   </div>
 </template>
 <script>
+
 import { toThousandslsFilter } from "@/utils";
 import Tips from "@/components/tips.vue";
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
+
 export default {
   name: "accountPreview",
   components: {

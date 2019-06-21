@@ -317,6 +317,7 @@ export default {
       text7: '幣種',
       text8: '金額',
     },
+
   },
   setting: {
     text1: '個人設置',
@@ -407,5 +408,45 @@ export default {
     text4: '重新評測',
     text5: '確認並進行資産配置',
   },
-
+  investCombination: {
+    labelAmount: '投資金額（港幣）',
+    labelIncome: '累計收益（港幣）',
+    tipIncome: '您的賬戶中可能包含以其他幣種計費的利息或分紅。其價值將按照當日參考彙率以港幣顯示並計入收益中。',
+    tipIncomeRate: '是指根據該賬戶不同時期的投資金額，計算其首次配置以來整個時間區間收益率的幾何平均數，即時間加權收益率。其優點是考慮了資金的時間價值，不受現金流的影響，是業界常用的回報計算方式。',
+    tabDetail:'組合詳情',
+    tabHistory: '曆史表現',
+    tabAnalysis: '組合分析',
+    tabRecord: '投資記錄',
+    historyRecords: {
+      tabHistory: '曆史記錄',
+      tabStatement: '賬戶結單',
+      tabBilling: '計費',
+      descTitle: '投資咨詢費說明',
+      descContent1: '投資咨詢費將根據該客戶投資組合資産淨值計算，並于下月月初從客戶的賬戶中扣除。每日的投資咨詢費按前壹日香港時間18:00時客戶投資組合的資産淨值的0.8%年費率計提。計算方法如下：',
+      descContent2: 'C爲每日投資咨詢費',
+      descContent3: 'D爲客戶前壹日香港時間18:00時投資組合的資産淨值',
+      descContent4: 'N 爲當年天數（正常年份爲365，如遇閏年爲366）',
+      descContent5: '請注意，該頁面僅展示客戶與智能投顧相關的投資咨詢費。客戶或需支付壹定的交易費用，詳情請咨詢交易執行券商。',
+      history: {
+        date: '日期',
+        assetType: '資金類型',
+        asset: '對應資産',
+        currency: '幣種',
+        amount: '金額',
+        placeholder: '請選擇'
+      },
+      statement: {
+        date: '結單日期',
+        desc: '描述',
+        amount: '結單金額（港幣）'
+      },
+      billing: {
+        date: '結單日期',
+        desc: '描述',
+        amount: '金額（港幣）',
+        payingAmount: '待支付金額（港幣）',
+        total: '合計'
+      }
+    }
+  }
 }
