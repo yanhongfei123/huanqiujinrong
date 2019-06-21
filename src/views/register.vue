@@ -32,7 +32,7 @@
                     </el-col>
                 </el-row>
 
-                <div class="btn btn-register" @click="registerHandle">注册</div>
+                <div class="btn btn-register" @click="register">注册</div>
 
             </el-form>
         </div>
@@ -121,6 +121,7 @@
                         {required: true, trigger: 'blur', validator: validatePass}
                     ],
                 },
+                account: '',
                 time: 60,
                 timer: null, // 定时器
                 disabledBtn: false,
@@ -150,8 +151,11 @@
             },
             sendSmsCode() {
                 if (this.timer) return;
+                this.account = this.regForm.account;
+                this.$refs.regForm.resetFields();
                 this.rules = this.regSmsRules;
-                setTimeout(() => {
+                this.$nextTick(()=>{
+                    this.regForm.account = this.account;
                     this.$refs.regForm.validate((valid) => {
                         if (valid) {
                             let params = {
@@ -171,14 +175,14 @@
                             })
                         }
                     });
-                }, 10)
+                });
             },
             goPage(path) {
                 this.$router.push(path);
             },
-            registerHandle() {
+            register() {
                 this.rules = this.regRules;
-                setTimeout(() => {
+                this.$nextTick(()=> {
                     this.$refs.regForm.validate((valid) => {
                         if (valid) {
                             const {account, smsCode, password} = this.regForm;
@@ -186,10 +190,10 @@
                                 code: smsCode,
                                 passWord: password,
                             };
-                            if (this.regForm.account.indexOf('@') > -1) {
-                                params['email'] = this.regForm.account
+                            if (account.indexOf('@') > -1) {
+                                params['email'] = account;
                             } else {
-                                params['phone'] = this.regForm.account
+                                params['phone'] = account;
                             }
                             register(params).then(res => {
                                 console.log(res);
@@ -205,7 +209,7 @@
                             })
                         }
                     });
-                }, 10)
+                });
             },
         },
         created() {

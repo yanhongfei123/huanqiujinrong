@@ -5,7 +5,7 @@
         </header>
         <div class="content">
             <leftImage></leftImage>
-            <el-form class="form" :model="loginForm" :rules="loginRules" ref="loginForm">
+            <el-form class="form" :model="loginForm" :rules="rules" ref="loginForm">
                 <el-form-item prop="account">
                     <el-input v-model="loginForm.account" type="text" placeholder="手机号/邮箱地址"></el-input>
                 </el-form-item>
@@ -123,13 +123,14 @@
                         {required: true, trigger: 'blur', validator: validatePass}
                     ],
                 },
+                rules: {},
+                account: '',
                 time: 60,
                 timer: null, // 定时器
                 disabledBtn: false,
                 btnText: '获取验证码'
             };
         },
-        computed: {},
         methods: {
             getSmsCodeHandler() {
                 this.disabledBtn = true;
@@ -152,8 +153,11 @@
             },
             sendSmsCode() {
                 if (this.timer) return;
+                this.account = this.loginForm.account;
                 this.rules = this.loginSmsRules;
-                setTimeout(() => {
+                this.$refs.loginForm.resetFields();
+                this.$nextTick(()=> {
+                    this.loginForm.account = this.account;
                     this.$refs.loginForm.validate((valid) => {
                         if (valid) {
                             let params = {
@@ -173,14 +177,14 @@
                             })
                         }
                     });
-                }, 10)
+                });
             },
             goPage(path) {
                 this.$router.push(path);
             },
             login() {
-                this.rules = this.regRules;
-                setTimeout(() => {
+                this.rules = this.loginRules;
+                this.$nextTick(()=> {
                     this.$refs.loginForm.validate((valid) => {
                         if (valid) {
                             const {account, smsCode, password} = this.loginForm;
@@ -188,10 +192,10 @@
                                 code: smsCode,
                                 passWord: password,
                             };
-                            if (this.loginForm.account.indexOf('@') > -1) {
-                                params['email'] = this.loginForm.account
+                            if (account.indexOf('@') > -1) {
+                                params['email'] = account;
                             } else {
-                                params['phone'] = this.loginForm.account
+                                params['phone'] = account;
                             }
                             login(params).then(res => {
                                 console.log(res);
@@ -202,12 +206,12 @@
                                 setTimeout(() => {
                                     this.$router.push('/userCenter')
                                 }, 2500)
-                            }).catch(error => {
-                                this.$refs.regForm.resetFields();
+                            }).catch(() => {
+                                this.$refs.loginForm.resetFields();
                             })
                         }
                     });
-                }, 10)
+                });
             }
         },
         mounted() {
