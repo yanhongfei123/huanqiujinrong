@@ -37,9 +37,9 @@
                         <div @click="changeTab('/investCombination/history')"
                              class="tab-item"
                              :class="[$route.path==='/investCombination/history'?'active':'']">{{$t('investCombination.tabHistory')}}</div>
-                        <div @click="changeTab('/investCombination/accountDetail')"
+                        <div @click="changeTab('/investCombination/combinedAnalysis')"
                              class="tab-item"
-                             :class="[$route.path==='/investCombination/xxx'?'active':'']">{{$t('investCombination.tabAnalysis')}}</div>
+                             :class="[$route.path==='/investCombination/combinedAnalysis'?'active':'']">{{$t('investCombination.tabAnalysis')}}</div>
                         <div @click="changeTab('/investCombination/investRecords')"
                              class="tab-item"
                              :class="[$route.path==='/investCombination/investRecords'?'active':'']">{{$t('investCombination.tabRecord')}}</div>

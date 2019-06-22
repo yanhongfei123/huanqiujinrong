@@ -543,7 +543,7 @@ export default {
     }
     .label {
       font-size: 16px;
-      color: rgba(20, 20, 22, 1);
+      color: rgba(20, 20, 22, 0.5);
       line-height: 22px;
       font-weight: normal;
       span {

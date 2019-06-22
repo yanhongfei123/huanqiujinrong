@@ -11,9 +11,13 @@
     </div>
     <el-tabs v-model="activeName">
       <el-tab-pane name="accountIncome" label="账户收益">
+        <div class="label">账户收益（港币）</div>
         <div id="myChart"></div>
       </el-tab-pane>
-      <el-tab-pane name="time" label="时间加权收益率"></el-tab-pane>
+      <el-tab-pane name="time" label="时间加权收益率">
+        <div class="label">时间加权收益率（%）</div>
+        <div id="myChart2"></div>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -53,12 +57,35 @@ export default {
         ["2000-06-28", 130],
         ["2000-06-29", 200]
       ],
+      data2:[
+        ["2000-06-05", 20,],
+        ["2000-06-06", 25],
+        ["2000-06-07", 60],
+        ["2000-06-08", 75],
+        ["2000-06-09", 50],
+        ["2000-06-10", 85],
+        ["2000-06-11", 90],
+        ["2000-06-12", 92],
+        ["2000-06-13", 65],
+        ["2000-06-14", 75],
+        ["2000-06-15", 76],
+        ["2000-06-16", 50],
+        ],
     };
   },
-  computed: {},
+  watch: {
+    activeName(value){
+      if (value == 'accountIncome') {
+        this.renderEcharts('myChart',this.data.slice(0, 10 + this.oIndex))
+      } else {
+        this.renderEcharts('myChart2',this.data.slice(0, 8 + this.oIndex))
+      }
+    }
+  },
   mounted(){
     setTimeout(()=>{
-      this.renderEcharts(this.data);
+      this.renderEcharts('myChart',this.data);
+      this.renderEcharts('myChart2',this.data2)
     }, 100);
   },
   methods: {
@@ -73,7 +100,7 @@ export default {
     hideLoading() {
       this.loading.close();
     },
-    renderEcharts(data) {// [220, 182, 191, 234, 290, 330, 310]
+    renderEcharts(id, data) {// [220, 182, 191, 234, 290, 330, 310]
       var dateList = data.map(function(item) {
         return item[0];
       });
@@ -81,20 +108,20 @@ export default {
         return item[1];
       });
       // 基于准备好的dom，初始化echarts实例
-      this.myChart = echarts.init(document.getElementById("myChart"));
+      var myChart = echarts.init(document.getElementById(id));
       // 绘制图表
       var option = {
         backgroundColor: "#fff",
         grid: {
-          top: "50",
-          left: "25",
+          top: "10",
+          left: "20",
           right: "25",
           bottom: '50',
           containLabel: true,
         },
         tooltip: {
           trigger: "axis",
-          formatter: "{b}, 原本: {c}"
+          formatter: "{b}: {c}"
         },
         xAxis: {
           data: dateList,
@@ -148,31 +175,35 @@ export default {
           }
         ]
       };
-      this.myChart.setOption(option);
-    },
-    initEcharts(index){
-      if (this.activeName == 'accountIncome') {
-        this.renderEcharts(this.data.slice(0, 10 + index))
-      } else {
-
-      }
+      myChart.setOption(option);
     },
     changeTab(index){
       if(this.oIndex == index) return;
       this.oIndex = index;
-      this.initEcharts(index);
+      if (this.activeName == 'accountIncome') {
+        this.renderEcharts('myChart',this.data.slice(0, 10 + index))
+      } else {
+        this.renderEcharts('myChart2',this.data.slice(0, 8 + index))
+      }
     }
   }
 };
 </script>
 <style scoped lang="scss">
-#myChart {
+#myChart, #myChart2 {
   width: 1020px;
   height: 500px;
   margin: 0 auto;
 }
 .invest-records {
   position: relative;
+  background: #fff;
+  .label{
+    font-size: 20px;
+    color: #3B4859;
+    padding-left: 20px;
+    margin: 40px 0;
+  }
   .time-wrap {
     position: absolute;
     top: 20px;
