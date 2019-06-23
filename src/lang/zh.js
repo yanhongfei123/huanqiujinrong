@@ -7,7 +7,33 @@ export default {
         organization: '机构',
         analysis: '免费分析',
         login: '登录',
-        register: '注册'
+        register: '注册',
+        zh: '简'
+    },
+    signin: {
+      account: '手机号/邮箱地址',
+      smsCode: '验证码',
+      password: '密码',
+      getSmsCode: '获取验证码',
+      getAgain: '重新获取',
+      hasAccount: '已有账号',
+      goLogin: '点击登录',
+      goRegister: '点击注册',
+      login: '登录',
+      register: '注册',
+      confirm: '确定',
+      forgetPwd: '忘记密码',
+      noAccountError: '请输入手机号/邮箱',
+      emailError: '请输入正确的邮箱',
+      phoneError: '请输入正确的手机号',
+      noSmsCodeError: '请输入短信验证码',
+      smsCodeError: '请输入正确的短信验证码',
+      noPwdError: '请输入密码',
+      pwdError: '密码为6-16位，需包含大写字母、小写字母、数字',
+      registerSuccess: '注册成功',
+      sendSuccess: '验证码已发送',
+      loginSuccess: '登录成功',
+      resetPwdSuccess: '重置密码成功'
     },
     userCenterNav: {
         account: '账户总览',
@@ -17,6 +43,10 @@ export default {
         userCenter: '个人中心',
         setting: '个人设置',
         loginOut: '退出登录'
+    },
+    header: {
+      login: '登录',
+      register: '注册'
     },
     footer: {
         text1: '电话',

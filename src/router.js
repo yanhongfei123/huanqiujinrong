@@ -20,7 +20,7 @@ const Operation = () => import('@/views/operation.vue'); //如何运作
 
 const Register = () => import('@/views/register.vue'); //注册
 const Login = () => import('@/views/login.vue'); //登录
-const ResetPwd = () => import('@/views/resetPwd.vue'); //忘记密码
+const FindPwd = () => import('@/views/findPwd.vue'); //忘记密码
 const UserCenter = () => import('@/views/userCenter/index.vue'); //个人中心
 const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-我的账户
 const Guide = () => import('@/views/userCenter/guide.vue'); //个人中心-入金指引
@@ -75,9 +75,9 @@ export default new Router({
             component: Login,
         },
         {
-            path: '/resetPwd',
-            name: 'resetPwd',
-            component: ResetPwd,
+            path: '/findPwd',
+            name: 'findPwd',
+            component: FindPwd,
         },
         {
             path: '/accountPreView',

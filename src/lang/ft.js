@@ -7,7 +7,8 @@ export default {
     organization: '機構',
     analysis: '免費分析',
     login: '登錄',
-    register: '註冊'
+    register: '註冊',
+    zh: '簡'
   },
   userCenterNav: {
     account: '賬戶總覽',
@@ -17,6 +18,31 @@ export default {
     userCenter: '個人中心',
     setting: '個人設置',
     loginOut: '退出登錄'
+  },
+  signin: {
+    account: '手機號/郵箱地址',
+    smsCode: '驗證碼',
+    password: '密碼',
+    getSmsCode: '獲取驗證碼',
+    getAgain: '重新獲取',
+    hasAccount: '已有賬號',
+    goLogin: '點擊登錄',
+    goRegister: '點擊注冊',
+    login: '登錄',
+    register: '注冊',
+    confirm: '確定',
+    forgetPwd: '忘記密碼',
+    noAccountError: '請輸入手機號/郵箱',
+    emailError: '請輸入正確的郵箱',
+    phoneError: '請輸入正確的手機號',
+    noSmsCodeError: '請輸入短信驗證碼',
+    smsCodeError: '請輸入正確的短信驗證碼',
+    noPwdError: '請輸入密碼',
+    pwdError: '密碼爲6-16位，需包含大寫字母、小寫字母、數字',
+    registerSuccess: '注冊成功',
+    sendSuccess: '驗證碼已發送',
+    loginSuccess: '登錄成功',
+    resetPwdSuccess: '重置密碼成功'
   },
   footer: {
     text1: '電話',

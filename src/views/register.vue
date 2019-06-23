@@ -7,32 +7,38 @@
             <leftImage></leftImage>
             <el-form class="form" :model="regForm" :rules="rules" ref="regForm">
                 <el-form-item prop="account">
-                    <el-input maxlength="11" v-model="regForm.account" type="text" placeholder="手机号/邮箱地址"></el-input>
+                    <el-input maxlength="11" v-model="regForm.account" type="text"
+                              :placeholder="$t('signin.account')"></el-input>
                 </el-form-item>
                 <el-form-item prop="smsCode">
                     <el-row>
                         <el-col :span="20">
-                            <el-input v-model="regForm.smsCode" type="tel" maxlength="6" placeholder="验证码"></el-input>
+                            <el-input v-model="regForm.smsCode" type="tel" maxlength="6"
+                                      :placeholder="$t('signin.smsCode')"></el-input>
                         </el-col>
                         <el-col :span="4">
-                            <el-button @click="sendSmsCode" type="text" :class="{'disabled': disabledBtn}" class="btn-captcha">{{btnText}}</el-button>
+                            <el-button v-if="disabledBtn" @click="sendSmsCode" type="text"
+                                       class="disabled btn-captcha">{{btnText}}</el-button>
+                            <el-button v-else @click="sendSmsCode" type="text"
+                                       class="btn-captcha">{{$t('signin.getSmsCode')}}</el-button>
                         </el-col>
                     </el-row>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input v-model="regForm.password" type="password" placeholder="密码"></el-input>
+                    <el-input v-model="regForm.password" type="password"
+                              :placeholder="$t('signin.password')"></el-input>
                 </el-form-item>
 
                 <el-row class="form-action">
                     <el-col :span="8">
-                        <span>已有账号？</span><span @click="goPage('login')" class="login color-red">点击登录</span>
+                        <span>{{$t('signin.hasAccount')}}？</span><span @click="goPage('login')" class="login color-red">{{$t('signin.goLogin')}}</span>
                     </el-col>
                     <el-col :span="4" :offset="12" class="forget-pwd tr">
-                        <span @click="goPage('resetPwd')">忘记密码</span>
+                        <span @click="goPage('findPwd')">{{$t('signin.forgetPwd')}}</span>
                     </el-col>
                 </el-row>
 
-                <div class="btn btn-register" @click="register">注册</div>
+                <div class="btn btn-register" @click="register">{{$t('signin.register')}}</div>
 
             </el-form>
         </div>
@@ -42,180 +48,185 @@
 </template>
 
 <script>
-    import {Message} from 'element-ui';
-    import regHeader from '@/components/header/header.vue';
-    import footerBar from '@/components/footer/footer.vue';
-    import leftImage from '@/components/common/leftImage.vue';
-    import {register, sendCode} from '@/api';
+  import { Message } from 'element-ui';
+  import regHeader from '@/components/header/header.vue';
+  import footerBar from '@/components/footer/footer.vue';
+  import leftImage from '@/components/common/leftImage.vue';
+  import { register, sendCode } from '@/api';
 
-    export default {
-        name: 'register',
-        components: {
-            regHeader,
-            footerBar,
-            leftImage
+  export default {
+    name: 'register',
+    components: {
+      regHeader,
+      footerBar,
+      leftImage
+    },
+    data() {
+      const validateAccount = (rule, value, callback) => {
+        let mobileReg = /^(5|6|8|9)\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
+        let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if (value == '') {
+          callback(new Error(this.$t('signin.noAccountError')));
+        }
+        if (value.indexOf('@') > -1) {
+          if (!mailReg.test(value)) {
+            callback(new Error(this.$t('signin.emailError')));
+          } else {
+            callback();
+          }
+        } else {
+          if (!mobileReg.test(value)) {
+            callback(new Error(this.$t('signin.phoneError')));
+          } else {
+            callback();
+          }
+        }
+      };
+      const validateSmsCode = (rule, value, callback) => {
+        let smsReg = /^\d{6}$/;
+        if (value == '') {
+          callback(new Error(this.$t('signin.noSmsCodeError')));
+        } else if (!smsReg.test(value)) {
+          callback(new Error(this.$t('signin.smsCodeError')));
+        } else {
+          callback();
+        }
+      };
+
+      const validatePass = (rule, value, callback) => {
+        let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,16}$/;
+        if (value == '') {
+          callback(new Error(this.$t('signin.noPwdError')));
+        } else if (!pwdReg.test(value)) {
+          callback(new Error(this.$t('signin.pwdError')));
+        } else {
+          callback();
+        }
+      };
+
+      return {
+        locale: this.$i18n.locale,
+        rules: {},
+        regForm: {
+          account: '',
+          smsCode: '',
+          password: ''
         },
-        data() {
-            const validateAccount = (rule, value, callback) => {
-                let mobileReg = /^(5|6|8|9)\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
-                let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-                if (value == '') {
-                    callback(new Error('请输入手机号/邮箱'));
-                }
-                if (value.indexOf('@') > -1) {
-                    if (!mailReg.test(value)) {
-                        callback(new Error('请输入正确的邮箱'));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    if (!mobileReg.test(value)) {
-                        callback(new Error('请输入正确的手机号'));
-                    } else {
-                        callback();
-                    }
-                }
-            };
-            const validateSmsCode = (rule, value, callback) => {
-                let smsReg = /^\d{6}$/;
-                if (value == '') {
-                    callback(new Error('请输入短信验证码'));
-                } else if (!smsReg.test(value)) {
-                    callback(new Error('请输入正确的短信验证码'));
-                } else {
-                    callback();
-                }
-            };
-
-            const validatePass = (rule, value, callback) => {
-                let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,16}$/;
-                if (value == '') {
-                    callback(new Error('请输入密码'));
-                } else if (!pwdReg.test(value)) {
-                    callback(new Error('密码为6-16位，需包含大写字母、小写字母、数字'));
-                } else {
-                    callback();
-                }
-            };
-
-            return {
-                rules: {},
-                regForm: {
-                    account: '',
-                    smsCode: '',
-                    password: ''
-                },
-                regSmsRules: {
-                    account: [
-                        {required: true, trigger: 'blur', validator: validateAccount},
-                    ],
-                },
-                regRules: {
-                    account: [
-                        {required: true, trigger: 'blur', validator: validateAccount},
-                    ],
-                    smsCode: [
-                        {required: true, trigger: 'blur', validator: validateSmsCode}
-                    ],
-                    password: [
-                        {required: true, trigger: 'blur', validator: validatePass}
-                    ],
-                },
-                account: '',
-                time: 60,
-                timer: null, // 定时器
-                disabledBtn: false,
-                btnText: '获取验证码'
-            };
+        regSmsRules: {
+          account: [
+            { required: true, trigger: 'blur', validator: validateAccount },
+          ],
         },
-        computed: {},
-        methods: {
-            getSmsCodeHandler() {
-                this.disabledBtn = true;
-                this.btnText = `${this.time}s`;
-                this.timer = setInterval(() => {
-                    --this.time;
-                    if (this.time >= 0) {
-                        this.btnText = `${this.time}s`;
-                        return;
-                    }
-                    this.resetCountdown();
-                }, 1000);
-            },
-            resetCountdown() {
-                clearInterval(this.timer);
-                this.time = 60;
-                this.disabledBtn = false;
-                this.btnText = '重新获取';
-                this.timer = null;
-            },
-            sendSmsCode() {
-                if (this.timer) return;
-                this.account = this.regForm.account;
+        regRules: {
+          account: [
+            { required: true, trigger: 'blur', validator: validateAccount },
+          ],
+          smsCode: [
+            { required: true, trigger: 'blur', validator: validateSmsCode }
+          ],
+          password: [
+            { required: true, trigger: 'blur', validator: validatePass }
+          ],
+        },
+        account: '',
+        time: 60,
+        timer: null, // 定时器
+        disabledBtn: false,
+        btnText: ''
+      };
+    },
+    watch: {
+      locale(val){
+
+      }
+    },
+    methods: {
+      getSmsCodeHandler() {
+        this.disabledBtn = true;
+        this.btnText = `${this.time}s`;
+        this.timer = setInterval(() => {
+          --this.time;
+          if (this.time >= 0) {
+            this.btnText = `${this.time}s`;
+            return;
+          }
+          this.resetCountdown();
+        }, 1000);
+      },
+      resetCountdown() {
+        clearInterval(this.timer);
+        this.time = 60;
+        this.disabledBtn = false;
+        this.btnText = this.$t('signin.getAgain');
+        this.timer = null;
+      },
+      sendSmsCode() {
+        if (this.timer) return;
+        this.account = this.regForm.account;
+        this.$refs.regForm.resetFields();
+        this.rules = this.regSmsRules;
+        this.$nextTick(() => {
+          this.regForm.account = this.account;
+          this.$refs.regForm.validate((valid) => {
+            if (valid) {
+              let params = {
+                type: 'REGISTER',
+              };
+              if (this.regForm.account.indexOf('@') > -1) {
+                params['email'] = this.regForm.account;
+              } else {
+                params['phone'] = this.regForm.account;
+              }
+              sendCode(params).then(res => {
+                this.getSmsCodeHandler();
+                Message({
+                  message: this.$t('signin.sendSuccess'),
+                  type: 'success'
+                });
+              });
+            }
+          });
+        });
+      },
+      goPage(path) {
+        this.$router.push(path);
+      },
+      register() {
+        this.rules = this.regRules;
+        this.$nextTick(() => {
+          this.$refs.regForm.validate((valid) => {
+            if (valid) {
+              const { account, smsCode, password } = this.regForm;
+              let params = {
+                code: smsCode,
+                passWord: password,
+              };
+              if (account.indexOf('@') > -1) {
+                params['email'] = account;
+              } else {
+                params['phone'] = account;
+              }
+              register(params).then(res => {
+                console.log(res);
+                Message({
+                  message: this.$t('signin.registerSuccess'),
+                  type: 'success'
+                });
+                setTimeout(() => {
+                  this.$router.push('/login');
+                }, 2500);
+              }).catch(error => {
                 this.$refs.regForm.resetFields();
-                this.rules = this.regSmsRules;
-                this.$nextTick(()=>{
-                    this.regForm.account = this.account;
-                    this.$refs.regForm.validate((valid) => {
-                        if (valid) {
-                            let params = {
-                                type: 'REGISTER',
-                            };
-                            if (this.regForm.account.indexOf('@') > -1) {
-                                params['email'] = this.regForm.account
-                            } else {
-                                params['phone'] = this.regForm.account
-                            }
-                            sendCode(params).then(res => {
-                                this.getSmsCodeHandler();
-                                Message({
-                                    message: '验证码已发送',
-                                    type: 'success'
-                                });
-                            })
-                        }
-                    });
-                });
-            },
-            goPage(path) {
-                this.$router.push(path);
-            },
-            register() {
-                this.rules = this.regRules;
-                this.$nextTick(()=> {
-                    this.$refs.regForm.validate((valid) => {
-                        if (valid) {
-                            const {account, smsCode, password} = this.regForm;
-                            let params = {
-                                code: smsCode,
-                                passWord: password,
-                            };
-                            if (account.indexOf('@') > -1) {
-                                params['email'] = account;
-                            } else {
-                                params['phone'] = account;
-                            }
-                            register(params).then(res => {
-                                console.log(res);
-                                Message({
-                                    message: '注册成功',
-                                    type: 'success'
-                                });
-                                setTimeout(() => {
-                                    this.$router.push('/login')
-                                }, 2500)
-                            }).catch(error => {
-                                this.$refs.regForm.resetFields();
-                            })
-                        }
-                    });
-                });
-            },
-        },
-        created() {
-            this.rules = this.loginRules;
-        },
-    };
+              });
+            }
+          });
+        });
+      },
+    },
+    created() {
+      this.rules = this.regRules;
+    }
+  };
 </script>
 
 <style lang="scss">
@@ -251,6 +262,7 @@
                         line-height: 34px !important;
                         height: 34px !important;
                         color: #141416;
+                        padding: 0;
                     }
                 }
 

@@ -32,10 +32,6 @@
           <li @click="goPage('/loginOut')" class="login-out">{{$t('userCenterNav.loginOut')}}</li>
         </ul>
       </div>
-      <!-- <div class="nav-m flex hover">
-        <div class="hover" @click="goPage('login')">登录</div>
-        <div class="hover" @click="goPage('register')">注册</div>
-      </div>-->
       <div class="nav-r flex">
         <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">简</div>
         <div class="line"></div>
@@ -46,7 +42,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
   name: "headerNav",
   props: {
