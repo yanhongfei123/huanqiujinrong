@@ -11,18 +11,22 @@
                 <el-form-item prop="smsCode">
                     <el-row>
                         <el-col :span="16">
-                            <el-input v-model="resetForm.smsCode" type="tel" maxlength="6" :placeholder="$t('signin.smsCode')"></el-input>
+                            <el-input v-model="resetForm.smsCode" type="tel" maxlength="6"
+                                      :placeholder="$t('signin.smsCode')"></el-input>
                         </el-col>
                         <el-col :span="8">
                             <el-button v-if="disabledBtn" @click="sendSmsCode" type="text"
-                                       class="disabled btn-captcha">{{btnText}}</el-button>
+                                       class="disabled btn-captcha">{{btnText}}
+                            </el-button>
                             <el-button v-else @click="sendSmsCode" type="text"
-                                       class="btn-captcha">{{$t('signin.getSmsCode')}}</el-button>
+                                       class="btn-captcha">{{$t('signin.getSmsCode')}}
+                            </el-button>
                         </el-col>
                     </el-row>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input v-model="resetForm.password" type="password" :placeholder="$t('signin.password')"></el-input>
+                    <el-input v-model="resetForm.password" type="password"
+                              :placeholder="$t('signin.password')"></el-input>
                 </el-form-item>
 
                 <div class="btn btn-reset" @click="findPwd">{{$t('signin.confirm')}}</div>
@@ -39,6 +43,7 @@
     import footerBar from '@/components/footer/footer.vue';
     import leftImage from '@/components/common/leftImage.vue';
     import {findPassword, sendCode} from '@/api';
+    import { mapGetters } from 'vuex';
 
     export default {
         name: 'findPwd',
@@ -48,46 +53,46 @@
             leftImage
         },
         data() {
-          const validateAccount = (rule, value, callback) => {
-            let mobileReg = /^(5|6|8|9)\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
-            let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-            if (value == '') {
-              callback(new Error(this.$t('signin.noAccountError')));
-            }
-            if (value.indexOf('@') > -1) {
-              if (!mailReg.test(value)) {
-                callback(new Error(this.$t('signin.emailError')));
-              } else {
-                callback();
-              }
-            } else {
-              if (!mobileReg.test(value)) {
-                callback(new Error(this.$t('signin.phoneError')));
-              } else {
-                callback();
-              }
-            }
-          };
-          const validateSmsCode = (rule, value, callback) => {
-            let smsReg = /^\d{6}$/;
-            if (value == '') {
-              callback(new Error(this.$t('signin.noSmsCodeError')));
-            } else if (!smsReg.test(value)) {
-              callback(new Error(this.$t('signin.smsCodeError')));
-            } else {
-              callback();
-            }
-          };
-          const validatePass = (rule, value, callback) => {
-            let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,16}$/;
-            if (value == '') {
-              callback(new Error(this.$t('signin.noPwdError')));
-            } else if (!pwdReg.test(value)) {
-              callback(new Error(this.$t('signin.pwdError')));
-            } else {
-              callback();
-            }
-          };
+            const validateAccount = (rule, value, callback) => {
+                let mobileReg = /^(5|6|8|9)\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
+                let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+                if (value == '') {
+                    callback(new Error(this.$t('signin.noAccountError')));
+                }
+                if (value.indexOf('@') > -1) {
+                    if (!mailReg.test(value)) {
+                        callback(new Error(this.$t('signin.emailError')));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    if (!mobileReg.test(value)) {
+                        callback(new Error(this.$t('signin.phoneError')));
+                    } else {
+                        callback();
+                    }
+                }
+            };
+            const validateSmsCode = (rule, value, callback) => {
+                let smsReg = /^\d{6}$/;
+                if (value == '') {
+                    callback(new Error(this.$t('signin.noSmsCodeError')));
+                } else if (!smsReg.test(value)) {
+                    callback(new Error(this.$t('signin.smsCodeError')));
+                } else {
+                    callback();
+                }
+            };
+            const validatePass = (rule, value, callback) => {
+                let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,16}$/;
+                if (value == '') {
+                    callback(new Error(this.$t('signin.noPwdError')));
+                } else if (!pwdReg.test(value)) {
+                    callback(new Error(this.$t('signin.pwdError')));
+                } else {
+                    callback();
+                }
+            };
 
             return {
                 resetForm: {
@@ -119,6 +124,18 @@
                 btnText: ''
             };
         },
+        computed: {
+            ...mapGetters({
+                language: 'language'
+            })
+        },
+        watch: {
+            language(val) {
+                if (val) {
+                    this.$refs.resetForm.resetFields();
+                }
+            }
+        },
         methods: {
             goPage(path) {
                 this.$router.push({name: path});
@@ -146,7 +163,7 @@
                 this.account = this.resetForm.account;
                 this.rules = this.resetSmsRules;
                 this.$refs.resetForm.resetFields();
-                this.$nextTick(()=> {
+                this.$nextTick(() => {
                     this.$refs.resetForm.validate((valid) => {
                         if (valid) {
                             let params = {
@@ -168,9 +185,9 @@
                     });
                 });
             },
-          findPwd() {
+            findPwd() {
                 this.rules = this.resetRules;
-                this.$nextTick(()=> {
+                this.$nextTick(() => {
                     this.$refs.resetForm.validate((valid) => {
                         if (valid) {
                             const {account, smsCode, password} = this.resetForm;
@@ -261,7 +278,7 @@
                     height: 48px;
                     line-height: 48px;
                     font-size: 14px;
-                    background: url("../assets/images/signin/btn_signin.png") no-repeat center center;
+                    background: url("../../assets/images/signin/btn_signin.png") no-repeat center center;
                     background-size: cover;
                     color: #fff;
                     text-align: center;

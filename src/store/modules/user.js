@@ -34,7 +34,7 @@ const user = {
             state.title = '';
         },
         SET_LANGUAGE: (state, language) => {
-            state.language = language
+            state.language = language;
             Cookies.set('language', language)
         }
 
