@@ -68,7 +68,7 @@ const user = {
                 login(params).then(response => {
                     const data = response.data;
                     Cookies.set('accessToken', data.accessToken);
-                    commit('SET_TOKEN', data.token);
+                    commit('SET_TOKEN', data.accessToken);
                     resolve(response);
                 }).catch(error => {
                     reject(error);
@@ -95,8 +95,8 @@ const user = {
         //   return new Promise((resolve, reject) => {
         //     loginByEmail(email, userInfo.password).then(response => {
         //       const data = response.data;
-        //       Cookies.set('X-Ivanka-Token', response.data.token);
-        //       commit('SET_TOKEN', data.token);
+        //       Cookies.set('X-Ivanka-Token', response.data.accessToken);
+        //       commit('SET_TOKEN', data.accessToken);
         //       commit('SET_EMAIL', email);
         //       resolve();
         //     }).catch(error => {

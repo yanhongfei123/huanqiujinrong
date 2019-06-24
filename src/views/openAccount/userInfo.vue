@@ -160,6 +160,7 @@
   import openAccountHeader from '@/components/header/openAccountHeader.vue';
   import footerBar from '@/components/footer/footer.vue';
   import openAccountSteps from '@/components/common/openAccountSteps.vue';
+  import {saveUserInfo} from '@/api/openAccount'
 
   export default {
     name: 'userInfo',
@@ -375,6 +376,7 @@
       saveUserInfo(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+              saveUserInfo(this.userInfo);
             //...请求接口后提示
             this.$message.success('保存成功');
           }
@@ -387,7 +389,8 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             //...请求接口后跳转
-            this.$router.replace({ name: 'addressInfo' });
+              saveUserInfo(this.userInfo);
+              this.$router.replace({ name: 'addressInfo' });
           }else{
             //测试
             this.$router.replace({ name: 'addressInfo' });
