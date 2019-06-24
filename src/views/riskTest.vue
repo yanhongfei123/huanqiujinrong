@@ -56,6 +56,7 @@
 import HeaderBar from "@/components/header/openAccountHeader.vue";
 import { deepClone, getType } from "@/utils";
 import question from "@/utils/question";
+import { saveRiskTest } from "@/api/";
 export default {
   name: "",
   components: {
@@ -95,8 +96,17 @@ export default {
       this.showmask = !isNotChooseAll;
     },
     goPage() {
-      localStorage.setItem("totalScore", this.totalScore);
-      this.$router.push("/riskTestResult");
+      const params = {
+        riskType: getType(this.totalScore),
+        score: this.totalScore,
+      }
+      saveRiskTest().then(res=>{
+        if (res.logined ===  undefined) {
+          localStorage.setItem("totalScore", this.totalScore);
+          this.$router.push("/riskTestResult");
+        }
+
+      })
     }
   },
   mounted() {}

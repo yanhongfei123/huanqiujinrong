@@ -114,10 +114,6 @@ export default {
   async mounted() {
     var res = await this.getGlobalData("sys_article_type");
     var list = res.data.list;
-    list.map(item => {
-      item.dictLabel_ft =  item.dictLabelFt;
-      item.dictLabel_en =  item.dictLabelEn;
-    });
     this.typeList = list;
     this.changeTab(list[0].dictCode, 0);
   }

@@ -12,7 +12,7 @@
             <div class="nav-r flex">
                 <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">{{$t('nav.zh')}}</div>
                 <div class="line"></div>
-                <div :class="[$i18n.locale === 'ft'?'active':'']" class="hover" @click="setLanguage('ft')">繁</div>
+                <div :class="[$i18n.locale === 'Ft'?'active':'']" class="hover" @click="setLanguage('Ft')">繁</div>
             </div>
         </div>
     </div>

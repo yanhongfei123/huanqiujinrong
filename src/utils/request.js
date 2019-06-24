@@ -11,7 +11,7 @@ import {
 import router from '../router'
 // create an axios instance
 const service = axios.create({
-  baseURL: '/api/', // api的base_url
+  baseURL: process.env.NODE_ENV === 'production' ? 'http://47.91.214.249:8003/' : '/api/', // api的base_url
   timeout: 5000 // request timeout
 })
 var loadingInstance;
@@ -25,8 +25,10 @@ service.interceptors.request.use(config => {
   });
   // Do something before request is sent
   if (store.getters.token) {
-    // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-    config.headers['accessToken'] = getToken()
+    config.headers['accessToken'] = getToken();
+  } else {
+    router.push('/login');
+    return {...config, logined: false}
   }
   return config
 }, error => {

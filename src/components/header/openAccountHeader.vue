@@ -15,7 +15,7 @@
           <div
             :class="[$i18n.locale === 'ft'?'active':'']"
             class="hover"
-            @click="setLanguage('ft')"
+            @click="setLanguage('Ft')"
           >繁</div>
         </div>
       </div>

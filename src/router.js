@@ -339,7 +339,7 @@ const routes = [
 ];
 
 const vueRouter = new Router({
-    mode: process.env.NODE_ENV === 'production' ? 'history' : 'hash',
+    mode: 'hash',//process.env.NODE_ENV === 'production' ? 'history' : 'hash',
     linkActiveClass: 'active', // 激活路由添加 'active' class名称
     routes: routes
 });
