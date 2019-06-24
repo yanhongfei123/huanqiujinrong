@@ -18,9 +18,10 @@ const Organization = () => import('@/views/organization.vue'); //机构
 const Product = () => import('@/views/product.vue'); //产品
 const Operation = () => import('@/views/operation.vue'); //如何运作
 
-const Register = () => import('@/views/register.vue'); //注册
-const Login = () => import('@/views/login.vue'); //登录
-const FindPwd = () => import('@/views/findPwd.vue'); //忘记密码
+const Register = () => import('@/views/signin/register.vue'); //注册
+const Login = () => import('@/views/signin/login.vue'); //登录
+const FindPwd = () => import('@/views/signin/findPwd.vue'); //忘记密码
+
 const UserCenter = () => import('@/views/userCenter/index.vue'); //个人中心
 const MyAccount = () => import('@/views/userCenter/myAccount.vue'); //个人中心-我的账户
 const Guide = () => import('@/views/userCenter/guide.vue'); //个人中心-入金指引
