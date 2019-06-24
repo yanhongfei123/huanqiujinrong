@@ -195,6 +195,7 @@
                             }).catch((e) => {
                                 console.log(e);
                                 this.$refs.resetForm.resetFields();
+                                this.resetCountdown();
                             })
                         }
                     });
@@ -239,7 +240,8 @@
                     line-height: 34px;
                     height: 34px;
                     color: #141416;
-                    font-size: 16px;
+                    font-size: 14px;
+                    padding-left: 0;
                 }
 
                 .btn-captcha {
@@ -247,7 +249,7 @@
                     line-height: 30px;
                     padding: 0;
                     color: #D51D26;
-                    font-size: 16px;
+                    font-size: 12px;
                     font-family: PingFangSC-Regular;
                     font-weight: 400;
                     text-align: right;
@@ -258,7 +260,7 @@
                     width: 100%;
                     height: 48px;
                     line-height: 48px;
-                    font-size: 18px;
+                    font-size: 14px;
                     background: url("../assets/images/signin/btn_signin.png") no-repeat center center;
                     background-size: cover;
                     color: #fff;
@@ -273,7 +275,7 @@
         }
 
         .el-form-item__error {
-            font-size: 14px;
+            font-size: 12px;
         }
     }
 </style>

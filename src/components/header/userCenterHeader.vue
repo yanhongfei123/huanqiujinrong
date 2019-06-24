@@ -67,6 +67,10 @@ export default {
     },
     goPage(path) {
       if (path == "/loginOut") {
+        this.$store.dispatch('LogOut').then(() => {
+          this.$router.push('/login');
+          //location.reload();
+        });
         return;
       }
       this.$router.push(path);

@@ -85,11 +85,6 @@ export default new Router({
             component: AccountPreView,
         },
         {
-            path: '/accountDetail',
-            name: 'accountDetail',
-            component: AccountDetail,
-        },
-        {
             path: '/investCombination',
             name: 'investCombination',
             redirect: '/investCombination/accountDetail',

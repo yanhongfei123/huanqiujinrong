@@ -1,5 +1,6 @@
 import {
     login,
+    logout,
 } from '@/api'
 import {
     getToken,
@@ -62,19 +63,31 @@ const user = {
             });
         },
 
-        // Login({ commit, state }) {
-        //     return new Promise((resolve, reject) => {
-        //         authLogin(state.token).then(response => {
-        //             const data = response.data;
-        //             commit('SET_AVATAR', data.avatar);
-        //             resolve(response);
-        //         }).catch(error => {
-        //             reject(error);
-        //         });
-        //     });
-        // },
+        Login({ commit, state }, params) {
+            return new Promise((resolve, reject) => {
+                login(params).then(response => {
+                    const data = response.data;
+                    Cookies.set('accessToken', data.accessToken);
+                    commit('SET_TOKEN', data.token);
+                    resolve(response);
+                }).catch(error => {
+                    reject(error);
+                });
+            });
+        },
 
-
+        // 登出
+        LogOut({ commit, state }) {
+            return new Promise((resolve, reject) => {
+              logout(Cookies.get('accessToken')).then(() => {
+                commit('SET_TOKEN', '');
+                Cookies.remove('accessToken');
+                resolve();
+              }).catch(error => {
+                reject(error);
+              });
+            });
+          },
 
         // // 邮箱登录
         // LoginByEmail({ commit }, userInfo) {
@@ -85,35 +98,6 @@ const user = {
         //       Cookies.set('X-Ivanka-Token', response.data.token);
         //       commit('SET_TOKEN', data.token);
         //       commit('SET_EMAIL', email);
-        //       resolve();
-        //     }).catch(error => {
-        //       reject(error);
-        //     });
-        //   });
-        // },
-
-
-        //  // 获取用户信息
-        // GetInfo({ commit, state }) {
-        //   return new Promise((resolve, reject) => {
-        //     getInfo(state.token).then(response => {
-        //       const data = response.data;
-        //       commit('SET_ROLES', data.role);
-        //       commit('SET_NAME', data.name);
-        //       commit('SET_AVATAR', data.avatar);
-        //       resolve(response);
-        //     }).catch(error => {
-        //       reject(error);
-        //     });
-        //   });
-        // },
-
-        // // 登出
-        // LogOut({ commit, state }) {
-        //   return new Promise((resolve, reject) => {
-        //     logout(state.token).then(() => {
-        //       commit('SET_TOKEN', '');
-        //       Cookies.remove('X-Ivanka-Token');
         //       resolve();
         //     }).catch(error => {
         //       reject(error);

@@ -63,7 +63,8 @@
     },
     data() {
       const validateAccount = (rule, value, callback) => {
-        let mobileReg = /^(5|6|8|9)\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
+        //let mobileReg = /^(5|6|8|9)\d{7}$/; //香港手机号码8位数，5|6|8|9开头+7位任意数
+        let mobileReg = /^(5|6|8|9)\d{7}$/;
         let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
         if (value == '') {
           callback(new Error(this.$t('signin.noAccountError')));
@@ -217,6 +218,7 @@
                 }, 2500);
               }).catch(error => {
                 this.$refs.regForm.resetFields();
+                this.resetCountdown();
               });
             }
           });
@@ -299,7 +301,8 @@
                     width: 100%;
                     height: 44px;
                     line-height: 44px;
-                    background: #D51D26;
+                    background: url('../assets/images//signin/btn_signin.png') no-repeat center;
+                    background-size: cover;
                     border-radius: 22px;
                     color: #fff;
                     text-align: center;

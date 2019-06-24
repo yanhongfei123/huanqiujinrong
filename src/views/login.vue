@@ -162,10 +162,10 @@
               let params = {
                 type: 'LOGIN',
               };
-              if (this.regForm.account.indexOf('@') > -1) {
-                params['email'] = this.regForm.account;
+              if (this.loginForm.account.indexOf('@') > -1) {
+                params['email'] = this.loginForm.account;
               } else {
-                params['phone'] = this.regForm.account;
+                params['phone'] = this.loginForm.account;
               }
               sendCode(params).then(res => {
                 this.getSmsCodeHandler();
@@ -196,7 +196,7 @@
               } else {
                 params['phone'] = account;
               }
-              login(params).then(res => {
+              this.$store.dispatch('Login', params).then(res => {
                 console.log(res);
                 Message({
                   message: this.$t('signin.loginSuccess'),
@@ -204,9 +204,10 @@
                 });
                 setTimeout(() => {
                   this.$router.push('/userCenter');
-                }, 2500);
+                }, 1500);
               }).catch(() => {
                 this.$refs.loginForm.resetFields();
+                this.resetCountdown();
               });
             }
           });
@@ -253,6 +254,7 @@
                     line-height: 34px;
                     height: 34px;
                     color: #141416;
+                    padding-left: 0;
                 }
 
                 .btn-captcha {
@@ -288,7 +290,8 @@
                     width: 100%;
                     height: 44px;
                     line-height: 44px;
-                    background: #D51D26;
+                    background: url('../assets/images//signin/btn_signin.png') no-repeat center;
+                    background-size: cover;
                     border-radius: 22px;
                     color: #fff;
                     text-align: center;

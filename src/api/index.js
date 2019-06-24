@@ -26,6 +26,16 @@ export function login(data) {
   })
 }
 
+export function logout(accessToken) {
+  return request({
+    url: '/user/logout',
+    method: 'post',
+    data:{
+      accessToken
+    }
+  })
+}
+
 export function sendCode(data) {
   return request({
     url: '/index/sendCode',
