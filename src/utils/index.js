@@ -13,7 +13,7 @@ export function getType(score) {
         case "zh":
           type = item.type;
           break;
-        case "ft":
+        case "Ft":
           type = item.typeft;
           break;
         default:

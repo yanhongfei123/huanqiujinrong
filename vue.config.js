@@ -31,7 +31,7 @@ module.exports = {
       }
     }
   },
-  configureWebpack: {  // 覆盖webpack默认配置的都在这里
+  configureWebpack: {  // 覆盖webpack默认配置的都在这里  http://www.etf.cool
     resolve: {   // 配置解析别名
       alias: {
         '@': path.resolve(__dirname, './src'),

@@ -9,7 +9,7 @@ import i18n from '../lang'
 // 传中文字段进来，根据当前语言类型取对应语言的字段
 export function filterByLanguage(value, key) {
   var lang = i18n.locale;
-  return lang == 'zh' ? value[key] : value[`${key}_${lang}`];
+  return lang == 'zh' ? value[key] : value[`${key}${lang}`];
 }
 
 
@@ -18,7 +18,7 @@ export function renderFq(sub) {
   switch (lang) {
     case "zh":
       return sub["fq"];
-    case "ft":
+    case "Ft":
       return sub["fqft"];
     default:
       return sub["fqen"];
@@ -30,7 +30,7 @@ export function renderAnswer(item) {
   switch (lang) {
     case "zh":
       return item["as"];
-    case "ft":
+    case "Ft":
       return item["asft"] ? item["asft"] : item["as"];
     default:
       return item["asen"];

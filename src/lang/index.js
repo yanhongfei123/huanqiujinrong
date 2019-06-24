@@ -13,7 +13,7 @@ import ftLocale from './ft'
 Vue.use(VueI18n)
 
 const messages = {
-  en: {
+  En: {
     ...enLocale,
     ...elementEnLocale,
   },
@@ -21,7 +21,7 @@ const messages = {
     ...zhLocale,
     ...elementZhLocale
   },
-  ft: {
+  Ft: {
     ...ftLocale,
     ...elementTwLocale
   },

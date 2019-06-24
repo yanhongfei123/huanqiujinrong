@@ -58,11 +58,19 @@ export function findPassword(data) {
   })
 }
 
-//个人资料
-export function getUserInfo() {
+export function getUserInfo(data) {
   return request({
     url: '/user/selectOne',
     method: 'get',
+    data
+  })
+}
+
+export function saveRiskTest(data) {
+  return request({
+    url: '/userRiskLog/saveOne',
+    method: 'post',
+    data,
   })
 }
 
