@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+//配置列表
 export function getGlobalData(dictType) {
   return request({
     url: '/index/getSysDictDataList',
@@ -10,6 +11,7 @@ export function getGlobalData(dictType) {
   })
 }
 
+//注册
 export function register(data) {
   return request({
     url: '/index/register',
@@ -18,6 +20,7 @@ export function register(data) {
   })
 }
 
+//登录
 export function login(data) {
   return request({
     url: '/index/login',
@@ -26,6 +29,7 @@ export function login(data) {
   })
 }
 
+//登出
 export function logout(accessToken) {
   return request({
     url: '/user/logout',
@@ -36,6 +40,7 @@ export function logout(accessToken) {
   })
 }
 
+//发送验证码
 export function sendCode(data) {
   return request({
     url: '/index/sendCode',
@@ -44,7 +49,7 @@ export function sendCode(data) {
   })
 }
 
-
+//忘记密码
 export function findPassword(data) {
   return request({
     url: '/index/findPassword',
@@ -53,11 +58,12 @@ export function findPassword(data) {
   })
 }
 
-// export function getUserInfo(token) {
-//   return request({
-//     url: '/user/info',
-//     method: 'get',
-//     params: { token }
-//   })
-// }
+//个人资料
+export function getUserInfo() {
+  return request({
+    url: '/user/selectOne',
+    method: 'post',
+    data: {}
+  })
+}
 

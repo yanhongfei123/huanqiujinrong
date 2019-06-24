@@ -22,8 +22,7 @@
             </div>
           </div>
 
-          <div
-            class="btn-openAccount active"
+          <div v-if="openStatus==4" class="btn-openAccount active"
             @click="goPage(openStatusList[openStatus].path)"
           >{{ openStatusList[openStatus].btnText }}</div>
 
@@ -165,7 +164,7 @@ export default {
   },
   data() {
     return {
-      openStatus: 5,
+      openStatus: 3,
       checkStatus: 1,
       checkStatusObj: {
         0: {

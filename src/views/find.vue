@@ -115,8 +115,8 @@ export default {
     var res = await this.getGlobalData("sys_article_type");
     var list = res.data.list;
     list.map(item => {
-      item.dictLabel_ft =  item.dictLabel + '_繁体';
-      item.dictLabel_en =  item.dictLabel + '_英文';
+      item.dictLabel_ft =  item.dictLabelFt;
+      item.dictLabel_en =  item.dictLabelEn;
     });
     this.typeList = list;
     this.changeTab(list[0].dictCode, 0);
