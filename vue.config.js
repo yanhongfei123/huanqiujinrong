@@ -13,7 +13,7 @@ module.exports = {
   lintOnSave: false,  // 关闭eslint
   productionSourceMap: false,  // 生产环境是否生成 sourceMap 文件
   devServer: {   // 配置服务器
-    port: 8003,
+    port: 7000,
     open: true,
     https: false,
     overlay: {

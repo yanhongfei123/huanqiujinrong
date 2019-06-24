@@ -23,7 +23,7 @@
         >{{$t('nav.analysis')}}</div>
       </div>
       <div class="nav-m flex">
-        <div class="hover" @click="goPage('/login')">{{$t('login')}}</div>
+        <div class="hover" @click="goPage('/login')">{{$t('nav.login')}}</div>
         <div class="hover" @click="goPage('/register')">{{$t('nav.register')}}</div>
       </div>
       <div class="nav-r flex">
