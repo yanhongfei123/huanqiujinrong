@@ -477,7 +477,8 @@ export default {
                 total: '合计'
             }
         }
+    },
+    openAccount: {
+        saveSuccess: '保存成功',
     }
-
-
 }

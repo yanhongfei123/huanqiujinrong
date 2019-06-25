@@ -41,7 +41,7 @@
                         <el-col style="width: 380px">
                             <el-form-item label="出生日期:" prop="birthday" required>
                                 <el-date-picker type="date" placeholder="请选择" v-model="userInfo.birthday"
-                                                value-format="yyyy-mm-dd"
+                                                value-format="yyyy-MM-dd"
                                                 style="width: 100%;" :editable=false></el-date-picker>
                             </el-form-item>
                         </el-col>
@@ -58,9 +58,9 @@
                                 <el-select v-model="userInfo.sex" placeholder="请选择" style="width: 100%;">
                                     <el-option
                                             v-for="item in genders"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
+                                            :key="item.dictCode"
+                                            :label="item | filterByLanguage('dictLabel')"
+                                            :value="item.dictValue">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -211,16 +211,7 @@
                 type: this.$route.query.type,
                 step: 1,
                 labelPosition: 'top',
-                genders: [
-                    {
-                        value: '1',
-                        label: '男'
-                    },
-                    {
-                        value: '2',
-                        label: '女'
-                    }
-                ],
+                genders: [],
                 maritalStatus: [],
                 familyMembers: [
                     {
@@ -339,6 +330,9 @@
                     familyMembers: [
                         {required: true, message: '请选择家庭成员人数', trigger: 'change'}
                     ],
+                    currency: [
+                        {required: true, message: '请选择基础货币', trigger: 'change'}
+                    ],
                     accountType: [
                         {required: true, message: '请选择账户类型', trigger: 'change'}
                     ],
@@ -367,7 +361,9 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后跳转
-                        saveUserInfo(this.userInfo);
+                        saveUserInfo(this.userInfo).then(()=>{
+
+                        });
                         this.$router.replace({name: 'addressInfo'});
                     } else {
                         //测试
@@ -377,17 +373,19 @@
             }
         },
         mounted() {
-            let allDictData = ['Marriage', 'currency_type', 'account_type', 'deposit_type'];
+            let allDictData = ['sys_user_sex', 'Marriage', 'currency_type', 'account_type', 'deposit_type'];
             let allPromise = allDictData.map(item => this.getGlobalData(item));
             Promise.all(allPromise).then(res => {
                 console.log(res);
-                this.maritalStatus = res[0].data.list;
-                this.currencyTypes = res[1].data.list;
-                this.accountTypes = res[2].data.list;
-                this.depositTypes = res[3].data.list;
+                this.genders = res[0].data.list;
+                this.maritalStatus = res[1].data.list;
+                this.currencyTypes = res[2].data.list;
+                this.accountTypes = res[3].data.list;
+                this.depositTypes = res[4].data.list;
             }).then(() => {
                 getUserInfo().then(res => {
                     console.log(res);
+                    this.userInfo = res.data;
                 })
             });
         }

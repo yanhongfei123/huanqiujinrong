@@ -9,3 +9,11 @@ export function saveUserInfo(data) {
   })
 }
 
+//提交其他信息
+export function saveUserBase(data) {
+  return request({
+    url: '/user/saveUserBase',
+    method: 'post',
+    data: data
+  })
+}
