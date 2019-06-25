@@ -13,7 +13,7 @@ import router from '../router'
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? 'http://47.91.214.249:8003/' : '/api/', // api的base_url
   timeout: 5000 // request timeout
-})
+});
 var loadingInstance;
 // request interceptor
 service.interceptors.request.use(config => {
@@ -32,9 +32,9 @@ service.interceptors.request.use(config => {
 }, error => {
   loadingInstance.close();
   // Do something with request error
-  console.log(error) // for debug
+  console.log(error); // for debug
   Promise.reject(error)
-})
+});
 
 // respone interceptor
 service.interceptors.response.use(
@@ -61,7 +61,7 @@ service.interceptors.response.use(
             // store.dispatch('LogOut').then(() => {
             //   location.reload() // 为了重新实例化vue-router对象 避免bug
             // });
-          })
+          });
           break;
 
         case '0220':
@@ -71,7 +71,7 @@ service.interceptors.response.use(
             type: 'warning'
           }).then(() => {
             router.push('/register')
-          })
+          });
           break;
 
         case '0225':
@@ -79,7 +79,7 @@ service.interceptors.response.use(
             confirmButtonText: '我知道了',
             showCancelButton: false,
             type: 'warning'
-          })
+          });
           break;
 
         default:
@@ -98,13 +98,13 @@ service.interceptors.response.use(
   },
   error => {
     loadingInstance.close();
-    console.log('err' + error) // for debug
+    console.log('err' + error); // for debug
     Message({
       message: error.message,
       type: 'error',
       duration: 2 * 1000
-    })
+    });
     return Promise.reject(error)
-  })
+  });
 
 export default service

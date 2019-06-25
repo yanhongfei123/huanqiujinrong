@@ -58,20 +58,19 @@ export function findPassword(data) {
   })
 }
 
+export function getUserInfo(data) {
+  return request({
+    url: '/user/selectOne',
+    method: 'get',
+    data
+  })
+}
 
 export function saveRiskTest(data) {
   return request({
     url: '/userRiskLog/saveOne',
     method: 'post',
     data,
-  })
-}
-
-// 获取开户状态
-export function getOpenAccountState() {
-  return request({
-    url: '/user/selectOne',
-    method: 'post',
   })
 }
 

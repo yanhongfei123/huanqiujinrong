@@ -155,6 +155,8 @@
 import Tips from "@/components/tips.vue";
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
+import { getUserInfo } from '@/api';
+
 export default {
   name: "accountPreview",
   components: {
@@ -164,7 +166,7 @@ export default {
   },
   data() {
     return {
-      openStatus: 3,
+      openStatus: null,
       checkStatus: 1,
       checkStatusObj: {
         0: {
@@ -234,13 +236,6 @@ export default {
         }
       ]
     };
-  },
-  mounted() {
-    if (this.openStatus == 5) {
-      setTimeout(() => {
-        this.drawPie();
-      }, 50);
-    }
   },
   methods: {
     goPage(path) {
@@ -355,7 +350,16 @@ export default {
         });
       });
     }
-  }
+  },
+  mounted() {
+    getUserInfo().then((res)=>{
+      console.log(res);
+      this.openStatus = res.data.status;
+      if(this.openStatus == 0){
+        //this.$router.push('/openAccount')
+      }
+    })
+  },
 };
 </script>
 
@@ -710,7 +714,7 @@ table {
       z-index: 0;
       width: 20px;
       height: 20px;
-      background: url("../assets/images//icon_choose.png") no-repeat center;
+      background: url("../assets/images/icon_choose.png") no-repeat center;
       background-size: contain;
     }
   }

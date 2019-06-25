@@ -13,7 +13,7 @@
       </div>
       <div class="btn-wrap">
         <div @click="goPage('/riskTest')" class="restart">{{$t('riskTestResult.text4')}}</div>
-        <div @click="goPage('/configAssets')" class="next">{{$t('riskTestResult.text5')}}</div>
+        <div @click="goPage('')" class="next">{{$t('riskTestResult.text5')}}</div>
       </div>
     </div>
   </div>
@@ -21,6 +21,7 @@
 <script>
 import HeaderBar from "@/components/header/openAccountHeader.vue";
 import { getType } from "@/utils";
+import { getUserInfo } from '@/api';
 export default {
   name: "",
   components: {
@@ -36,10 +37,19 @@ export default {
   },
   methods: {
     goPage(path) {
-      this.$router.push(path);
+      if (path) {
+        alert(path)
+        this.$router.push(path);
+      }else{
+        var url = this.openStatus == 6 ? '/accountPreView' : '/setTransPas';
+        this.$router.push(url);
+      }
     }
   },
   mounted() {
+    getUserInfo().then((res)=>{
+      this.openStatus = res.data.status;
+    })
   }
 };
 </script>

@@ -81,8 +81,8 @@ export default {
   .logo {
     width: 179px;
     height: 39px;
-    background: url("../../assets/images/logo.png") no-repeat;
-    background-size: contain;
+    //background: url("../../assets/images/logo.png") no-repeat;
+    //background-size: contain;
   }
   .nav-item {
     cursor: pointer;
