@@ -26,7 +26,13 @@ service.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['accessToken'] = getToken();
   } else if (config.url.indexOf('login') == -1){
-    router.push('/login');
+    MessageBox.confirm('请先登录', '提示', {
+      confirmButtonText: '去登录',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      router.push('/login');
+    });
   }
   return config
 }, error => {
