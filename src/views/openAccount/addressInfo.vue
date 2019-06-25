@@ -74,7 +74,7 @@
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="商业性质:" prop="industry" required>
+                            <el-form-item label="商业性质:" prop="businessType" required>
                                 <el-select v-model="addressInfo.businessType" placeholder="请选择商业性质" style="width: 100%;">
                                     <el-option
                                             v-for="item in businessTypes"
@@ -172,7 +172,10 @@
                     if (valid) {
                         //...请求接口后提示
                         saveUserBase(this.addressInfo).then(() => {
-                            this.$message.success(this.$t('openAccount.saveSuccess'));
+                            this.$message({
+                                message: this.$t('openAccount.saveSuccess'),
+                                type: 'success'
+                            });
                         });
                     }
                 });
