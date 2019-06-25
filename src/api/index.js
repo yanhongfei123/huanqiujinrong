@@ -67,3 +67,11 @@ export function saveRiskTest(data) {
   })
 }
 
+// 获取开户状态
+export function getOpenAccountState() {
+  return request({
+    url: '/user/selectOne',
+    method: 'post',
+  })
+}
+

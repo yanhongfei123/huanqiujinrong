@@ -214,7 +214,7 @@
                             } else {
                                 params['phone'] = account;
                             }
-                            login(params).then(res => {
+                            this.$store.dispatch('Login', params).then(res => {
                                 console.log(res);
                                 Message({
                                     message: this.$t('signin.loginSuccess'),

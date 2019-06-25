@@ -19,16 +19,14 @@ var loadingInstance;
 service.interceptors.request.use(config => {
   loadingInstance = Loading.service({
     lock: true,
-    // text: 'Loading',
-    // spinner: 'el-icon-loading',
     background: "rgba(0, 0, 0, 0.5)"
   });
+  console.log(config)
   // Do something before request is sent
   if (store.getters.token) {
     config.headers['accessToken'] = getToken();
-  } else {
+  } else if (config.url.indexOf('login') == -1){
     router.push('/login');
-    return {...config, logined: false}
   }
   return config
 }, error => {

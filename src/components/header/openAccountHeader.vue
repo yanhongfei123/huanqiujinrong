@@ -13,7 +13,7 @@
           >简</div>
           <div class="line"></div>
           <div
-            :class="[$i18n.locale === 'ft'?'active':'']"
+            :class="[$i18n.locale === 'Ft'?'active':'']"
             class="hover"
             @click="setLanguage('Ft')"
           >繁</div>
