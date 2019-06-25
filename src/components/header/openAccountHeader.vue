@@ -10,7 +10,7 @@
             :class="[$i18n.locale === 'zh'?'active':'']"
             class="hover"
             @click="setLanguage('zh')"
-          >简</div>
+          >{{$t('nav.zh')}}</div>
           <div class="line"></div>
           <div
             :class="[$i18n.locale === 'ft'?'active':'']"
@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted() {
-    
+
   }
 };
 </script>
