@@ -7,7 +7,7 @@
         <div class="tw-l">
           <div class="info">{{$t('riskTestResult.text2')}}</div>
           <div class="result">{{type}}</div>
-          <div class="time">{{$t('riskTestResult.text3')}}：2019-05-08</div>
+          <div class="time">{{$t('riskTestResult.text3')}}：{{date | parseTime('{y}-{m}-{d}')}}</div>
         </div>
         <div class="tw-r"></div>
       </div>
@@ -28,7 +28,9 @@ export default {
     HeaderBar
   },
   data() {
-    return {};
+    return {
+      date: +new Date(),
+    };
   },
   computed: {
     type() {
