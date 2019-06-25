@@ -96,20 +96,22 @@ export default {
       this.showmask = !isNotChooseAll;
     },
     goPage() {
+      const type = getType(this.totalScore);
+      const arr = this.investmentRisk.filter(item => (item.dictLabel == type || item.dictLabelEn == type || item.dictLabelFt == type))
       const params = {
-        riskType: getType(this.totalScore),
+        riskType: arr[0].dictValue,
         score: this.totalScore,
       }
-      saveRiskTest().then(res=>{
-        if (res.logined ===  undefined) {
-          localStorage.setItem("totalScore", this.totalScore);
-          this.$router.push("/riskTestResult");
-        }
-
+      saveRiskTest(params).then(res=>{
+        localStorage.setItem("totalScore", this.totalScore);
+        this.$router.push("/riskTestResult");
       })
     }
   },
-  mounted() {}
+  async mounted() {
+    var res = await this.getGlobalData("investment_risk");
+    this.investmentRisk = res.data.list;
+  }
 };
 </script>
 

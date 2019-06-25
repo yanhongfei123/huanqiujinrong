@@ -15,7 +15,7 @@
           <div class="art-l">{{$t('find.text2')}}</div>
           <div class="tab-wrap">
             <div
-              @click="changeTab(val.dictCode, index)"
+              @click="changeTab(val.dictValue, index)"
               :class="[oIndex===index?'active':'']"
               v-for="(val,index) in typeList"
               :key="index"
@@ -32,11 +32,11 @@
           >
             <div :style="{backgroundImage: 'url(' + val.url + ')'}" class="l-wrap"></div>
             <div class="r-wrap">
-              <div class="title">{{val.title}}</div>
-              <div class="des">{{val.des}}</div>
+              <div class="title">{{val.articleTitle}}</div>
+              <div class="des">{{val.articleAbstract}}</div>
               <div class="b-wrap">
-                <div class="time">{{val.time}}</div>
-                <div class="has-read">{{val.read}}次阅读</div>
+                <div class="time">{{val.updateTime | parseTime}}</div>
+                <div class="has-read">{{val.readSum}}次阅读</div>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default {
     var res = await this.getGlobalData("sys_article_type");
     var list = res.data.list;
     this.typeList = list;
-    this.changeTab(list[0].dictCode, 0);
+    this.changeTab(list[0].dictValue, 0);
   }
 };
 </script>
@@ -204,15 +204,15 @@ export default {
     .article-item {
       margin-top: 50px;
       display: flex;
-      justify-content: space-between;
+      justify-content:center;
     }
     .l-wrap {
-      width: 390px;
-      height: 260px;
-      margin-right: 60px;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
+      // width: 390px;
+      // height: 260px;
+      // margin-right: 60px;
+      // background-position: center;
+      // background-repeat: no-repeat;
+      // background-size: cover;
     }
     .r-wrap {
       width: 730px;

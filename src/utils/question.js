@@ -1,25 +1,30 @@
 export default {
   typeList: [{
+      typeen: "Conservative type",
       typeft: "保守型",
       type: "保守型",
       score: "6-9"
     },
     {
+      typeen: "Cautious type",
       typeft: "謹慎型",
       type: "谨慎型",
       score: "10-13"
     },
     {
+      typeen: "Robust type",
       typeft: "穩健型",
       type: "稳健型",
       score: "14-17"
     },
     {
+      typeen: "entreprenant",
       typeft: "進取型",
       type: "进取型",
       score: "18-21"
     },
     {
+      typeen:'"Radical type"',
       typeft: "激進型",
       type: "激进型",
       score: "22-24"

@@ -356,7 +356,7 @@ export default {
       console.log(res);
       this.openStatus = res.data.status;
       if(this.openStatus == 0){
-        this.$router.push('/openAccount')
+        //this.$router.push('/openAccount')
       }
     })
   },

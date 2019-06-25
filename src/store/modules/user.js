@@ -12,8 +12,6 @@ import Cookies from 'js-cookie';
 const user = {
     state: {
         showmenu: false,
-        showtoast: false,
-        title: '',
         token: getToken(),
         language: Cookies.get('language') || 'zh',
     },
@@ -24,14 +22,6 @@ const user = {
         },
         SET_TOKEN: (state, token) => {
             state.token = token;
-        },
-        SHOW_TOAST: (state, title) => {
-            state.showtoast = true;
-            state.title = title;
-        },
-        HIDE_TOAST: (state) => {
-            state.showtoast = false;
-            state.title = '';
         },
         SET_LANGUAGE: (state, language) => {
             state.language = language;
@@ -51,18 +41,6 @@ const user = {
         }, showmenu) {
             commit('SHOW_MENU', showmenu)
         },
-        showToast({
-            commit
-        }, title) {
-            return new Promise((resolve, reject) => {
-                commit('SHOW_TOAST', title);
-                resolve();
-                setTimeout(() => {
-                    commit('HIDE_TOAST');
-                }, 2000)
-            });
-        },
-
         Login({ commit, state }, params) {
             return new Promise((resolve, reject) => {
                 login(params).then(response => {
@@ -88,22 +66,6 @@ const user = {
               });
             });
           },
-
-        // // 邮箱登录
-        // LoginByEmail({ commit }, userInfo) {
-        //   const email = userInfo.email.trim();
-        //   return new Promise((resolve, reject) => {
-        //     loginByEmail(email, userInfo.password).then(response => {
-        //       const data = response.data;
-        //       Cookies.set('X-Ivanka-Token', response.data.accessToken);
-        //       commit('SET_TOKEN', data.accessToken);
-        //       commit('SET_EMAIL', email);
-        //       resolve();
-        //     }).catch(error => {
-        //       reject(error);
-        //     });
-        //   });
-        // },
 
     }
 };

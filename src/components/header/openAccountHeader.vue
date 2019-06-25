@@ -13,7 +13,7 @@
           >{{$t('nav.zh')}}</div>
           <div class="line"></div>
           <div
-            :class="[$i18n.locale === 'ft'?'active':'']"
+            :class="[$i18n.locale === 'Ft'?'active':'']"
             class="hover"
             @click="setLanguage('Ft')"
           >繁</div>
@@ -75,8 +75,8 @@ export default {
   .logo {
     width: 179px;
     height: 39px;
-    background: url("../../assets/images/logo.png") no-repeat;
-    background-size: contain;
+    //background: url("../../assets/images/logo.png") no-repeat;
+    //background-size: contain;
   }
   .hover:hover,
   .nav-item:hover {

@@ -26,7 +26,7 @@
 </template>
 <script>
 import question from "@/utils/question";
-import { deepClone, getType } from "@/utils";
+import { deepClone } from "@/utils";
 export default {
   name: "answer",
   computed: {},

@@ -110,7 +110,7 @@ export default {
     }
     .active {
       &::after {
-        background: #fff;
+        //background: #fff;
       }
       a {
         color: #fff;
