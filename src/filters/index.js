@@ -9,6 +9,12 @@ import i18n from '../lang'
 // 传中文字段进来，根据当前语言类型取对应语言的字段
 export function filterByLanguage(value, key) {
   var lang = i18n.locale;
+  if(value[key].indexOf('&lt;')> -1){
+    return lang == 'zh' ? value[key].replace('&lt;','< ') : value[`${key}${lang}`].replace('&lt;','< ');
+  }
+  if(value[key].indexOf('&gt;')> -1){
+    return lang == 'zh' ? value[key].replace('&gt;','> ') : value[`${key}${lang}`].replace('&gt;','>  ');
+  }
   return lang == 'zh' ? value[key] : value[`${key}${lang}`];
 }
 

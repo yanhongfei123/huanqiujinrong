@@ -70,7 +70,7 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="净流动资产:" prop="netCurrentAsset" required>
+                            <el-form-item label="净流动资产:" prop="netAssetFlow" required>
                                 <el-select v-model="regulatoryInfo.netAssetFlow" placeholder="请选择净流动资产"
                                            style="width: 100%;">
                                     <el-option
