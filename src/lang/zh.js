@@ -408,6 +408,8 @@ export default {
         text8: '邮箱地址',
         text9: '验证码',
         text10: '密码',
+        text11: '确认修改',
+        text12: '请设置6位新交易密码',
         error: {
             text1: '请输入手机号',
             text2: '请输入正确的邮箱',
@@ -416,6 +418,7 @@ export default {
             text5: '请输入正确的短信验证码',
             text6: '请输入6位数字的交易密码',
             text7: '请输入邮箱地址',
+            text8: '请输入6位新交易密码',
         }
     },
     riskTest: {
@@ -481,5 +484,8 @@ export default {
     },
     openAccount: {
         saveSuccess: '保存成功',
+    },
+    article:{
+        text1: '次阅读'
     }
 }

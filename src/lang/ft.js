@@ -405,13 +405,17 @@ export default {
     text8: '郵箱地址',
     text9: '驗證碼',
     text10: '密碼',
+    text11: '確認修改',
+    text12: '請設置6位新交易密碼',
     error: {
-        text1: '手機號/郵箱地址',
+        text1: '請輸入手機號',
         text2: '請輸入正確的郵箱',
         text3: '請輸入正確的手機號',
         text4: '請輸入短信驗證碼',
         text5: '請輸入正確的短信驗證碼',
         text6: '請輸入6位數字的交易密碼',
+        text7: '請輸入郵箱地址',
+        text8: '請輸入6位新交易密碼',
     }
   },
   riskTest: {
@@ -474,5 +478,8 @@ export default {
         total: '合計'
       }
     }
+  },
+  article:{
+    text1: '次閱讀'
   }
 }

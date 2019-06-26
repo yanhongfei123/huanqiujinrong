@@ -4,22 +4,23 @@
       <headerNav path="/find"></headerNav>
     </header>
     <div class="com-width">
-      <h1 class="title">A股投资装甲——（产品名称）智能投资引擎上线！</h1>
+      <h1 class="title">{{article | filterByLanguage('articleTitle')}}</h1>
       <div class="art-info">
         分类:
-        <span> 文章资讯</span>
-        <span class="update-time">2019-05-07 14:00</span>
-        <span class="has-red">9999</span>次阅读
+        <span>{{article | filterByLanguage('articleType')}}</span>
+        <span class="update-time">{{article.updateTime | parseTime}}</span>
+        <span class="has-red">{{article.readSum}}</span>{{$t('article.text1')}}
       </div>
       <div
         class="art-content"
-      >“电池”VS “电网” 人工智能在中国商务世界的应用已经非常广泛，无论是商用的语音识别，图像识别，信贷审批，还是在金融市场投资，都可以看到AI的影子。 在李开复的新书《AI·未来》中，曾经提到，人工智能有两种模式与经济和商务场景融合：一个是“电网模式”，另一个是“电池模式”。</div>
+      >{{article | filterByLanguage('articleContent')}}</div>
     </div>
     <footerBar></footerBar>
   </div>
 </template>
 
 <script>
+import {getArticleDetail} from '@/api/article'
 import headerNav from "@/components/nav/nav.vue";
 import footerBar from "@/components/footer/footer.vue";
 export default {
@@ -29,9 +30,19 @@ export default {
     footerBar
   },
   data() {
-    return {};
+    return {
+      article: {}
+    };
   },
-  methods: {}
+  methods: {
+
+  },
+  mounted(){
+    var id = this.$route.params.id;
+    getArticleDetail(id).then(res=>{
+      this.article = res.data;
+    })
+  }
 };
 </script>
 <style lang="scss" scoped>

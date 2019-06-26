@@ -36,18 +36,33 @@
   </div>
 </template>
 <script>
+import {getUserInfo} from '@/api';
+import {filterOpenStatus} from '@/utils';
 export default {
   data() {
     return {
-      name: "王胜利",
-      mobile: "+85 12345678",
-      email: "12345678@gmail.com",
-      openStatus: "已开户",
-      birthday: "1980-01-01",
-      employmentStatus: "受雇",
-      company: "City Bank",
-      professionalName: "Manager"
+      name: "",
+      mobile: "",
+      email: "",
+      openStatus: "",
+      birthday: "",
+      employmentStatus: "",
+      company: "",
+      professionalName: ""
     };
+  },
+  mounted(){
+    getUserInfo().then(res=>{
+      var data = res.data;
+      this.name = ((data.surnameChina || '') + (data.nameChina || '')) || ((data.surnameUS || '') + (data.nameUS || ''));
+      this.mobile = data.phone;
+      this.email = data.email;
+      this.openStatus = filterOpenStatus(data.state);
+      this.birthday = data.birthday;
+      this.employmentStatus = data.employmentType;
+      this.company = data.employmentCompay;
+      this.professionalName = data.post;
+    })
   }
 };
 </script>

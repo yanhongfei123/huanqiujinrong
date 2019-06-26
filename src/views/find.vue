@@ -25,18 +25,18 @@
         </div>
         <div class="article-list">
           <div
-            @click="goArticle"
+            @click="goArticle(val.articleId)"
             v-for="(val,index) in articleList"
             :key="index"
             class="article-item"
           >
             <div :style="{backgroundImage: 'url(' + val.url + ')'}" class="l-wrap"></div>
             <div class="r-wrap">
-              <div class="title">{{val.articleTitle}}</div>
-              <div class="des">{{val.articleAbstract}}</div>
+              <div class="title">{{val | filterByLanguage('articleTitle')}}</div>
+              <div class="des">{{val | filterByLanguage('articleAbstract')}}</div>
               <div class="b-wrap">
                 <div class="time">{{val.updateTime | parseTime}}</div>
-                <div class="has-read">{{val.readSum}}次阅读</div>
+                <div class="has-read">{{val.readSum}}{{$t('article.text1')}}</div>
               </div>
             </div>
           </div>
@@ -107,8 +107,8 @@ export default {
       this.currentPage = pageNum;
       this.getArticleList(this.articleType, pageNum)
     },
-    goArticle() {
-      this.$router.push("/article");
+    goArticle(id) {
+      this.$router.push(`/article/${id}`);
     },
   },
   async mounted() {

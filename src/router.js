@@ -332,7 +332,7 @@ const routes = [
         component: Find,
     },
     {
-        path: '/article',
+        path: '/article/:id',
         name: 'article',
         component: Article,
     },

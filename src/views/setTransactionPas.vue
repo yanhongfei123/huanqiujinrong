@@ -62,8 +62,7 @@
                         :placeholder="$t('setTransPas.text9')"
                       ></el-input>
                     </el-col>
-                    <el-col :span="4">
-                      <!-- <el-button v-if="disabledBtn" @click="sendSmsCode" type="text" class="btn-captcha">{{$t('setTransPas.text6')}}</el-button> -->
+                    <el-col :span="6">
                       <el-button
                         v-if="disabledBtn"
                         @click="sendSmsCode"
@@ -87,10 +86,12 @@
                     :placeholder="$t('setTransPas.text10')"
                   ></el-input>
                 </el-form-item>
-                <div
-                  class="btn btn-register"
-                  @click="confirm('regForm')"
-                >{{$t('setTransPas.text7')}}</div>
+                      <el-button
+                        @click="confirm('regForm')"
+                        type="text"
+                        :disabled="!disabled"
+                        class="btn btn-register"
+                      >{{$t('setTransPas.text7')}}</el-button>
               </el-form>
             </div>
           </div>
@@ -101,7 +102,9 @@
   </div>
 </template>
 <script>
+import {Message} from 'element-ui';
 import {sendCode} from '@/api';
+import {resetDealPWD} from '@/api/setting';
 import HeaderBar from "@/components/header/openAccountHeader.vue";
 
 export default {
@@ -159,6 +162,7 @@ export default {
     };
 
     return {
+      //disabled: true,
       time: 60,
       timer: null, // 定时器
       disabledBtn: false,
@@ -202,8 +206,11 @@ export default {
       }
     };
   },
-  computed: {},
-
+  computed: {
+    disabled(){
+      return (this.regForm.email.includes('@') || this.regForm.account.length >= 8) && this.regForm.smsCode.length == 6 && this.regForm.password.length == 6
+    }
+  },
   methods: {
     goPage(path) {
       this.$router.push(path);
@@ -215,11 +222,31 @@ export default {
     confirm(formName) {
       var rules = this.type === "mobile" ? this.regMobileRules : this.regEmailRules;
       this.rules = Object.assign({}, this.regRules, rules);
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        }
-      });
+      this.$nextTick(() => {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            const { smsCode, password } = this.regForm;
+            const params = {
+              code: smsCode,
+              dealPwd: password,
+            };
+            if(this.type === "mobile"){
+              params['phone'] = this.regForm.account;
+            } else {
+              params['email'] = this.regForm.email;
+            }
+            resetDealPWD(params).then(res=>{
+                Message({
+                  message: '设置成功',
+                  type: "success"
+                });
+                setTimeout(()=>{
+                  //this.$router.push('/accountPreView');//跳到资产配置页面，还没做
+                }, 2000);
+            })
+          }
+        });
+      })
     },
     getSmsCodeHandler() {
       this.disabledBtn = true;
@@ -246,13 +273,12 @@ export default {
       this.$refs.regForm.resetFields();
       var rules = this.type === "mobile" ? this.regMobileRules : this.regEmailRules;
       this.rules = rules;
-
       this.$nextTick(() => {
         this.regForm.account = this.account;
         this.$refs.regForm.validate(valid => {
           if (valid) {
             let params = {
-              type: "REGISTER"// 需要更换type
+              type: "DEALPWD",
             };
             if (this.type === "email") {
               params["email"] = this.regForm.email;
@@ -262,7 +288,7 @@ export default {
             sendCode(params).then(res => {
               this.getSmsCodeHandler();
               Message({
-                message: '交易密码设置成功',
+                message: '短信发送成功',
                 type: "success"
               });
             });
@@ -357,6 +383,7 @@ export default {
             line-height: 34px !important;
             height: 34px !important;
             color: #141416;
+            padding-left: 0;
           }
           .el-select--medium {
             .el-input--medium .el-input__inner {
@@ -380,7 +407,7 @@ export default {
         .btn {
           width: 100%;
           height: 36px;
-          line-height: 36px;
+          //line-height: 36px;
           color: #fff;
           text-align: center;
           background: url("../assets/images/other_btn/btn_signin.png") no-repeat
@@ -389,6 +416,9 @@ export default {
           cursor: pointer;
           &.btn-register {
             margin-top: 90px;
+          }
+          &.is-disabled{
+            opacity: 0.5;
           }
         }
       }

@@ -18,7 +18,6 @@ export function filterByLanguage(value, key) {
   return lang == 'zh' ? value[key] : value[`${key}${lang}`];
 }
 
-
 export function renderFq(sub) {
   var lang = i18n.locale;
   switch (lang) {
