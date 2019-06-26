@@ -221,7 +221,7 @@
                                     type: 'success'
                                 });
                                 setTimeout(() => {
-                                    this.$router.push('/accountPreView');
+                                    this.$router.push('/userCenter');
                                 }, 2500);
                             }).catch(() => {
                                 this.$refs.loginForm.resetFields();

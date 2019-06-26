@@ -1,6 +1,28 @@
 import question from '@/utils/question'
 import i18n from '../lang'
 
+export function filterOpenStatus(state) {
+  // 0待申请开户1待审核2开户拒绝3待入金4待风险测评5待配置6已配置
+  switch (state) {
+    case 0:
+      return '待申请开户';
+    case 1:
+      return '待审核';
+    case 2:
+      return '开户拒绝';
+    case 3:
+      return '待入金';
+    case 4:
+      return '待风险测评';
+    case 5:
+      return '待配置';
+      case 6:
+      return '已配置';
+    default:
+      return '待申请开户';
+  }
+}
+
 export function getType(score) {
   var type;
   var lang = i18n.locale;

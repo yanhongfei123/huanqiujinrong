@@ -85,7 +85,13 @@ export default {
     },
     toggle(item) {
       item.isshow = !item.isshow;
-    }
+    },
+  },
+  async mounted() {
+    var res = await this.getGlobalData("sys_help_type");
+    var list = res.data.list;
+    this.fqList = list;
+    //this.changeTab(list[0].dictValue, 0);
   }
 };
 </script>

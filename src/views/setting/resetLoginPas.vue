@@ -6,7 +6,7 @@
           <el-input
             maxlength="16"
             v-model="resetForm.oldPassword"
-            type="text"
+            type="password"
             :placeholder="$t('setting.resetPwd.text1')"
           ></el-input>
         </el-form-item>
@@ -26,18 +26,23 @@
             :placeholder="$t('setting.resetPwd.text3')"
           ></el-input>
         </el-form-item>
-        <el-button disabled>默认按钮</el-button>
-        <div class="btn btn-reset" @click="resetPwd('resetForm')">{{$t('setting.resetPwd.text4')}}</div>
+        <el-button
+          @click="resetPwd('resetForm')"
+          type="text"
+          :disabled="!disabled"
+          class="btn btn-reset"
+        >{{$t('setting.resetPwd.text4')}}</el-button>
       </el-form>
     </div>
   </div>
 </template>
 
 <script>
+import {Message} from 'element-ui';
+import {resetPassword} from '@/api/setting';
 export default {
   name: "resetPwd",
   components: {},
-  computed: {},
   data() {
     const validateOldPassword = (rule, value, callback) => {
       if (value == "") {
@@ -99,7 +104,15 @@ export default {
       }
     };
   },
-  computed: {},
+  computed: {
+    disabled() {
+      return (
+        this.resetForm.oldPassword.length >= 6 &&
+        this.resetForm.newPassword.length >= 6 &&
+        this.resetForm.confirmNewPassword.length >= 6
+      );
+    }
+  },
   methods: {
     goPage(path) {
       this.$router.push({ name: path });
@@ -107,7 +120,20 @@ export default {
     resetPwd(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          var params = {
+            passWord: this.resetForm.oldPassword,
+            newPWD: this.resetForm.newPassword,
+            newPWD1: this.resetForm.confirmNewPassword,
+          };
+            resetPassword(params).then(res=>{
+                Message({
+                  message: '修改成功',
+                  type: "success"
+                });
+                setTimeout(()=>{
+                  this.$router.push('/accountPreView');
+                }, 2000);
+            })
         }
       });
     }
@@ -141,6 +167,7 @@ export default {
         line-height: 34px;
         height: 34px;
         color: #141416;
+        padding-left: 0;
       }
       .btn-captcha {
         width: 100%;
@@ -156,7 +183,7 @@ export default {
       .btn {
         width: 100%;
         height: 36px;
-        line-height: 36px;
+        //line-height: 36px;
         color: #fff;
         text-align: center;
         background: url("../../assets/images/other_btn/btn_signin.png")
@@ -165,6 +192,9 @@ export default {
         cursor: pointer;
         &.btn-reset {
           margin-top: 90px;
+        }
+        &.is-disabled {
+          opacity: 0.5;
         }
       }
     }
