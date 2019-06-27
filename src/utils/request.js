@@ -21,7 +21,6 @@ service.interceptors.request.use(config => {
     lock: true,
     background: "rgba(0, 0, 0, 0.5)"
   });
-  console.log(config)
   // Do something before request is sent
   if (store.getters.token) {
     config.headers['accessToken'] = getToken();
@@ -53,21 +52,20 @@ service.interceptors.response.use(
   response => {
     loadingInstance.close();
     const res = response.data;
-    console.log(response)
     if (res.code !== '0000') {
-
       switch (res.code) {
         case '0005':
-          MessageBox.confirm('登录已过期，请重新登录', '提示', {
-            confirmButtonText: '重新登录',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            router.push('/login');
-            // store.dispatch('LogOut').then(() => {
-            //   location.reload() // 为了重新实例化vue-router对象 避免bug
-            // });
-          });
+          router.push('/login');
+          // MessageBox.confirm('登录已过期，请重新登录', '提示', {
+          //   confirmButtonText: '重新登录',
+          //   cancelButtonText: '取消',
+          //   type: 'warning'
+          // }).then(() => {
+          //   router.push('/login');
+          //   // store.dispatch('LogOut').then(() => {
+          //   //   location.reload() // 为了重新实例化vue-router对象 避免bug
+          //   // });
+          // });
           break;
 
         case '0220':
@@ -75,8 +73,6 @@ service.interceptors.response.use(
             confirmButtonText: '我知道了',
             showCancelButton: false,
             type: 'warning'
-          }).then(() => {
-            //router.push('/register')
           });
           break;
 

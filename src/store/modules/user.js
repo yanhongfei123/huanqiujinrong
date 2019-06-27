@@ -1,11 +1,10 @@
 import {
     login,
     logout,
+    getUserInfo,
 } from '@/api'
 import {
     getToken,
-    setToken,
-    removeToken
 } from '@/utils/auth'
 import Cookies from 'js-cookie';
 
@@ -14,6 +13,7 @@ const user = {
         showmenu: false,
         token: getToken(),
         language: Cookies.get('language') || 'zh',
+        userInfo: {},
     },
 
     mutations: {
@@ -26,7 +26,10 @@ const user = {
         SET_LANGUAGE: (state, language) => {
             state.language = language;
             Cookies.set('language', language)
-        }
+        },
+        SET_USERINFO: (state, userInfo) => {
+            state.userInfo = userInfo;
+        },
 
     },
 
@@ -41,7 +44,7 @@ const user = {
         }, showmenu) {
             commit('SHOW_MENU', showmenu)
         },
-        Login({ commit, state }, params) {
+        Login({ commit }, params) {
             return new Promise((resolve, reject) => {
                 login(params).then(response => {
                     const data = response.data;
@@ -55,7 +58,7 @@ const user = {
         },
 
         // 登出
-        LogOut({ commit, state }) {
+        LogOut({ commit }) {
             return new Promise((resolve, reject) => {
               logout(Cookies.get('accessToken')).then(() => {
                 commit('SET_TOKEN', '');
@@ -65,7 +68,18 @@ const user = {
                 reject(error);
               });
             });
-          },
+        },
+
+        GetUserInfo({ commit }) {
+            return new Promise((resolve, reject) => {
+              getUserInfo().then((res) => {
+                commit('SET_USERINFO', res.data);
+                resolve();
+              }).catch(error => {
+                reject(error);
+              });
+            });
+        },
 
     }
 };

@@ -21,11 +21,11 @@
         </div>
         <div class="f-top-r">
           <dl class="fr-l">
-            <dt @click="goPage('about')">{{$t('footer.text5')}}</dt>
-            <dd @click="goPage('introduction')">{{$t('footer.text6')}}</dd>
-            <dd @click="goPage('contact')">{{$t('footer.text7')}}</dd>
-            <dd @click="goPage('questions')">{{$t('footer.text8')}}</dd>
-            <dd @click="goPage('conditions')">{{$t('footer.text9')}}</dd>
+            <dt>{{$t('footer.text5')}}</dt>
+            <dd @click="goPage('/introduction')">{{$t('footer.text6')}}</dd>
+            <dd @click="goPage('/contact')">{{$t('footer.text7')}}</dd>
+            <dd @click="goPage('/questions')">{{$t('footer.text8')}}</dd>
+            <dd @click="goPage('/conditions')">{{$t('footer.text9')}}</dd>
           </dl>
           <!-- <dl class="fr-r">
             <dt>{{$t('footer.text10')}}</dt>

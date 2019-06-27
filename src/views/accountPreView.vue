@@ -1,7 +1,7 @@
 <template>
   <div class="account-preview">
     <header>
-      <userCenterHeader path="/accountPreView"></userCenterHeader>
+      <userCenterHeader @getUserInfo="setUserInfo" path="/accountPreView"></userCenterHeader>
     </header>
     <div @click="hideMenu($event)" class="content">
       <div class="com-width">
@@ -9,29 +9,30 @@
 
         <!-- 已经进行了资产配置就显示个人中心主页，否则显示当前进度条状态 -->
 
-        <div v-if="openStatus != 5 ">
+        <div v-if="openStatus != 6">
           <div class="progress-ctn">
             <div
-              :class="[index <= openStatus ? 'active' : '']"
+              :class="[index <= state ? 'active' : '']"
               class="progress"
-              v-for="(val, index) in openStatusList"
-              :key="index"
+              v-for="(val, key, index) in openStatusList"
+              :key="key"
             >
               <div class="num">{{index + 1}}</div>
               <p>{{val.progressTitle}}</p>
             </div>
           </div>
 
-          <div v-if="openStatus==4" class="btn-openAccount active"
+          <div v-if="(openStatus==0 || openStatus==3 || openStatus==4 || openStatus==5)" class="btn-openAccount active"
             @click="goPage(openStatusList[openStatus].path)"
           >{{ openStatusList[openStatus].btnText }}</div>
 
-          <div class="review-ctn">
+           <!-- 1开户审核中 -3 入金审核中  -5 资产配置审核中 -->
+          <div v-if="(openStatus == 1 || openStatus == -3 || openStatus == -5)" class="review-ctn">
             <div class="img-review"></div>
             <div class="review-info">
-              <div class="review-result">您的资料已被提交，正在审核，请您耐心等待</div>
-              <div class="btn-openAccount disabled">请前往开户</div>
-              <div class="review-tip">
+              <div class="review-result">{{checkStatusObj[openStatus].text}}</div>
+              <div class="btn-openAccount disabled">{{checkStatusObj[openStatus].btnText}}</div>
+              <div v-if="openStatus == 1" class="review-tip">
                 {{$t('userCenter.text3')}}
                 <router-link to="/openAccount">{{$t('userCenter.text4')}}</router-link>
               </div>
@@ -49,7 +50,7 @@
           </div>
         </div>
 
-        <div v-if="openStatus == 5 " class="main">
+        <div v-if="openStatus == 6" class="main">
           <div class="wrap1">
             <div class="item">
               <div class="label">投资金额（港币）</div>
@@ -164,46 +165,61 @@ export default {
     userCenterHeader,
     footerBar
   },
+  computed: {
+    state(){
+      if (this.openStatus == 0 || this.openStatus == 1) {
+        return 0;
+      }
+      if (this.openStatus == 2 || this.openStatus == 3 || this.openStatus == -3){
+        return 1
+      }
+      if (this.openStatus == 4){
+        return 2
+      }
+      if (this.openStatus == 5 || this.openStatus == -5){
+        return 3
+      }
+    }
+  },
   data() {
     return {
-      openStatus: null,
-      checkStatus: 1,
+      openStatus: 0,
       checkStatusObj: {
-        0: {
+        '1': {
           text: this.$t("userCenter.checkStatusObj.0.text"),
           btnText: this.$t("userCenter.checkStatusObj.0.btnText")
         },
-        1: {
+        '-3': {
           text: this.$t("userCenter.checkStatusObj.1.text"),
           btnText: this.$t("userCenter.checkStatusObj.1.btnText")
         },
-        2: {
+        '-5': {
           text: this.$t("userCenter.checkStatusObj.2.text"),
           btnText: this.$t("userCenter.checkStatusObj.2.btnText")
         }
       },
-      openStatusList: [
-        {
+      openStatusList: {
+        '0': {
           progressTitle: this.$t("userCenter.openStatusList[0].progressTitle"),
           btnText: this.$t("userCenter.openStatusList[0].btnText"),
           path: "/openAccount"
         },
-        {
+        '3': {
           progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
           btnText: this.$t("userCenter.openStatusList[1].btnText"),
           path: "/userCenter/guide"
         },
-        {
+        '4': {
           progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
           btnText: this.$t("userCenter.openStatusList[2].btnText"),
           path: "/riskTest"
         },
-        {
+        '5': {
           progressTitle: this.$t("userCenter.openStatusList[3].progressTitle"),
           btnText: this.$t("userCenter.openStatusList[3].btnText"),
           path: "/setTransPas"
         }
-      ],
+      },
       colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
       data: [
         {
@@ -238,6 +254,9 @@ export default {
     };
   },
   methods: {
+    setUserInfo(data){
+      this.openStatus = data.status;
+    },
     goPage(path) {
       this.$router.push(path);
     },
@@ -350,15 +369,6 @@ export default {
         });
       });
     }
-  },
-  mounted() {
-    getUserInfo().then((res)=>{
-      console.log(res);
-      this.openStatus = res.data.status;
-      if(this.openStatus == 0){
-        //this.$router.push('/openAccount')
-      }
-    })
   },
 };
 </script>

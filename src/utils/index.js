@@ -19,7 +19,7 @@ export function filterOpenStatus(state) {
       case 6:
       return '已配置';
     default:
-      return '待申请开户';
+      return '待审核';
   }
 }
 

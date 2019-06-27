@@ -16,16 +16,16 @@
           @click="goPage('/userCenter/myAccount')"
         >{{$t('userCenterNav.myAccount')}}</div>
         <div
-          v-if="!isshowusername"
+          v-if="isshow"
           :class="[path === '/find' ? 'active' : '', 'nav-item realName-auth']"
           @click="goPage('/openAccount')"
         >{{$t('userCenterNav.realName')}}</div>
       </div>
-      <div v-if="isshowusername" class="user-wrap nav-item active">
+      <div v-if="!isshow" class="user-wrap nav-item active">
         <span @click="goPage('/messageCenter')" class="notice">
           <i v-if="isshowmsg"></i>
         </span>
-        <span @click="showMenu($event)">刘某某</span>
+        <span @click="showMenu($event)">{{userName}}</span>
         <ul v-show="showmenu" :class="[showmenu?'show':'']" class="dropMenu">
           <li @click="goPage('/userCenter')" class="user-center">{{$t('userCenterNav.userCenter')}}</li>
           <li @click="goPage('/setting')" class="setting">{{$t('userCenterNav.setting')}}</li>
@@ -33,7 +33,11 @@
         </ul>
       </div>
       <div class="nav-r flex">
-        <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">{{$t('nav.zh')}}</div>
+        <div
+          :class="[$i18n.locale === 'zh'?'active':'']"
+          class="hover"
+          @click="setLanguage('zh')"
+        >{{$t('nav.zh')}}</div>
         <div class="line"></div>
         <div :class="[$i18n.locale === 'ft'?'active':'']" class="hover" @click="setLanguage('Ft')">繁</div>
       </div>
@@ -42,6 +46,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { getUserInfo } from "@/api";
 export default {
   name: "headerNav",
   props: {
@@ -50,15 +56,16 @@ export default {
     }
   },
   computed: {
-    //...mapGetters(["showmenu"]),
+    ...mapGetters(["userInfo"]),
     showmenu() {
       return this.$store.state.user.showmenu;
     }
   },
   data() {
     return {
+      userName: "",
       isshowmsg: true,
-      isshowusername: true
+      isshow: true
     };
   },
   methods: {
@@ -67,9 +74,8 @@ export default {
     },
     goPage(path) {
       if (path == "/loginOut") {
-        this.$store.dispatch('LogOut').then(() => {
-          this.$router.push('/login');
-          //location.reload();
+        this.$store.dispatch("LogOut").then(() => {
+          this.$router.push("/login");
         });
         return;
       }
@@ -79,6 +85,18 @@ export default {
       this.$i18n.locale = lang;
       this.$store.dispatch("setLanguage", lang);
     }
+  },
+  created(){
+    getUserInfo().then(res=>{
+      var data = res.data;
+      this.$emit('getUserInfo', data)
+      var userName = ((data.surnameChina || '') + (data.nameChina || ''));
+      var userName_en = ((data.surnameUS || '') + (data.nameUS || ''));
+      if (userName || userName_en) {
+        this.isshow = false;
+        this.userName = this.$i18n.locale == 'En' ? userName_en : userName;
+      }
+    });
   },
   mounted() {
     this.$store.dispatch("showMenu", false);

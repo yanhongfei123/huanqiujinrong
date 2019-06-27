@@ -6,5 +6,6 @@ const getters = {
     title: state => state.user.title,
     showmenu: state => state.user.showmenu,
     language: state => state.user.language,
+    userInfo: state => state.user.userInfo,
   };
   export default getters

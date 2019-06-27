@@ -1,5 +1,14 @@
 import request from '@/utils/request'
 
+export function getQuestionList({ helpType, pageNum, pageSize=10, }) {
+  return request({
+    url: `/index/sysHelp/selectList/${pageNum}/${pageSize}`,
+    method: 'post',
+    data: {
+      helpType
+    },
+  })
+}
 
 export function getArticleList({ articleType, pageNum, pageSize=10, }) {
   return request({

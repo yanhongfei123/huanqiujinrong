@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="r-wrap">
-            <router-view/>
+            <router-view />
           </div>
         </div>
       </div>

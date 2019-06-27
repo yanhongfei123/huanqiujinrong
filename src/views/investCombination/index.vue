@@ -55,7 +55,7 @@
     import Tips from "@/components/tips.vue";
     import userCenterHeader from "@/components/header/userCenterHeader.vue";
     import footerBar from "@/components/footer/footer.vue";
-
+    import { getUserInfo } from '@/api';
     export default {
         name: "accountPreview",
         components: {
@@ -68,8 +68,12 @@
 
             };
         },
-        mounted() {
-
+        created() {
+            getUserInfo().then((res)=>{
+                if (res.data.status != 6) {
+                    this.$router.push('/accountPreView')
+                }
+            })
         },
         methods: {
             changeTab(path) {

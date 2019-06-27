@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+import { getToken } from '@/utils/auth';
 import { mapGetters } from "vuex";
 import Toast from "@/components/toast.vue";
 export default {
@@ -25,7 +26,7 @@ export default {
       return this.$store.state.user.showtoast;
     }
   },
-  mounted() {
+  created() {
   },
   methods: {
 

@@ -36,7 +36,7 @@
               <div class="des">{{val | filterByLanguage('articleAbstract')}}</div>
               <div class="b-wrap">
                 <div class="time">{{val.updateTime | parseTime}}</div>
-                <div class="has-read">{{val.readSum}}{{$t('article.text1')}}</div>
+                <div v-if="val.readSum > 0" class="has-read">{{val.readSum}}{{$t('article.text1')}}</div>
               </div>
             </div>
           </div>
@@ -69,13 +69,6 @@ export default {
     footerBar
   },
   computed: {
-    // typeList() {
-    //   return [
-    //     this.$t("find.text3"),
-    //     this.$t("find.text4"),
-    //     this.$t("find.text5")
-    //   ];
-    // }
   },
   data() {
     return {

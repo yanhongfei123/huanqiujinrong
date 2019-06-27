@@ -57,8 +57,8 @@ export default {
       this.name = ((data.surnameChina || '') + (data.nameChina || '')) || ((data.surnameUS || '') + (data.nameUS || ''));
       this.mobile = data.phone;
       this.email = data.email;
-      this.openStatus = filterOpenStatus(data.state);
-      this.birthday = data.birthday;
+      this.openStatus = filterOpenStatus(data.status);
+      this.birthday = data.birthday.substr(0,10);
       this.employmentStatus = data.employmentType;
       this.company = data.employmentCompay;
       this.professionalName = data.post;

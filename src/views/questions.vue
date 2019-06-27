@@ -13,18 +13,27 @@
       <div class="com-width">
         <div class="tab-wrap">
           <div
-            @click="changeTab(index)"
+            @click="changeTab(index, val.dictValue)"
             :class="[oIndex===index?'active':'']"
             v-for="(val,index) in typeList"
             :key="index"
             class="tab-item"
-          >{{val}}</div>
+          >{{val | filterByLanguage('dictLabel')}}</div>
         </div>
         <div @click="toggle(val)" v-for="(val,index) in fqList" :key="index" class="question">
           <div :class="[val.isshow?'show':'']" class="icon"></div>
-          <div class="q-title">{{val.fq}}</div>
-          <div :class="[val.isshow?'height-auto':'']" class="answer">{{val.as}}</div>
+          <div class="q-title">{{val | filterByLanguage('helpTitle')}}</div>
+          <div :class="[val.isshow?'height-auto':'']" class="answer">{{val | filterByLanguage('helpContent')}}</div>
         </div>
+        <el-pagination
+          @current-change="currentChange"
+          v-if="total>1"
+          background
+          layout="prev, pager, next"
+          :page-size="1"
+          :current-page="currentPage"
+          :total="total"
+        ></el-pagination>
       </div>
     </section>
     <footerBar></footerBar>
@@ -35,7 +44,7 @@
 // @ is an alias to /src
 import headerNav from "@/components/nav/nav.vue";
 import footerBar from "@/components/footer/footer.vue";
-
+import { getQuestionList } from "@/api/article";
 export default {
   name: "contact",
   components: {
@@ -43,55 +52,51 @@ export default {
     footerBar
   },
   computed: {
-    typeList() {
-      return [
-        this.$t("question.text1"),
-        this.$t("question.text2"),
-        this.$t("question.text3"),
-        this.$t("question.text4"),
-        this.$t("question.text5"),
-        this.$t("question.text6")
-      ];
-    }
   },
   data() {
     return {
       oIndex: 0,
-      fqList: [
-        {
-          isshow: false,
-          fq: "最低投资金额是多少？",
-          as:
-            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
-        },
-        {
-          isshow: false,
-          fq: "最低投资金额是多少？",
-          as:
-            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
-        },
-        {
-          isshow: false,
-          fq: "最低投资金额是多少？",
-          as:
-            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
-        }
-      ]
+      total:0,
+      currentPage: 1,
+      questionType: '',
+      typeList:[],
+      fqList: [],
     };
   },
   methods: {
-    changeTab(index) {
-      this.oIndex = index;
-    },
     toggle(item) {
       item.isshow = !item.isshow;
+    },
+    getQuestionList(helpType, pageNum){
+      getQuestionList({
+        helpType,
+        pageNum,
+      }).then(res => {
+        var list = res.data.list;
+        list.map(item => {
+          item.isshow = false;
+          return item;
+        });
+        this.fqList = list;
+        this.total = res.data.total;
+      });
+    },
+    changeTab(index, questionType) {
+      this.oIndex = index;
+      this.questionType = questionType;
+      this.currentPage = 1;
+      this.getQuestionList(questionType, 1)
+    },
+    currentChange(pageNum){
+      this.currentPage = pageNum;
+      this.getQuestionList(this.questionType, pageNum)
     },
   },
   async mounted() {
     var res = await this.getGlobalData("sys_help_type");
     var list = res.data.list;
-    this.fqList = list;
-    //this.changeTab(list[0].dictValue, 0);
+    this.typeList = list;
+    this.changeTab(0, list[0].dictValue);
   }
 };
 </script>
