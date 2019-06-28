@@ -22,10 +22,28 @@
           @click="goPage('/analysis/analys')"
         >{{$t('nav.analysis')}}</div>
       </div>
-      <div class="nav-m flex">
+
+      <div class="user-wrap">
+        <span v-if="token" @click="goPage('/messageCenter')" class="notice pointer">
+          <i v-if="isshowmsg"></i>
+        </span>
+        <span
+          v-if="token && isshow"
+          class='realName-auth nav-item'
+          @click="goPage('/openAccount')"
+        >{{$t('userCenterNav.realName')}}</span>
+        <span class="active nav-item" v-if="token && !isshow" @click="showMenu($event)">{{userName}}</span>
+        <ul v-show="showmenu" :class="[showmenu?'show':'']" class="dropMenu">
+          <li @click="goPage('/userCenter')" class="user-center">{{$t('userCenterNav.userCenter')}}</li>
+          <li @click="goPage('/setting')" class="setting">{{$t('userCenterNav.setting')}}</li>
+          <li @click="goPage('/loginOut')" class="login-out">{{$t('userCenterNav.loginOut')}}</li>
+        </ul>
+      </div>
+      <div v-if="!token" class="nav-m flex">
         <div class="hover" @click="goPage('/login')">{{$t('nav.login')}}</div>
         <div class="hover" @click="goPage('/register')">{{$t('nav.register')}}</div>
       </div>
+
       <div class="nav-r flex">
         <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">简</div>
         <div class="line"></div>
@@ -36,6 +54,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { getUserInfo } from "@/api";
 export default {
   name: "headernav",
   props: {
@@ -43,26 +63,131 @@ export default {
       default: "/home"
     }
   },
+  computed:{
+    ...mapGetters(["token"]),
+    showmenu() {
+      return this.$store.state.user.showmenu;
+    }
+  },
   data() {
-    return {};
+    return {
+      userName: "",
+      isshowmsg: true,
+      isshow: true,
+    };
   },
   methods: {
     goPage(path) {
+      if (path == "/loginOut") {
+        this.$store.dispatch("LogOut").then(() => {
+          this.$router.push("/login");
+        });
+        return;
+      }
       this.$router.push(path);
     },
     setLanguage(lang) {
       this.$i18n.locale = lang;
       this.$store.dispatch("setLanguage", lang);
-    }
+    },
+    showMenu(event) {
+      this.$store.dispatch("showMenu", true);
+    },
   },
-  mounted() {
-
-  }
+  created(){
+    getUserInfo().then(res=>{
+      var data = res.data;
+      var userName = ((data.surnameChina || '') + (data.nameChina || ''));
+      var userName_en = ((data.surnameUS || '') + (data.nameUS || ''));
+      if (userName || userName_en) {
+        this.isshow = false;
+        this.userName = this.$i18n.locale == 'En' ? userName_en : userName;
+      }
+    });
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.user-wrap {
+  position: relative;
+  .dropMenu {
+    position: absolute;
+    top: 44px;
+    left: 0px;
+    opacity: 0;
+    transform: translateY(-120%);
+    transition: all 0.3s;
+    width: 108px;
+    height: 130px;
+    background: #fff;
+    color: rgba(20, 20, 22, 0.7);
+    font-size: 14px;
+    padding: 14px 12px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.1);
+    &.show {
+      transform: none;
+      opacity: 1;
+    }
+    &::after {
+      position: absolute;
+      left: 0;
+      bottom: 47px;
+      content: "";
+      width: 108px;
+      border-bottom: 1px solid #dcdcdc;
+    }
+    li {
+      line-height: 22px;
+      margin-bottom: 12px;
+      padding-left: 23px;
+      background-position: left center;
+      background-repeat: no-repeat;
+      background-size: auto 62%;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .user-center {
+      background-image: url("../../assets/images/icon_personal.png");
+    }
+    .setting {
+      background-image: url("../../assets/images/icon_setup.png");
+    }
+    .login-out {
+      margin-top: 25px;
+      background-image: url("../../assets/images/icon_signout.png");
+    }
+  }
+  .notice {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    vertical-align: -2px;
+    background: url("../../assets/images/icon_push.png") no-repeat center;
+    background-size: contain;
+    i {
+      position: absolute;
+      right: -2px;
+      top: -2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 3px;
+      background: #d51d26;
+    }
+  }
+}
+.realName-auth {
+  padding: 1px 6px;
+  margin-left: 5px;
+  border-radius: 4px;
+  border: 1px solid #979797;
+}
+
 .nav-wrap {
   width: 1180px;
   height: 82px;

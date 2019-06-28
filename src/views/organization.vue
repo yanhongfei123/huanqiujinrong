@@ -3,21 +3,23 @@
     <header>
       <headerNav path="/organization"></headerNav>
     </header>
-    <section class="barner">
-      <div class="barner-content">
-        <div class="barner-title-en">mechanism</div>
-        <div class="barner-title">{{$t('organization.text1')}}</div>
-      </div>
-    </section>
-    <section class="content">
-      <div class="com-width">
-        <div class="title">{{$t('organization.text2')}}</div>
-        <div class="info">{{$t('organization.text3')}}</div>
-        <div class="info">{{$t('organization.text4')}}</div>
-        <div class="info">{{$t('organization.text5')}}</div>
-        <div class="bg"></div>
-      </div>
-    </section>
+    <div @click="hideMenu($event)">
+      <section class="barner">
+        <div class="barner-content">
+          <div class="barner-title-en">mechanism</div>
+          <div class="barner-title">{{$t('organization.text1')}}</div>
+        </div>
+      </section>
+      <section class="content">
+        <div class="com-width">
+          <div class="title">{{$t('organization.text2')}}</div>
+          <div class="info">{{$t('organization.text3')}}</div>
+          <div class="info">{{$t('organization.text4')}}</div>
+          <div class="info">{{$t('organization.text5')}}</div>
+          <div class="bg"></div>
+        </div>
+      </section>
+    </div>
     <footerBar></footerBar>
   </div>
 </template>
@@ -36,6 +38,11 @@ export default {
   computed: {},
   data() {
     return {};
+  },
+  methods: {
+    hideMenu(flag) {
+      this.$store.dispatch("showMenu", false);
+    }
   }
 };
 </script>

@@ -52,7 +52,7 @@
           <div class="label label1">{{$t('analysis.result.text14')}}</div>
           <div class="label label2">{{$t('analysis.result.text15')}}</div>
           <div class="label label3">{{$t('analysis.result.text16')}}</div>
-          <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}</div>
+          <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}（港币）</div>
         </div>
         <div class="type-list">
           <div class="item" v-for="(val,index) in datas" :key="index">

@@ -10,12 +10,12 @@
       >{{val}}</div>
     </div>
     <el-tabs v-model="activeName">
-      <el-tab-pane name="accountIncome" label="账户收益">
-        <div class="label">账户收益（港币）</div>
+      <el-tab-pane name="accountIncome" :label="$t('history.text1')">
+        <div class="label">{{$t('history.text1')}}（港币）</div>
         <div id="myChart"></div>
       </el-tab-pane>
-      <el-tab-pane name="time" label="时间加权收益率">
-        <div class="label">时间加权收益率（%）</div>
+      <el-tab-pane name="time" :label="$t('history.text2')">
+        <div class="label">{{$t('history.text2')}}（%）</div>
         <div id="myChart2"></div>
       </el-tab-pane>
     </el-tabs>
@@ -25,11 +25,15 @@
 <script>
 export default {
   name: "history",
+  computed:{
+    timeList(){
+      return [this.$t('history.text3'), this.$t('history.text4'), this.$t('history.text5'), this.$t('history.text5')]
+    }
+  },
   data() {
     return {
       oIndex: 0,
       activeName: "accountIncome",
-      timeList: ["近一个月", "近三个月", "近一年", "自配置以来"],
       data:[
         ["2000-06-05", 116,],
         ["2000-06-06", 129],

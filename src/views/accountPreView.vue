@@ -22,11 +22,13 @@
             </div>
           </div>
 
-          <div v-if="(openStatus==0 || openStatus==3 || openStatus==4 || openStatus==5)" class="btn-openAccount active"
+          <div
+            v-if="(openStatus==0 || openStatus==3 || openStatus==4 || openStatus==5)"
+            class="btn-openAccount active"
             @click="goPage(openStatusList[openStatus].path)"
           >{{ openStatusList[openStatus].btnText }}</div>
 
-           <!-- 1开户审核中 -3 入金审核中  -5 资产配置审核中 -->
+          <!-- 1开户审核中 -3 入金审核中  -5 资产配置审核中 -->
           <div v-if="(openStatus == 1 || openStatus == -3 || openStatus == -5)" class="review-ctn">
             <div class="img-review"></div>
             <div class="review-info">
@@ -53,14 +55,14 @@
         <div v-if="openStatus == 6" class="main">
           <div class="wrap1">
             <div class="item">
-              <div class="label">投资金额（港币）</div>
+              <div class="label">{{$t('accountPreview.text1')}}（港币）</div>
               <div class="amount">3,000,000.00</div>
             </div>
             <div class="item">
               <div class="label">
                 <span>
-                  累计收益（港币）
-                  <tips top="0" right="-20px">您的账户中可能包含以其他币种计费的利息或分红。其价值将按照当日参考汇率以港币显示并计入收益中。</tips>
+                  {{$t('accountPreview.text2')}}（港币）
+                  <tips top="0" right="-20px">{{$t('accountPreview.text3')}}</tips>
                 </span>
               </div>
               <div class="amount">3,000,000.00</div>
@@ -68,11 +70,11 @@
             <div class="item">
               <div class="label">
                 <span>
-                  收益率（%）
+                  {{$t('accountPreview.text4')}}（%）
                   <tips
                     top="0"
                     right="-20px"
-                  >是指根据该账户不同时期的投资金额，计算其首次配置以来整个时间区间收益率的几何平均数，即时间加权收益率。其优点是考虑了资金的时间价值，不受现金流的影响，是业界常用的回报计算方式。</tips>
+                  >{{$t('accountPreview.text5')}}</tips>
                 </span>
               </div>
               <div class="amount">3,000,000.00</div>
@@ -80,13 +82,13 @@
           </div>
           <div class="wrap2 clear">
             <div class="l-w fl">
-              <div class="fl w2-title">风险承受类型</div>
+              <div class="fl w2-title">{{$t('accountPreview.text6')}}</div>
               <div
                 @click="$router.push('/investCombination/accountDetail')"
                 class="fr detail pointer"
-              >查看投资组合详情</div>
+              >{{$t('accountPreview.text7')}}</div>
               <span id="type">进取型</span>
-              <div id="echarts"></div>
+              <div id="echart"></div>
               <div class="legend">
                 <div
                   @mouseover="highlight(index)"
@@ -102,16 +104,16 @@
               </div>
             </div>
             <div class="r-w fr">
-              <div class="w2-title">我的余额</div>
+              <div class="w2-title">{{$t('accountPreview.text15')}}</div>
               <div class="cont">
-                <div class="rw-label rw-label1">当前账户余额（港币）</div>
+                <div class="rw-label rw-label1">{{$t('accountPreview.text16')}}（港币）</div>
                 <div class="rw-amount rw-amount">3,000,000.00</div>
                 <div class="line"></div>
-                <div class="rw-label rw-label1">近一个月收益率</div>
+                <div class="rw-label rw-label1">{{$t('accountPreview.text17')}}</div>
                 <div class="rw-amount rw-amount">12.18%</div>
                 <div class="btm-wrap clear">
-                  <div @click="$router.push('/userCenter/guide')" class="l-btn fl">我要入金</div>
-                  <div @click="$router.push('/userCenter/extractFunds')" class="r-btn fr">我要提取资金</div>
+                  <div @click="$router.push('/userCenter/guide')" class="l-btn fl">{{$t('accountPreview.text18')}}</div>
+                  <div @click="$router.push('/userCenter/extractFunds')" class="r-btn fr">{{$t('accountPreview.text19')}}</div>
                 </div>
               </div>
             </div>
@@ -119,11 +121,11 @@
 
           <div class="fundRecords">
             <div class="top-wrap">
-              <div class="label">近期资金记录</div>
+              <div class="label">{{$t('accountPreview.text20')}}</div>
               <div
                 @click="$router.push('/userCenter/fundRecords')"
                 class="records pointer"
-              >查看更多资金记录>></div>
+              >{{$t('accountPreview.text21')}}>></div>
             </div>
             <table>
               <thead>
@@ -156,7 +158,7 @@
 import Tips from "@/components/tips.vue";
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
-import { getUserInfo } from '@/api';
+import { getUserInfo } from "@/api";
 
 export default {
   name: "accountPreview",
@@ -166,60 +168,68 @@ export default {
     footerBar
   },
   computed: {
-    state(){
+    state() {
       if (this.openStatus == 0 || this.openStatus == 1) {
         return 0;
       }
-      if (this.openStatus == 2 || this.openStatus == 3 || this.openStatus == -3){
-        return 1
+      if (
+        this.openStatus == 2 ||
+        this.openStatus == 3 ||
+        this.openStatus == -3
+      ) {
+        return 1;
       }
-      if (this.openStatus == 4){
-        return 2
+      if (this.openStatus == 4) {
+        return 2;
       }
-      if (this.openStatus == 5 || this.openStatus == -5){
-        return 3
+      if (this.openStatus == 5 || this.openStatus == -5) {
+        return 3;
+      }
+    },
+    openStatusList() {
+      return {
+        "0": {
+          progressTitle: this.$t("userCenter.openStatusList[0].progressTitle"),
+          btnText: this.$t("userCenter.openStatusList[0].btnText"),
+          path: "/openAccount"
+        },
+        "3": {
+          progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
+          btnText: this.$t("userCenter.openStatusList[1].btnText"),
+          path: "/userCenter/guide"
+        },
+        "4": {
+          progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
+          btnText: this.$t("userCenter.openStatusList[2].btnText"),
+          path: "/riskTest"
+        },
+        "5": {
+          progressTitle: this.$t("userCenter.openStatusList[3].progressTitle"),
+          btnText: this.$t("userCenter.openStatusList[3].btnText"),
+          path: "/setTransPas"
+        }
+      };
+    },
+    checkStatusObj() {
+      return {
+        "1": {
+          text: this.$t("userCenter.checkStatusObj.0.text"),
+          btnText: this.$t("userCenter.checkStatusObj.0.btnText")
+        },
+        "-3": {
+          text: this.$t("userCenter.checkStatusObj.1.text"),
+          btnText: this.$t("userCenter.checkStatusObj.1.btnText")
+        },
+        "-5": {
+          text: this.$t("userCenter.checkStatusObj.2.text"),
+          btnText: this.$t("userCenter.checkStatusObj.2.btnText")
+        }
       }
     }
   },
   data() {
     return {
       openStatus: 0,
-      checkStatusObj: {
-        '1': {
-          text: this.$t("userCenter.checkStatusObj.0.text"),
-          btnText: this.$t("userCenter.checkStatusObj.0.btnText")
-        },
-        '-3': {
-          text: this.$t("userCenter.checkStatusObj.1.text"),
-          btnText: this.$t("userCenter.checkStatusObj.1.btnText")
-        },
-        '-5': {
-          text: this.$t("userCenter.checkStatusObj.2.text"),
-          btnText: this.$t("userCenter.checkStatusObj.2.btnText")
-        }
-      },
-      openStatusList: {
-        '0': {
-          progressTitle: this.$t("userCenter.openStatusList[0].progressTitle"),
-          btnText: this.$t("userCenter.openStatusList[0].btnText"),
-          path: "/openAccount"
-        },
-        '3': {
-          progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
-          btnText: this.$t("userCenter.openStatusList[1].btnText"),
-          path: "/userCenter/guide"
-        },
-        '4': {
-          progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
-          btnText: this.$t("userCenter.openStatusList[2].btnText"),
-          path: "/riskTest"
-        },
-        '5': {
-          progressTitle: this.$t("userCenter.openStatusList[3].progressTitle"),
-          btnText: this.$t("userCenter.openStatusList[3].btnText"),
-          path: "/setTransPas"
-        }
-      },
       colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
       data: [
         {
@@ -254,8 +264,8 @@ export default {
     };
   },
   methods: {
-    setUserInfo(data){
-      this.openStatus = data.status;
+    setUserInfo(data) {
+      this.openStatus = 6 || data.status;
     },
     goPage(path) {
       this.$router.push(path);
@@ -285,7 +295,7 @@ export default {
     drawPie() {
       // 基于准备好的dom，初始化echarts实例
       let domType = document.getElementById("type");
-      this.myChart = echarts.init(document.getElementById("echarts"));
+      this.myChart = echarts.init(document.getElementById("echart"));
       // 绘制图表
       var option = {
         // title : {
@@ -369,6 +379,11 @@ export default {
         });
       });
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.drawPie();
+    }, 50);
   },
 };
 </script>
@@ -626,7 +641,7 @@ export default {
         }
       }
     }
-    #echarts {
+    #echart {
       width: 450px;
       height: 430px;
     }

@@ -3,81 +3,83 @@
     <header>
       <headerNav path="/product"></headerNav>
     </header>
-    <section class="barner">
-      <div class="barner-content">
-        <div class="barner-title-en">Our products</div>
-        <div class="barner-title">{{$t('product.text1')}}</div>
-      </div>
-    </section>
-    <section class="content tc">
-      <div class="com-width">
-        <h1>{{$t('product.text2')}}</h1>
-        <div class="des">Target market share</div>
-        <div class="intro-wrap tl">
-          <div class="l-wrap"></div>
-          <div class="r-wrap">
-            <div class="m-info">
-              <div class="icon icon1"></div>
-              <div class="text-wrap">
-                <div class="title">{{$t('product.text3')}}（HK Listed ETF Portfolio）</div>
-                <div class="des-info">{{$t('product.text4')}}</div>
-              </div>
-            </div>
-            <div class="m-info">
-              <div class="icon icon2"></div>
-              <div class="text-wrap">
-                <div class="title">{{$t('product.text5')}}（US Listed ETF Portfolio）</div>
-                <div class="des-info">{{$t('product.text6')}}</div>
-              </div>
-            </div>
-          </div>
+    <div @click="hideMenu($event)">
+      <section class="barner">
+        <div class="barner-content">
+          <div class="barner-title-en">Our products</div>
+          <div class="barner-title">{{$t('product.text1')}}</div>
         </div>
-      </div>
-    </section>
-    <section class="content2">
-      <div class="mask">
+      </section>
+      <section class="content tc">
         <div class="com-width">
-          <div class="m-lw">
-            <h2>{{$t('product.text7')}}</h2>
-            <div class="t-en">Risk preference score</div>
-            <div class="line"></div>
-            <div class="cont2-des">{{$t('product.text8')}}</div>
-            <div class="item item2">
-              <div class="circle">
-                <div>1</div>
+          <h1>{{$t('product.text2')}}</h1>
+          <div class="des">Target market share</div>
+          <div class="intro-wrap tl">
+            <div class="l-wrap"></div>
+            <div class="r-wrap">
+              <div class="m-info">
+                <div class="icon icon1"></div>
+                <div class="text-wrap">
+                  <div class="title">{{$t('product.text3')}}（HK Listed ETF Portfolio）</div>
+                  <div class="des-info">{{$t('product.text4')}}</div>
+                </div>
               </div>
-              <div class="r-item">
-                <div class="label">{{$t('product.text9')}}（Growth）</div>
-                <div class="line"></div>
-                <div class="text">{{$t('product.text10')}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="m-rw">
-            <div class="item item1">
-              <div class="circle">
-                <div>2</div>
-              </div>
-              <div class="r-item">
-                <div class="label">{{$t('product.text11')}}（Balanced）</div>
-                <div class="line"></div>
-                <div class="text">{{$t('product.text12')}}</div>
-              </div>
-            </div>
-            <div class="item item3">
-              <div class="circle">
-                <div>3</div>
-              </div>
-              <div class="r-item">
-                <div class="label">{{$t('product.text13')}}（Conservative）</div>
-                <div class="line"></div>
-                <div class="text">{{$t('product.text14')}}</div>
+              <div class="m-info">
+                <div class="icon icon2"></div>
+                <div class="text-wrap">
+                  <div class="title">{{$t('product.text5')}}（US Listed ETF Portfolio）</div>
+                  <div class="des-info">{{$t('product.text6')}}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section class="content2">
+        <div class="mask">
+          <div class="com-width">
+            <div class="m-lw">
+              <h2>{{$t('product.text7')}}</h2>
+              <div class="t-en">Risk preference score</div>
+              <div class="line"></div>
+              <div class="cont2-des">{{$t('product.text8')}}</div>
+              <div class="item item2">
+                <div class="circle">
+                  <div>1</div>
+                </div>
+                <div class="r-item">
+                  <div class="label">{{$t('product.text9')}}（Growth）</div>
+                  <div class="line"></div>
+                  <div class="text">{{$t('product.text10')}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="m-rw">
+              <div class="item item1">
+                <div class="circle">
+                  <div>2</div>
+                </div>
+                <div class="r-item">
+                  <div class="label">{{$t('product.text11')}}（Balanced）</div>
+                  <div class="line"></div>
+                  <div class="text">{{$t('product.text12')}}</div>
+                </div>
+              </div>
+              <div class="item item3">
+                <div class="circle">
+                  <div>3</div>
+                </div>
+                <div class="r-item">
+                  <div class="label">{{$t('product.text13')}}（Conservative）</div>
+                  <div class="line"></div>
+                  <div class="text">{{$t('product.text14')}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
     <footerBar></footerBar>
   </div>
 </template>
@@ -96,6 +98,11 @@ export default {
   computed: {},
   data() {
     return {};
+  },
+  methods: {
+    hideMenu(flag) {
+      this.$store.dispatch("showMenu", false);
+    }
   }
 };
 </script>

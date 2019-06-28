@@ -3,55 +3,60 @@
     <header>
       <headerNav path="/find"></headerNav>
     </header>
-    <section class="barner">
-      <div class="barner-content">
-        <div class="barner-title-en">LATEST NEWS</div>
-        <div class="barner-title">{{$t('find.text1')}}</div>
-      </div>
-    </section>
-    <section class="content">
-      <div class="com-width">
-        <div class="article-nav">
-          <div class="art-l">{{$t('find.text2')}}</div>
-          <div class="tab-wrap">
-            <div
-              @click="changeTab(val.dictValue, index)"
-              :class="[oIndex===index?'active':'']"
-              v-for="(val,index) in typeList"
-              :key="index"
-              class="tab-item"
-            >{{ val | filterByLanguage('dictLabel') }}</div>
-          </div>
+    <div @click="hideMenu($event)">
+      <section class="barner">
+        <div class="barner-content">
+          <div class="barner-title-en">LATEST NEWS</div>
+          <div class="barner-title">{{$t('find.text1')}}</div>
         </div>
-        <div class="article-list">
-          <div
-            @click="goArticle(val.articleId)"
-            v-for="(val,index) in articleList"
-            :key="index"
-            class="article-item"
-          >
-            <div :style="{backgroundImage: 'url(' + val.url + ')'}" class="l-wrap"></div>
-            <div class="r-wrap">
-              <div class="title">{{val | filterByLanguage('articleTitle')}}</div>
-              <div class="des">{{val | filterByLanguage('articleAbstract')}}</div>
-              <div class="b-wrap">
-                <div class="time">{{val.updateTime | parseTime}}</div>
-                <div v-if="val.readSum > 0" class="has-read">{{val.readSum}}{{$t('article.text1')}}</div>
+      </section>
+      <section class="content">
+        <div class="com-width">
+          <div class="article-nav">
+            <div class="art-l">{{$t('find.text2')}}</div>
+            <div class="tab-wrap">
+              <div
+                @click="changeTab(val.dictValue, index)"
+                :class="[oIndex===index?'active':'']"
+                v-for="(val,index) in typeList"
+                :key="index"
+                class="tab-item"
+              >{{ val | filterByLanguage('dictLabel') }}</div>
+            </div>
+          </div>
+          <div class="article-list">
+            <div
+              @click="goArticle(val.articleId)"
+              v-for="(val,index) in articleList"
+              :key="index"
+              class="article-item"
+            >
+              <div :style="{backgroundImage: 'url(' + val.url + ')'}" class="l-wrap"></div>
+              <div class="r-wrap">
+                <div class="title">{{val | filterByLanguage('articleTitle')}}</div>
+                <div class="des">{{val | filterByLanguage('articleAbstract')}}</div>
+                <div class="b-wrap">
+                  <div class="time">{{val.updateTime | parseTime}}</div>
+                  <div
+                    v-if="val.readSum > 0"
+                    class="has-read"
+                  >{{val.readSum}}{{$t('article.text1')}}</div>
+                </div>
               </div>
             </div>
           </div>
+          <el-pagination
+            @current-change="currentChange"
+            v-if="total>1"
+            background
+            layout="prev, pager, next"
+            :page-size="1"
+            :current-page="currentPage"
+            :total="total"
+          ></el-pagination>
         </div>
-        <el-pagination
-          @current-change="currentChange"
-          v-if="total>1"
-          background
-          layout="prev, pager, next"
-          :page-size="1"
-          :current-page="currentPage"
-          :total="total"
-        ></el-pagination>
-      </div>
-    </section>
+      </section>
+    </div>
     <footerBar></footerBar>
   </div>
 </template>
@@ -68,23 +73,25 @@ export default {
     headerNav,
     footerBar
   },
-  computed: {
-  },
+  computed: {},
   data() {
     return {
-      total:0,
+      total: 0,
       oIndex: 0,
       currentPage: 1,
-      articleType: '',
+      articleType: "",
       articleList: [],
       typeList: []
     };
   },
   methods: {
-    getArticleList(articleType, pageNum){
+    hideMenu(flag) {
+      this.$store.dispatch("showMenu", false);
+    },
+    getArticleList(articleType, pageNum) {
       getArticleList({
         articleType,
-        pageNum,
+        pageNum
       }).then(res => {
         this.articleList = res.data.list;
         this.total = res.data.total;
@@ -94,15 +101,15 @@ export default {
       this.oIndex = index;
       this.articleType = articleType;
       this.currentPage = 1;
-      this.getArticleList(articleType, 1)
+      this.getArticleList(articleType, 1);
     },
-    currentChange(pageNum){
+    currentChange(pageNum) {
       this.currentPage = pageNum;
-      this.getArticleList(this.articleType, pageNum)
+      this.getArticleList(this.articleType, pageNum);
     },
     goArticle(id) {
       this.$router.push(`/article/${id}`);
-    },
+    }
   },
   async mounted() {
     var res = await this.getGlobalData("sys_article_type");
@@ -197,7 +204,7 @@ export default {
     .article-item {
       margin-top: 50px;
       display: flex;
-      justify-content:center;
+      justify-content: center;
     }
     .l-wrap {
       // width: 390px;

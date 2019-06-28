@@ -3,88 +3,90 @@
     <header>
       <headerNav path="/operation"></headerNav>
     </header>
-    <section class="barner">
-      <div class="barner-content">
-        <div class="barner-title-en">How to operate</div>
-        <div class="barner-title">{{$t('operation.text1')}}</div>
-      </div>
-    </section>
-    <section class="content1 tc">
-      <div class="com-width">
-        <h2>{{$t('operation.text2')}}</h2>
-        <div class="des">Operation process</div>
-        <div class="operate-wrap">
-          <div class="o-item">
-            <div class="icon icon1"></div>
-            <div class="o-title">{{$t('operation.text3')}}</div>
-            <div class="line"></div>
-            <div class="o-info">{{$t('operation.text4')}}</div>
-          </div>
-          <div class="o-item om-item">
-            <div class="icon icon2"></div>
-            <div class="o-title">{{$t('operation.text5')}}</div>
-            <div class="line"></div>
-            <div class="o-info">{{$t('operation.text6')}}</div>
-          </div>
-          <div class="o-item">
-            <div class="icon icon3"></div>
-            <div class="o-title">{{$t('operation.text7')}}</div>
-            <div class="line"></div>
-            <div class="o-info">{{$t('operation.text8')}}</div>
-          </div>
+    <div @click="hideMenu($event)">
+      <section class="barner">
+        <div class="barner-content">
+          <div class="barner-title-en">How to operate</div>
+          <div class="barner-title">{{$t('operation.text1')}}</div>
         </div>
-      </div>
-    </section>
-    <section class="content tc">
-      <div class="com-width">
-        <h2>{{$t('operation.text9')}}</h2>
-        <div class="des">Our investment style</div>
-        <div class="intro-wrap tl">
-          <div class="r-wrap">
-            <div class="m-info m-info1">
+      </section>
+      <section class="content1 tc">
+        <div class="com-width">
+          <h2>{{$t('operation.text2')}}</h2>
+          <div class="des">Operation process</div>
+          <div class="operate-wrap">
+            <div class="o-item">
               <div class="icon icon1"></div>
-              <div class="text-wrap">
-                <div class="title">{{$t('operation.text10')}}</div>
-                <div class="des-info">{{$t('operation.text11')}}</div>
-              </div>
+              <div class="o-title">{{$t('operation.text3')}}</div>
+              <div class="line"></div>
+              <div class="o-info">{{$t('operation.text4')}}</div>
             </div>
-            <div class="m-info">
+            <div class="o-item om-item">
               <div class="icon icon2"></div>
-              <div class="text-wrap">
-                <div class="title">{{$t('operation.text12')}}</div>
-                <div class="des-info">{{$t('operation.text13')}}</div>
-              </div>
+              <div class="o-title">{{$t('operation.text5')}}</div>
+              <div class="line"></div>
+              <div class="o-info">{{$t('operation.text6')}}</div>
+            </div>
+            <div class="o-item">
+              <div class="icon icon3"></div>
+              <div class="o-title">{{$t('operation.text7')}}</div>
+              <div class="line"></div>
+              <div class="o-info">{{$t('operation.text8')}}</div>
             </div>
           </div>
-          <div class="l-wrap"></div>
         </div>
-      </div>
-    </section>
-    <section class="content2 tc">
-      <div class="com-width">
-        <h2>{{$t('operation.text14')}}</h2>
-        <div class="des">Our Advantages</div>
-        <div class="bgg"></div>
-        <div class="adva-wrap">
-          <div class="adva-item">
-            <div class="icon icon1"></div>
-            <div class="adva-info">{{$t('operation.text15')}}</div>
-          </div>
-          <div class="adva-item adva-item2">
-            <div class="icon icon2"></div>
-            <div class="adva-info">{{$t('operation.text16')}}</div>
-          </div>
-          <div class="adva-item">
-            <div class="icon icon3"></div>
-            <div class="adva-info">{{$t('operation.text17')}}</div>
-          </div>
-          <div class="adva-item adva-item4">
-            <div class="icon icon4"></div>
-            <div class="adva-info">{{$t('operation.text18')}}</div>
+      </section>
+      <section class="content tc">
+        <div class="com-width">
+          <h2>{{$t('operation.text9')}}</h2>
+          <div class="des">Our investment style</div>
+          <div class="intro-wrap tl">
+            <div class="r-wrap">
+              <div class="m-info m-info1">
+                <div class="icon icon1"></div>
+                <div class="text-wrap">
+                  <div class="title">{{$t('operation.text10')}}</div>
+                  <div class="des-info">{{$t('operation.text11')}}</div>
+                </div>
+              </div>
+              <div class="m-info">
+                <div class="icon icon2"></div>
+                <div class="text-wrap">
+                  <div class="title">{{$t('operation.text12')}}</div>
+                  <div class="des-info">{{$t('operation.text13')}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="l-wrap"></div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section class="content2 tc">
+        <div class="com-width">
+          <h2>{{$t('operation.text14')}}</h2>
+          <div class="des">Our Advantages</div>
+          <div class="bgg"></div>
+          <div class="adva-wrap">
+            <div class="adva-item">
+              <div class="icon icon1"></div>
+              <div class="adva-info">{{$t('operation.text15')}}</div>
+            </div>
+            <div class="adva-item adva-item2">
+              <div class="icon icon2"></div>
+              <div class="adva-info">{{$t('operation.text16')}}</div>
+            </div>
+            <div class="adva-item">
+              <div class="icon icon3"></div>
+              <div class="adva-info">{{$t('operation.text17')}}</div>
+            </div>
+            <div class="adva-item adva-item4">
+              <div class="icon icon4"></div>
+              <div class="adva-info">{{$t('operation.text18')}}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
     <footerBar></footerBar>
   </div>
 </template>
@@ -103,6 +105,11 @@ export default {
   computed: {},
   data() {
     return {};
+  },
+  methods: {
+    hideMenu(flag) {
+      this.$store.dispatch("showMenu", false);
+    }
   }
 };
 </script>

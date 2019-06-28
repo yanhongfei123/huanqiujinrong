@@ -2,8 +2,8 @@
   <div class="accountDetail">
     <div class="wrap2 clear">
       <div class="l-w fl">
-        <div class="fl w2-title">风险承受类型</div>
-        <div @click="$router.push('/riskTest')" class="fr detail pointer">重新评测</div>
+        <div class="fl w2-title">{{$t('accountPreview.text6')}}</div>
+        <div @click="$router.push('/riskTest')" class="fr detail pointer">{{$t('accountDetail.text1')}}</div>
         <span id="type">进取型</span>
         <div id="echarts"></div>
         <div class="legend">
@@ -21,23 +21,23 @@
         </div>
       </div>
       <div class="r-w fr">
-        <div class="w2-title">其他</div>
+        <div class="w2-title">{{$t('accountDetail.text2')}}</div>
         <div class="cont">
           <div class="rw-label rw-label1">
             <span>
-              风险承受类型
+              {{$t('accountPreview.text6')}}
               <tips
                 top="0"
                 right="-20px"
-              >您对投资的态度较为进取，对风险有清晰的认识，有一定的抗风险能力，并且愿意承担较高的风险以换取较高的收益回报，因此在资产配置中可着重配置风险性、成长性高的股票型基金。</tips>
+              >{{$t('accountDetail.text3')}}</tips>
             </span>
           </div>
           <div class="rw-amount rw-amount">进取型</div>
           <div class="line"></div>
           <div class="rw-label rw-label1">
             <span>
-              偏离度
-              <tips top="0" right="-20px">受正常的ETF价格波动影响，您的投资组合的权重会发生偏移，当偏移超过8%时，系统会自动发出调仓通知。</tips>
+              {{$t('accountDetail.text4')}}
+              <tips top="0" right="-20px">{{$t('accountDetail.text5')}}</tips>
             </span>
           </div>
           <div class="rw-amount rw-amount">12.18%</div>
@@ -46,10 +46,10 @@
     </div>
     <div class="vest-wrap">
       <div class="label-cont">
-        <div class="label label1">名称</div>
-        <div class="label label2">代码</div>
-        <div class="label label3">预计权重</div>
-        <div :style="{textIndent: '72px'}" class="label label4">预计投资金额（港币）</div>
+        <div class="label label1">{{$t('analysis.result.text14')}}</div>
+        <div class="label label2">{{$t('analysis.result.text15')}}</div>
+        <div class="label label3">{{$t('analysis.result.text16')}}</div>
+        <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}（港币）</div>
       </div>
       <div class="type-list">
         <div class="item" v-for="(val,index) in datas" :key="index">
@@ -73,13 +73,13 @@
         </div>
       </div>
       <div class="label-cont label-cont-btm">
-        <div class="label label1">总计</div>
+        <div class="label label1">{{$t('result.text18')}}</div>
         <div class="label label2"></div>
         <div class="label label3">100.00%</div>
         <div :style="{textIndent: '203px'}" class="label label4">{{ getThousand(525465666)}}</div>
       </div>
     </div>
-    <div class="btm-info tc">上述投资组合建议仅供客户参考，交易数量及价格以实际交易明细为准。</div>
+    <div class="btm-info tc">{{$t('accountDetail.text6')}}</div>
   </div>
 </template>
 <script>

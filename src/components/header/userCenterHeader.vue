@@ -15,22 +15,26 @@
           :class="[path === '/userCenter/myAccount' ? 'active' : '', 'nav-item']"
           @click="goPage('/userCenter/myAccount')"
         >{{$t('userCenterNav.myAccount')}}</div>
-        <div
-          v-if="isshow"
-          :class="[path === '/find' ? 'active' : '', 'nav-item realName-auth']"
-          @click="goPage('/openAccount')"
-        >{{$t('userCenterNav.realName')}}</div>
       </div>
-      <div v-if="!isshow" class="user-wrap nav-item active">
-        <span @click="goPage('/messageCenter')" class="notice">
+      <div class="user-wrap nav-item">
+        <span v-if="token" @click="goPage('/messageCenter')" class="notice">
           <i v-if="isshowmsg"></i>
         </span>
-        <span @click="showMenu($event)">{{userName}}</span>
+        <span
+          v-if="token && isshow"
+          :class="[path === '/find' ? 'active' : '', 'realName-auth']"
+          @click="goPage('/openAccount')"
+        >{{$t('userCenterNav.realName')}}</span>
+        <span class="active" v-if="token && !isshow" @click="showMenu($event)">{{userName}}</span>
         <ul v-show="showmenu" :class="[showmenu?'show':'']" class="dropMenu">
           <li @click="goPage('/userCenter')" class="user-center">{{$t('userCenterNav.userCenter')}}</li>
           <li @click="goPage('/setting')" class="setting">{{$t('userCenterNav.setting')}}</li>
           <li @click="goPage('/loginOut')" class="login-out">{{$t('userCenterNav.loginOut')}}</li>
         </ul>
+      </div>
+      <div v-if="!token" class="nav-m flex">
+        <div class="hover" @click="goPage('/login')">{{$t('nav.login')}}</div>
+        <div class="hover" @click="goPage('/register')">{{$t('nav.register')}}</div>
       </div>
       <div class="nav-r flex">
         <div
@@ -39,7 +43,7 @@
           @click="setLanguage('zh')"
         >{{$t('nav.zh')}}</div>
         <div class="line"></div>
-        <div :class="[$i18n.locale === 'ft'?'active':'']" class="hover" @click="setLanguage('Ft')">繁</div>
+        <div :class="[$i18n.locale === 'Ft'?'active':'']" class="hover" @click="setLanguage('Ft')">繁</div>
       </div>
     </div>
   </div>
@@ -56,7 +60,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["userInfo"]),
+    ...mapGetters(["token"]),
     showmenu() {
       return this.$store.state.user.showmenu;
     }
@@ -65,7 +69,7 @@ export default {
     return {
       userName: "",
       isshowmsg: true,
-      isshow: true
+      isshow: true,
     };
   },
   methods: {
@@ -229,8 +233,8 @@ export default {
   }
 }
 .realName-auth {
-  padding: 0 10px;
-  line-height: 36px;
+  padding: 1px 6px;
+  margin-left: 5px;
   border-radius: 4px;
   border: 1px solid #979797;
 }

@@ -222,7 +222,7 @@
                                 });
                                 setTimeout(() => {
                                     this.$router.push('/userCenter');
-                                }, 2500);
+                                }, 1000);
                             }).catch(() => {
                                 this.$refs.loginForm.resetFields();
                                 this.resetCountdown();

@@ -3,153 +3,155 @@
     <header>
       <headerNav></headerNav>
     </header>
-    <section class="barner">
-      <div class="barner-content com-width">
-        <div class="barner-title">
-          WWW.
-          <span>ETF</span>.COOL
-        </div>
-        <div class="barner-info">{{$t('home.text1')}} >> {{$t('home.text2')}}</div>
-        <div @click="$router.push('/register')" class="start-ivest">{{$t('home.text3')}}</div>
-      </div>
-    </section>
-    <section class="content1">
-      <h2 class="tc">{{$t('home.text4')}}</h2>
-      <div class="why tc">Why choose us</div>
-      <div class="com-width">
-        <div class="last-wrap item">
-          <div class="lw-l">
-            <div class="lw-l-t">
-              <div class="icon icon1"></div>
-              <div class="des">{{$t('home.text5')}}</div>
-            </div>
-            <div class="lw-l-b tl">{{$t('home.text6')}}</div>
+    <div @click="hideMenu($event)">
+      <section class="barner">
+        <div class="barner-content com-width">
+          <div class="barner-title">
+            WWW.
+            <span>ETF</span>.COOL
           </div>
-          <img width="580" height="350" src="../assets/images/firstpage/pic_no1.png" alt>
-        </div>
-        <div class="reason-wrap item">
-          <img width="580" height="350" src="../assets/images/firstpage/pic_no2.png" alt>
-          <div class="lw-l">
-            <div class="lw-l-t">
-              <div class="icon icon2"></div>
-              <div class="des">{{$t('home.text7')}}</div>
-            </div>
-            <div class="lw-l-b tl">{{$t('home.text8')}}</div>
-          </div>
-        </div>
-        <div class="dispersion-wrap item">
-          <div class="lw-l">
-            <div class="lw-l-t">
-              <div class="icon icon3"></div>
-              <div class="des">{{$t('home.text9')}}</div>
-            </div>
-            <div class="lw-l-b tl">{{$t('home.text10')}}</div>
-          </div>
-          <img width="580" height="350" src="../assets/images/firstpage/pic_no3.png" alt>
-        </div>
-      </div>
-    </section>
-    <section class="content content2">
-      <div class="l-cont"></div>
-      <div class="r-cont"></div>
-      <div class="com-width">
-        <div class="strage-wrap">
-          <div class="strage-title">{{$t('home.text11')}}</div>
-          <div class="strage-des">Mature investment strategy</div>
-          <div class="strage-text text1">{{$t('home.text12')}}</div>
-          <div class="strage-text text2">{{$t('home.text13')}}</div>
-          <div class="strage-text text3">{{$t('home.text14')}}</div>
-          <div class="strage-text text4">{{$t('home.text15')}}</div>
-          <div class="strage-text">{{$t('home.text16')}}</div>
+          <div class="barner-info">{{$t('home.text1')}} >> {{$t('home.text2')}}</div>
           <div @click="$router.push('/register')" class="start-ivest">{{$t('home.text3')}}</div>
         </div>
-      </div>
-    </section>
-    <section class="content3 content">
-      <div class="com-width">
-        <h2 class="tc">{{$t('home.text17')}}</h2>
-        <div class="advantage tc">Our advantage</div>
-        <div class="tab-wrap">
-          <div
-            @click="changeSlide(0)"
-            class="tab-item"
-            :class="[oIndex == 0?'active':'']"
-          >{{$t('home.text18')}}</div>
-          <div
-            @click="changeSlide(1)"
-            class="tab-item tab-item2"
-            :class="[oIndex == 1?'active':'']"
-          >{{$t('home.text19')}}</div>
-          <div
-            @click="changeSlide(2)"
-            class="tab-item"
-            :class="[oIndex == 2?'active':'']"
-          >{{$t('home.text20')}}</div>
-        </div>
-        <swiper :options="swiperOption" ref="mySwiper">
-          <!-- slides -->
-          <swiper-slide>
-            <div class="icon icon1"></div>
-            <div class="slide-info">{{$t('home.text21')}}</div>
-            <div class="slide-info">{{$t('home.text22')}}</div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="icon icon1"></div>
-            <div class="slide-info">{{$t('home.text21')}}</div>
-            <div class="slide-info">{{$t('home.text22')}}</div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="icon icon1"></div>
-            <div class="slide-info">{{$t('home.text21')}}</div>
-            <div class="slide-info">{{$t('home.text22')}}</div>
-          </swiper-slide>
-          <!-- Optional controls -->
-          <!-- <div class="swiper-pagination" slot="pagination"></div> -->
-          <div @click="changeSlide" class="swiper-button-prev" slot="button-prev"></div>
-          <div @click="changeSlide" class="swiper-button-next" slot="button-next"></div>
-        </swiper>
-      </div>
-    </section>
-    <section class="content4 content">
-      <div class="com-width">
-        <h2 class="tc">{{$t('home.text23')}}</h2>
-        <div class="advantage tc">3 steps to enjoy global income</div>
-        <div class="step-wrap">
-          <div class="step step1">
-            <div class="top-num">
-              STEP
-              <span>1</span>
+      </section>
+      <section class="content1">
+        <h2 class="tc">{{$t('home.text4')}}</h2>
+        <div class="why tc">Why choose us</div>
+        <div class="com-width">
+          <div class="last-wrap item">
+            <div class="lw-l">
+              <div class="lw-l-t">
+                <div class="icon icon1"></div>
+                <div class="des">{{$t('home.text5')}}</div>
+              </div>
+              <div class="lw-l-b tl">{{$t('home.text6')}}</div>
             </div>
-            <div class="step-info">{{$t('home.text24')}}</div>
+            <img width="580" height="350" src="../assets/images/firstpage/pic_no1.png" alt>
           </div>
-          <div class="arrow"></div>
-          <div class="step step2">
-            <div class="top-num">
-              STEP
-              <span>2</span>
+          <div class="reason-wrap item">
+            <img width="580" height="350" src="../assets/images/firstpage/pic_no2.png" alt>
+            <div class="lw-l">
+              <div class="lw-l-t">
+                <div class="icon icon2"></div>
+                <div class="des">{{$t('home.text7')}}</div>
+              </div>
+              <div class="lw-l-b tl">{{$t('home.text8')}}</div>
             </div>
-            <div class="step-info">{{$t('home.text25')}}</div>
           </div>
-          <div class="arrow"></div>
-          <div class="step step2">
-            <div class="top-num">
-              STEP
-              <span>3</span>
+          <div class="dispersion-wrap item">
+            <div class="lw-l">
+              <div class="lw-l-t">
+                <div class="icon icon3"></div>
+                <div class="des">{{$t('home.text9')}}</div>
+              </div>
+              <div class="lw-l-b tl">{{$t('home.text10')}}</div>
             </div>
-            <div class="step-info">{{$t('home.text26')}}</div>
-          </div>
-          <div class="arrow"></div>
-          <div class="step step2">
-            <div class="top-num">
-              STEP
-              <span>4</span>
-            </div>
-            <div class="step-info">{{$t('home.text27')}}</div>
+            <img width="580" height="350" src="../assets/images/firstpage/pic_no3.png" alt>
           </div>
         </div>
-        <div @click="$router.push('/register')" class="start-ivest">{{$t('home.text3')}}</div>
-      </div>
-    </section>
+      </section>
+      <section class="content content2">
+        <div class="l-cont"></div>
+        <div class="r-cont"></div>
+        <div class="com-width">
+          <div class="strage-wrap">
+            <div class="strage-title">{{$t('home.text11')}}</div>
+            <div class="strage-des">Mature investment strategy</div>
+            <div class="strage-text text1">{{$t('home.text12')}}</div>
+            <div class="strage-text text2">{{$t('home.text13')}}</div>
+            <div class="strage-text text3">{{$t('home.text14')}}</div>
+            <div class="strage-text text4">{{$t('home.text15')}}</div>
+            <div class="strage-text">{{$t('home.text16')}}</div>
+            <div @click="$router.push('/register')" class="start-ivest">{{$t('home.text3')}}</div>
+          </div>
+        </div>
+      </section>
+      <section class="content3 content">
+        <div class="com-width">
+          <h2 class="tc">{{$t('home.text17')}}</h2>
+          <div class="advantage tc">Our advantage</div>
+          <div class="tab-wrap">
+            <div
+              @click="changeSlide(0)"
+              class="tab-item"
+              :class="[oIndex == 0?'active':'']"
+            >{{$t('home.text18')}}</div>
+            <div
+              @click="changeSlide(1)"
+              class="tab-item tab-item2"
+              :class="[oIndex == 1?'active':'']"
+            >{{$t('home.text19')}}</div>
+            <div
+              @click="changeSlide(2)"
+              class="tab-item"
+              :class="[oIndex == 2?'active':'']"
+            >{{$t('home.text20')}}</div>
+          </div>
+          <swiper :options="swiperOption" ref="mySwiper">
+            <!-- slides -->
+            <swiper-slide>
+              <div class="icon icon1"></div>
+              <div class="slide-info">{{$t('home.text21')}}</div>
+              <div class="slide-info">{{$t('home.text22')}}</div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="icon icon1"></div>
+              <div class="slide-info">{{$t('home.text21')}}</div>
+              <div class="slide-info">{{$t('home.text22')}}</div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="icon icon1"></div>
+              <div class="slide-info">{{$t('home.text21')}}</div>
+              <div class="slide-info">{{$t('home.text22')}}</div>
+            </swiper-slide>
+            <!-- Optional controls -->
+            <!-- <div class="swiper-pagination" slot="pagination"></div> -->
+            <div @click="changeSlide" class="swiper-button-prev" slot="button-prev"></div>
+            <div @click="changeSlide" class="swiper-button-next" slot="button-next"></div>
+          </swiper>
+        </div>
+      </section>
+      <section class="content4 content">
+        <div class="com-width">
+          <h2 class="tc">{{$t('home.text23')}}</h2>
+          <div class="advantage tc">3 steps to enjoy global income</div>
+          <div class="step-wrap">
+            <div class="step step1">
+              <div class="top-num">
+                STEP
+                <span>1</span>
+              </div>
+              <div class="step-info">{{$t('home.text24')}}</div>
+            </div>
+            <div class="arrow"></div>
+            <div class="step step2">
+              <div class="top-num">
+                STEP
+                <span>2</span>
+              </div>
+              <div class="step-info">{{$t('home.text25')}}</div>
+            </div>
+            <div class="arrow"></div>
+            <div class="step step2">
+              <div class="top-num">
+                STEP
+                <span>3</span>
+              </div>
+              <div class="step-info">{{$t('home.text26')}}</div>
+            </div>
+            <div class="arrow"></div>
+            <div class="step step2">
+              <div class="top-num">
+                STEP
+                <span>4</span>
+              </div>
+              <div class="step-info">{{$t('home.text27')}}</div>
+            </div>
+          </div>
+          <div @click="$router.push('/register')" class="start-ivest">{{$t('home.text3')}}</div>
+        </div>
+      </section>
+    </div>
     <footerBar></footerBar>
   </div>
 </template>
@@ -208,9 +210,7 @@ export default {
             tablist[this.activeIndex].className =
               tablist[this.activeIndex].className + " active";
           },
-          slideChangeTransitionEnd() {
-           
-          }
+          slideChangeTransitionEnd() {}
         }
         // more Swiper configs and callbacks...
         // ...
@@ -224,6 +224,9 @@ export default {
     // }, 3300)
   },
   methods: {
+    hideMenu(flag) {
+      this.$store.dispatch("showMenu", false);
+    },
     changeSlide(index) {
       if (typeof index === "number") {
         this.oIndex = index;

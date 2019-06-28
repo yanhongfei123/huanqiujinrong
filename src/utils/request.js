@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import axios from 'axios'
 import {
   Loading,
@@ -15,7 +16,7 @@ const service = axios.create({
   timeout: 5000 // request timeout
 });
 var loadingInstance;
-// request interceptor
+
 service.interceptors.request.use(config => {
   loadingInstance = Loading.service({
     lock: true,
@@ -40,7 +41,6 @@ service.interceptors.request.use(config => {
   console.log(error); // for debug
   Promise.reject(error)
 });
-
 // respone interceptor
 service.interceptors.response.use(
   /**
@@ -52,10 +52,13 @@ service.interceptors.response.use(
   response => {
     loadingInstance.close();
     const res = response.data;
+    const whitelist = ['/home', '/find'];// 列表里的页面没登录不自动跳转
     if (res.code !== '0000') {
       switch (res.code) {
         case '0005':
-          router.push('/login');
+          if (!whitelist.includes(location.hash.substr(1))) {
+            router.push('/login');
+          }
           // MessageBox.confirm('登录已过期，请重新登录', '提示', {
           //   confirmButtonText: '重新登录',
           //   cancelButtonText: '取消',

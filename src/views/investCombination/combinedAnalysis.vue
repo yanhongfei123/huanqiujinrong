@@ -1,6 +1,6 @@
 <template>
   <div class="map-wrap">
-    <div class="map-label">资产分布</div>
+    <div class="map-label">{{$t('history.text7')}}</div>
     <div class="content clear">
       <div id="map" class="fl"></div>
       <div class="legent fl">

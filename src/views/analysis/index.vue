@@ -3,18 +3,20 @@
     <header>
       <headerNav path="/analysis/analys"></headerNav>
     </header>
-    <section class="barner">
-      <div class="barner-content">
-        <div class="barner-title-en">Free analysis</div>
-        <div class="barner-title">{{$t('analysis.text1')}}</div>
-        <div class="barner-info">{{$t('analysis.text2')}}</div>
-      </div>
-    </section>
-    <section class="content">
-      <div class="com-width">
-        <router-view/>
-      </div>
-    </section>
+    <div @click="hideMenu($event)">
+      <section class="barner">
+        <div class="barner-content">
+          <div class="barner-title-en">Free analysis</div>
+          <div class="barner-title">{{$t('analysis.text1')}}</div>
+          <div class="barner-info">{{$t('analysis.text2')}}</div>
+        </div>
+      </section>
+      <section class="content">
+        <div class="com-width">
+          <router-view/>
+        </div>
+      </section>
+    </div>
     <footerBar></footerBar>
   </div>
 </template>
@@ -33,6 +35,11 @@ export default {
   computed: {},
   data() {
     return {};
+  },
+  methods: {
+    hideMenu(flag) {
+      this.$store.dispatch("showMenu", false);
+    }
   }
 };
 </script>
