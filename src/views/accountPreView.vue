@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div v-if="openStatus == 6" class="main">
+        <div v-show="openStatus == 6" class="main">
           <div class="wrap1">
             <div class="item">
               <div class="label">{{$t('accountPreview.text1')}}（港币）</div>
@@ -88,7 +88,7 @@
                 class="fr detail pointer"
               >{{$t('accountPreview.text7')}}</div>
               <span id="type">进取型</span>
-              <div id="echart"></div>
+              <div id="echartss"></div>
               <div class="legend">
                 <div
                   @mouseover="highlight(index)"
@@ -265,7 +265,7 @@ export default {
   },
   methods: {
     setUserInfo(data) {
-      this.openStatus = 6 || data.status;
+      this.openStatus = data.status;
     },
     goPage(path) {
       this.$router.push(path);
@@ -295,7 +295,7 @@ export default {
     drawPie() {
       // 基于准备好的dom，初始化echarts实例
       let domType = document.getElementById("type");
-      this.myChart = echarts.init(document.getElementById("echart"));
+      this.myChart = echarts.init(document.getElementById("echartss"));
       // 绘制图表
       var option = {
         // title : {
@@ -381,9 +381,9 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
+    setTimeout(()=>{
       this.drawPie();
-    }, 50);
+    }, 100)
   },
 };
 </script>
@@ -641,7 +641,7 @@ export default {
         }
       }
     }
-    #echart {
+    #echartss {
       width: 450px;
       height: 430px;
     }

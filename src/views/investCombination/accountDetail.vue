@@ -44,41 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="vest-wrap">
-      <div class="label-cont">
-        <div class="label label1">{{$t('analysis.result.text14')}}</div>
-        <div class="label label2">{{$t('analysis.result.text15')}}</div>
-        <div class="label label3">{{$t('analysis.result.text16')}}</div>
-        <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}（港币）</div>
-      </div>
-      <div class="type-list">
-        <div class="item" v-for="(val,index) in datas" :key="index">
-          <div class="type">{{val.type}}</div>
-          <div class="k-list">
-            <div class="k-item" v-for="(item,key) in val.list" :key="key">
-              <div class="item1">{{item.v1}}</div>
-              <div class="item2">
-                <span class="hk">HK</span>
-                {{item.v2}}
-              </div>
-              <div class="item3">{{item.v3}}</div>
-              <div class="speed-cont item4">
-                <div class="speed-wrap">
-                  <div :style="{width: `${item.v3}`}" class="speed"></div>
-                </div>
-                <div>{{getThousand(item.v4)}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="label-cont label-cont-btm">
-        <div class="label label1">{{$t('result.text18')}}</div>
-        <div class="label label2"></div>
-        <div class="label label3">100.00%</div>
-        <div :style="{textIndent: '203px'}" class="label label4">{{ getThousand(525465666)}}</div>
-      </div>
-    </div>
+    <InvestList></InvestList>
     <div class="btm-info tc">{{$t('accountDetail.text6')}}</div>
   </div>
 </template>
@@ -88,13 +54,15 @@ import { toThousandslsFilter } from "@/utils";
 import Tips from "@/components/tips.vue";
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
+import InvestList from '@/components/vestList/index.vue'
 
 export default {
   name: "accountPreview",
   components: {
     Tips,
     userCenterHeader,
-    footerBar
+    footerBar,
+    InvestList
   },
   data() {
     return {
@@ -131,42 +99,6 @@ export default {
           amount: "352015255"
         }
       ],
-      datas: [
-        {
-          type: "股票类",
-          list: [
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "100%",
-              v4: "354090"
-            },
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "90%",
-              v4: "35090"
-            }
-          ]
-        },
-        {
-          type: "投资类",
-          list: [
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "50%",
-              v4: "3554090"
-            },
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "20%",
-              v4: "3554090"
-            }
-          ]
-        }
-      ]
     };
   },
   mounted() {
@@ -175,9 +107,6 @@ export default {
     }, 50);
   },
   methods: {
-    getThousand(num) {
-      return toThousandslsFilter(num);
-    },
     changeTab(index) {
       this.oIndex = index;
     },

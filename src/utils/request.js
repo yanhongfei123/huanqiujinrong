@@ -52,7 +52,7 @@ service.interceptors.response.use(
   response => {
     loadingInstance.close();
     const res = response.data;
-    const whitelist = ['/home', '/find'];// 列表里的页面没登录不自动跳转
+    const whitelist = ['/home', '/find'];// 列表里的页面没登录不自动跳转
     if (res.code !== '0000') {
       switch (res.code) {
         case '0005':
@@ -72,7 +72,7 @@ service.interceptors.response.use(
           break;
 
         case '0220':
-          MessageBox.confirm('该手机号/邮箱尚未注册', '提示', {
+          MessageBox.confirm('该手机号/邮箱尚未注册', '提示', {
             confirmButtonText: '我知道了',
             showCancelButton: false,
             type: 'warning'
@@ -80,7 +80,7 @@ service.interceptors.response.use(
           break;
 
         case '0225':
-          MessageBox.confirm('该手机号/邮箱已注册', '提示', {
+          MessageBox.confirm('该手机号/邮箱已注册', '提示', {
             confirmButtonText: '我知道了',
             showCancelButton: false,
             type: 'warning'

@@ -241,7 +241,7 @@ export default {
                   type: "success"
                 });
                 setTimeout(()=>{
-                  //this.$router.push('/accountPreView');//跳到资产配置页面，还没做
+                  this.$router.push('/assetsConfig');
                 }, 2000);
             })
           }

@@ -48,39 +48,7 @@
         <div id="myChart3"></div>
       </div>
       <div v-show="oIndex==2" class="content">
-        <div class="label-cont">
-          <div class="label label1">{{$t('analysis.result.text14')}}</div>
-          <div class="label label2">{{$t('analysis.result.text15')}}</div>
-          <div class="label label3">{{$t('analysis.result.text16')}}</div>
-          <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}（港币）</div>
-        </div>
-        <div class="type-list">
-          <div class="item" v-for="(val,index) in datas" :key="index">
-            <div class="type">{{val.type}}</div>
-            <div class="k-list">
-              <div class="k-item" v-for="(item,key) in val.list" :key="key">
-                <div class="item1">{{item.v1}}</div>
-                <div class="item2">
-                  <span class="hk">HK</span>
-                  {{item.v2}}
-                </div>
-                <div class="item3">{{item.v3}}</div>
-                <div class="speed-cont item4">
-                  <div class="speed-wrap">
-                    <div :style="{width: `${item.v3}`}" class="speed"></div>
-                  </div>
-                  <div>{{getThousand(item.v4)}}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="label-cont label-cont-btm">
-          <div class="label label1">{{$t('analysis.result.text18')}}</div>
-          <div class="label label2"></div>
-          <div class="label label3">100.00%</div>
-          <div :style="{textIndent: '203px'}" class="label label4">{{ getThousand(525465666)}}</div>
-        </div>
+         <InvestList></InvestList>
       </div>
 
       <div v-show="oIndex!=2" class="btn-wrap">
@@ -177,9 +145,13 @@
 </template>
 
 <script>
+import InvestList from '@/components/vestList/index.vue'
 import { toThousandslsFilter, getType } from "@/utils";
 export default {
   name: "result",
+  components: {
+    InvestList
+  },
   computed: {
     type() {
       return getType(localStorage.getItem("totalScore"));
@@ -351,9 +323,9 @@ export default {
         backgroundColor: "#fff",
         grid: {
           top: "15%",
-          left: "15%",
-          right: "15%",
-          //bottom: '3%',
+          left: "0%",
+          right: "10%",
+          bottom: '5%',
           containLabel: true
         },
         tooltip: {

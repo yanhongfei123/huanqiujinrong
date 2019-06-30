@@ -171,6 +171,7 @@ export default {
       width: 700px;
       line-height: 24px;
       font-size: 14px;
+      text-align: justify;
     }
   }
 }

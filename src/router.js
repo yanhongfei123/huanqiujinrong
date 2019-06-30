@@ -45,6 +45,7 @@ const SetTransPas = () => import('@/views/setTransactionPas.vue'); //设置交�
 const RiskTest = () => import('@/views/riskTest.vue'); //风险评测
 const RiskTestResult = () => import('@/views/riskTestResult.vue'); //风险评测结果
 const AccountPreView = () => import('@/views/accountPreView.vue'); //账户总览
+const AssetsConfig = () => import('@/views/assetsConfig.vue'); // 资产配置
 
 const InvestCombination = () => import('@/views/investCombination/index.vue'); //投资组合
 const AccountDetail = () => import('@/views/investCombination/accountDetail.vue'); //组合详情
@@ -82,6 +83,11 @@ const routes = [
         path: '/accountPreView',
         name: 'accountPreView',
         component: AccountPreView,
+    },
+    {
+        path: '/assetsConfig',
+        name: 'assetsConfig',
+        component: AssetsConfig,
     },
     {
         path: '/investCombination',

@@ -35,6 +35,12 @@ export default {
 </script>
 
 <style lang="scss">
+.assetsConfig {
+  .el-checkbox__input.is-checked+.el-checkbox__label{
+    color: #000!important;
+  }
+}
+
 html,
 body {
   width: 100%;

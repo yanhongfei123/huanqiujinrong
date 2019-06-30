@@ -23,7 +23,7 @@ export function getArticleList({ articleType, pageNum, pageSize=10, }) {
 export function getArticleDetail(articleId) {
   return request({
     url: '/index/sysArticle/selectOne',
-    method: 'get',
+    method: 'post',
     data: {
       articleId
     },
