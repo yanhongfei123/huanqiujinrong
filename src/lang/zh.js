@@ -525,5 +525,24 @@ export default {
         text5: '近一年',
         text6: '自配置以来',
         text7: '资产分布',
+    },
+    message:{
+        text1: '站内公告',
+        text2: '资讯推送',
+        text3: '我的消息',
+    },
+    msgCenter: {
+        text1: '卖出审核成功',
+        text2: '卖出审核失败',
+        text3: '配置交易成功',
+        text4: '配置交易失败',
+        text5: '入金审核成功',
+        text6: '入金审核失败',
+        text7: '开户申请成功',
+        text8: '开户申请失败',
+    },
+    messageCenter:{
+        text1: '消息中心',
+        text2: '分类'
     }
 }

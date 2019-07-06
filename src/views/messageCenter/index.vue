@@ -5,19 +5,19 @@
     </header>
     <div @click="hideMenu($event)" class="user-content">
       <div class="content">
-        <div class="title">消息中心</div>
+        <div class="title">{{$t('messageCenter.text1')}}</div>
         <div class="user-wrap">
           <div class="l-wrap">
             <div :class="[$route.path==='/messageCenter/announcement'?'active':'']" class="item item1">
-              <router-link to="/messageCenter/announcement">站内公告</router-link>
+              <router-link to="/messageCenter/announcement">{{$t('message.text1')}}</router-link>
             </div>
             <div class="line"></div>
             <div :class="[$route.path==='/messageCenter/informationPush'?'active':'']" class="item item2">
-              <router-link to="/messageCenter/informationPush">资讯推送</router-link>
+              <router-link to="/messageCenter/informationPush">{{$t('message.text2')}}</router-link>
             </div>
             <div class="line"></div>
             <div :class="[$route.path==='/messageCenter/myMessage'?'active':'']" class="item item3">
-              <router-link to="/messageCenter/myMessage"><span class="message">我的消息<i></i></span></router-link>
+              <router-link to="/messageCenter/myMessage"><span class="message">{{$t('message.text3')}}<i v-if="isshow"></i></span></router-link>
             </div>
           </div>
           <div class="r-wrap">
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import {getMyMsg} from '@/api/message';
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
 
@@ -42,19 +43,43 @@ export default {
   },
   data() {
     return {
-
+      isshow: false,
     };
+  },
+  watch:{
+    '$route': function(route){
+      if(route.path == '/messageCenter/myMessage'){
+        this.len && localStorage.setItem('msgNum', this.len);
+      } else {
+        var localLen = localStorage.getItem('msgNum');
+        localLen && (this.isshow = false);
+      }
+    }
   },
   computed: {},
   methods: {
-    goPage(path) {
-      this.$router.push(path);
-    },
     hideMenu(flag) {
       this.$store.dispatch("showMenu", false);
     }
   },
-  mounted() {}
+  created() {
+    getMyMsg({
+      pageNum: 1,
+    }).then(res=>{
+      var list = res.data.list;
+      var len = list.length;
+      var localLen = localStorage.getItem('msgNum');
+      len && sessionStorage.setItem('myMsgData', JSON.stringify(res.data));
+      this.len = len;
+      if(localLen){
+        if(localLen < len){
+          this.isshow = true;
+        }
+      }else{
+        this.isshow = !!len ;
+      }
+    })
+  }
 };
 </script>
 

@@ -7,56 +7,63 @@
           <div class="des">{{val.des}}</div>
           <div class="b-wrap">
             <div class="time">{{val.time}}</div>
-            <div class="has-read">分类：文章资讯</div>
           </div>
         </div>
       </div>
+      <div class="no-data tc" v-if="articleList.length == 0">暂无消息</div>
     </div>
-    <el-pagination background layout="prev, pager, next" :total="500"></el-pagination>
+    <el-pagination
+      @current-change="currentChange"
+      v-if="total>1"
+      background
+      layout="prev, pager, next"
+      :page-size="1"
+      :current-page="currentPage"
+      :total="total"
+    ></el-pagination>
   </div>
 </template>
 
 <script>
+import {getUserNotice} from '@/api/message';
 export default {
   name: "",
   components: {},
   computed: {},
   data() {
     return {
-      articleList: [
-        {
-          title: "走出明星投资人的交易陷阱",
-          des:
-            "尊敬的客户，很遗憾，您提交的卖出申请未能通过审核。如有任何疑问，请联系我们。",
-          time: "2019-05-08 14:00",
-          read: 2000
-        },
-        {
-          title: "开户申请提交成功",
-          des:
-            "尊敬的客户，您已成功填写并提交开户资料，正在审核，请您耐心等待，完成开户流程预计3-7天。感谢您的信任与支持！",
-          time: "2019-05-08 14:00",
-          read: 2000
-        },
-        {
-          title:
-            "开户申请提交成功",
-          des:
-            "尊敬的客户，您已成功填写并提交开户资料，正在审核，请您耐心等待，完成开户流程预计3-7天。感谢您的信任与支持！",
-          time: "2019-05-08 14:00",
-          read: 2000
-        }
-      ]
+      articleList: [],
+      total: 1,
+      currentPage: 1,
     };
   },
   methods: {
-
+    getUserNotice(pageNum){
+      getUserNotice({
+        pageNum
+      }).then(res => {
+        this.articleList = res.data.list;
+        this.total = res.data.total;
+      });
+    },
+    currentChange(pageNum) {
+      this.currentPage = pageNum;
+      this.getUserNotice(pageNum);
+    },
+  },
+  mounted(){
+    this.getUserNotice(1)
   }
 };
 </script>
 
 <style lang="scss">
 .article-list {
+  .no-data{
+    margin-top: 60px;
+    font-size: 22px;
+    color: #777983;
+  }
   .article-item {
     padding: 20px 0;
     border-bottom: 1px solid rgba(220, 220, 220, 1);
@@ -85,9 +92,6 @@ export default {
     font-size: 18px;
     display: flex;
     justify-content: space-between;
-    .has-read {
-      padding-left: 30px;
-    }
   }
 }
 </style>

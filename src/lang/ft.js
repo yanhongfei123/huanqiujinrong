@@ -519,5 +519,24 @@ export default {
     text5: '近一年',
     text6: '自配置以來',
     text7: '資産分布',
+  },
+  message:{
+    text1: '站內公告',
+    text2: '資訊推送',
+    text3: '我的消息',
+  },
+  msgCenter: {
+    text1: '賣出審核成功',
+    text2: '賣出審核失敗',
+    text3: '配置交易成功',
+    text4: '配置交易失敗',
+    text5: '入金審核成功',
+    text6: '入金審核失敗',
+    text7: '開戶申請成功',
+    text8: '開戶申請失敗',
+  },
+  messageCenter:{
+    text1: '消息中心',
+    text2: '分類'
   }
 }
