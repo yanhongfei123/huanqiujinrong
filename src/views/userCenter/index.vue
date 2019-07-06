@@ -151,8 +151,11 @@ export default {
       margin-top: -2px;
     }
     .active {
-      &::after {
-        //background: #fff;
+      &.item2::after,
+      &.item3::after,
+      &.item4::after,
+       {
+        background: #fff;
       }
       a {
         color: #fff;
