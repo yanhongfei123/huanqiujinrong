@@ -544,5 +544,8 @@ export default {
     messageCenter:{
         text1: '消息中心',
         text2: '分类'
+    },
+    msgTips:{
+        text1: '设置成功'
     }
 }

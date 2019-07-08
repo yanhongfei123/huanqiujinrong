@@ -237,7 +237,7 @@ export default {
             }
             resetDealPWD(params).then(res=>{
                 Message({
-                  message: '设置成功',
+                  message: this.$t('msgTips.text1'),
                   type: "success"
                 });
                 setTimeout(()=>{
@@ -270,7 +270,7 @@ export default {
     sendSmsCode() {
       if (this.timer) return;
       this.account = this.regForm.account;
-      this.$refs.regForm.resetFields();
+      //this.$refs.regForm.resetFields();
       var rules = this.type === "mobile" ? this.regMobileRules : this.regEmailRules;
       this.rules = rules;
       this.$nextTick(() => {
@@ -288,7 +288,7 @@ export default {
             sendCode(params).then(res => {
               this.getSmsCodeHandler();
               Message({
-                message: '短信发送成功',
+                message: 'signin.sendSuccess',
                 type: "success"
               });
             });
