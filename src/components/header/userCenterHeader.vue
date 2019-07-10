@@ -91,16 +91,18 @@ export default {
     }
   },
   created(){
-    getUserInfo().then(res=>{
-      var data = res.data;
-      this.$emit('getUserInfo', data)
-      var userName = ((data.surnameChina || '') + (data.nameChina || ''));
-      var userName_en = ((data.surnameUS || '') + (data.nameUS || ''));
-      if (userName || userName_en) {
-        this.isshow = false;
-        this.userName = this.$i18n.locale == 'En' ? userName_en : userName;
-      }
-    });
+    if (this.token) {
+      getUserInfo().then(res=>{
+        var data = res.data;
+        this.$emit('getUserInfo', data)
+        var userName = ((data.surnameChina || '') + (data.nameChina || ''));
+        var userName_en = ((data.surnameUS || '') + (data.nameUS || ''));
+        if (userName || userName_en) {
+          this.isshow = false;
+          this.userName = this.$i18n.locale == 'En' ? userName_en : userName;
+        }
+      });
+    }
   },
   mounted() {
     this.$store.dispatch("showMenu", false);

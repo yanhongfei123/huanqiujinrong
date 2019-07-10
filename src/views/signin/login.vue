@@ -306,8 +306,8 @@
                                     this.$router.push('/userCenter');
                                 }, 1000);
                             }).catch(() => {
-                                this.$refs.loginForm.resetFields();
-                                this.resetCountdown();
+                                //this.$refs.loginForm.resetFields();
+                                //this.resetCountdown();
                             });
                         }
                     });
