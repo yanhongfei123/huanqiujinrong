@@ -482,9 +482,6 @@ export default {
             }
         }
     },
-    openAccount: {
-        saveSuccess: '保存成功',
-    },
     article:{
         text1: '次阅读'
     },
@@ -547,5 +544,19 @@ export default {
     },
     msgTips:{
         text1: '设置成功'
-    }
+    },
+    openAccount: {
+        chooseMarket: {
+            text1: '底层资产选择',
+            text2: '为了给您提供更加多样化的投资选择，在原来的产品SmartGlobal的基础上推出了以2000+支美国ETF为底层的产品SmartGlobal Max，具体两者的信息可通过如下对比图做深入的了解。您可以根据自己的偏好，选择转移您的账户至SmartGlobal Max或者保留在原來的SmartGlobal中。',
+            text3: '美国',
+            text4: '投资门槛',
+            text5: '确认开户',
+        },
+        userInfo: {
+            text1: '网上开户',
+            text2: '您正在申请的是美国上市交易的ETF',
+            text3: '您正在申请的是香港上市交易的ETF',
+        }
+    },
 }

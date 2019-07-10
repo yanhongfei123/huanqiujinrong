@@ -4,9 +4,10 @@
             <openAccountHeader></openAccountHeader>
         </header>
         <div class="content">
-            <div class="title">网上开户</div>
+            <div class="title">{{$t('openAccount.userInfo.text1')}}</div>
             <div class="info-wrapper">
-                <div class="tips"><label>* </label>您正在申请的是{{type==1?'美国':'香港'}}上市交易的ETF</div>
+                <div class="tips" v-if="type==1"><label>* </label>{{$t('openAccount.userInfo.text2')}}</div>
+                <div class="tips" v-else><label>* </label>{{$t('openAccount.userInfo.text3')}}</div>
                 <openAccountSteps :step=step></openAccountSteps>
                 <div class="info-title">个人信息</div>
                 <el-form title="个人信息" class="userInfoForm" :label-position="labelPosition" label-width="80px"
@@ -148,7 +149,7 @@
                 <div class="btn-wrap">
                     <div @click="saveUserInfo('userInfoForm')" class="btn-item btn1">保存</div>
                     <div @click="chooseMarket" class="btn-item btn2">上一步</div>
-                    <div @click="goSubmitAddressInfo('userInfoForm')" class="btn-item btn3">下一步</div>
+                    <div @click="next('userInfoForm')" class="btn-item btn3">下一步</div>
                 </div>
             </div>
 
@@ -162,8 +163,7 @@
     import openAccountHeader from '@/components/header/openAccountHeader.vue';
     import footerBar from '@/components/footer/footer.vue';
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
-    import {getUserInfo} from '@/api/index';
-    import {saveUserInfo} from '@/api/openAccount';
+    import {getUserInfo,saveUserInfo} from '@/api/openAccount';
 
     export default {
         name: 'userInfo',
@@ -357,23 +357,19 @@
             chooseMarket() {
                 this.$router.replace({name: 'chooseMarket'});
             },
-            goSubmitAddressInfo(formName) {
+            next(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后跳转
                         saveUserInfo(this.userInfo).then(()=>{
-
+                            this.$router.replace({name: 'addressInfo'});
                         });
-                        this.$router.replace({name: 'addressInfo'});
-                    } else {
-                        //测试
-                        this.$router.replace({name: 'addressInfo'});
                     }
                 });
             }
         },
         mounted() {
-            let allDictData = ['sys_user_sex', 'Marriage', 'currency_type', 'account_type', 'deposit_type'];
+            let allDictData = ['sys_user_sex', 'Marriage', 'currency_type', 'account_type', 'deposit_type' ];
             let allPromise = allDictData.map(item => this.getGlobalData(item));
             Promise.all(allPromise).then(res => {
                 console.log(res);
@@ -385,7 +381,9 @@
             }).then(() => {
                 getUserInfo().then(res => {
                     console.log(res);
-                    this.userInfo = res.data;
+                    if(res.data) {
+                        this.userInfo = res.data;
+                    }
                 })
             });
         }

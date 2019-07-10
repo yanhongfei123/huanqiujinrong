@@ -278,6 +278,8 @@
     import openAccountHeader from '@/components/header/openAccountHeader.vue';
     import footerBar from '@/components/footer/footer.vue';
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
+    import {saveUserRegulation, getUserRegulation} from '@/api/openAccount';
+
 
     export default {
         name: 'regulatoryInfo',
@@ -535,11 +537,12 @@
             changeInvestTarget() {
 
             },
-            saveRegulatoryInfo(formName) {
+            saveRegulatoryInfo(formName) {//添加规管
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后提示
                         this.$message.success('保存成功');
+                        saveUserRegulation
                     }
                 });
             },
@@ -587,7 +590,7 @@
                 this.knowledgeLevel = res[6].data.list;
                 this.investmentObjectives = res[7].data.list;
             }).then(() => {
-                getUserInfo().then(res => {
+                getUserRegulation().then(res => {
                     console.log(res);
                     this.userInfo = res.data;
                 })

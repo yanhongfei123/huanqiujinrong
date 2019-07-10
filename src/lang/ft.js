@@ -541,5 +541,19 @@ export default {
   },
   msgTips:{
     text1: '設置成功'
-  }
+  },
+  openAccount: {
+    chooseMarket: {
+      text1: '底層資産選擇',
+      text2: '爲了給您提供更加多樣化的投資選擇，在原來的産品SmartGlobal的基礎上推出了以2000+支美國ETF爲底層的産品SmartGlobal Max，具體兩者的信息可通過如下對比圖做深入的了解。您可以根據自己的偏好，選擇轉移您的賬戶至SmartGlobal Max或者保留在原來的SmartGlobal中。',
+      text3: '美國',
+      text4: '投資門檻',
+      text5: '確認開戶'
+    },
+    userInfo: {
+      text1: '網上開戶',
+      text2: '您正在申請的是美國上市交易的ETF',
+      text3: '您正在申請的是香港上市交易的ETF'
+    }
+  },
 }

@@ -4,22 +4,20 @@
             <openAccountHeader></openAccountHeader>
         </header>
         <div class="content">
-            <div class="title">底层资产选择</div>
-            <div class="desc">为了给您提供更加多样化的投资选择，在原来的产品SmartGlobal的基础上推出了以2000+支美国ETF为底层的产品SmartGlobal
-                Max，具体两者的信息可通过如下对比图做深入的了解。您可以根据自己的偏好，选择转移您的账户至SmartGlobal Max或者保留在原來的SmartGlobal中。
-            </div>
+            <div class="title">{{$t('openAccount.chooseMarket.text1')}}</div>
+            <div class="desc">{{$t('openAccount.chooseMarket.text2')}}</div>
             <div class="market-wrapper">
                 <div class="market-item market-us">
                     <div class="market-img"></div>
-                    <p class="market-info">美国上市交易的ETF</p>
-                    <p class="market-info">投资门槛 50,000 USD</p>
-                    <div class="btn btn-confirm" @click="selectMarket(1)" data-type="1">确认开户</div>
+                    <p class="market-info">{{$t('openAccount.chooseMarket.text3')}}上市交易的ETF</p>
+                    <p class="market-info">{{$t('openAccount.chooseMarket.text4')}} 50,000 USD</p>
+                    <div class="btn btn-confirm" @click="selectMarket(1)" data-type="1">{{$t('openAccount.chooseMarket.text5')}}</div>
                 </div>
                 <div class="market-item market-hk">
                     <div class="market-img"></div>
                     <p class="market-info">香港上市交易的ETF</p>
-                    <p class="market-info">投资门槛 100,000 HKD</p>
-                    <div class="btn btn-confirm" @click="selectMarket(2)" data-type="2">确认开户</div>
+                    <p class="market-info">{{$t('openAccount.chooseMarket.text4')}} 100,000 HKD</p>
+                    <div class="btn btn-confirm" @click="selectMarket(2)" data-type="2">{{$t('openAccount.chooseMarket.text5')}}</div>
                 </div>
             </div>
         </div>

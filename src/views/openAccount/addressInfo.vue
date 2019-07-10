@@ -13,9 +13,9 @@
                     <div class="info-title title1">一.居民地址</div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="详细居住地址:" prop="residenceAddress" required>
+                            <el-form-item label="详细居住地址:" prop="addr" required>
                                 <el-input placeholder="请与身份证明文件上地址保持一致。" maxlength="50"
-                                          v-model="addressInfo.residenceAddress"></el-input>
+                                          v-model="addressInfo.addr"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -117,7 +117,7 @@
     import footerBar from '@/components/footer/footer.vue';
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
     import {getUserInfo} from '@/api/index';
-    import {saveUserBase} from '@/api/openAccount';
+    import {saveUserBase, getUserBase} from '@/api/openAccount';
 
     export default {
         name: 'addressInfo',
@@ -135,7 +135,7 @@
                 employmentTypes: [],
                 businessTypes: [],
                 addressInfoRules: {
-                    residenceAddress: [
+                    addr: [
                         {required: true, message: "请输入居住地址"},
                     ],
                     country: [
@@ -148,10 +148,10 @@
                         {required: true, message: "请输入纳税识别号"},
                     ],
                     employmentType: [
-                        {required: true, message: '请选择就业类型', trigger: 'blur'}
+                        {required: true, message: '请选择就业类型', trigger: 'change'}
                     ],
                     businessType: [
-                        {required: true, message: '请选择商业性质', trigger: 'blur'}
+                        {required: true, message: '请选择商业性质', trigger: 'change'}
                     ],
                     employmentCompany: [
                         {required: true, message: "请输入雇佣单位名称"},
@@ -195,7 +195,7 @@
             }
         },
         mounted() {
-            let allDictData = ['country_type', 'sys_employment', 'sys_employment'];
+            let allDictData = ['country_type', 'sys_employment', 'nature_business'];
             let allPromise = allDictData.map(item => this.getGlobalData(item));
             Promise.all(allPromise).then(res => {
                 console.log(res);
@@ -203,9 +203,11 @@
                 this.employmentTypes = res[1].data.list;
                 this.businessTypes = res[2].data.list;
             }).then(() => {
-                getUserInfo().then(res => {
+                getUserBase().then(res => {
                     console.log(res);
-                    this.userInfo = res.data;
+                    if(res.data){
+                        this.addressInfo = res.data;
+                    }
                 })
             });
         }
