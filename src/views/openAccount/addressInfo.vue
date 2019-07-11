@@ -67,8 +67,8 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="雇佣单位:" prop="employmentCompany" required>
-                                <el-input placeholder="请填写雇佣单位" maxlength="20" v-model="addressInfo.employmentCompany"></el-input>
+                            <el-form-item label="雇佣单位:" prop="employmentCompay" required>
+                                <el-input placeholder="请填写雇佣单位" maxlength="20" v-model="addressInfo.employmentCompay"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -102,8 +102,8 @@
                 </el-form>
                 <div class="btn-wrap">
                     <div @click="saveAddressInfo('addressInfoForm')" class="btn-item btn1">保存</div>
-                    <div @click="goSubmitUserInfo" class="btn-item btn2">上一步</div>
-                    <div @click="submitAddressInfo('addressInfoForm')" class="btn-item btn3">下一步</div>
+                    <div @click="prev" class="btn-item btn2">上一步</div>
+                    <div @click="next('addressInfoForm')" class="btn-item btn3">下一步</div>
                 </div>
             </div>
 
@@ -153,7 +153,7 @@
                     businessType: [
                         {required: true, message: '请选择商业性质', trigger: 'change'}
                     ],
-                    employmentCompany: [
+                    employmentCompay: [
                         {required: true, message: "请输入雇佣单位名称"},
                     ],
                     post: [
@@ -173,17 +173,17 @@
                         //...请求接口后提示
                         saveUserBase(this.addressInfo).then(() => {
                             this.$message({
-                                message: this.$t('openAccount.saveSuccess'),
+                                message: '保存成功',
                                 type: 'success'
                             });
                         });
                     }
                 });
             },
-            goSubmitUserInfo() {
+            prev() {
                 this.$router.replace({name: 'userInfo'});
             },
-            submitAddressInfo(formName) {
+            next(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后跳转

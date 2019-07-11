@@ -9,18 +9,18 @@
                 <div class="tips" v-if="type==1"><label>* </label>{{$t('openAccount.userInfo.text2')}}</div>
                 <div class="tips" v-else><label>* </label>{{$t('openAccount.userInfo.text3')}}</div>
                 <openAccountSteps :step=step></openAccountSteps>
-                <div class="info-title">个人信息</div>
+                <div class="info-title">{{$t('openAccount.userInfo.text4')}}</div>
                 <el-form title="个人信息" class="userInfoForm" :label-position="labelPosition" label-width="80px"
                          :model="userInfo" ref="userInfoForm" :rules="userInfoRules">
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="姓（中文）:" prop="surnameChina" required>
-                                <el-input placeholder="请确保您填写的姓名与身份证件上的信息完全一致" v-model="userInfo.surnameChina"></el-input>
+                                <el-input :placeholder="$t('openAccount.userInfo.text5')" v-model="userInfo.surnameChina"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="名（中文）:" prop="nameChina" required>
-                                <el-input placeholder="请确保您填写的姓名与身份证件上的信息完全一致"
+                                <el-input :placeholder="$t('openAccount.userInfo.text5')"
                                           v-model="userInfo.nameChina"></el-input>
                             </el-form-item>
                         </el-col>
@@ -28,12 +28,12 @@
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="姓（英文/拼音）:" prop="surnameUS" required>
-                                <el-input placeholder="请确保您填写的姓名与身份证件上的信息完全一致" v-model="userInfo.surnameUS"></el-input>
+                                <el-input :placeholder="$t('openAccount.userInfo.text5')" v-model="userInfo.surnameUS"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="名（英文/拼音）:" prop="nameUS" required>
-                                <el-input placeholder="请确保您填写的姓名与身份证件上的信息完全一致"
+                                <el-input :placeholder="$t('openAccount.userInfo.text5')"
                                           v-model="userInfo.nameUS"></el-input>
                             </el-form-item>
                         </el-col>
@@ -41,14 +41,14 @@
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="出生日期:" prop="birthday" required>
-                                <el-date-picker type="date" placeholder="请选择" v-model="userInfo.birthday"
+                                <el-date-picker type="date" :placeholder="$t('openAccount.userInfo.text6')" v-model="userInfo.birthday"
                                                 value-format="yyyy-MM-dd"
                                                 style="width: 100%;" :editable=false></el-date-picker>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="香港身份证号码:" prop="card" required>
-                                <el-input placeholder="请确保与您证件上的号码完全一致，包括英文大小写、符号等"
+                            <el-form-item :label="$t('openAccount.userInfo.text6')" prop="card" required>
+                                <el-input type="date" :placeholder="$t('openAccount.userInfo.text8')"
                                           v-model="userInfo.card"></el-input>
                             </el-form-item>
                         </el-col>
@@ -56,7 +56,7 @@
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="性别:" prop="sex" required>
-                                <el-select v-model="userInfo.sex" placeholder="请选择" style="width: 100%;">
+                                <el-select v-model="userInfo.sex" :placeholder="$t('openAccount.userInfo.text6')" style="width: 100%;">
                                     <el-option
                                             v-for="item in genders"
                                             :key="item.dictCode"
@@ -67,8 +67,8 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="婚姻状况:" prop="marriage" required>
-                                <el-select v-model="userInfo.marriage" placeholder="请选择" style="width: 100%;">
+                            <el-form-item :label="$t('openAccount.userInfo.text9')" prop="marriage" required>
+                                <el-select v-model="userInfo.marriage" :placeholder="$t('openAccount.userInfo.text6')" style="width: 100%;">
                                     <el-option
                                             v-for="item in maritalStatus"
                                             :key="item.dictCode"
@@ -81,20 +81,20 @@
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="香港手机号码:" prop="phone" required>
-                                <el-input placeholder="请填写香港手机号" v-model="userInfo.phone"></el-input>
+                            <el-form-item :label="$t('openAccount.userInfo.text10')" prop="phone" required>
+                                <el-input :placeholder="$t('openAccount.userInfo.text11')" v-model="userInfo.phone"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="电子邮箱:" prop="email" required>
-                                <el-input placeholder="请填写电子邮箱地址" v-model="userInfo.email"></el-input>
+                            <el-form-item :label="$t('openAccount.userInfo.text12')" prop="email" required>
+                                <el-input :placeholder="$t('openAccount.userInfo.text13')" v-model="userInfo.email"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="家庭成员数:" prop="familyMembers" required>
-                                <el-select v-model="userInfo.familyMembers" placeholder="请选择" style="width: 100%;">
+                            <el-form-item :label="$t('openAccount.userInfo.text14')" prop="familyMembers" required>
+                                <el-select v-model="userInfo.familyMembers" :placeholder="$t('openAccount.userInfo.text6')"  style="width: 100%;">
                                     <el-option
                                             v-for="item in familyMembers"
                                             :key="item.value"
@@ -105,8 +105,8 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="基础货币:" prop="currency" required>
-                                <el-select v-model="userInfo.currency" placeholder="请选择" style="width: 100%;">
+                            <el-form-item :label="$t('openAccount.userInfo.text15')" prop="currency" required>
+                                <el-select v-model="userInfo.currency" :placeholder="$t('openAccount.userInfo.text6')"  style="width: 100%;">
                                     <el-option
                                             v-for="item in currencyTypes"
                                             :key="item.dictCode"
@@ -120,8 +120,8 @@
 
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="基账户类型:" prop="accountType" required>
-                                <el-select v-model="userInfo.accountType" placeholder="请选择" style="width: 100%;">
+                            <el-form-item :label="$t('openAccount.userInfo.text16')" prop="accountType" required>
+                                <el-select v-model="userInfo.accountType" :placeholder="$t('openAccount.userInfo.text6')"  style="width: 100%;">
                                     <el-option
                                             v-for="item in accountTypes"
                                             :key="item.dictCode"
@@ -133,7 +133,7 @@
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="入金方式:" prop="depositType" required>
-                                <el-select v-model="userInfo.depositType" placeholder="请选择" style="width: 100%;">
+                                <el-select v-model="userInfo.depositType" :placeholder="$t('openAccount.userInfo.text6')"  style="width: 100%;">
                                     <el-option
                                             v-for="item in depositTypes"
                                             :key="item.dictCode"
@@ -148,8 +148,8 @@
                 </el-form>
                 <div class="btn-wrap">
                     <div @click="saveUserInfo('userInfoForm')" class="btn-item btn1">保存</div>
-                    <div @click="chooseMarket" class="btn-item btn2">上一步</div>
-                    <div @click="next('userInfoForm')" class="btn-item btn3">下一步</div>
+                    <div @click="chooseMarket" class="btn-item btn2">{{$t('openAccount.userInfo.text17')}}</div>
+                    <div @click="next('userInfoForm')" class="btn-item btn3">{{$t('openAccount.userInfo.text18')}}</div>
                 </div>
             </div>
 
