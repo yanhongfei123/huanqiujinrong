@@ -47,9 +47,9 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="香港身份证号码:" prop="HKIDCard" required>
+                            <el-form-item label="香港身份证号码:" prop="card" required>
                                 <el-input placeholder="请确保与您证件上的号码完全一致，包括英文大小写、符号等"
-                                          v-model="userInfo.HKIDCard"></el-input>
+                                          v-model="userInfo.card"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -309,7 +309,7 @@
                     birthday: [
                         {required: true, message: '请选择出生日期', trigger: 'blur'}
                     ],
-                    HKIDCard: [
+                    card: [
                         {required: true, message: '请输入香港身份证号'},
                         {validator: validateIdCard, trigger: 'blur'}
                     ],

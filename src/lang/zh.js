@@ -547,10 +547,10 @@ export default {
     },
     openAccount: {
         step: {
-            text1: '提交個人資料',
-            text2: '規管信息',
-            text3: '資料上傳',
-            text4: '預約見證',
+            text1: '提交个人资料',
+            text2: '规管信息',
+            text3: '资料上传',
+            text4: '预约见证',
         },
         chooseMarket: {
             text1: '底层资产选择',

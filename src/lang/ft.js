@@ -544,7 +544,10 @@ export default {
   },
   openAccount: {
     step: {
-      text1: ''
+      text1: '提交個人資料',
+      text2: '規管信息',
+      text3: '資料上傳',
+      text4: '預約見證',
     },
     chooseMarket: {
       text1: '底層資産選擇',
