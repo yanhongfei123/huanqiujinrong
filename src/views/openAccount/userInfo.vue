@@ -67,8 +67,8 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="婚姻状况:" prop="Marriage" required>
-                                <el-select v-model="userInfo.Marriage" placeholder="请选择" style="width: 100%;">
+                            <el-form-item label="婚姻状况:" prop="marriage" required>
+                                <el-select v-model="userInfo.marriage" placeholder="请选择" style="width: 100%;">
                                     <el-option
                                             v-for="item in maritalStatus"
                                             :key="item.dictCode"
@@ -316,7 +316,7 @@
                     sex: [
                         {required: true, message: '请选择性别', trigger: 'change'}
                     ],
-                    Marriage: [
+                    marriage: [
                         {required: true, message: '请选择婚姻状态', trigger: 'change'}
                     ],
                     phone: [

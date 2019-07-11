@@ -546,6 +546,12 @@ export default {
         text1: '设置成功'
     },
     openAccount: {
+        step: {
+            text1: '提交個人資料',
+            text2: '規管信息',
+            text3: '資料上傳',
+            text4: '預約見證',
+        },
         chooseMarket: {
             text1: '底层资产选择',
             text2: '为了给您提供更加多样化的投资选择，在原来的产品SmartGlobal的基础上推出了以2000+支美国ETF为底层的产品SmartGlobal Max，具体两者的信息可通过如下对比图做深入的了解。您可以根据自己的偏好，选择转移您的账户至SmartGlobal Max或者保留在原來的SmartGlobal中。',
