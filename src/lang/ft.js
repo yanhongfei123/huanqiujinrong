@@ -17,7 +17,8 @@ export default {
     realName: '請實名',
     userCenter: '個人中心',
     setting: '個人設置',
-    loginOut: '退出登錄'
+    loginOut: '退出登錄',
+    goOpen: '去實名'
   },
   signin: {
     account: '手機號/郵箱地址',

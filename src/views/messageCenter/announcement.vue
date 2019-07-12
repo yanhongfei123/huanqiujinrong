@@ -43,7 +43,7 @@ export default {
         pageNum
       }).then(res => {
         this.articleList = res.data.list;
-        this.total = res.data.total;
+        this.total = res.data.pages;
       });
     },
     currentChange(pageNum) {

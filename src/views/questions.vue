@@ -78,7 +78,7 @@ export default {
           return item;
         });
         this.fqList = list;
-        this.total = res.data.total;
+        this.total = res.data.pages;
       });
     },
     changeTab(index, questionType) {

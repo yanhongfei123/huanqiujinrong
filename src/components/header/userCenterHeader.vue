@@ -23,12 +23,13 @@
         <span
           v-if="token && isshow"
           :class="[path === '/find' ? 'active' : '', 'realName-auth']"
-          @click="goPage('/openAccount')"
+          @click="$store.dispatch('showMenu', true)"
         >{{$t('userCenterNav.realName')}}</span>
         <span class="active" v-if="token && !isshow" @click="showMenu($event)">{{userName}}</span>
         <ul v-show="showmenu" :class="[showmenu?'show':'']" class="dropMenu">
-          <li @click="goPage('/userCenter')" class="user-center">{{$t('userCenterNav.userCenter')}}</li>
-          <li @click="goPage('/setting')" class="setting">{{$t('userCenterNav.setting')}}</li>
+          <li v-if="isshow" @click="goPage('/openAccount')">{{$t('userCenterNav.goOpen')}}</li>
+          <li v-if="!isshow" @click="goPage('/userCenter')" class="user-center">{{$t('userCenterNav.userCenter')}}</li>
+          <li v-if="!isshow" @click="goPage('/setting')" class="setting">{{$t('userCenterNav.setting')}}</li>
           <li @click="goPage('/loginOut')" class="login-out">{{$t('userCenterNav.loginOut')}}</li>
         </ul>
       </div>
@@ -122,7 +123,7 @@ export default {
     transform: translateY(-120%);
     transition: all 0.3s;
     width: 108px;
-    height: 130px;
+    //height: 130px;
     background: #fff;
     color: rgba(20, 20, 22, 0.7);
     font-size: 14px;
@@ -159,7 +160,7 @@ export default {
       background-image: url("../../assets/images/icon_setup.png");
     }
     .login-out {
-      margin-top: 25px;
+      margin: 25px 0 0;
       background-image: url("../../assets/images/icon_signout.png");
     }
   }

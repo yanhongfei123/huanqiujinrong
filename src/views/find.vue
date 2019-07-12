@@ -94,7 +94,7 @@ export default {
         pageNum
       }).then(res => {
         this.articleList = res.data.list;
-        this.total = res.data.total;
+        this.total = res.data.pages;
       });
     },
     changeTab(articleType, index) {
@@ -116,6 +116,8 @@ export default {
     var list = res.data.list;
     this.typeList = list;
     this.changeTab(list[0].dictValue, 0);
+var res = await this.getGlobalData("net_asset_flows");
+
   }
 };
 </script>

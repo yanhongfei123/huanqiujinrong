@@ -42,7 +42,8 @@ export default {
         realName: '请实名',
         userCenter: '个人中心',
         setting: '个人设置',
-        loginOut: '退出登录'
+        loginOut: '退出登录',
+        goOpen: '去实名'
     },
     header: {
       login: '登录',
