@@ -63,6 +63,10 @@ export default {
   },
   methods: {
     goPage(path) {
+      if (this.$route.path.includes(path)){
+        window.scrollTo(0,0);
+        return;
+      }
       this.$router.push(path);
     }
   },

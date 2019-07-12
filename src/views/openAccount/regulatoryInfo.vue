@@ -18,11 +18,9 @@
                             <el-radio
                                     v-for="item in compliances_1"
                                     :key="item.dictCode"
-                                    :label="item | filterByLanguage('dictLabel')"
-                                    :value="item.dictValue">
+                                    :label="item.dictValue">
+                                    {{item | filterByLanguage('dictLabel')}}
                             </el-radio>
-                            <!--<el-radio :label="0">是</el-radio>-->
-                            <!--<el-radio :label="1">否</el-radio>-->
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
@@ -32,8 +30,8 @@
                             <el-radio
                                     v-for="item in compliances_2"
                                     :key="item.dictCode"
-                                    :label="item | filterByLanguage('dictLabel')"
-                                    :value="item.dictValue">
+                                    :label="item.dictValue">
+                                    {{item | filterByLanguage('dictLabel')}}
                             </el-radio>
                         </el-radio-group>
                     </el-form-item>
@@ -44,8 +42,8 @@
                             <el-radio
                                     v-for="item in compliances_3"
                                     :key="item.dictCode"
-                                    :label="item | filterByLanguage('dictLabel')"
-                                    :value="item.dictValue">
+                                    :label="item.dictValue">
+                                    {{item | filterByLanguage('dictLabel')}}
                             </el-radio>
                         </el-radio-group>
                     </el-form-item>
@@ -56,8 +54,8 @@
                             <el-radio
                                     v-for="item in compliances_4"
                                     :key="item.dictCode"
-                                    :label="item | filterByLanguage('dictLabel')"
-                                    :value="item.dictValue">
+                                    :label="item.dictValue">
+                                    {{item | filterByLanguage('dictLabel')}}
                             </el-radio>
                         </el-radio-group>
                     </el-form-item>
@@ -68,8 +66,8 @@
                             <el-radio
                                     v-for="item in compliances_5"
                                     :key="item.dictCode"
-                                    :label="item | filterByLanguage('dictLabel')"
-                                    :value="item.dictValue">
+                                    :label="item.dictValue">
+                                    {{item | filterByLanguage('dictLabel')}}
                             </el-radio>
                         </el-radio-group>
                     </el-form-item>
@@ -145,9 +143,8 @@
                             <el-checkbox
                                     v-for="item in investmentObjectives"
                                     :key="item.dictCode"
-                                    :label="item | filterByLanguage('dictLabel')"
-                                    :value="item.dictValue"
-                            ></el-checkbox>
+                                    :label="item.dictValue"
+                            >{{item | filterByLanguage('dictLabel')}}</el-checkbox>
                         </el-checkbox-group>
                     </el-form-item>
                     <div class="info-title">四. 投资经验</div>
@@ -185,6 +182,48 @@
                             <el-col :span="8">
                                 <el-form-item prop="stockExperiencesKnowledgeLevel" class="margin-bottom-30">
                                     <el-select v-model="regulatoryInfo.stockExperiencesKnowledgeLevel"
+                                               placeholder="请选择知识水平">
+                                        <el-option
+                                                v-for="item in knowledgeLevel"
+                                                :key="item.dictCode"
+                                                :label="item | filterByLanguage('dictLabel')"
+                                                :value="item.dictValue">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-checkbox v-model="openzhaiquanTrade">债券</el-checkbox>
+                        </el-row>
+                        <el-row v-if="openzhaiquanTrade">
+                            <el-col :span="8">
+                                <el-form-item prop="optionExperiencesTimes" class="margin-bottom-30">
+                                    <el-select v-model="regulatoryInfo.zhaiquanExperiencesTimes" placeholder="请选择每年交易次数">
+                                        <el-option
+                                                v-for="item in numberOfTransactions"
+                                                :key="item.dictCode"
+                                                :label="item | filterByLanguage('dictLabel')"
+                                                :value="item.dictValue">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item prop="optionExperiencesYears" class="margin-bottom-30">
+                                    <el-select v-model="regulatoryInfo.zhaiquanExperiencesYears" placeholder="请选择交易年数">
+                                        <el-option
+                                                v-for="item in yearsOfTrading"
+                                                :key="item.dictCode"
+                                                :label="item | filterByLanguage('dictLabel')"
+                                                :value="item.dictValue">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item prop="optionExperiencesKnowledgeLevel" class="margin-bottom-30">
+                                    <el-select v-model="regulatoryInfo.zhaiquanExperiencesKnowledgeLevel"
                                                placeholder="请选择知识水平">
                                         <el-option
                                                 v-for="item in knowledgeLevel"
@@ -393,98 +432,48 @@
                 }
             };
 
-            const validateInvestTarget = (rule, value, callback) => {
-                if (value.indexOf(0) == -1 && value.indexOf(1) == -1) {
-                    callback(new Error('开通交易需要交易利润和投机至少选择一个'));
+            const validateInvestTarget = (rule, value = [], callback) => {
+                var arr = value.filter(item => item > 1);
+                if (arr.length == 0) {
+                    callback(new Error('投资目标需选择收入、增长、交易利润、投机或对冲中的任意一个'));
                 } else {
                     callback();
                 }
             };
 
+
             return {
                 type: this.$route.query.type,
                 step: 2,
                 labelPosition: 'top',
+                compliances_1 : '',
+                compliances_2 : '',
+                compliances_3 : '',
+                compliances_4 : '',
+                compliances_5 : '',
                 netAssetFlows: {
-                    10: '少于2万美金',
-                    11: '2-5万美金',
-                    12: '5-7.5万美金',
-                    13: '7.5-10万美金',
-                    14: '10-25万美金',
-                    15: '25-50万美金',
-                    16: '50-100万美金',
-                    17: '100-500万美金',
-                    18: '多于500万美金',
+
                 },
                 netAssets: {
-                    10: '少于2万美金',
-                    11: '2-5万美金',
-                    12: '5-7.5万美金',
-                    13: '7.5-10万美金',
-                    14: '10-25万美金',
-                    15: '25-50万美金',
-                    16: '50-100万美金',
-                    17: '100-500万美金',
-                    18: '500-1,000万美金',
-                    19: '1,000-2,500万美金',
-                    20: '2,500-3,000万美金',
-                    21: '3,000-5,000万美金',
-                    22: '多于5,000万美金'
+
                 },
                 netAnnualIncome: {
-                    10: '少于4万美金',
-                    11: '4-4.5万美金',
-                    12: '4.5-5万美金',
-                    13: '5-10万美金',
-                    14: '10-15万美金',
-                    15: '15-25万美金',
-                    16: '25-50万美金',
-                    17: '50-100万美金',
-                    18: '多于100万美金'
+
                 },
                 totalAssets: {
-                    10: '少于2万美金',
-                    11: '2-5万美金',
-                    12: '5-7.5万美金',
-                    13: '7.5-10万美金',
-                    14: '10-25万美金',
-                    15: '25-50万美金',
-                    16: '50-100万美金',
-                    17: '100-500万美金',
-                    18: '500-1,000万美金',
-                    19: '1,000-2,500万美金',
-                    20: '2,500-3,000万美金',
-                    21: '3,000-5,000万美金',
-                    22: '多于5,000万美金'
+
                 },
                 yearsOfTrading: {
-                    0: '1年',
-                    1: '2年',
-                    2: '3年',
-                    3: '4年',
-                    4: '5年',
-                    5: '6-10年',
-                    6: '10年及以上'
+
                 },
                 numberOfTransactions: {
-                    2: '1-10次',
-                    3: '11-25次',
-                    4: '26-50次',
-                    5: '51-100次',
-                    1: '大于100次',
+
                 },
                 knowledgeLevel: {
-                    0: '受限',
-                    1: '良好',
-                    2: '丰富'
+
                 },
                 investmentObjectives: {
-                    0: '投机',
-                    1: '交易利润',
-                    2: '增长',
-                    3: '对冲',
-                    4: '资本保值',
-                    5: '股息收入'
+
                 },
                 regulatoryInfoRules: {
                     compliance_1: [
@@ -552,12 +541,15 @@
                 },
                 openOptionTrade: false,
                 openFeaturesTrade: false,
-                regulatoryInfo: {}
+                openzhaiquanTrade: false,
+                regulatoryInfo: {
+                    investTargetArr: [],
+                }
             };
         },
         methods: {
-            changeInvestTarget() {
-
+            changeInvestTarget(value) {
+                console.log(value)
             },
             saveRegulatoryInfo(formName) {//添加规管
                 this.$refs[formName].validate((valid) => {
@@ -574,12 +566,166 @@
                 this.$router.replace({name: 'addressInfo'});
             },
             next(formName) {
+                console.log(this.regulatoryInfo)
+
+                var params = [
+                    {
+                        type: '1',
+                        dictType: 'compliances_1',
+                        dictDataValue: this.regulatoryInfo.compliances_1,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '1',
+                        dictType: 'compliances_2',
+                        dictDataValue: this.regulatoryInfo.compliances_2,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '1',
+                        dictType: 'compliances_3',
+                        dictDataValue: this.regulatoryInfo.compliances_3,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '1',
+                        dictType: 'compliances_4',
+                        dictDataValue: this.regulatoryInfo.compliances_4,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '1',
+                        dictType: 'compliances_5',
+                        dictDataValue: this.regulatoryInfo.compliances_5,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '2',
+                        dictType: 'net_assets',
+                        dictDataValue: this.regulatoryInfo.netAsset,//
+                        dictDataName: '',
+                    },
+                    {
+                        type: '2',
+                        dictType: 'net_asset_flows',
+                        dictDataValue: this.regulatoryInfo.netAssetFlow,//
+                        dictDataName: '',
+                    },
+                    {
+                        type: '2',
+                        dictType: 'net_annual_income',
+                        dictDataValue: this.regulatoryInfo.netAssetYear,//
+                        dictDataName: '',
+                    },
+                    {
+                        type: '2',
+                        dictType: 'total_assets',
+                        dictDataValue: this.regulatoryInfo.netAssetTotal,//
+                        dictDataName: '',
+                    },
+                    {
+                        type: '3',
+                        dictType: 'Investment_objectives',
+                        dictDataValue: this.regulatoryInfo.investTargetArr[0],
+                        dictDataName: '',
+                    },
+                    //股票
+                    {
+                        type: '4',
+                        dictType: 'number_of_transactions',
+                        dictDataValue: this.regulatoryInfo.stockExperiencesTimes,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '4',
+                        dictType: 'years_of_trading',
+                        dictDataValue: this.regulatoryInfo.stockExperiencesYears,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '4',
+                        dictType: 'knowledge_level',
+                        dictDataValue: this.regulatoryInfo.stockExperiencesKnowledgeLevel,
+                        dictDataName: '',
+                    },
+
+                    //债券
+                    {
+                        type: '5',
+                        dictType: 'knowledge_level',
+                        dictDataValue: this.regulatoryInfo.zhaiquanExperiencesTimes,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '5',
+                        dictType: 'years_of_trading',
+                        dictDataValue: this.regulatoryInfo.zhaiquanExperiencesYears,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '5',
+                        dictType: 'knowledge_level',
+                        dictDataValue: this.regulatoryInfo.zhaiquanExperiencesKnowledgeLevel,
+                        dictDataName: '',
+                    },
+
+                    //期权
+                    {
+                        type: '6',
+                        dictType: 'knowledge_level',
+                        dictDataValue: this.regulatoryInfo.optionExperiencesTimes,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '6',
+                        dictType: 'years_of_trading',
+                        dictDataValue: this.regulatoryInfo.optionExperiencesYears,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '6',
+                        dictType: 'knowledge_level',
+                        dictDataValue: this.regulatoryInfo.optionExperiencesKnowledgeLevel,
+                        dictDataName: '',
+                    },
+
+                    //期权
+                    {
+                        type: '7',
+                        dictType: 'knowledge_level',
+                        dictDataValue: this.regulatoryInfo.featuresExperiencesTimes,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '7',
+                        dictType: 'years_of_trading',
+                        dictDataValue: this.regulatoryInfo.featuresExperiencesYears,
+                        dictDataName: '',
+                    },
+                    {
+                        type: '7',
+                        dictType: 'knowledge_level',
+                        dictDataValue: this.regulatoryInfo.featuresExperiencesKnowledgeLevel,
+                        dictDataName: '',
+                    },
+
+                ];
+
+                this.regulatoryInfo.investTargetArr.map((item, index) => {
+                    params.push(
+                            {
+                                type: '3',
+                                dictType: 'Investment_objectives',
+                                dictDataValue: item,
+                                dictDataName: '',
+                            },
+                    )
+                });
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        //...请求接口后跳转
-                        saveUserRegulation(this.regulatoryInfo).then(res=>{
-                            console.log(res);
-                            this.$router.replace({name: 'taxStatement'});
+                        saveUserRegulation(params).then(res=>{
+                           this.$router.replace({name: 'taxStatement'});
                         });
                     }
                 });
@@ -606,19 +752,19 @@
             Promise.all(allPromise).then(res => {
                 console.log(res);
                 this.compliances_1 = res[0].data.list;
-                this.compliances_2 = res[0].data.list;
-                this.compliances_3 = res[0].data.list;
-                this.compliances_4 = res[0].data.list;
-                this.compliances_5 = res[0].data.list;
+                this.compliances_2 = res[1].data.list;
+                this.compliances_3 = res[2].data.list;
+                this.compliances_4 = res[3].data.list;
+                this.compliances_5 = res[4].data.list;
 
-                this.netAssets = res[0].data.list;
-                this.netAssetFlows = res[1].data.list;
-                this.netAnnualIncome = res[2].data.list;
-                this.totalAssets = res[3].data.list;
-                this.numberOfTransactions = res[4].data.list;
-                this.yearsOfTrading = res[5].data.list;
-                this.knowledgeLevel = res[6].data.list;
-                this.investmentObjectives = res[7].data.list;
+                this.netAssets = res[5].data.list;
+                this.netAssetFlows = res[6].data.list;
+                this.netAnnualIncome = res[7].data.list;
+                this.totalAssets = res[8].data.list;
+                this.numberOfTransactions = res[9].data.list;
+                this.yearsOfTrading = res[10].data.list;
+                this.knowledgeLevel = res[11].data.list;
+                this.investmentObjectives = res[12].data.list;
             }).then(() => {
                 getUserRegulation().then(res => {
                     console.log(res);
