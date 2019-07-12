@@ -544,6 +544,13 @@ export default {
     text1: '設置成功'
   },
   openAccount: {
+    saveSuccess: '保存成功',
+    step: {
+      text1: '提交個人資料',
+      text2: '規管信息',
+      text3: '資料上傳',
+      text4: '預約見證',
+    },
     chooseMarket: {
       text1: '底層資産選擇',
       text2: '爲了給您提供更加多樣化的投資選擇，在原來的産品SmartGlobal的基礎上推出了以2000+支美國ETF爲底層的産品SmartGlobal Max，具體兩者的信息可通過如下對比圖做深入的了解。您可以根據自己的偏好，選擇轉移您的賬戶至SmartGlobal Max或者保留在原來的SmartGlobal中。',
@@ -554,7 +561,22 @@ export default {
     userInfo: {
       text1: '網上開戶',
       text2: '您正在申請的是美國上市交易的ETF',
-      text3: '您正在申請的是香港上市交易的ETF'
+      text3: '您正在申請的是香港上市交易的ETF',
+      text4: '個人信息',
+      text5: '請確保您填寫的姓名與身份證件上的信息完全壹致',
+      text6: '請選擇',
+      text7: '香港身份證號碼:',
+      text8: '請確保與您證件上的號碼完全壹致，包括英文大小寫、符號等',
+      text9: '婚姻狀況:',
+      text10: '香港手機號碼:',
+      text11: '請填寫香港手機號',
+      text12: '電子郵箱:',
+      text13: '請填寫電子郵箱地址',
+      text14: '家庭成員數:',
+      text15: '基礎貨幣:',
+      text16: '基賬戶類型:',
+      text17: '上壹步',
+      text18: '下壹步'
     }
   },
 }

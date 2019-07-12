@@ -1,9 +1,9 @@
 <template>
     <div class="open-steps-wrapper" :class="'active-step-'+step">
-        <div class="open-step step1">1. 提交个人资料</div>
-        <div class="open-step step2">2. 规管信息</div>
-        <div class="open-step step3">3. 资料上传</div>
-        <div class="open-step step4">4. 预约见证</div>
+        <div class="open-step step1">1. {{$t('openAccount.step.text1')}}</div>
+        <div class="open-step step2">2. {{$t('openAccount.step.text2')}}</div>
+        <div class="open-step step3">3. {{$t('openAccount.step.text3')}}</div>
+        <div class="open-step step4">4. {{$t('openAccount.step.text4')}}</div>
     </div>
 
 </template>

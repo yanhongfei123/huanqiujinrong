@@ -547,6 +547,13 @@ export default {
         text1: '设置成功'
     },
     openAccount: {
+        saveSuccess: '保存成功',
+        step: {
+            text1: '提交个人资料',
+            text2: '规管信息',
+            text3: '资料上传',
+            text4: '预约见证',
+        },
         chooseMarket: {
             text1: '底层资产选择',
             text2: '为了给您提供更加多样化的投资选择，在原来的产品SmartGlobal的基础上推出了以2000+支美国ETF为底层的产品SmartGlobal Max，具体两者的信息可通过如下对比图做深入的了解。您可以根据自己的偏好，选择转移您的账户至SmartGlobal Max或者保留在原來的SmartGlobal中。',
@@ -558,6 +565,21 @@ export default {
             text1: '网上开户',
             text2: '您正在申请的是美国上市交易的ETF',
             text3: '您正在申请的是香港上市交易的ETF',
+            text4: '个人信息',
+            text5: '请确保您填写的姓名与身份证件上的信息完全一致',
+            text6: '请选择',
+            text7: '香港身份证号码:',
+            text8: '请确保与您证件上的号码完全一致，包括英文大小写、符号等',
+            text9: '婚姻状况:',
+            text10: '香港手机号码:',
+            text11: '请填写香港手机号',
+            text12: '电子邮箱:',
+            text13: '请填写电子邮箱地址',
+            text14: '家庭成员数:',
+            text15: '基础货币:',
+            text16: '基账户类型:',
+            text17: '上一步',
+            text18: '下一步'
         }
     },
 }

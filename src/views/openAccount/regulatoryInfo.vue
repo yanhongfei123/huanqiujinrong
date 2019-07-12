@@ -15,40 +15,62 @@
                             label="1. 账户持有人或同一居所内居住的任何直系亲属不是注册经纪-自营商；证券或商品经纪公司的雇员、董事或所有人；银行、对冲基金/交易所或其他金融服务公司的雇员"
                             prop="compliance_1" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_1">
-                            <el-radio :label="0">是</el-radio>
-                            <el-radio :label="1">否</el-radio>
+                            <el-radio
+                                    v-for="item in compliances_1"
+                                    :key="item.dictCode"
+                                    :label="item | filterByLanguage('dictLabel')"
+                                    :value="item.dictValue">
+                            </el-radio>
+                            <!--<el-radio :label="0">是</el-radio>-->
+                            <!--<el-radio :label="1">否</el-radio>-->
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
                             label="2. 账户持有人不是任何一家公共上市公司的董事，持10%股权的股东或决策人"
                             prop="compliance_2" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_2">
-                            <el-radio :label="0">是</el-radio>
-                            <el-radio :label="1">否</el-radio>
+                            <el-radio
+                                    v-for="item in compliances_2"
+                                    :key="item.dictCode"
+                                    :label="item | filterByLanguage('dictLabel')"
+                                    :value="item.dictValue">
+                            </el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
                             label="3. 账户持有人不是监管或自我监管组织、交易所的成员、雇员或关联人"
                             prop="compliance_3" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_3">
-                            <el-radio :label="0">是</el-radio>
-                            <el-radio :label="1">否</el-radio>
+                            <el-radio
+                                    v-for="item in compliances_3"
+                                    :key="item.dictCode"
+                                    :label="item | filterByLanguage('dictLabel')"
+                                    :value="item.dictValue">
+                            </el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
                             label="4. 账户持有人不是曾作为主体参与或发起过涉及其他经纪商或经销商的诉讼，仲裁或任何类型的争端解决程序的人"
                             prop="compliance_4" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_4">
-                            <el-radio :label="0">是</el-radio>
-                            <el-radio :label="1">否</el-radio>
+                            <el-radio
+                                    v-for="item in compliances_4"
+                                    :key="item.dictCode"
+                                    :label="item | filterByLanguage('dictLabel')"
+                                    :value="item.dictValue">
+                            </el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
                             label="5. 账户持有者不是曾接受调查或被任何商品、证券交易所、监管机构或自我监管机构起诉的人"
                             prop="compliance_5" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_5">
-                            <el-radio :label="0">是</el-radio>
-                            <el-radio :label="1">否</el-radio>
+                            <el-radio
+                                    v-for="item in compliances_5"
+                                    :key="item.dictCode"
+                                    :label="item | filterByLanguage('dictLabel')"
+                                    :value="item.dictValue">
+                            </el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <div class="info-title">
@@ -263,8 +285,8 @@
                 </el-form>
                 <div class="btn-wrap">
                     <div @click="saveRegulatoryInfo('regulatoryInfoForm')" class="btn-item btn1">保存</div>
-                    <div @click="goSubmitAddressInfo" class="btn-item btn2">上一步</div>
-                    <div @click="goTaxStatement('regulatoryInfoForm')" class="btn-item btn3">下一步</div>
+                    <div @click="prev" class="btn-item btn2">上一步</div>
+                    <div @click="next('regulatoryInfoForm')" class="btn-item btn3">下一步</div>
                 </div>
             </div>
 
@@ -541,33 +563,35 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后提示
-                        this.$message.success('保存成功');
-                        saveUserRegulation
+                        saveUserRegulation(this.regulatoryInfo).then(res=>{
+                            console.log(res);
+                            this.$message.success('保存成功');
+                        });
                     }
                 });
             },
-            goSubmitAddressInfo() {
+            prev() {
                 this.$router.replace({name: 'addressInfo'});
             },
-            goTaxStatement(formName) {
+            next(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后跳转
-                        this.$router.replace({name: 'taxStatement'});
-                    } else {
-                        //测试
-                        this.$router.replace({name: 'taxStatement'});
+                        saveUserRegulation(this.regulatoryInfo).then(res=>{
+                            console.log(res);
+                            this.$router.replace({name: 'taxStatement'});
+                        });
                     }
                 });
             }
         },
         mounted() {
             /**
-             * 账户持有人或同一居所内居住的任何直系亲属不是注册经纪-自营商；证券或商品经纪公司的雇员、董事或所有人；银行、对冲基金\交易所或其他金融服务公司的雇员    compliance_1
-             账户持有人不是任何一家公共上市公司的董事，持10%股权的股东或决策人    compliance_2
-             账户持有人不是监管或自我监管组织、交易所的成员、雇员或关联人    compliance_3
-             账户持有人不是曾作为主体参与或发起过涉及其他经纪商或经销商的诉讼，仲裁或任何类型的争端解决程序的人    compliance_4
-             账户持有者不是曾接受调查或被任何商品、证券交易所、监管机构或自我监管机构起诉的人    compliance_5
+             * 账户持有人或同一居所内居住的任何直系亲属不是注册经纪-自营商；证券或商品经纪公司的雇员、董事或所有人；银行、对冲基金\交易所或其他金融服务公司的雇员 compliance_1
+             账户持有人不是任何一家公共上市公司的董事，持10%股权的股东或决策人 compliance_2
+             账户持有人不是监管或自我监管组织、交易所的成员、雇员或关联人 compliance_3
+             账户持有人不是曾作为主体参与或发起过涉及其他经纪商或经销商的诉讼，仲裁或任何类型的争端解决程序的人 compliance_4
+             账户持有者不是曾接受调查或被任何商品、证券交易所、监管机构或自我监管机构起诉的人 compliance_5
              净资产    net_assets
              净流动资产    net_asset_flows
              净年收入    net_annual_income
@@ -577,10 +601,16 @@
              知识水平    knowledge_level
              投资目标    Investment_objectives
              */
-            let allDictData = ['net_assets', 'net_asset_flows', 'net_annual_income', 'total_assets', 'number_of_transactions', 'years_of_trading', 'knowledge_level', 'Investment_objectives'];
+            let allDictData = ['compliance_1', 'compliance_2', 'compliance_3', 'compliance_4', 'compliance_5', 'net_assets', 'net_asset_flows', 'net_annual_income', 'total_assets', 'number_of_transactions', 'years_of_trading', 'knowledge_level', 'Investment_objectives'];
             let allPromise = allDictData.map(item => this.getGlobalData(item));
             Promise.all(allPromise).then(res => {
                 console.log(res);
+                this.compliances_1 = res[0].data.list;
+                this.compliances_2 = res[0].data.list;
+                this.compliances_3 = res[0].data.list;
+                this.compliances_4 = res[0].data.list;
+                this.compliances_5 = res[0].data.list;
+
                 this.netAssets = res[0].data.list;
                 this.netAssetFlows = res[1].data.list;
                 this.netAnnualIncome = res[2].data.list;
