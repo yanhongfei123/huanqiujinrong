@@ -47,8 +47,8 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item :label="$t('openAccount.userInfo.text6')" prop="card" required>
-                                <el-input type="date" :placeholder="$t('openAccount.userInfo.text8')"
+                            <el-form-item :label="$t('openAccount.userInfo.text7')" prop="card" required>
+                                <el-input type="text" :placeholder="$t('openAccount.userInfo.text8')"
                                           v-model="userInfo.card"></el-input>
                             </el-form-item>
                         </el-col>

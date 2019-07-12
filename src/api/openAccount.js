@@ -52,3 +52,12 @@ export function getUserRegulation(data) {
     data: data
   })
 }
+
+//税务申明
+export function updateUserBase(data) {
+  return request({
+    url: '/user/updateUserBase',
+    method: 'post',
+    data: data
+  })
+}

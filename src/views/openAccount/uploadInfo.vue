@@ -161,7 +161,7 @@
         data() {
             return {
                 type: this.$route.query.type,
-                step: 2,
+                step: 3,
                 labelPosition: 'top',
                 fileList: [],
                 uploadInfoRules: {},

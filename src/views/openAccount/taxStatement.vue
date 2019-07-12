@@ -29,21 +29,16 @@
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="3.居住地址:" prop="residentAddress" required>
-                                <el-input v-model="statementInfo.residentAddress"
+                            <el-form-item label="3.居住地址:" prop="addr" required>
+                                <el-input v-model="statementInfo.addr"
                                           placeholder="请与身份证明文件上地址保持一致。"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="4.出生日期:" prop="birthDate" required>
-                                <el-date-picker
-                                        v-model="statementInfo.birthDate"
-                                        type="date"
-                                        placeholder="请选择"
-                                        :picker-options="pickerOptions"
-                                        format="yyyy 年 MM 月 dd 日"
-                                        value-format="yyyy-MM-dd">
-                                </el-date-picker>
+                            <el-form-item label="4.出生日期:" prop="birthday" required>
+                                <el-date-picker type="date" :placeholder="$t('openAccount.userInfo.text6')" v-model="statementInfo.birthday"
+                                                value-format="yyyy-MM-dd"
+                                                style="width: 100%;" :editable=false></el-date-picker>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -52,9 +47,9 @@
                             <el-radio :label="0">是</el-radio>
                             <el-radio :label="1">否</el-radio>
                         </el-radio-group>
-                        <el-form-item label="US TIN:" prop="taxNo" v-if="statementInfo.hasTaxNo == 0"
+                        <el-form-item label="US TIN:" prop="TIN" v-if="statementInfo.hasTaxNo == 0"
                                       style="width: 380px;margin-top: 10px;">
-                            <el-input v-model="statementInfo.taxNo" placeholder="请与身份证明文件上地址保持一致。"></el-input>
+                            <el-input v-model="statementInfo.TIN" placeholder="请与身份证明文件上地址保持一致。"></el-input>
                         </el-form-item>
                     </el-form-item>
                     <el-form-item label="6.您是否可享受美国所得税协定优惠？" prop="hasTaxIncentives" required>
@@ -80,13 +75,13 @@
                             </el-form-item>
                         </div>
                     </el-form-item>
-                    <el-form-item label="7.出生国家/地区" prop="birthCountry" required>
-                        <el-select v-model="statementInfo.birthCountry" placeholder="请选择国家/地区" style="width: 380px;">
+                    <el-form-item label="7.出生国家/地区" prop="country" required>
+                        <el-select v-model="statementInfo.country" placeholder="请选择国家/地区" style="width: 380px;">
                             <el-option
-                                    v-for="item in country"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
+                                    v-for="item in countryList"
+                                    :key="item.dictCode"
+                                    :label="item | filterByLanguage('dictLabel')"
+                                    :value="item.dictValue">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -105,9 +100,12 @@
                     <el-form-item label="9.美国国税局声明 - 仅适用于行 1-{0}:" required>
                         <div class="tax-statement">
                             <p>本人声明，我已仔细检查了第1-{0}行内的信息，据我所知及所信，此类信息是真实、正确且完整的；如有不实，甘受伪证罪处罚。我进一步以甘受伪证罪处罚为担保，声明以下事项：</p>
-                            <p>1.本人是本表格相关之收入的受益所有人（或被授权为受益所有人签字），或正在使用该表格作为文件证明本人是一家外国金融机构的所有人或账户持有人，本表第1行中列出的人士不是美国税务居民或美国人。</p>
-                            <p>2.与本表有关之所得系：(i)与在美国境内从事贸易或商业活动无关，(ii) 与在美国境内从事贸易或商业活动有关，但因税收协定而不用纳税，或者(iii)属合伙人分配自其合伙组织之所得。</p>
-                            <p>3.本表第1行所列个人，就美国与表格第6行所列之协定国家（如有）之间的所得税协定而言，符合该国居民之定义，且对经纪商交易或易货交易，受益所有人是W-8BEN表说明中定义的免税外籍人士。</p>
+                            <p>
+                                1.本人是本表格相关之收入的受益所有人（或被授权为受益所有人签字），或正在使用该表格作为文件证明本人是一家外国金融机构的所有人或账户持有人，本表第1行中列出的人士不是美国税务居民或美国人。</p>
+                            <p>2.与本表有关之所得系：(i)与在美国境内从事贸易或商业活动无关，(ii)
+                                与在美国境内从事贸易或商业活动有关，但因税收协定而不用纳税，或者(iii)属合伙人分配自其合伙组织之所得。</p>
+                            <p>
+                                3.本表第1行所列个人，就美国与表格第6行所列之协定国家（如有）之间的所得税协定而言，符合该国居民之定义，且对经纪商交易或易货交易，受益所有人是W-8BEN表说明中定义的免税外籍人士。</p>
                             <p>4.此外，我授权将此表提供给任何一个能够控制、收受或保管以我为受益所有人之所得的扣缴代理人，或任何可以支付或分配以我为受益所有人之所得的扣缴代理人。</p>
                             <p>本人同意本表之任何声明如有不正确时，会在30天内重新提交新的表格。</p>
                             <p>除了用以确立您非美国人身份及降低预扣税率的声明外，美国国税局不需要征得您对本文件条款的同意。</p>
@@ -119,7 +117,7 @@
                                 本人同意，本表中包含的有关账户持有人和账户活动的信息可能会与我们的关联方共享，也可能被用于向<br>
                                 Inland Revenue Department报告，后者在法律允许的范围内可能会与全球其他政府当局共享此类信息。在法律要求的范围内，我<br>
                                 同意共享此类信息，并在必要的程度内免除数据保护或其他适用法律下对此类信息的保护与权利。</p>
-                            <p>日期： <span >{{ statementInfo.date }}</span></p>
+                            <p>日期： <span>{{ statementInfo.date }}</span></p>
                             <p>客户在此输入签名即表示确认所填写的内容准确或同意税务居住地本人声明(Substitute W-8BEN)条款，本人了解并同意此电子签名等同于手写签名。</p>
                         </div>
                     </el-form-item>
@@ -133,13 +131,14 @@
                         </el-radio-group>
                     </el-form-item>
                     <div class="important-tips">
-                        重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
+                        重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive
+                        Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
                     </div>
                 </el-form>
                 <div class="btn-wrap">
                     <div @click="saveStatementInfo('statementInfoForm')" class="btn-item btn1">保存</div>
-                    <div @click="goSubmitRegulatoryInfo" class="btn-item btn2">上一步</div>
-                    <div @click="goDisclosure('statementInfoForm')" class="btn-item btn3">本人同意</div>
+                    <div @click="prev" class="btn-item btn2">上一步</div>
+                    <div @click="next('statementInfoForm')" class="btn-item btn3">本人同意</div>
                 </div>
             </div>
 
@@ -153,7 +152,8 @@
     import openAccountHeader from '@/components/header/openAccountHeader.vue';
     import footerBar from '@/components/footer/footer.vue';
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
-    import { parseTime } from '@/utils/index.js';
+    import {parseTime} from '@/utils/index.js';
+    import {getUserInfo,getUserBase, updateUserBase} from '@/api/openAccount';
 
     export default {
         name: 'statementInfo',
@@ -167,69 +167,51 @@
                 type: this.$route.query.type,
                 step: 2,
                 labelPosition: 'top',
-                country: [
-                    {
-                        value: 'chn',
-                        label: '中国大陆'
-                    },
-                    {
-                        value: 'hk',
-                        label: '中国香港'
-                    },
-                    {
-                        value: 'mac',
-                        label: '中国澳门'
-                    },
-                    {
-                        value: 'sg',
-                        label: '新加坡'
-                    },
-                ],
+                countryList: [],
                 statementInfoRules: {
                     beneficiary: [
-                        { required: true, message: "请输入收益所有人名称" },
+                        {required: true, message: "请输入收益所有人名称"},
                     ],
                     nationality: [
-                        { required: true, message: "请输入国籍" },
+                        {required: true, message: "请输入国籍"},
                     ],
-                    residentAddress: [
-                        { required: true, message: "请输入居住地址" },
+                    addr: [
+                        {required: true, message: "请输入居住地址"},
                     ],
-                    birthDate: [
-                        { required: true, message: "请选择出生日期" },
+                    birthday: [
+                        {required: true, message: "请选择出生日期"},
                     ],
                     hasTaxNo: [
-                        { required: true, message: "请选择" },
+                        {required: true, message: "请选择"},
                     ],
                     taxNo: [
-                        { required: true, message: "请填写纳税识别号" },
+                        {required: true, message: "请填写纳税识别号"},
                     ],
                     hasTaxIncentives: [
-                        { required: true, message: "请选择" },
+                        {required: true, message: "请选择"},
                     ],
                     taxIncentivesCountry: [
-                        { required: true, message: "请选择优惠国家" },
+                        {required: true, message: "请选择优惠国家"},
                     ],
-                    birthCountry: [
-                        { required: true, message: "请选择出生国家/地区" },
+                    country: [
+                        {required: true, message: "请选择出生国家/地区"},
                     ],
                     taxCountry: [
-                        { required: true, message: "请选择税务居住国家/地区" },
+                        {required: true, message: "请选择税务居住国家/地区"},
                     ],
                     usTaxNo: [
-                        { required: true, message: "请填写美国纳税人识别号码" },
+                        {required: true, message: "请填写美国纳税人识别号码"},
                     ],
                     signName: [
-                        { required: true, message: "请填写签名" },
+                        {required: true, message: "请填写签名"},
                     ],
                     agreement: [
-                        { required: true, message: "请选择" },
+                        {required: true, message: "请选择"},
                     ]
                 },
                 statementInfo: {
-                    taxCountry: '中国香港',
-                    usTaxNo: '678419198501107657',
-                    date: '2019-06-11'
+                    birthday: '',
+                    country: ''
                 }
             };
         },
@@ -247,26 +229,44 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后提示
-                        this.$message.success('保存成功');
+                        updateUserBase(this.statementInfo).then(res => {
+                            console.log(res);
+                            this.$message.success('保存成功');
+                        });
                     }
                 });
             },
-            goSubmitRegulatoryInfo() {
+            prev() {
                 this.$router.replace({name: 'regulatoryInfo'});
             },
-            goDisclosure(formName) {
+            next(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后跳转
-                        this.$router.replace({name: 'disClosure'});
-                    } else {
-                        //测试
-                        this.$router.replace({name: 'disClosure'});
+                        updateUserBase(this.statementInfo).then(res => {
+                            console.log(res);
+                            this.$router.replace({name: 'disClosure'});
+                        });
                     }
                 });
             }
         },
         mounted() {
+            this.getGlobalData('country_type').then(res => {
+                this.countryList = res.data.list;
+                getUserInfo().then(response => {
+                    if (response.data) {
+                        this.statementInfo.birthday = response.data.birthday;
+                        console.log(response.data.birthday);
+                        getUserBase().then(data=>{
+                            this.statementInfo.addr = data.data.addr;
+                            this.statementInfo.country = data.data.country;
+                            console.log(this.statementInfo);
+                        })
+                    }
+                });
+
+            });
         }
     };
 </script>
@@ -375,18 +375,19 @@
                     font-weight: 400;
                     color: #141416;
                     line-height: 20px;
-                    p{
+
+                    p {
                         margin-bottom: 20px;
                     }
                 }
 
-                .important-tips{
+                .important-tips {
                     padding: 40px 0 22px;
-                    font-size:16px;
-                    font-family:SourceHanSansSC-Medium;
-                    font-weight:500;
+                    font-size: 16px;
+                    font-family: SourceHanSansSC-Medium;
+                    font-weight: 500;
                     color: #000;
-                    line-height:32px;
+                    line-height: 32px;
                 }
             }
         }
