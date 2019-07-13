@@ -18,12 +18,12 @@
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item label="1.受益所有人名称:" prop="beneficiary" required>
-                                <el-input v-model="statementInfo.beneficiary" placeholder="请输入受益所有人名称"></el-input>
+                                <el-input v-model="statementInfo.beneficiary" placeholder="请输入受益所有人名称" :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="2.国籍:" prop="nationality" required>
-                                <el-input v-model="statementInfo.nationality" placeholder="请输入国籍"></el-input>
+                                <el-input v-model="statementInfo.nationality" placeholder="请输入国籍" :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -31,44 +31,45 @@
                         <el-col style="width: 380px">
                             <el-form-item label="3.居住地址:" prop="addr" required>
                                 <el-input v-model="statementInfo.addr"
-                                          placeholder="请与身份证明文件上地址保持一致。"></el-input>
+                                          placeholder="请与身份证明文件上地址保持一致。" :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item label="4.出生日期:" prop="birthday" required>
-                                <el-date-picker type="date" :placeholder="$t('openAccount.userInfo.text6')" v-model="statementInfo.birthday"
+                                <el-date-picker type="date" :placeholder="$t('openAccount.userInfo.text6')"
+                                                v-model="statementInfo.birthday"
                                                 value-format="yyyy-MM-dd"
-                                                style="width: 100%;" :editable=false></el-date-picker>
+                                                style="width: 100%;" :disabled="true"></el-date-picker>
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <el-form-item label="5.您是否有美国纳税人识别号？" prop="hasTaxNo" required>
-                        <el-radio-group v-model="statementInfo.hasTaxNo">
-                            <el-radio :label="0">是</el-radio>
-                            <el-radio :label="1">否</el-radio>
+                    <el-form-item label="5.您是否有美国纳税人识别号？" prop="USDiscern" required>
+                        <el-radio-group v-model="statementInfo.USDiscern">
+                            <el-radio :label="1">是</el-radio>
+                            <el-radio :label="0">否</el-radio>
                         </el-radio-group>
-                        <el-form-item label="US TIN:" prop="TIN" v-if="statementInfo.hasTaxNo == 0"
+                        <el-form-item label="US TIN:" prop="TIN" v-if="statementInfo.USDiscern == 1"
                                       style="width: 380px;margin-top: 10px;">
                             <el-input v-model="statementInfo.TIN" placeholder="请与身份证明文件上地址保持一致。"></el-input>
                         </el-form-item>
                     </el-form-item>
-                    <el-form-item label="6.您是否可享受美国所得税协定优惠？" prop="hasTaxIncentives" required>
-                        <el-radio-group v-model="statementInfo.hasTaxIncentives">
-                            <el-radio :label="0">是</el-radio>
-                            <el-radio :label="1">否</el-radio>
+                    <el-form-item label="6.您是否可享受美国所得税协定优惠？" prop="isUsDiscount" required>
+                        <el-radio-group v-model="statementInfo.isUsDiscount">
+                            <el-radio :label="1">是</el-radio>
+                            <el-radio :label="0">否</el-radio>
                         </el-radio-group>
                         <p class="desc">
                             尽管您可能与和美国执行税收优惠协定的国家有所关联，但您还未选择协定国。如果不选择，那么您在美国账户赚取的收入可能会被征收额外的预扣税。如果您认为自己符合税收优惠协定的条件，进行选择；反之则无需采取任何行动</p>
-                        <div v-if="statementInfo.hasTaxIncentives == 0">
+                        <div v-if="statementInfo.isUsDiscount == 1">
                             <p class="text tax-text1">本人确认，受益所有人在美国与所属国的税收协定下，符合</p>
                             <el-form-item prop="taxIncentivesCountry" style="width: 416px;margin-top: 10px;">
-                                <el-select v-model="statementInfo.taxIncentivesCountry" placeholder="请选择国家/地区"
+                                <el-select v-model="statementInfo.usCountry" placeholder="请选择国家/地区"
                                            style="width: 380px;">
                                     <el-option
-                                            v-for="item in country"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
+                                            v-for="item in countryList"
+                                            :key="item.dictCode"
+                                            :label="item | filterByLanguage('dictLabel')"
+                                            :value="item.dictValue">
                                     </el-option>
                                 </el-select>
                                 <p class="text tax-text2">的居民定义。</p>
@@ -76,7 +77,8 @@
                         </div>
                     </el-form-item>
                     <el-form-item label="7.出生国家/地区" prop="country" required>
-                        <el-select v-model="statementInfo.country" placeholder="请选择国家/地区" style="width: 380px;">
+                        <el-select v-model="statementInfo.country" placeholder="请选择国家/地区" style="width: 380px;"
+                                   disabled>
                             <el-option
                                     v-for="item in countryList"
                                     :key="item.dictCode"
@@ -89,11 +91,11 @@
                         <el-row>
                             <el-col style="width: 380px">
                                 <div class="input-title">税务居住国</div>
-                                <el-input v-model="statementInfo.taxCountry"></el-input>
+                                <el-input v-model="statementInfo.taxCountry" :disabled="true"></el-input>
                             </el-col>
                             <el-col style="width: 380px;margin-left: 20px;">
                                 <div class="input-title">美国纳税人识别号码</div>
-                                <el-input v-model="statementInfo.usTaxNo"></el-input>
+                                <el-input v-model="statementInfo.usTaxNo" :disabled="true"></el-input>
                             </el-col>
                         </el-row>
                     </el-form-item>
@@ -121,8 +123,8 @@
                             <p>客户在此输入签名即表示确认所填写的内容准确或同意税务居住地本人声明(Substitute W-8BEN)条款，本人了解并同意此电子签名等同于手写签名。</p>
                         </div>
                     </el-form-item>
-                    <el-form-item label="签名：" prop="signName" required>
-                        <el-input placeholder="请输入签名，名与姓之间有一个空格" v-model="statementInfo.signName"></el-input>
+                    <el-form-item label="签名：" prop="autograph" required>
+                        <el-input placeholder="请输入签名，名与姓之间有一个空格" v-model="statementInfo.autograph"></el-input>
                     </el-form-item>
                     <el-form-item label="11 . 勾选“是”表示您同意我们通过电子化的形式（包括通过账户管理终端）而非纸质形式收集及分发税表。" prop="agreement" required>
                         <el-radio-group v-model="statementInfo.agreement">
@@ -149,126 +151,159 @@
 
 <script>
 
-    import openAccountHeader from '@/components/header/openAccountHeader.vue';
-    import footerBar from '@/components/footer/footer.vue';
-    import openAccountSteps from '@/components/common/openAccountSteps.vue';
-    import {parseTime} from '@/utils/index.js';
-    import {getUserInfo,getUserBase, updateUserBase} from '@/api/openAccount';
+  import openAccountHeader from '@/components/header/openAccountHeader.vue';
+  import footerBar from '@/components/footer/footer.vue';
+  import openAccountSteps from '@/components/common/openAccountSteps.vue';
+  import { parseTime } from '@/utils/index.js';
+  import { getUserBase, getUserInfo, updateUserBase } from '@/api/openAccount';
 
-    export default {
-        name: 'statementInfo',
-        components: {
-            openAccountHeader,
-            footerBar,
-            openAccountSteps
+  export default {
+    name: 'statementInfo',
+    components: {
+      openAccountHeader,
+      footerBar,
+      openAccountSteps
+    },
+    data() {
+      return {
+        type: this.$route.query.type,
+        step: 2,
+        labelPosition: 'top',
+        countryList: [],
+        statementInfoRules: {
+          beneficiary: [
+            { required: true, message: '请输入收益所有人名称' },
+          ],
+          nationality: [
+            { required: true, message: '请输入国籍' },
+          ],
+          addr: [
+            { required: true, message: '请输入居住地址' },
+          ],
+          birthday: [
+            { required: true, message: '请选择出生日期' },
+          ],
+          USDiscern: [
+            { required: true, message: '请选择' },
+          ],
+          taxNo: [
+            { required: true, message: '请填写纳税识别号' },
+          ],
+          isUsDiscount: [
+            { required: true, message: '请选择' },
+          ],
+          usCountry: [
+            { required: true, message: '请选择优惠国家' },
+          ],
+          country: [
+            { required: true, message: '请选择出生国家/地区' },
+          ],
+          taxCountry: [
+            { required: true, message: '请选择税务居住国家/地区' },
+          ],
+          usTaxNo: [
+            { required: true, message: '请填写美国纳税人识别号码' },
+          ],
+          autograph: [
+            { required: true, message: '请填写签名' },
+          ],
+          agreement: [
+            { required: true, message: '请选择' },
+          ]
         },
-        data() {
-            return {
-                type: this.$route.query.type,
-                step: 2,
-                labelPosition: 'top',
-                countryList: [],
-                statementInfoRules: {
-                    beneficiary: [
-                        {required: true, message: "请输入收益所有人名称"},
-                    ],
-                    nationality: [
-                        {required: true, message: "请输入国籍"},
-                    ],
-                    addr: [
-                        {required: true, message: "请输入居住地址"},
-                    ],
-                    birthday: [
-                        {required: true, message: "请选择出生日期"},
-                    ],
-                    hasTaxNo: [
-                        {required: true, message: "请选择"},
-                    ],
-                    taxNo: [
-                        {required: true, message: "请填写纳税识别号"},
-                    ],
-                    hasTaxIncentives: [
-                        {required: true, message: "请选择"},
-                    ],
-                    taxIncentivesCountry: [
-                        {required: true, message: "请选择优惠国家"},
-                    ],
-                    country: [
-                        {required: true, message: "请选择出生国家/地区"},
-                    ],
-                    taxCountry: [
-                        {required: true, message: "请选择税务居住国家/地区"},
-                    ],
-                    usTaxNo: [
-                        {required: true, message: "请填写美国纳税人识别号码"},
-                    ],
-                    signName: [
-                        {required: true, message: "请填写签名"},
-                    ],
-                    agreement: [
-                        {required: true, message: "请选择"},
-                    ]
-                },
-                statementInfo: {
-                    birthday: '',
-                    country: ''
-                }
-            };
-        },
-        computed: {
-            pickerOptions() {
-                return {
-                    disabledDate(time) {
-                        return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
-                    }
-                }
-            },
-        },
-        methods: {
-            saveStatementInfo(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后提示
-                        updateUserBase(this.statementInfo).then(res => {
-                            console.log(res);
-                            this.$message.success('保存成功');
-                        });
-                    }
-                });
-            },
-            prev() {
-                this.$router.replace({name: 'regulatoryInfo'});
-            },
-            next(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后跳转
-                        updateUserBase(this.statementInfo).then(res => {
-                            console.log(res);
-                            this.$router.replace({name: 'disClosure'});
-                        });
-                    }
-                });
-            }
-        },
-        mounted() {
-            this.getGlobalData('country_type').then(res => {
-                this.countryList = res.data.list;
-                getUserInfo().then(response => {
-                    if (response.data) {
-                        this.statementInfo.birthday = response.data.birthday;
-                        console.log(response.data.birthday);
-                        getUserBase().then(data=>{
-                            this.statementInfo.addr = data.data.addr;
-                            this.statementInfo.country = data.data.country;
-                            console.log(this.statementInfo);
-                        })
-                    }
-                });
+        statementInfo: {
+          nationality: '中国香港',
+          birthday: '',
+          country: '',
+          USDiscern: '',
+          taxCountry: '中国香港',
+          isUsDiscount: '',
 
-            });
         }
-    };
+      };
+    },
+    computed: {
+      pickerOptions() {
+        return {
+          disabledDate(time) {
+            return time.getTime() > Date.now();//开始时间不选时，结束时间最大值小于等于当天
+          }
+        };
+      },
+    },
+    methods: {
+      saveStatementInfo(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //...请求接口后提示
+            let params = {
+              USDiscern: this.statementInfo.USDiscern,
+              isUsDiscount: this.statementInfo.isUsDiscount,
+              taxTreaty: this.statementInfo.taxTreaty,
+              autograph: this.statementInfo.autograph
+            };
+            if(this.statementInfo.USDiscern==1){
+              params.TIN = this.statementInfo.TIN;
+            }
+            if(this.statementInfo.isUsDiscount==1){
+              params.usCountry = this.statementInfo.usCountry;
+            }
+            updateUserBase(params).then(res => {
+              console.log(res);
+              this.$message.success('保存成功');
+            });
+          }
+        });
+      },
+      prev() {
+        this.$router.replace({ name: 'regulatoryInfo' });
+      },
+      next(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //...请求接口后跳转
+            let params = {
+              USDiscern: this.statementInfo.USDiscern,
+              isUsDiscount: this.statementInfo.isUsDiscount,
+              taxTreaty: this.statementInfo.taxTreaty,
+              autograph: this.statementInfo.autograph
+            };
+            if(this.statementInfo.USDiscern==1){
+                params.TIN = this.statementInfo.TIN;
+            }
+            if(this.statementInfo.isUsDiscount==1){
+              params.usCountry = this.statementInfo.usCountry;
+            }
+            updateUserBase(params).then(res => {
+              console.log(res);
+              // this.$router.replace({ name: 'disClosure' });
+            });
+          }
+        });
+      }
+    },
+    mounted() {
+      this.getGlobalData('country_type').then(res => {
+        this.countryList = res.data.list;
+        getUserInfo().then(response => {
+          if (response.data) {
+            let data = response.data;
+            this.statementInfo.birthday = data.birthday;
+            this.statementInfo.usTaxNo = data.card;
+            this.statementInfo.beneficiary = data.surnameChina+data.nameChina;
+            getUserBase().then(data => {
+              this.statementInfo.addr = data.data.addr;
+              this.statementInfo.country = data.data.country;
+              this.statementInfo.isUsDiscount = parseInt(data.data.isUsDiscount);
+              this.statementInfo.autograph = data.data.autograph;
+              this.statementInfo.USDiscern = parseInt(data.data.uSDiscern);
+            });
+          }
+        });
+
+      });
+    }
+  };
 </script>
 <style lang="scss">
     .el-radio-group {
