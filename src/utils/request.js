@@ -13,7 +13,7 @@ import router from '../router'
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? 'http://47.91.214.249:8003/' : '/api/', // api的base_url
-  timeout: 8000 // request timeout
+  timeout: 12000 // request timeout
 });
 var loadingInstance;
 

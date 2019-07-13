@@ -198,7 +198,7 @@
                         </el-row>
                         <el-row v-if="openzhaiquanTrade">
                             <el-col :span="8">
-                                <el-form-item prop="optionExperiencesTimes" class="margin-bottom-30">
+                                <el-form-item prop="zhaiquanExperiencesTimes" class="margin-bottom-30">
                                     <el-select v-model="regulatoryInfo.zhaiquanExperiencesTimes" placeholder="请选择每年交易次数">
                                         <el-option
                                                 v-for="item in numberOfTransactions"
@@ -210,7 +210,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item prop="optionExperiencesYears" class="margin-bottom-30">
+                                <el-form-item prop="zhaiquanExperiencesYears" class="margin-bottom-30">
                                     <el-select v-model="regulatoryInfo.zhaiquanExperiencesYears" placeholder="请选择交易年数">
                                         <el-option
                                                 v-for="item in yearsOfTrading"
@@ -222,7 +222,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item prop="optionExperiencesKnowledgeLevel" class="margin-bottom-30">
+                                <el-form-item prop="zhaiquanExperiencesKnowledgeLevel" class="margin-bottom-30">
                                     <el-select v-model="regulatoryInfo.zhaiquanExperiencesKnowledgeLevel"
                                                placeholder="请选择知识水平">
                                         <el-option
@@ -283,7 +283,7 @@
                         <el-row v-if="openFeaturesTrade">
                             <el-col :span="8">
                                 <el-form-item prop="featuresExperiencesTimes" class="margin-bottom-30">
-                                    <el-select v-model="regulatoryInfo.featuresExperiencesTimes"
+                                    <el-select @change="change" v-model="regulatoryInfo.featuresExperiencesTimes"
                                                placeholder="请选择每年交易次数">
                                         <el-option
                                                 v-for="item in numberOfTransactions"
@@ -323,9 +323,9 @@
                     </el-form-item>
                 </el-form>
                 <div class="btn-wrap">
-                    <div @click="saveRegulatoryInfo('regulatoryInfoForm')" class="btn-item btn1">保存</div>
+                    <div @click="next(false)" class="btn-item btn1">保存</div>
                     <div @click="prev" class="btn-item btn2">上一步</div>
-                    <div @click="next('regulatoryInfoForm')" class="btn-item btn3">下一步</div>
+                    <div @click="next(true)" class="btn-item btn3">下一步</div>
                 </div>
             </div>
 
@@ -507,6 +507,16 @@
                         {required: true, message: '请选择总资产', trigger: 'blur'},
                         {validator: validateTotalAsset, trigger: 'change'}
                     ],
+                    zhaiquanExperiencesYears: [
+                        {validator: validateTradeYears, trigger: 'change'}
+                    ],
+                    zhaiquanExperiencesTimes: [
+                        {validator: validateTradeTimes, trigger: 'change'}
+                    ],
+                    zhaiquankExperiencesKnowledgeLevel: [
+                        {validator: validateTradeKnowledgeLevel, trigger: 'change'}
+                    ],
+
                     stockExperiencesYears: [
                         {validator: validateTradeYears, trigger: 'change'}
                     ],
@@ -516,6 +526,7 @@
                     stockExperiencesKnowledgeLevel: [
                         {validator: validateTradeKnowledgeLevel, trigger: 'change'}
                     ],
+
                     optionExperiencesYears: [
                         {validator: validateTradeYears, trigger: 'change'}
                     ],
@@ -525,6 +536,7 @@
                     optionExperiencesKnowledgeLevel: [
                         {validator: validateTradeKnowledgeLevel, trigger: 'change'}
                     ],
+
                     featuresExperiencesYears: [
                         {validator: validateTradeYears, trigger: 'change'}
                     ],
@@ -543,11 +555,38 @@
                 openFeaturesTrade: false,
                 openzhaiquanTrade: false,
                 regulatoryInfo: {
+                    compliance_1:'',
+                    compliance_2:'',
+                    compliance_3:'',
+                    compliance_4:'',
+                    compliance_5:'',
                     investTargetArr: [],
-                }
+                    featuresExperiencesKnowledgeLevel: "",
+                    featuresExperiencesTimes: '',
+                    featuresExperiencesYears: "",
+                    investTargetArr: '',
+                    netAsset: "",
+                    netAssetFlow: "",
+                    netAssetTotal: "",
+                    netAssetYear: "",
+                    optionExperiencesKnowledgeLevel: "",
+                    optionExperiencesTimes: "",
+                    optionExperiencesYears: "",
+                    stockExperiencesKnowledgeLevel: "",
+                    stockExperiencesTimes: "",
+                    stockExperiencesYears: "",
+                    zhaiquanExperiencesKnowledgeLevel: "",
+                    zhaiquanExperiencesTimes: "",
+                    zhaiquanExperiencesYears: "",
+
+                },
+                params: [],
             };
         },
         methods: {
+            change(value){
+                 console.log(value)
+            },
             changeInvestTarget(value) {
                 console.log(value)
             },
@@ -565,38 +604,38 @@
             prev() {
                 this.$router.replace({name: 'addressInfo'});
             },
-            next(formName) {
-                console.log(this.regulatoryInfo)
+            next(flag) {
+               console.log(this.regulatoryInfo);
 
-                var params = [
+                this.params = [
                     {
                         type: '1',
                         dictType: 'compliances_1',
-                        dictDataValue: this.regulatoryInfo.compliances_1,
+                        dictDataValue: this.regulatoryInfo.compliance_1,
                         dictDataName: '',
                     },
                     {
                         type: '1',
                         dictType: 'compliances_2',
-                        dictDataValue: this.regulatoryInfo.compliances_2,
+                        dictDataValue: this.regulatoryInfo.compliance_2,
                         dictDataName: '',
                     },
                     {
                         type: '1',
                         dictType: 'compliances_3',
-                        dictDataValue: this.regulatoryInfo.compliances_3,
+                        dictDataValue: this.regulatoryInfo.compliance_3,
                         dictDataName: '',
                     },
                     {
                         type: '1',
                         dictType: 'compliances_4',
-                        dictDataValue: this.regulatoryInfo.compliances_4,
+                        dictDataValue: this.regulatoryInfo.compliance_4,
                         dictDataName: '',
                     },
                     {
                         type: '1',
                         dictType: 'compliances_5',
-                        dictDataValue: this.regulatoryInfo.compliances_5,
+                        dictDataValue: this.regulatoryInfo.compliance_5,
                         dictDataName: '',
                     },
                     {
@@ -623,12 +662,6 @@
                         dictDataValue: this.regulatoryInfo.netAssetTotal,//
                         dictDataName: '',
                     },
-                    {
-                        type: '3',
-                        dictType: 'Investment_objectives',
-                        dictDataValue: this.regulatoryInfo.investTargetArr[0],
-                        dictDataName: '',
-                    },
                     //股票
                     {
                         type: '4',
@@ -649,10 +682,16 @@
                         dictDataName: '',
                     },
 
+                ];
+
+
+                if (this.openzhaiquanTrade) {
+                    this.params.push(
+
                     //债券
                     {
                         type: '5',
-                        dictType: 'knowledge_level',
+                        dictType: 'number_of_transactions',
                         dictDataValue: this.regulatoryInfo.zhaiquanExperiencesTimes,
                         dictDataName: '',
                     },
@@ -667,12 +706,27 @@
                         dictType: 'knowledge_level',
                         dictDataValue: this.regulatoryInfo.zhaiquanExperiencesKnowledgeLevel,
                         dictDataName: '',
-                    },
+                    }
+                    )
+                }
 
+                this.regulatoryInfo.investTargetArr.map((item, index) => {
+                    this.params.push(
+                            {
+                                type: '3',
+                                dictType: 'Investment_objectives',
+                                dictDataValue: item,
+                                dictDataName: '',
+                            },
+                    )
+                });
+
+                if (this.openOptionTrade) {
+                    this.params.push(
                     //期权
                     {
                         type: '6',
-                        dictType: 'knowledge_level',
+                        dictType: 'number_of_transactions',
                         dictDataValue: this.regulatoryInfo.optionExperiencesTimes,
                         dictDataName: '',
                     },
@@ -687,12 +741,16 @@
                         dictType: 'knowledge_level',
                         dictDataValue: this.regulatoryInfo.optionExperiencesKnowledgeLevel,
                         dictDataName: '',
-                    },
+                    }
+                    );
+                }
 
-                    //期权
+                if (this.openFeaturesTrade) {
+                    this.params.push(
+                    //期货
                     {
                         type: '7',
-                        dictType: 'knowledge_level',
+                        dictType: 'number_of_transactions',
                         dictDataValue: this.regulatoryInfo.featuresExperiencesTimes,
                         dictDataName: '',
                     },
@@ -708,27 +766,39 @@
                         dictDataValue: this.regulatoryInfo.featuresExperiencesKnowledgeLevel,
                         dictDataName: '',
                     },
+                    );
+                }
 
-                ];
+                console.log(this.params)
 
-                this.regulatoryInfo.investTargetArr.map((item, index) => {
-                    params.push(
-                            {
-                                type: '3',
-                                dictType: 'Investment_objectives',
-                                dictDataValue: item,
-                                dictDataName: '',
-                            },
-                    )
-                });
-
-                this.$refs[formName].validate((valid) => {
+                this.$refs['regulatoryInfoForm'].validate((valid) => {
                     if (valid) {
-                        saveUserRegulation(params).then(res=>{
-                           this.$router.replace({name: 'taxStatement'});
+                        saveUserRegulation(this.params).then(res=>{
+                           if(flag){
+                               this.$router.replace({name: 'taxStatement'});
+                           } else{
+                               this.$message.success('保存成功');
+                           }
                         });
                     }
                 });
+            },
+            getData(data, type){
+                    var featuresO = {};
+                    var features = data.map(item => {
+                        if(item.type == type){
+                            if(item.dictType == 'number_of_transactions'){
+                                featuresO.times = item.dictDataValue
+                            }
+                            if(item.dictType == 'years_of_trading'){
+                                featuresO.year = item.dictDataValue
+                            }
+                            if(item.dictType == 'knowledge_level'){
+                                featuresO.level = item.dictDataValue
+                            }
+                        }
+                    });
+                    return featuresO;
             }
         },
         mounted() {
@@ -768,7 +838,57 @@
             }).then(() => {
                 getUserRegulation().then(res => {
                     console.log(res);
-                    this.userInfo = res.data;
+                    var data = res.data;
+                    var investTargetArr = data.filter(item => item.type == 3).map(item => item.dictDataValue);
+
+                    var feature1 = this.getData(data, 4);
+
+                    var feature2 = this.getData(data, 5);
+                    this.openzhaiquanTrade = !!Object.keys(feature2).length;
+
+                    var feature3 = this.getData(data, 6);
+                    this.openOptionTrade = !!Object.keys(feature3).length;
+
+                    var feature4 = this.getData(data, 7);
+                    this.openFeaturesTrade = !!Object.keys(feature4).length;
+
+                    this.regulatoryInfo.investTargetArr = investTargetArr;
+
+                    this.regulatoryInfo.compliance_1 = data.filter(item => item.dictType == 'compliances_1')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_2 = data.filter(item => item.dictType == 'compliances_2')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_3 = data.filter(item => item.dictType == 'compliances_3')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_4 = data.filter(item => item.dictType == 'compliances_4')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_5 = data.filter(item => item.dictType == 'compliances_5')[0].dictDataValue;
+
+                    this.regulatoryInfo.netAsset = data.filter(item => item.dictType == 'net_assets')[0].dictDataValue;
+                    this.regulatoryInfo.netAssetFlow = data.filter(item => item.dictType == 'net_asset_flows')[0].dictDataValue;
+                    this.regulatoryInfo.netAssetYear = data.filter(item => item.dictType == 'net_annual_income')[0].dictDataValue;
+                    this.regulatoryInfo.netAssetTotal = data.filter(item => item.dictType == 'total_assets')[0].dictDataValue;
+
+
+                    this.regulatoryInfo.stockExperiencesTimes = feature1.times;
+                    this.regulatoryInfo.stockExperiencesYears = feature1.year;
+                    this.regulatoryInfo.stockExperiencesKnowledgeLevel = feature1.level;
+
+                    if(this.openzhaiquanTrade){
+                        this.regulatoryInfo.zhaiquanExperiencesTimes = feature2.times;
+                        this.regulatoryInfo.zhaiquanExperiencesYears = feature2.year;
+                        this.regulatoryInfo.zhaiquanExperiencesKnowledgeLevel = feature2.level;
+                    }
+
+                    if(this.openOptionTrade){
+                        this.regulatoryInfo.optionExperiencesTimes = feature3.times;
+                        this.regulatoryInfo.optionExperiencesYears = feature3.year;
+                        this.regulatoryInfo.optionExperiencesKnowledgeLevel = feature3.level;
+                    }
+
+                    if(this.openFeaturesTrade){
+                        this.regulatoryInfo.featuresExperiencesTimes = feature4.times;
+                        this.regulatoryInfo.featuresExperiencesYears = feature4.year;
+                        this.regulatoryInfo.featuresExperiencesKnowledgeLevel = feature4.level;
+                    }
+
+
                 })
             });
         }

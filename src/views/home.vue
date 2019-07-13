@@ -11,7 +11,7 @@
             <span>ETF</span>.COOL
           </div>
           <div class="barner-info">{{$t('home.text1')}} >> {{$t('home.text2')}}</div>
-          <div @click="$router.push('/register')" class="start-ivest">{{$t('home.text3')}}</div>
+          <div @click="goPage" class="start-ivest">{{$t('home.text3')}}</div>
         </div>
       </section>
       <section class="content1">
@@ -62,7 +62,7 @@
             <div class="strage-text text3">{{$t('home.text14')}}</div>
             <div class="strage-text text4">{{$t('home.text15')}}</div>
             <div class="strage-text">{{$t('home.text16')}}</div>
-            <div @click="$router.push('/register')" class="start-ivest">{{$t('home.text3')}}</div>
+            <div @click="goPage" class="start-ivest">{{$t('home.text3')}}</div>
           </div>
         </div>
       </section>
@@ -148,7 +148,7 @@
               <div class="step-info">{{$t('home.text27')}}</div>
             </div>
           </div>
-          <div @click="$router.push('/register')" class="start-ivest">{{$t('home.text3')}}</div>
+          <div @click="goPage" class="start-ivest">{{$t('home.text3')}}</div>
         </div>
       </section>
     </div>
@@ -158,6 +158,7 @@
 
 <script>
 // @ is an alias to /src
+import { mapGetters } from "vuex";
 import headerNav from "@/components/nav/nav.vue";
 import footerBar from "@/components/footer/footer.vue";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -172,6 +173,7 @@ export default {
   },
   // 如果你需要得到当前的swiper对象来做一些事情，你可以像下面这样定义一个方法属性来获取当前的swiper对象，同时notNextTick必须为true
   computed: {
+    ...mapGetters(["token"]),
     swiper() {
       return this.$refs.mySwiper.swiper;
     }
@@ -224,6 +226,10 @@ export default {
     // }, 3300)
   },
   methods: {
+    goPage(){
+      var path = this.token ? '/openAccount' : '/register'
+      this.$router.push(path);
+    },
     hideMenu(flag) {
       this.$store.dispatch("showMenu", false);
     },
