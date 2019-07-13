@@ -218,7 +218,9 @@
           USDiscern: '',
           taxCountry: '中国香港',
           isUsDiscount: '',
-
+          usCountry: '',
+          TIN: '',
+          autograph: ''
         }
       };
     },
@@ -237,9 +239,9 @@
           if (valid) {
             //...请求接口后提示
             let params = {
-              USDiscern: this.statementInfo.USDiscern,
-              isUsDiscount: this.statementInfo.isUsDiscount,
-              taxTreaty: this.statementInfo.taxTreaty,
+              USDiscern: this.statementInfo.USDiscern + '',
+              isUsDiscount: this.statementInfo.isUsDiscount + '',
+              taxTreaty: this.statementInfo.usCountry,
               autograph: this.statementInfo.autograph
             };
             if(this.statementInfo.USDiscern==1){
@@ -263,9 +265,9 @@
           if (valid) {
             //...请求接口后跳转
             let params = {
-              USDiscern: this.statementInfo.USDiscern,
-              isUsDiscount: this.statementInfo.isUsDiscount,
-              taxTreaty: this.statementInfo.taxTreaty,
+              USDiscern: this.statementInfo.USDiscern + '',
+              isUsDiscount: this.statementInfo.isUsDiscount + '',
+              taxTreaty: this.statementInfo.usCountry,
               autograph: this.statementInfo.autograph
             };
             if(this.statementInfo.USDiscern==1){
@@ -292,6 +294,8 @@
             this.statementInfo.usTaxNo = data.card;
             this.statementInfo.beneficiary = data.surnameChina+data.nameChina;
             getUserBase().then(data => {
+              this.statementInfo.TIN = data.data.taxation;
+              this.statementInfo.usCountry = data.data.taxTreaty;
               this.statementInfo.addr = data.data.addr;
               this.statementInfo.country = data.data.country;
               this.statementInfo.isUsDiscount = parseInt(data.data.isUsDiscount);
