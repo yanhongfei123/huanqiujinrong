@@ -1,15 +1,9 @@
-import Vue from 'vue'
-import axios from 'axios'
-import {
-  Loading,
-  Message,
-  MessageBox
-} from 'element-ui'
-import store from '@/store'
-import {
-  getToken
-} from '@/utils/auth'
-import router from '../router'
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { Loading, Message, MessageBox } from 'element-ui';
+import store from '@/store';
+import { getToken } from '@/utils/auth';
+import router from '../router';
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? 'http://47.91.214.249:8003/' : '/api/', // api的base_url
@@ -20,12 +14,12 @@ var loadingInstance;
 service.interceptors.request.use(config => {
   loadingInstance = Loading.service({
     lock: true,
-    background: "rgba(0, 0, 0, 0.5)"
+    background: 'rgba(0, 0, 0, 0.5)'
   });
   // Do something before request is sent
   if (store.getters.token) {
     config.headers['accessToken'] = getToken();
-  } else if (config.url.indexOf('login') == -1){
+  } else if (config.url.indexOf('login') == -1) {
     // MessageBox.confirm('请先登录', '提示', {
     //   confirmButtonText: '去登录',
     //   cancelButtonText: '取消',
@@ -34,12 +28,12 @@ service.interceptors.request.use(config => {
     //   router.push('/login');
     // });
   }
-  return config
+  return config;
 }, error => {
   loadingInstance.close();
   // Do something with request error
   console.log(error); // for debug
-  Promise.reject(error)
+  Promise.reject(error);
 });
 // respone interceptor
 service.interceptors.response.use(
@@ -98,18 +92,19 @@ service.interceptors.response.use(
 
       return Promise.reject('error');
     } else {
-      return response.data
+      return response.data;
     }
   },
   error => {
     loadingInstance.close();
     console.log('err' + error); // for debug
+    let message = Cookies.get('language') == 'Ft' ? '服務器繁忙，請稍後重試...' : '服务器繁忙，请稍后重试...';
     Message({
-      message: '服务器繁忙，请稍后重试...',
+      message: message,
       type: 'error',
       duration: 2 * 1000
     });
-    return Promise.reject(error)
+    return Promise.reject(error);
   });
 
-export default service
+export default service;

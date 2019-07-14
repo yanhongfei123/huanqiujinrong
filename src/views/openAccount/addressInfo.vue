@@ -11,16 +11,16 @@
                 <openAccountSteps :step=step></openAccountSteps>
                 <el-form title="个人信息" class="addressInfoForm" :label-position="labelPosition" label-width="80px"
                          :model="addressInfo" ref="addressInfoForm" :rules="addressInfoRules">
-                    <div class="info-title title1">一.{{$t('openAccount.addressInfo.text1')}}</div>
+                    <div class="info-title title1">{{$t('openAccount.addressInfo.text1')}}</div>
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item :label="$t('openAccount.userInfo.text2')" prop="addr" required>
-                                <el-input placeholder="请与身份证明文件上地址保持一致。" maxlength="50"
+                                <el-input :placeholder="$t('openAccount.addressInfo.text23')" maxlength="50"
                                           v-model="addressInfo.addr"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <div class="info-title">二.{{$t('openAccount.addressInfo.text3')}}</div>
+                    <div class="info-title">{{$t('openAccount.addressInfo.text3')}}</div>
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item :label="$t('openAccount.addressInfo.text4')" prop="country" required>
@@ -92,7 +92,7 @@
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item  :label="$t('openAccount.addressInfo.text21')"label="" prop="businessAddr" required>
+                            <el-form-item  :label="$t('openAccount.addressInfo.text21')" prop="businessAddr" required>
                                 <el-input :placeholder="$t('openAccount.addressInfo.text22')" maxlength="50"
                                           v-model="addressInfo.businessAddr"></el-input>
                             </el-form-item>
