@@ -564,7 +564,6 @@
                     featuresExperiencesKnowledgeLevel: "",
                     featuresExperiencesTimes: '',
                     featuresExperiencesYears: "",
-                    investTargetArr: '',
                     netAsset: "",
                     netAssetFlow: "",
                     netAssetTotal: "",
@@ -837,8 +836,10 @@
                 this.investmentObjectives = res[12].data.list;
             }).then(() => {
                 getUserRegulation().then(res => {
-                    console.log(res);
                     var data = res.data;
+                    if(data.length == 0){
+                      return;
+                    }
                     var investTargetArr = data.filter(item => item.type == 3).map(item => item.dictDataValue);
 
                     var feature1 = this.getData(data, 4);
@@ -854,11 +855,11 @@
 
                     this.regulatoryInfo.investTargetArr = investTargetArr;
 
-                    this.regulatoryInfo.compliance_1 = data.filter(item => item.dictType == 'compliances_1')[0].dictDataValue;
-                    this.regulatoryInfo.compliance_2 = data.filter(item => item.dictType == 'compliances_2')[0].dictDataValue;
-                    this.regulatoryInfo.compliance_3 = data.filter(item => item.dictType == 'compliances_3')[0].dictDataValue;
-                    this.regulatoryInfo.compliance_4 = data.filter(item => item.dictType == 'compliances_4')[0].dictDataValue;
-                    this.regulatoryInfo.compliance_5 = data.filter(item => item.dictType == 'compliances_5')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_1 = data.filter(item => item.dictType == 'compliance_1')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_2 = data.filter(item => item.dictType == 'compliance_2')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_3 = data.filter(item => item.dictType == 'compliance_3')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_4 = data.filter(item => item.dictType == 'compliance_4')[0].dictDataValue;
+                    this.regulatoryInfo.compliance_5 = data.filter(item => item.dictType == 'compliance_5')[0].dictDataValue;
 
                     this.regulatoryInfo.netAsset = data.filter(item => item.dictType == 'net_assets')[0].dictDataValue;
                     this.regulatoryInfo.netAssetFlow = data.filter(item => item.dictType == 'net_asset_flows')[0].dictDataValue;

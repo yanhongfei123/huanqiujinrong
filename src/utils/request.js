@@ -105,7 +105,7 @@ service.interceptors.response.use(
     loadingInstance.close();
     console.log('err' + error); // for debug
     Message({
-      message: error.message,
+      message: '服务器繁忙，请稍后重试...',
       type: 'error',
       duration: 2 * 1000
     });
