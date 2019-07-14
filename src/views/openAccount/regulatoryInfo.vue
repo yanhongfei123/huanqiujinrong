@@ -4,15 +4,16 @@
             <openAccountHeader></openAccountHeader>
         </header>
         <div class="content">
-            <div class="title">网上开户</div>
+            <div class="title">{{$t('openAccount.userInfo.text1')}}</div>
             <div class="info-wrapper">
-                <div class="tips"><label>* </label>您正在申请的是{{type==1?'美国':'香港'}}上市交易的ETF</div>
+                <div class="tips" v-if="type==1"><label>* </label>{{$t('openAccount.userInfo.text2')}}</div>
+                <div class="tips" v-else><label>* </label>{{$t('openAccount.userInfo.text3')}}</div>
                 <openAccountSteps :step=step></openAccountSteps>
                 <el-form title="合规信息" class="regulatoryInfoForm" :label-position="labelPosition" label-width="80px"
                          :model="regulatoryInfo" ref="regulatoryInfoForm" :rules="regulatoryInfoRules">
-                    <div class="info-title title1">一. 合规信息</div>
+                    <div class="info-title title1">{{$t('openAccount.regulatoryInfo.text1')}}</div>
                     <el-form-item
-                            label="1. 账户持有人或同一居所内居住的任何直系亲属不是注册经纪-自营商；证券或商品经纪公司的雇员、董事或所有人；银行、对冲基金/交易所或其他金融服务公司的雇员"
+                            :label="$t('openAccount.regulatoryInfo.text2')"
                             prop="compliance_1" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_1">
                             <el-radio
@@ -24,7 +25,7 @@
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
-                            label="2. 账户持有人不是任何一家公共上市公司的董事，持10%股权的股东或决策人"
+                            :label="$t('openAccount.regulatoryInfo.text3')"
                             prop="compliance_2" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_2">
                             <el-radio
@@ -36,7 +37,7 @@
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
-                            label="3. 账户持有人不是监管或自我监管组织、交易所的成员、雇员或关联人"
+                            :label="$t('openAccount.regulatoryInfo.text4')"
                             prop="compliance_3" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_3">
                             <el-radio
@@ -48,7 +49,7 @@
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
-                            label="4. 账户持有人不是曾作为主体参与或发起过涉及其他经纪商或经销商的诉讼，仲裁或任何类型的争端解决程序的人"
+                            :label="$t('openAccount.regulatoryInfo.text5')"
                             prop="compliance_4" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_4">
                             <el-radio
@@ -60,7 +61,7 @@
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item
-                            label="5. 账户持有者不是曾接受调查或被任何商品、证券交易所、监管机构或自我监管机构起诉的人"
+                            :label="$t('openAccount.regulatoryInfo.text6')"
                             prop="compliance_5" required>
                         <el-radio-group v-model="regulatoryInfo.compliance_5">
                             <el-radio
@@ -72,13 +73,14 @@
                         </el-radio-group>
                     </el-form-item>
                     <div class="info-title">
-                        二. 资产与收入<br>
-                        <p>请在下面提供财务信息，我公司合规部门将通过这些信息确定您是否有资格交易现在或将来所选的投资产品。我们绝不会将您的信息出售给第三方或致电建议您投资。</p>
+                        {{$t('openAccount.regulatoryInfo.text7')}}<br>
+                        <p>{{$t('openAccount.regulatoryInfo.text8')}}</p>
                     </div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="净资产:" prop="netAsset" required>
-                                <el-select v-model="regulatoryInfo.netAsset" placeholder="请选择净资产" style="width: 100%;">
+                            <el-form-item :label="$t('openAccount.regulatoryInfo.text9')" prop="netAsset" required>
+                                <el-select v-model="regulatoryInfo.netAsset" prop="addr" required>
+                                    <el-input :placeholder="$t('openAccount.regulatoryInfo.text10')" style="width: 100%;" />
                                     <el-option
                                             v-for="item in netAssets"
                                             :key="item.dictCode"
@@ -86,12 +88,12 @@
                                             :value="item.dictValue">
                                     </el-option>
                                 </el-select>
-                                <p class="desc">净资产：您拥有的所有资产的总价值，减去您所欠部分（包括所有抵押贷款及债务）。</p>
+                                <p class="desc">{{$t('openAccount.regulatoryInfo.text11')}}</p>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="净流动资产:" prop="netAssetFlow" required>
-                                <el-select v-model="regulatoryInfo.netAssetFlow" placeholder="请选择净流动资产"
+                            <el-form-item :label="$t('openAccount.regulatoryInfo.text12')" prop="netAssetFlow" required>
+                                <el-select v-model="regulatoryInfo.netAssetFlow" :placeholder="$t('openAccount.regulatoryInfo.text13')"
                                            style="width: 100%;">
                                     <el-option
                                             v-for="item in netAssetFlows"
@@ -100,14 +102,14 @@
                                             :value="item.dictValue">
                                     </el-option>
                                 </el-select>
-                                <p class="desc">净流动资产：您拥有的能够快速转换为现金的资产的总价值。</p>
+                                <p class="desc">{{$t('openAccount.regulatoryInfo.text14')}}</p>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="净年收入:" prop="netAssetYear" required>
-                                <el-select v-model="regulatoryInfo.netAssetYear" placeholder="请选择净年收入"
+                            <el-form-item :label="$t('openAccount.regulatoryInfo.text15')" prop="netAssetYear" required>
+                                <el-select v-model="regulatoryInfo.netAssetYear" :placeholder="$t('openAccount.regulatoryInfo.text16')"
                                            style="width: 100%;">
                                     <el-option
                                             v-for="item in netAnnualIncome"
@@ -116,12 +118,12 @@
                                             :value="item.dictValue">
                                     </el-option>
                                 </el-select>
-                                <p class="desc">净年收入：您一年的盈收总额减去税款或其他扣款。这些扣款包括医疗保险，退休金，法律支持费用。</p>
+                                <p class="desc">{{$t('openAccount.regulatoryInfo.text17')}}</p>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="总资产（含负债、贷款）:" prop="netAssetTotal" required>
-                                <el-select v-model="regulatoryInfo.netAssetTotal" placeholder="请选择总资产"
+                            <el-form-item :label="$t('openAccount.regulatoryInfo.text18')" prop="netAssetTotal" required>
+                                <el-select v-model="regulatoryInfo.netAssetTotal" :placeholder="$t('openAccount.regulatoryInfo.text19')"
                                            style="width: 100%;">
                                     <el-option
                                             v-for="item in totalAssets"
@@ -130,13 +132,13 @@
                                             :value="item.dictValue">
                                     </el-option>
                                 </el-select>
-                                <p class="desc">总资产：您拥有的流动资产及非流动资产的总价值，包括但不限于现金、股权投资、固定资产和无形资产。</p>
+                                <p class="desc">{{$t('openAccount.regulatoryInfo.text20')}}</p>
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <div class="info-title">三. 投资目标</div>
+                    <div class="info-title">{{$t('openAccount.regulatoryInfo.text21')}}</div>
                     <el-form-item
-                            label="1.您的以下选择决定了您能够获得批准进行交易的投资产品，需至少包含收入、增长、交易利润、投机或对冲中的任意一个。请勾选所有适用选项。「可多选」"
+                            :label="$t('openAccount.regulatoryInfo.text22')"
                             prop="investTargetArr" required>
                         <el-checkbox-group class="invest-checkbox" v-model="regulatoryInfo.investTargetArr"
                                            @change="changeInvestTarget">
@@ -147,9 +149,9 @@
                             >{{item | filterByLanguage('dictLabel')}}</el-checkbox>
                         </el-checkbox-group>
                     </el-form-item>
-                    <div class="info-title">四. 投资经验</div>
+                    <div class="info-title">{{$t('openAccount.regulatoryInfo.text23')}}</div>
                     <el-form-item
-                            label="1.选择您想要交易的投资产品，并选择您对各产品的经验及交易知识。 如希望使用智能投顾服务，您至少需要选择“股票”。"
+                            :label="$t('openAccount.regulatoryInfo.text24')"
                             required class="experience-form-item">
                         <el-row>
                             <el-checkbox :checked="true" :disabled=true>股票</el-checkbox>
@@ -157,7 +159,7 @@
                         <el-row>
                             <el-col :span="8">
                                 <el-form-item prop="stockExperiencesTimes" class="margin-bottom-30">
-                                    <el-select v-model="regulatoryInfo.stockExperiencesTimes" placeholder="请选择每年交易次数">
+                                    <el-select v-model="regulatoryInfo.stockExperiencesTimes" :placeholder="$t('openAccount.regulatoryInfo.text25')">
                                         <el-option
                                                 v-for="item in numberOfTransactions"
                                                 :key="item.dictCode"
@@ -169,7 +171,7 @@
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item prop="stockExperiencesYears" class="margin-bottom-30">
-                                    <el-select v-model="regulatoryInfo.stockExperiencesYears" placeholder="请选择交易年数">
+                                    <el-select v-model="regulatoryInfo.stockExperiencesYears" :placeholder="$t('openAccount.regulatoryInfo.text26')">
                                         <el-option
                                                 v-for="item in yearsOfTrading"
                                                 :key="item.dictCode"
@@ -182,7 +184,7 @@
                             <el-col :span="8">
                                 <el-form-item prop="stockExperiencesKnowledgeLevel" class="margin-bottom-30">
                                     <el-select v-model="regulatoryInfo.stockExperiencesKnowledgeLevel"
-                                               placeholder="请选择知识水平">
+                                               :placeholder="$t('openAccount.regulatoryInfo.text27')">
                                         <el-option
                                                 v-for="item in knowledgeLevel"
                                                 :key="item.dictCode"
@@ -194,12 +196,13 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-checkbox v-model="openzhaiquanTrade">债券</el-checkbox>
+                            <el-checkbox v-model="openzhaiquanTrade">{{$t('openAccount.regulatoryInfo.text28')}}</el-checkbox>
                         </el-row>
                         <el-row v-if="openzhaiquanTrade">
                             <el-col :span="8">
                                 <el-form-item prop="zhaiquanExperiencesTimes" class="margin-bottom-30">
-                                    <el-select v-model="regulatoryInfo.zhaiquanExperiencesTimes" placeholder="请选择每年交易次数">
+                                    <el-select v-model="regulatoryInfo.zhaiquanExperiencesTimes"
+                                               :placeholder="$t('openAccount.regulatoryInfo.text25')">
                                         <el-option
                                                 v-for="item in numberOfTransactions"
                                                 :key="item.dictCode"
@@ -211,7 +214,8 @@
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item prop="zhaiquanExperiencesYears" class="margin-bottom-30">
-                                    <el-select v-model="regulatoryInfo.zhaiquanExperiencesYears" placeholder="请选择交易年数">
+                                    <el-select v-model="regulatoryInfo.zhaiquanExperiencesYears"
+                                               :placeholder="$t('openAccount.regulatoryInfo.text26')">
                                         <el-option
                                                 v-for="item in yearsOfTrading"
                                                 :key="item.dictCode"
@@ -224,7 +228,7 @@
                             <el-col :span="8">
                                 <el-form-item prop="zhaiquanExperiencesKnowledgeLevel" class="margin-bottom-30">
                                     <el-select v-model="regulatoryInfo.zhaiquanExperiencesKnowledgeLevel"
-                                               placeholder="请选择知识水平">
+                                               :placeholder="$t('openAccount.regulatoryInfo.text27')">
                                         <el-option
                                                 v-for="item in knowledgeLevel"
                                                 :key="item.dictCode"
@@ -236,12 +240,13 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-checkbox v-model="openOptionTrade">期权</el-checkbox>
+                            <el-checkbox v-model="openOptionTrade">{{$t('openAccount.regulatoryInfo.text29')}}</el-checkbox>
                         </el-row>
                         <el-row v-if="openOptionTrade">
                             <el-col :span="8">
                                 <el-form-item prop="optionExperiencesTimes" class="margin-bottom-30">
-                                    <el-select v-model="regulatoryInfo.optionExperiencesTimes" placeholder="请选择每年交易次数">
+                                    <el-select v-model="regulatoryInfo.optionExperiencesTimes"
+                                               :placeholder="$t('openAccount.regulatoryInfo.text25')">
                                         <el-option
                                                 v-for="item in numberOfTransactions"
                                                 :key="item.dictCode"
@@ -253,7 +258,8 @@
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item prop="optionExperiencesYears" class="margin-bottom-30">
-                                    <el-select v-model="regulatoryInfo.optionExperiencesYears" placeholder="请选择交易年数">
+                                    <el-select v-model="regulatoryInfo.optionExperiencesYears"
+                                               :placeholder="$t('openAccount.regulatoryInfo.text26')">
                                         <el-option
                                                 v-for="item in yearsOfTrading"
                                                 :key="item.dictCode"
@@ -266,7 +272,7 @@
                             <el-col :span="8">
                                 <el-form-item prop="optionExperiencesKnowledgeLevel" class="margin-bottom-30">
                                     <el-select v-model="regulatoryInfo.optionExperiencesKnowledgeLevel"
-                                               placeholder="请选择知识水平">
+                                               :placeholder="$t('openAccount.regulatoryInfo.text27')">
                                         <el-option
                                                 v-for="item in knowledgeLevel"
                                                 :key="item.dictCode"
@@ -278,13 +284,13 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-checkbox v-model="openFeaturesTrade">期货</el-checkbox>
+                            <el-checkbox v-model="openFeaturesTrade">{{$t('openAccount.regulatoryInfo.text30')}}</el-checkbox>
                         </el-row>
                         <el-row v-if="openFeaturesTrade">
                             <el-col :span="8">
                                 <el-form-item prop="featuresExperiencesTimes" class="margin-bottom-30">
                                     <el-select @change="change" v-model="regulatoryInfo.featuresExperiencesTimes"
-                                               placeholder="请选择每年交易次数">
+                                               :placeholder="$t('openAccount.regulatoryInfo.text25')">
                                         <el-option
                                                 v-for="item in numberOfTransactions"
                                                 :key="item.dictCode"
@@ -296,7 +302,8 @@
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item prop="featuresExperiencesYears" class="margin-bottom-30">
-                                    <el-select v-model="regulatoryInfo.featuresExperiencesYears" placeholder="请选择交易年数">
+                                    <el-select v-model="regulatoryInfo.featuresExperiencesYears"
+                                               :placeholder="$t('openAccount.regulatoryInfo.text26')">
                                         <el-option
                                                 v-for="item in yearsOfTrading"
                                                 :key="item.dictCode"
@@ -309,7 +316,7 @@
                             <el-col :span="8">
                                 <el-form-item prop="featuresExperiencesKnowledgeLevel" class="margin-bottom-30">
                                     <el-select v-model="regulatoryInfo.featuresExperiencesKnowledgeLevel"
-                                               placeholder="请选择知识水平">
+                                               :placeholder="$t('openAccount.regulatoryInfo.text27')">
                                         <el-option
                                                 v-for="item in knowledgeLevel"
                                                 :key="item.dictCode"
@@ -324,8 +331,8 @@
                 </el-form>
                 <div class="btn-wrap">
                     <div @click="next(false)" class="btn-item btn1">保存</div>
-                    <div @click="prev" class="btn-item btn2">上一步</div>
-                    <div @click="next(true)" class="btn-item btn3">下一步</div>
+                    <div @click="prev" class="btn-item btn2">{{$t('openAccount.userInfo.text17')}}</div>
+                    <div @click="next(true)" class="btn-item btn3">{{$t('openAccount.userInfo.text18')}}</div>
                 </div>
             </div>
 
@@ -352,7 +359,7 @@
         data() {
             const validateNetCurrentAsset = (rule, value, callback) => {
                 value = parseInt(value);
-                if (value == 10) {
+                if (value == 1) {
                     callback(new Error('开通账户要求净流动资产区间最低在“2-5万美元”'));
                 } else {
                     if (value > parseInt(this.regulatoryInfo.netAsset)) {
@@ -367,7 +374,8 @@
 
             const validateNetAsset = (rule, value, callback) => {
                 value = parseInt(value);
-                if (value == 10) {
+                console.log(value);
+                if (value == 1) {
                     callback(new Error('开通账户要求净资产区间最低在“2-5万美元”'));
                 } else {
                     if (value < parseInt(this.regulatoryInfo.netAssetFlow)) {
@@ -381,7 +389,7 @@
             };
 
             const validateNetAssetYear = (rule, value, callback) => {
-                if (parseInt(value) == 10) {
+                if (parseInt(value) == 1) {
                     callback(new Error('开通账户要求净年收入区间最低在“4-4.5万美元”'));
                 } else {
                     callback();
@@ -390,7 +398,7 @@
 
             const validateTotalAsset = (rule, value, callback) => {
                 value = parseInt(value);
-                if (value == 10) {
+                if (value == 1) {
                     callback(new Error('开通账户要求总资产区间最低在“2-5万美元”'));
                 } else if (value < parseInt(this.regulatoryInfo.netAssetFlow)) {
                     callback(new Error('总资产不能小于净流动资产'));
@@ -564,7 +572,6 @@
                     featuresExperiencesKnowledgeLevel: "",
                     featuresExperiencesTimes: '',
                     featuresExperiencesYears: "",
-                    investTargetArr: '',
                     netAsset: "",
                     netAssetFlow: "",
                     netAssetTotal: "",
@@ -818,7 +825,6 @@
             let allDictData = ['compliance_1', 'compliance_2', 'compliance_3', 'compliance_4', 'compliance_5', 'net_assets', 'net_asset_flows', 'net_annual_income', 'total_assets', 'number_of_transactions', 'years_of_trading', 'knowledge_level', 'Investment_objectives'];
             let allPromise = allDictData.map(item => this.getGlobalData(item));
             Promise.all(allPromise).then(res => {
-                console.log(res);
                 this.compliances_1 = res[0].data.list;
                 this.compliances_2 = res[1].data.list;
                 this.compliances_3 = res[2].data.list;
@@ -835,8 +841,10 @@
                 this.investmentObjectives = res[12].data.list;
             }).then(() => {
                 getUserRegulation().then(res => {
-                    console.log(res);
                     var data = res.data;
+                    if(data.length == 0){
+                      return;
+                    }
                     var investTargetArr = data.filter(item => item.type == 3).map(item => item.dictDataValue);
 
                     var feature1 = this.getData(data, 4);
@@ -885,8 +893,7 @@
                         this.regulatoryInfo.featuresExperiencesYears = feature4.year;
                         this.regulatoryInfo.featuresExperiencesKnowledgeLevel = feature4.level;
                     }
-
-
+                  console.log(this.regulatoryInfo);
                 })
             });
         }

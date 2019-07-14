@@ -4,26 +4,27 @@
             <openAccountHeader></openAccountHeader>
         </header>
         <div class="content">
-            <div class="title">网上开户</div>
+            <div class="title">{{$t('openAccount.userInfo.text1')}}</div>
             <div class="info-wrapper">
-                <div class="tips"><label>* </label>您正在申请的是{{type==1?'美国':'香港'}}上市交易的ETF</div>
+                <div class="tips" v-if="type==1"><label>* </label>{{$t('openAccount.userInfo.text2')}}</div>
+                <div class="tips" v-else><label>* </label>{{$t('openAccount.userInfo.text3')}}</div>
                 <openAccountSteps :step=step></openAccountSteps>
                 <el-form title="个人信息" class="addressInfoForm" :label-position="labelPosition" label-width="80px"
                          :model="addressInfo" ref="addressInfoForm" :rules="addressInfoRules">
-                    <div class="info-title title1">一.居民地址</div>
+                    <div class="info-title title1">{{$t('openAccount.addressInfo.text1')}}</div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="详细居住地址:" prop="addr" required>
-                                <el-input placeholder="请与身份证明文件上地址保持一致。" maxlength="50"
+                            <el-form-item :label="$t('openAccount.userInfo.text2')" prop="addr" required>
+                                <el-input :placeholder="$t('openAccount.addressInfo.text23')" maxlength="50"
                                           v-model="addressInfo.addr"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <div class="info-title">二.通讯地址</div>
+                    <div class="info-title">{{$t('openAccount.addressInfo.text3')}}</div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="通讯地址所在国家/地区:" prop="country" required>
-                                <el-select v-model="addressInfo.country" placeholder="请选择国家/地区"
+                            <el-form-item :label="$t('openAccount.addressInfo.text4')" prop="country" required>
+                                <el-select v-model="addressInfo.country" :placeholder="$t('openAccount.addressInfo.text5')"
                                            style="width: 100%;">
                                     <el-option
                                             v-for="item in countryList"
@@ -35,28 +36,26 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="详细通讯地址:" prop="address" required>
-                                <el-input placeholder="请填写详细通讯地址请" maxlength="50"
+                            <el-form-item :label="$t('openAccount.addressInfo.text6')" prop="address" required>
+                                <el-input  :placeholder="$t('openAccount.addressInfo.text7')" maxlength="50"
                                           v-model="addressInfo.address"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <div class="info-title">三.税务信息</div>
+                    <div class="info-title">三.{{$t('openAccount.userInfo.text8')}}</div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="纳税识别号:" prop="taxation" required>
-                                <el-input placeholder="请填写纳税识别号" maxlength="20" v-model="addressInfo.taxation"></el-input>
+                            <el-form-item :label="$t('openAccount.addressInfo.text9')" prop="taxation" required>
+                                <el-input :placeholder="$t('openAccount.addressInfo.text10')" maxlength="20" v-model="addressInfo.taxation"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col class="tip">
-                            如您是香港税务居民，税务国家/地区为中国香港，税务编号为您的香港身份证号码。
-                        </el-col>
+                        <el-col class="tip">{{$t('openAccount.addressInfo.text11')}}</el-col>
                     </el-row>
-                    <div class="info-title">四.雇佣信息</div>
+                    <div class="info-title">四.{{$t('openAccount.addressInfo.text12')}}</div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="就业类型:" prop="employmentType" required>
-                                <el-select v-model="addressInfo.employmentType" placeholder="请选择就业类型" style="width: 100%;">
+                            <el-form-item  :label="$t('openAccount.addressInfo.text13')" prop="employmentType" required>
+                                <el-select v-model="addressInfo.employmentType" :placeholder="$t('openAccount.addressInfo.text14')" style="width: 100%;">
                                     <el-option
                                             v-for="item in employmentTypes"
                                             :key="item.dictCode"
@@ -67,15 +66,15 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="雇佣单位:" prop="employmentCompay" required>
-                                <el-input placeholder="请填写雇佣单位" maxlength="20" v-model="addressInfo.employmentCompay"></el-input>
+                            <el-form-item  :label="$t('openAccount.addressInfo.text15')" prop="employmentCompay" required>
+                                <el-input :placeholder="$t('openAccount.addressInfo.text16')" maxlength="20" v-model="addressInfo.employmentCompay"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="商业性质:" prop="businessType" required>
-                                <el-select v-model="addressInfo.businessType" placeholder="请选择商业性质" style="width: 100%;">
+                            <el-form-item  :label="$t('openAccount.addressInfo.text17')" prop="businessType" required>
+                                <el-select v-model="addressInfo.businessType" :placeholder="$t('openAccount.addressInfo.text18')" style="width: 100%;">
                                     <el-option
                                             v-for="item in businessTypes"
                                             :key="item.dictCode"
@@ -86,15 +85,15 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="职位:" prop="post" required>
-                                <el-input placeholder="请填写职位" maxlength="10" v-model="addressInfo.post"></el-input>
+                            <el-form-item  :label="$t('openAccount.addressInfo.text19')" prop="post" required>
+                                <el-input :placeholder="$t('openAccount.addressInfo.text20')" maxlength="10" v-model="addressInfo.post"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="详细通讯地址:" prop="businessAddr" required>
-                                <el-input placeholder="请填写单位详细地址" maxlength="50"
+                            <el-form-item  :label="$t('openAccount.addressInfo.text21')" prop="businessAddr" required>
+                                <el-input :placeholder="$t('openAccount.addressInfo.text22')" maxlength="50"
                                           v-model="addressInfo.businessAddr"></el-input>
                             </el-form-item>
                         </el-col>
@@ -102,8 +101,8 @@
                 </el-form>
                 <div class="btn-wrap">
                     <div @click="saveAddressInfo('addressInfoForm')" class="btn-item btn1">保存</div>
-                    <div @click="prev" class="btn-item btn2">上一步</div>
-                    <div @click="next('addressInfoForm')" class="btn-item btn3">下一步</div>
+                    <div @click="prev" class="btn-item btn2">{{$t('openAccount.userInfo.text17')}}</div>
+                    <div @click="next('addressInfoForm')" class="btn-item btn3">{{$t('openAccount.userInfo.text18')}}</div>
                 </div>
             </div>
 
