@@ -61,3 +61,23 @@ export function updateUserBase(data) {
     data: data
   })
 }
+
+//上传图片
+export function upload(data) {
+  return request({
+    url: '/file/upload',
+    headers: {
+      'Content-Type': 'multipart/form-data'// || 'application/x-www-form-urlencoded'
+    },
+    // transformRequest: [function (data) {
+    //   let ret = ''
+    //   for (let it in data) {
+    //     ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+    //   }
+    //   return ret
+    // }],
+    method: 'post',
+    withCredentials: true,
+    data: data
+  })
+}

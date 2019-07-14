@@ -478,6 +478,13 @@ h2 {
     width: 680px;
     padding-top: 60px;
   }
+
+  @media screen and (max-width: 1450px) {
+    .strage-wrap{
+      width: 600px;
+    }
+  }
+
   .text1,
   .text3,
   .text4 {

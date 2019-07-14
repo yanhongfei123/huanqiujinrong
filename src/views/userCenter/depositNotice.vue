@@ -37,9 +37,11 @@
           :on-change="handleChange"
           :file-list="fileList"
           :before-upload="beforeUpload"
-          list-type="picture"
+          :show-file-list="false"
+          list-type="picture-card"
         >
-          <div class="upload-btn">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <div v-else class="upload-btn">
             <div class="add"></div>
             <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
           </div>
@@ -64,16 +66,11 @@
 export default {
   data() {
     return {
+      imageUrl: '',
       radio: "1",
       address: "",
       textarea: "",
-      fileList: [
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        }
-      ]
+      fileList: []
     };
   },
   methods: {
@@ -81,23 +78,32 @@ export default {
       console.log(file, fileList);
     },
     handlePreview(file) {
-      console.log(file);
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
     },
     handleSuccess(response, file, fileList) {
       console.log(response, file, fileList);
+      this.imageUrl = URL.createObjectURL(file.raw);
     },
     handleChange(file, fileList) {
       console.log(file, fileList);
     },
     beforeUpload(file) {
-      console.log(file);
-      console.log(file.size / (1024 * 1024));
-      if (file.size / (1024 * 1024) > 1) {
-        this.$alert("文件不能超过10M", "提示", {
-          confirmButtonText: "确定"
-        });
-        return false;
-      }
+        const isImg = file.type.indexOf('image/') != -1;
+        const isLt10M = file.size / 1024 / 1024 < 1;
+        var msg = '';
+
+        if (!isImg) {
+          msg = '请上传.jpg,.jpeg,.png格式的图片'
+        } else if (!isLt10M) {
+          msg = '图片大小不能超过10MB!';
+        }
+        if(msg){
+          this.$alert(msg, "提示", {
+            confirmButtonText: "我知道了"
+          });
+        }
+        return isImg && isLt10M;
     }
   }
 };
@@ -134,6 +140,10 @@ export default {
   }
   .mar0 .label {
     margin-bottom: 8px;
+  }
+  .avatar {
+    max-width: 400px;
+    display:block;
   }
   .upload-btn {
     display: flex;

@@ -23,16 +23,19 @@
                             <el-form-item label="1.香港居民身份证正面照片:" prop="frontIdCard">
                                 <el-upload
                                         class="upload"
-                                        action="https://jsonplaceholder.typicode.com/posts/"
+                                        action="/file/upload"
+                                        :http-request="myUpload"
                                         :on-success="handleSuccess"
                                         :on-preview="handlePreview"
                                         :on-remove="handleRemove"
                                         :on-change="handleChange"
                                         :file-list="fileList"
                                         :before-upload="beforeUpload"
-                                        list-type="picture"
+                                        :show-file-list="false"
+                                        list-type="picture-card"
                                 >
-                                    <div class="upload-btn">
+                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
@@ -50,9 +53,11 @@
                                         :on-change="handleChange"
                                         :file-list="fileList"
                                         :before-upload="beforeUpload"
-                                        list-type="picture"
+                                        :show-file-list="false"
+                                        list-type="picture-card"
                                 >
-                                    <div class="upload-btn">
+                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
@@ -72,9 +77,11 @@
                                         :on-change="handleChange"
                                         :file-list="fileList"
                                         :before-upload="beforeUpload"
-                                        list-type="picture"
+                                        :show-file-list="false"
+                                        list-type="picture-card"
                                 >
-                                    <div class="upload-btn">
+                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
@@ -92,9 +99,11 @@
                                         :on-change="handleChange"
                                         :file-list="fileList"
                                         :before-upload="beforeUpload"
-                                        list-type="picture"
+                                        :show-file-list="false"
+                                        list-type="picture-card"
                                 >
-                                    <div class="upload-btn">
+                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
@@ -114,9 +123,11 @@
                                         :on-change="handleChange"
                                         :file-list="fileList"
                                         :before-upload="beforeUpload"
-                                        list-type="picture"
+                                        :show-file-list="false"
+                                        list-type="picture-card"
                                 >
-                                    <div class="upload-btn">
+                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
@@ -149,6 +160,7 @@
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
     import {parseTime} from '@/utils/index.js';
     import ElUploadDrag from "element-ui/packages/upload/src/upload-dragger";
+    import { upload } from '@/api/openAccount.js'
 
     export default {
         name: 'uploadInfo',
@@ -160,6 +172,7 @@
         },
         data() {
             return {
+                imageUrl: '',
                 type: this.$route.query.type,
                 step: 3,
                 labelPosition: 'top',
@@ -177,19 +190,48 @@
             },
             handleSuccess(response, file, fileList) {
                 console.log(response, file, fileList);
+                 this.imageUrl = URL.createObjectURL(file.raw);
             },
             handleChange(file, fileList) {
                 console.log(file, fileList);
             },
             beforeUpload(file) {
-                console.log(file);
-                console.log(file.size / (1024 * 1024));
-                if (file.size / (1024 * 1024) > 1) {
-                    this.$alert("文件不能超过10M", "提示", {
-                        confirmButtonText: "确定"
-                    });
-                    return false;
+                const isImg = file.type.indexOf('image/') != -1;
+                const isLt10M = file.size / 1024 / 1024 < 1;
+                var msg = '';
+
+                if (!isImg) {
+                msg = '请上传.jpg,.jpeg,.png格式的图片'
+                } else if (!isLt10M) {
+                msg = '图片大小不能超过10MB!';
                 }
+                if(msg){
+                this.$alert(msg, "提示", {
+                    confirmButtonText: "我知道了"
+                });
+                }
+                return isImg && isLt10M;
+            },
+            myUpload(content) {
+                console.log(content.file)
+                var form = new FormData();
+                form.append("file", content.file);
+                form.append("type", 1);
+                upload(form).then(res=>{
+                    if(res.data.code != 0) {
+                        content.onError('文件上传失败, code:' + res.data.code)
+                    } else {
+                        content.onSuccess('文件上传成功！')
+                    }
+                }).catch(error=>{
+                    if (error.response) {
+                            content.onError('文件上传失败,' + error.response.data);
+                        } else if(error.request) {
+                            content.onError('文件上传失败，服务器端无响应')
+                        } else {
+                            content.onError('文件上传失败，请求封装失败')
+                        }
+                });
             },
             escapeStep() {
                 this.$router.replace({name: 'witness'});
@@ -201,10 +243,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后跳转
-                        this.$router.replace({name: 'witness'});
-                    } else {
-                        //测试
-                        this.$router.replace({name: 'witness'});
+                       // this.$router.replace({name: 'witness'});
                     }
                 });
             }
@@ -215,6 +254,10 @@
 </script>
 
 <style scoped lang="scss">
+  .avatar {
+    max-width: 200px;
+    display:block;
+  }
     .el-form-item {
         margin-bottom: 40px !important;
     }

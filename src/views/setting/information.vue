@@ -23,7 +23,7 @@
     </div>
     <div class="item">
       <div class="label">{{$t('setting.information.text6')}}</div>
-      <div class="info">{{employmentStatus}}</div>
+      <div class="info">{{filterType(employmentStatus)}}</div>
     </div>
     <div class="item">
       <div class="label">{{$t('setting.information.text7')}}</div>
@@ -36,6 +36,7 @@
   </div>
 </template>
 <script>
+import { filterByLanguage } from '@/filters/index.js'
 import {getUserInfo} from '@/api';
 import {filterOpenStatus} from '@/utils';
 export default {
@@ -48,21 +49,36 @@ export default {
       birthday: "",
       employmentStatus: "",
       company: "",
-      professionalName: ""
+      professionalName: "",
     };
   },
   mounted(){
-    getUserInfo().then(res=>{
-      var data = res.data;
-      this.name = ((data.surnameChina || '') + (data.nameChina || '')) || ((data.surnameUS || '') + (data.nameUS || ''));
-      this.mobile = data.phone;
-      this.email = data.email;
-      this.openStatus = filterOpenStatus(data.status);
-      this.birthday = data.birthday.substr(0,10);
-      this.employmentStatus = data.employmentType;
-      this.company = data.employmentCompay;
-      this.professionalName = data.post;
+    this.getGlobalData("sys_employment").then(res=>{
+      this.typeList = res.data.list;
+      this.getUserInfo();
     })
+
+  },
+  methods:{
+     filterType(status){
+       if(status){
+          var val = this.typeList.filter((item) => item.dictValue == status)[0];
+          return filterByLanguage(val, 'dictLabel');
+       }
+    },
+    getUserInfo(){
+      getUserInfo().then(res=>{
+        var data = res.data;
+        this.name = ((data.surnameChina || '') + (data.nameChina || '')) || ((data.surnameUS || '') + (data.nameUS || ''));
+        this.mobile = data.phone;
+        this.email = data.email;
+        this.openStatus = filterOpenStatus(data.status);
+        this.birthday = data.birthday.substr(0,10);
+        this.company = data.employmentCompay;
+        this.professionalName = data.post;
+        this.employmentStatus = data.employmentType;
+      })
+    }
   }
 };
 </script>

@@ -65,7 +65,7 @@
 
       <div v-show="showmask" id="mask">
         <div class="center">
-          <el-button @click="showmask=false">关闭</el-button>
+          <el-button class="close" @click="showmask=false">关闭</el-button>
           <div class="slide-cont">
             <div class="slide-item">
               <div class="label">{{$t('analysis.result.text8')}}</div>
@@ -667,7 +667,7 @@ export default {
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
   .el-button {
-    width: 100%;
+    width: 50%;
   }
   .center {
     display: flex;
@@ -691,6 +691,21 @@ export default {
       float: right;
     }
   }
+
+  @media screen and (max-height: 880px) {
+    .center{
+      text-align: center;
+    }
+      .el-button{
+        margin: 100px 0 50px;
+      }
+      .slide-item{
+        display: inline-block;
+        margin: 0 100px 30px;
+      }
+  }
+
+
 }
 #myChart1 {
   width: 800px;

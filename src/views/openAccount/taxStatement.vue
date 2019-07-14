@@ -44,13 +44,13 @@
                         </el-col>
                     </el-row>
                     <el-form-item label="5.您是否有美国纳税人识别号？" prop="USDiscern" required>
-                        <el-radio-group v-model="statementInfo.USDiscern">
+                        <el-radio-group  v-model="statementInfo.USDiscern">
                             <el-radio :label="1">是</el-radio>
                             <el-radio :label="0">否</el-radio>
                         </el-radio-group>
                         <el-form-item label="US TIN:" prop="TIN" v-if="statementInfo.USDiscern == 1"
                                       style="width: 380px;margin-top: 10px;">
-                            <el-input v-model="statementInfo.TIN" placeholder="请与身份证明文件上地址保持一致。"></el-input>
+                            <el-input :disabled="true" v-model="statementInfo.TIN" placeholder="请与身份证明文件上地址保持一致。"></el-input>
                         </el-form-item>
                     </el-form-item>
                     <el-form-item label="6.您是否可享受美国所得税协定优惠？" prop="isUsDiscount" required>
@@ -128,8 +128,8 @@
                     </el-form-item>
                     <el-form-item label="11 . 勾选“是”表示您同意我们通过电子化的形式（包括通过账户管理终端）而非纸质形式收集及分发税表。" prop="agreement" required>
                         <el-radio-group v-model="statementInfo.agreement">
-                            <el-radio :label="0" style="width: 360px">是</el-radio>
-                            <el-radio :label="1" style="width: 360px">否</el-radio>
+                            <el-radio :label="1" style="width: 360px">是</el-radio>
+                            <el-radio :label="0" style="width: 360px">否</el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <div class="important-tips">
@@ -220,7 +220,8 @@
           isUsDiscount: '',
           usCountry: '',
           TIN: '',
-          autograph: ''
+          autograph: '',
+          agreement: '',
         }
       };
     },
@@ -239,10 +240,11 @@
           if (valid) {
             //...请求接口后提示
             let params = {
-              USDiscern: this.statementInfo.USDiscern + '',
-              isUsDiscount: this.statementInfo.isUsDiscount + '',
+              discern: this.statementInfo.USDiscern,
+              isUsDiscount: this.statementInfo.isUsDiscount,
               taxTreaty: this.statementInfo.usCountry,
-              autograph: this.statementInfo.autograph
+              autograph: this.statementInfo.autograph,
+              isElectron: this.statementInfo.agreement,
             };
             if(this.statementInfo.USDiscern==1){
               params.TIN = this.statementInfo.TIN;
@@ -251,7 +253,6 @@
               params.usCountry = this.statementInfo.usCountry;
             }
             updateUserBase(params).then(res => {
-              console.log(res);
               this.$message.success('保存成功');
             });
           }
@@ -265,10 +266,11 @@
           if (valid) {
             //...请求接口后跳转
             let params = {
-              USDiscern: this.statementInfo.USDiscern + '',
-              isUsDiscount: this.statementInfo.isUsDiscount + '',
+              discern: this.statementInfo.USDiscern,
+              isUsDiscount: this.statementInfo.isUsDiscount,
               taxTreaty: this.statementInfo.usCountry,
-              autograph: this.statementInfo.autograph
+              autograph: this.statementInfo.autograph,
+              isElectron: this.statementInfo.agreement,
             };
             if(this.statementInfo.USDiscern==1){
                 params.TIN = this.statementInfo.TIN;
@@ -277,8 +279,7 @@
               params.usCountry = this.statementInfo.usCountry;
             }
             updateUserBase(params).then(res => {
-              console.log(res);
-              // this.$router.replace({ name: 'disClosure' });
+              this.$router.replace({ name: 'disClosure' });
             });
           }
         });
@@ -300,7 +301,8 @@
               this.statementInfo.country = data.data.country;
               this.statementInfo.isUsDiscount = parseInt(data.data.isUsDiscount);
               this.statementInfo.autograph = data.data.autograph;
-              this.statementInfo.USDiscern = parseInt(data.data.uSDiscern);
+              this.statementInfo.USDiscern = parseInt(data.data.discern);
+              this.statementInfo.agreement = data.data.isElectron;
             });
           }
         });

@@ -134,6 +134,11 @@ header {
     "Microsoft YaHei", STHeiTi, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  .el-upload--picture-card{
+    width: auto;
+    height: auto;
+    line-height: 2;
+  }
   .el-pagination.is-background .btn-next,
   .el-pagination.is-background .btn-prev,
   .el-pagination.is-background .el-pager li {

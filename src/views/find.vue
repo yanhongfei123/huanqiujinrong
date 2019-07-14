@@ -116,8 +116,6 @@ export default {
     var list = res.data.list;
     this.typeList = list;
     this.changeTab(list[0].dictValue, 0);
-var res = await this.getGlobalData("net_asset_flows");
-
   }
 };
 </script>

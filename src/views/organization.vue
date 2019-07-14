@@ -100,7 +100,7 @@ export default {
       }
     }
     .info {
-      width: 800px;
+      width: 700px;
       font-size: 20px;
       line-height: 30px;
       margin-bottom: 36px;

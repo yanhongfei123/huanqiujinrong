@@ -3,7 +3,7 @@ import i18n from '../lang'
 
 export function filterOpenStatus(state) {
   // 0待申请开户1待审核2开户拒绝3待入金4待风险测评5待配置6已配置
-  switch (state) {
+  switch (parseInt(state)) {
     case 0:
       return '待申请开户';
     case 1:

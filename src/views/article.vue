@@ -45,8 +45,10 @@ export default {
      return filterByLanguage(val, 'articleContent');
     },
     filterType(type){
-      var val = this.typeList.filter((item) => item.dictValue == type)[0];
-      return filterByLanguage(val, 'dictLabel');
+      if(type){
+        var val = this.typeList.filter((item) => item.dictValue == type)[0];
+        return filterByLanguage(val, 'dictLabel');
+      }
     },
 
   },

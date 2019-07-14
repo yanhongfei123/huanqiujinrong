@@ -80,7 +80,7 @@ export default {
     }
   }
   .content {
-    padding: 40px 0 120px;
+    padding: 120px 0 120px;
     background: #f9f9f9;
     .com-width {
       font-size: 20px;

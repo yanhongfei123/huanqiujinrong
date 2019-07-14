@@ -25,12 +25,12 @@
                 <el-form title="合规信息" class="form" :label-position="labelPosition" label-width="80px"
                          :model="disclosureInfo" ref="disclosureInfoForm" :rules="disclosureInfoRules">
                     <el-row>
-                        <el-col style="width:380px">
+                        <el-col :span="18" style="width:380px">
                             <el-form-item label="签名：" prop="signName" required>
                                 <el-input v-model="disclosureInfo.signName" placeholder="请输入签名，名与姓之间有一个空格"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col style="margin-left: 20px"><div class="sign-date">日期： 2019-06-12</div></el-col>
+                        <el-col :span="6" style="margin: 44px 0  0 25px"><div class="sign-date">日期： 2019-06-12</div></el-col>
                     </el-row>
                     <div class="important-tips">
                         重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
@@ -55,7 +55,7 @@
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
     import {parseTime} from '@/utils/index.js';
     import Cookies from 'js-cookie';
-
+    import { getUserBase, getUserInfo, updateUserBase } from '@/api/openAccount';
     export default {
         name: 'disclosureInfo',
         components: {
@@ -75,6 +75,7 @@
                     ]
                 },
                 disclosureInfo: {
+                    signName: '',
                     taxCountry: '中国香港',
                     usTaxNo: '678419198501107657',
                     date: '2019-06-11'
@@ -120,14 +121,20 @@
             }
         },
         methods: {
+
             goPdf(url) {
                 location.href = url;
             },
             saveInfo(formName) {
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        //...请求接口后提示
-                        this.$message.success('保存成功');
+                        var params = {
+                            treatyAutograph: this.disclosureInfo.signName
+                        }
+                        updateUserBase(params).then(res => {
+                           this.$message.success('保存成功');
+                        });
                     }
                 });
             },
@@ -138,15 +145,21 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //...请求接口后跳转
-                        this.$router.replace({name: 'uploadInfo'});
-                    } else {
-                        //测试
-                        this.$router.replace({name: 'uploadInfo'});
+                        var params = {
+                            treatyAutograph: this.disclosureInfo.signName
+                        }
+                        updateUserBase(params).then(res => {
+                           this.$router.replace({name: 'uploadInfo'});
+                        });
                     }
                 });
             }
         },
         mounted() {
+            getUserBase().then(data => {
+                console.log(data)
+              this.disclosureInfo.signName = data.data.treatyAutograph;
+            });
         }
     };
 </script>
@@ -225,6 +238,7 @@
                 font-weight: 400;
                 color: rgba(60, 63, 77, 1);
                 line-height: 32px;
+                margin-bottom: 30px;
             }
 
             .form {
