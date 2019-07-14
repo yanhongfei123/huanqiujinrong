@@ -279,7 +279,7 @@
               params.usCountry = this.statementInfo.usCountry;
             }
             updateUserBase(params).then(res => {
-              this.$router.replace({ name: 'disClosure' });
+              this.$router.replace({ name: 'disClosure' , query: { type: this.type }});
             });
           }
         });

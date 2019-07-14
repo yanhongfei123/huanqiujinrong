@@ -769,13 +769,11 @@
                     );
                 }
 
-                console.log(this.params)
-
                 this.$refs['regulatoryInfoForm'].validate((valid) => {
                     if (valid) {
                         saveUserRegulation(this.params).then(res=>{
                            if(flag){
-                               this.$router.replace({name: 'taxStatement'});
+                               this.$router.replace({name: 'taxStatement', query: { type: this.type }});
                            } else{
                                this.$message.success('保存成功');
                            }

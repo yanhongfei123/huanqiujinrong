@@ -362,7 +362,7 @@
                     if (valid) {
                         //...请求接口后跳转
                         saveUserInfo(this.userInfo).then(()=>{
-                            this.$router.replace({name: 'addressInfo'});
+                            this.$router.replace({name: 'addressInfo', query: { type: this.type }});
                         });
                     }
                 });

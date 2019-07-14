@@ -188,7 +188,7 @@
                     if (valid) {
                         //...请求接口后跳转
                         saveUserBase(this.addressInfo).then(() => {
-                            this.$router.replace({name: 'regulatoryInfo'});
+                            this.$router.replace({name: 'regulatoryInfo', query: { type: this.type }});
                         });
                     }
                 });

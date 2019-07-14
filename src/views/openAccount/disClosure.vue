@@ -149,7 +149,7 @@
                             treatyAutograph: this.disclosureInfo.signName
                         }
                         updateUserBase(params).then(res => {
-                           this.$router.replace({name: 'uploadInfo'});
+                           this.$router.replace({name: 'uploadInfo' , query: { type: this.type }});
                         });
                     }
                 });

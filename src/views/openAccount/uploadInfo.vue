@@ -144,7 +144,7 @@
                 <div class="btn-wrap">
                     <div @click="escapeStep('uploadInfoForm')" class="btn-item btn1">跳过</div>
                     <div @click="goDisclosure" class="btn-item btn2">上一步</div>
-                    <div @click="agree('uploadInfoForm')" class="btn-item btn3">本人同意</div>
+                    <div @click="agree('uploadInfoForm')" class="btn-item btn3">提交</div>
                 </div>
             </div>
 
