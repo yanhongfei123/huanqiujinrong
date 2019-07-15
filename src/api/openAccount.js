@@ -69,15 +69,16 @@ export function upload(data) {
     headers: {
       'Content-Type': 'multipart/form-data'// || 'application/x-www-form-urlencoded'
     },
-    // transformRequest: [function (data) {
-    //   let ret = ''
-    //   for (let it in data) {
-    //     ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-    //   }
-    //   return ret
-    // }],
     method: 'post',
-    withCredentials: true,
     data: data
+  })
+}
+
+
+export function getUserFile() {
+  return request({
+    url: '/user/getUserFile',
+    method: 'get',
+    data: {}
   })
 }

@@ -51,7 +51,7 @@
                         </el-col>
                         <el-col class="tip">{{$t('openAccount.addressInfo.text11')}}</el-col>
                     </el-row>
-                    <div class="info-title">四.{{$t('openAccount.addressInfo.text12')}}</div>
+                    <div class="info-title">{{$t('openAccount.addressInfo.text12')}}</div>
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item  :label="$t('openAccount.addressInfo.text13')" prop="employmentType" required>

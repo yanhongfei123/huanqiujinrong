@@ -51,7 +51,7 @@
                         </el-radio-group>
                         <el-form-item label="US TIN:" prop="TIN" v-if="statementInfo.USDiscern == 1"
                                       style="width: 380px;margin-top: 10px;">
-                            <el-input :disabled="true" v-model="statementInfo.TIN"  :placeholder="$t('openAccount.statementInfo.text12')"></el-input>
+                            <el-input  v-model="statementInfo.TIN"  :placeholder="$t('openAccount.statementInfo.text12')"></el-input>
                         </el-form-item>
                     </el-form-item>
                     <el-form-item  :label="$t('openAccount.statementInfo.text13')" prop="isUsDiscount" required>
@@ -165,6 +165,20 @@
       openAccountSteps
     },
     data() {
+
+        const validateAutograph = (rule, value, callback) => {
+            var val = value.split(' ');
+            if (value == "") {
+                callback(new Error('请输入签名，名与姓之间有一个空格'));
+            } else if (val.length == 1) {
+                callback(new Error('名与姓之间有一个空格'));
+            } else if (val[0] != this.surnameChina || val[1] != this.nameChina) {
+                callback(new Error('签名的姓名须与身份证上保持一致'));
+            } else {
+                callback();
+            }
+        };
+
       return {
         type: this.$route.query.type,
         step: 2,
@@ -204,9 +218,9 @@
           usTaxNo: [
             { required: true, message: '请填写美国纳税人识别号码' },
           ],
-          autograph: [
-            { required: true, message: '请填写签名' },
-          ],
+            autograph: [
+                { required: true, trigger: "blur", validator: validateAutograph }
+            ],
           agreement: [
             { required: true, message: '请选择' },
           ]
@@ -221,7 +235,7 @@
           usCountry: '',
           TIN: '',
           autograph: '',
-          agreement: '',
+          agreement: 1,
         }
       };
     },
@@ -294,6 +308,8 @@
             this.statementInfo.birthday = data.birthday;
             this.statementInfo.usTaxNo = data.card;
             this.statementInfo.beneficiary = data.surnameChina+data.nameChina;
+            this.surnameChina = data.surnameChina;
+            this.nameChina = data.nameChina;
             getUserBase().then(data => {
               this.statementInfo.TIN = data.data.taxation;
               this.statementInfo.usCountry = data.data.taxTreaty;
