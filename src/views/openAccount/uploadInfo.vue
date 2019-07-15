@@ -21,117 +21,66 @@
                     <el-row>
                         <el-col style="width: 400px;">
                             <el-form-item label="1.香港居民身份证正面照片:" prop="frontIdCard">
-                                <el-upload
-                                        class="upload"
-                                        action="/file/upload"
-                                        :http-request="myUpload"
-                                        :on-success="handleSuccess"
-                                        :on-preview="handlePreview"
-                                        :on-remove="handleRemove"
-                                        :on-change="handleChange"
-                                        :file-list="fileList"
-                                        :before-upload="beforeUpload"
-                                        :show-file-list="false"
-                                        list-type="picture-card"
-                                >
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <div class="upload-wrap">
+                                    <input ref="uploadFile1" @change="change($event, 1)" class="file" type="file" name="file">
+                                    <img v-if="imageUrl1" :src="imageUrl1" class="avatar">
                                     <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
-                                </el-upload>
+                                </div>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;">
                             <el-form-item label="1.香港居民身份证反面照片:" prop="frontIdCard">
-                                <el-upload
-                                        class="upload"
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        :on-success="handleSuccess"
-                                        :on-preview="handlePreview"
-                                        :on-remove="handleRemove"
-                                        :on-change="handleChange"
-                                        :file-list="fileList"
-                                        :before-upload="beforeUpload"
-                                        :show-file-list="false"
-                                        list-type="picture-card"
-                                >
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <div class="upload-wrap">
+                                    <input ref="uploadFile2" @change="change($event, 2)" class="file" type="file" name="file">
+                                    <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
                                     <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
-                                </el-upload>
+                                </div>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 400px;">
                             <el-form-item label="3.请补充本人护照照片页/其他国家身份证正面照片:" prop="frontIdCard">
-                                <el-upload
-                                        class="upload"
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        :on-success="handleSuccess"
-                                        :on-preview="handlePreview"
-                                        :on-remove="handleRemove"
-                                        :on-change="handleChange"
-                                        :file-list="fileList"
-                                        :before-upload="beforeUpload"
-                                        :show-file-list="false"
-                                        list-type="picture-card"
-                                >
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <div class="upload-wrap">
+                                    <input ref="uploadFile3" @change="change($event, 3)" class="file" type="file" name="file">
+                                    <img v-if="imageUrl3" :src="imageUrl3" class="avatar">
                                     <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
-                                </el-upload>
+                                </div>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;">
                             <el-form-item label="4.请补充本人护照照片页/其他国家身份证反面照片 :" prop="frontIdCard">
-                                <el-upload
-                                        class="upload"
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        :on-success="handleSuccess"
-                                        :on-preview="handlePreview"
-                                        :on-remove="handleRemove"
-                                        :on-change="handleChange"
-                                        :file-list="fileList"
-                                        :before-upload="beforeUpload"
-                                        :show-file-list="false"
-                                        list-type="picture-card"
-                                >
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <div class="upload-wrap">
+                                    <input ref="uploadFile4" @change="change($event, 4)" class="file" type="file" name="file">
+                                    <img v-if="imageUrl4" :src="imageUrl4" class="avatar">
                                     <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
-                                </el-upload>
+                                </div>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 430px;">
                             <el-form-item label="3.5.居住地址证明照片（例：三个月内同名银行信件或水电煤单）:" prop="frontIdCard">
-                                <el-upload
-                                        class="upload"
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        :on-success="handleSuccess"
-                                        :on-preview="handlePreview"
-                                        :on-remove="handleRemove"
-                                        :on-change="handleChange"
-                                        :file-list="fileList"
-                                        :before-upload="beforeUpload"
-                                        :show-file-list="false"
-                                        list-type="picture-card"
-                                >
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <div class="upload-wrap">
+                                    <input ref="uploadFile5" @change="change($event, 5)" class="file" type="file" name="file">
+                                    <img v-if="imageUrl5" :src="imageUrl5" class="avatar">
                                     <div v-else class="upload-btn">
                                         <div class="add"></div>
                                         <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
                                     </div>
-                                </el-upload>
+                                </div>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -144,7 +93,7 @@
                 <div class="btn-wrap">
                     <div @click="escapeStep('uploadInfoForm')" class="btn-item btn1">跳过</div>
                     <div @click="goDisclosure" class="btn-item btn2">上一步</div>
-                    <div @click="agree('uploadInfoForm')" class="btn-item btn3">提交</div>
+                    <div @click="escapeStep('uploadInfoForm')" class="btn-item btn3">提交</div>
                 </div>
             </div>
 
@@ -155,12 +104,13 @@
 
 <script>
 
+    import {Message} from 'element-ui';
     import openAccountHeader from '@/components/header/openAccountHeader.vue';
     import footerBar from '@/components/footer/footer.vue';
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
     import {parseTime} from '@/utils/index.js';
     import ElUploadDrag from "element-ui/packages/upload/src/upload-dragger";
-    import { upload } from '@/api/openAccount.js'
+    import { upload, getUserFile } from '@/api/openAccount.js'
 
     export default {
         name: 'uploadInfo',
@@ -172,7 +122,11 @@
         },
         data() {
             return {
-                imageUrl: '',
+                imageUrl1: '',
+                imageUrl2: '',
+                imageUrl3: '',
+                imageUrl4: '',
+                imageUrl5: '',
                 type: this.$route.query.type,
                 step: 3,
                 labelPosition: 'top',
@@ -182,55 +136,34 @@
             };
         },
         methods: {
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
+            change(e, type) {
+                var that = this;
+                var file = e.target.files;
+                this.uploadImg(file[0], type);
             },
-            handlePreview(file) {
-                console.log(file);
-            },
-            handleSuccess(response, file, fileList) {
-                console.log(response, file, fileList);
-                 this.imageUrl = URL.createObjectURL(file.raw);
-            },
-            handleChange(file, fileList) {
-                console.log(file, fileList);
-            },
-            beforeUpload(file) {
-                const isImg = file.type.indexOf('image/') != -1;
-                const isLt10M = file.size / 1024 / 1024 < 1;
-                var msg = '';
-
-                if (!isImg) {
-                msg = '请上传.jpg,.jpeg,.png格式的图片'
-                } else if (!isLt10M) {
-                msg = '图片大小不能超过10MB!';
+            uploadImg(file, type) {
+                var file = this.$refs[`uploadFile${type}`].files[0];
+                var isImg = file.type.indexOf('image/') == -1;
+                var isLt10M = file.size / 1024 / 1024 > 10;
+                if (isImg) {
+                    Message({
+                        message: '不支持该格式的文件',
+                        type: 'warning'
+                    });
+                    return;
                 }
-                if(msg){
-                this.$alert(msg, "提示", {
-                    confirmButtonText: "我知道了"
-                });
+                if (isLt10M) {
+                    Message({
+                        message: '您上传的图片超过10M，请重新选择图片',
+                        type: 'warning'
+                    });
+                  return
                 }
-                return isImg && isLt10M;
-            },
-            myUpload(content) {
-                console.log(content.file)
-                var form = new FormData();
-                form.append("file", content.file);
-                form.append("type", 1);
-                upload(form).then(res=>{
-                    if(res.data.code != 0) {
-                        content.onError('文件上传失败, code:' + res.data.code)
-                    } else {
-                        content.onSuccess('文件上传成功！')
-                    }
-                }).catch(error=>{
-                    if (error.response) {
-                            content.onError('文件上传失败,' + error.response.data);
-                        } else if(error.request) {
-                            content.onError('文件上传失败，服务器端无响应')
-                        } else {
-                            content.onError('文件上传失败，请求封装失败')
-                        }
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("type", 1);
+                upload(formData).then(res => {
+                    this[`imageUrl${type}`] = res.data.url;
                 });
             },
             escapeStep() {
@@ -239,16 +172,11 @@
             goDisclosure() {
                 this.$router.replace({name: 'disClosure'});
             },
-            agree(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后跳转
-                       // this.$router.replace({name: 'witness'});
-                    }
-                });
-            }
         },
         mounted() {
+            getUserFile().then(res => {
+                console.log(res.data)
+            })
         }
     };
 </script>
@@ -328,6 +256,19 @@
                 font-weight: 400;
                 color: rgba(60, 63, 77, 1);
                 line-height: 32px;
+            }
+        }
+
+        .upload-wrap{
+            position: relative;
+            input{
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 1;
+                opacity: 0;
+                width: 180px;
+                height: 120px;
             }
         }
 

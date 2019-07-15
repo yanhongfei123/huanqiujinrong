@@ -64,6 +64,18 @@
             openAccountSteps
         },
         data() {
+            const validateAutograph = (rule, value, callback) => {
+                var val = value.split(' ');
+                if (value == "") {
+                    callback(new Error('请输入签名，名与姓之间有一个空格'));
+                } else if (val.length == 1) {
+                    callback(new Error('名与姓之间有一个空格'));
+                } else if (val[0] != this.surnameChina || val[1] != this.nameChina) {
+                    callback(new Error('签名的姓名须与身份证上保持一致'));
+                } else {
+                    callback();
+                }
+            };
             return {
                 locale: Cookies.get('language') || 'zh-TW',
                 type: this.$route.query.type,
@@ -71,7 +83,7 @@
                 labelPosition: 'top',
                 disclosureInfoRules: {
                     signName: [
-                        { required: true, message: '请输入签名，名与姓之间有一个空格',  trigger: 'blur' }
+                        { required: true, trigger: "blur", validator: validateAutograph }
                     ]
                 },
                 disclosureInfo: {
@@ -157,8 +169,15 @@
         },
         mounted() {
             getUserBase().then(data => {
-                console.log(data)
               this.disclosureInfo.signName = data.data.treatyAutograph;
+            });
+
+            getUserInfo().then(response => {
+                if (response.data) {
+                    let data = response.data;
+                    this.surnameChina = data.surnameChina;
+                    this.nameChina = data.nameChina;
+                }
             });
         }
     };
