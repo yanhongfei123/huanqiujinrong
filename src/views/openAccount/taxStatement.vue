@@ -4,66 +4,66 @@
             <openAccountHeader></openAccountHeader>
         </header>
         <div class="content">
-            <div class="title">网上开户</div>
+            <div class="title">{{$t('openAccount.userInfo.text1')}}</div>
             <div class="info-wrapper">
-                <div class="tips"><label>* </label>您正在申请的是{{type==1?'美国':'香港'}}上市交易的ETF</div>
+                <div class="tips" v-if="type==1"><label>* </label>{{$t('openAccount.userInfo.text2')}}</div>
+                <div class="tips" v-else><label>* </label>{{$t('openAccount.userInfo.text3')}}</div>
                 <openAccountSteps :step=step></openAccountSteps>
                 <el-form title="合规信息" class="statementInfoForm" :label-position="labelPosition" label-width="80px"
                          :model="statementInfo" ref="statementInfoForm" :rules="statementInfoRules">
                     <div class="info-title title1">
-                        一. 税务居住地本人声明<br>
-                        <p>税法要求我们获取有关您的税务居住地的某些证明。每个司法辖域对税务居住地的定义可能不同。
-                            如您为美国公民，您必须表明美国是您的税务居住地。请咨询您的税务顾问或通过经合组织自动信息交换终端的信息了解更多有关税务居住地的信息，或有关美国国税局网站irs.gov上W8-BEN表说明的更多信息。</p>
+                        {{$t('openAccount.statementInfo.text1')}}<br>
+                        <p>{{$t('openAccount.statementInfo.text2')}}</p>
                     </div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="1.受益所有人名称:" prop="beneficiary" required>
-                                <el-input v-model="statementInfo.beneficiary" placeholder="请输入受益所有人名称" :disabled="true"></el-input>
+                            <el-form-item :label="$t('openAccount.statementInfo.text3')" prop="beneficiary" required>
+                                <el-input v-model="statementInfo.beneficiary" :placeholder="$t('openAccount.statementInfo.text4')" :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="2.国籍:" prop="nationality" required>
-                                <el-input v-model="statementInfo.nationality" placeholder="请输入国籍" :disabled="true"></el-input>
+                            <el-form-item  :label="$t('openAccount.statementInfo.text5')" prop="nationality" required>
+                                <el-input v-model="statementInfo.nationality" :placeholder="$t('openAccount.statementInfo.text6')" :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item label="3.居住地址:" prop="addr" required>
+                            <el-form-item  :label="$t('openAccount.statementInfo.text7')" prop="addr" required>
                                 <el-input v-model="statementInfo.addr"
-                                          placeholder="请与身份证明文件上地址保持一致。" :disabled="true"></el-input>
+                                          :placeholder="$t('openAccount.statementInfo.text8')"
+                                          :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item label="4.出生日期:" prop="birthday" required>
-                                <el-date-picker type="date" :placeholder="$t('openAccount.userInfo.text6')"
+                            <el-form-item  :label="$t('openAccount.statementInfo.text9')" prop="birthday" required>
+                                <el-date-picker type="date" :placeholder="$t('openAccount.statementInfo.text10')"
                                                 v-model="statementInfo.birthday"
                                                 value-format="yyyy-MM-dd"
                                                 style="width: 100%;" :disabled="true"></el-date-picker>
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <el-form-item label="5.您是否有美国纳税人识别号？" prop="USDiscern" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text11')" prop="USDiscern" required>
                         <el-radio-group  v-model="statementInfo.USDiscern">
                             <el-radio :label="1">是</el-radio>
                             <el-radio :label="0">否</el-radio>
                         </el-radio-group>
                         <el-form-item label="US TIN:" prop="TIN" v-if="statementInfo.USDiscern == 1"
                                       style="width: 380px;margin-top: 10px;">
-                            <el-input :disabled="true" v-model="statementInfo.TIN" placeholder="请与身份证明文件上地址保持一致。"></el-input>
+                            <el-input :disabled="true" v-model="statementInfo.TIN"  :placeholder="$t('openAccount.statementInfo.text12')"></el-input>
                         </el-form-item>
                     </el-form-item>
-                    <el-form-item label="6.您是否可享受美国所得税协定优惠？" prop="isUsDiscount" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text13')" prop="isUsDiscount" required>
                         <el-radio-group v-model="statementInfo.isUsDiscount">
                             <el-radio :label="1">是</el-radio>
                             <el-radio :label="0">否</el-radio>
                         </el-radio-group>
-                        <p class="desc">
-                            尽管您可能与和美国执行税收优惠协定的国家有所关联，但您还未选择协定国。如果不选择，那么您在美国账户赚取的收入可能会被征收额外的预扣税。如果您认为自己符合税收优惠协定的条件，进行选择；反之则无需采取任何行动</p>
+                        <p class="desc">{{$t('openAccount.statementInfo.text14')}}</p>
                         <div v-if="statementInfo.isUsDiscount == 1">
-                            <p class="text tax-text1">本人确认，受益所有人在美国与所属国的税收协定下，符合</p>
+                            <p class="text tax-text1">{{$t('openAccount.statementInfo.text15')}}</p>
                             <el-form-item prop="taxIncentivesCountry" style="width: 416px;margin-top: 10px;">
-                                <el-select v-model="statementInfo.usCountry" placeholder="请选择国家/地区"
+                                <el-select v-model="statementInfo.usCountry" :placeholder="$t('openAccount.statementInfo.text16')"
                                            style="width: 380px;">
                                     <el-option
                                             v-for="item in countryList"
@@ -72,12 +72,12 @@
                                             :value="item.dictValue">
                                     </el-option>
                                 </el-select>
-                                <p class="text tax-text2">的居民定义。</p>
+                                <p class="text tax-text2">{{$t('openAccount.statementInfo.text17')}}</p>
                             </el-form-item>
                         </div>
                     </el-form-item>
-                    <el-form-item label="7.出生国家/地区" prop="country" required>
-                        <el-select v-model="statementInfo.country" placeholder="请选择国家/地区" style="width: 380px;"
+                    <el-form-item  :label="$t('openAccount.statementInfo.text18')" prop="country" required>
+                        <el-select v-model="statementInfo.country"  :placeholder="$t('openAccount.statementInfo.text16')" style="width: 380px;"
                                    disabled>
                             <el-option
                                     v-for="item in countryList"
@@ -87,19 +87,19 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="8.税务居住地声明" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text19')" required>
                         <el-row>
                             <el-col style="width: 380px">
-                                <div class="input-title">税务居住国</div>
+                                <div class="input-title">{{$t('openAccount.statementInfo.text20')}}</div>
                                 <el-input v-model="statementInfo.taxCountry" :disabled="true"></el-input>
                             </el-col>
                             <el-col style="width: 380px;margin-left: 20px;">
-                                <div class="input-title">美国纳税人识别号码</div>
+                                <div class="input-title">{{$t('openAccount.statementInfo.text21')}}</div>
                                 <el-input v-model="statementInfo.usTaxNo" :disabled="true"></el-input>
                             </el-col>
                         </el-row>
                     </el-form-item>
-                    <el-form-item label="9.美国国税局声明 - 仅适用于行 1-{0}:" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text22')" required>
                         <div class="tax-statement">
                             <p>本人声明，我已仔细检查了第1-{0}行内的信息，据我所知及所信，此类信息是真实、正确且完整的；如有不实，甘受伪证罪处罚。我进一步以甘受伪证罪处罚为担保，声明以下事项：</p>
                             <p>
@@ -113,7 +113,7 @@
                             <p>除了用以确立您非美国人身份及降低预扣税率的声明外，美国国税局不需要征得您对本文件条款的同意。</p>
                         </div>
                     </el-form-item>
-                    <el-form-item label="10.个人税务居住地自我声明 - 仅适用于行1-{0} 及 {1} - {2}:" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text3')"label="10.个人税务居住地自我声明 - 仅适用于行1-{0} 及 {1} - {2}:" required>
                         <div class="tax-statement">
                             <p>本人声明，本人在本表中提供的信息，据我所知和所信，是准确完整的。<br>
                                 本人同意，本表中包含的有关账户持有人和账户活动的信息可能会与我们的关联方共享，也可能被用于向<br>
@@ -123,10 +123,10 @@
                             <p>客户在此输入签名即表示确认所填写的内容准确或同意税务居住地本人声明(Substitute W-8BEN)条款，本人了解并同意此电子签名等同于手写签名。</p>
                         </div>
                     </el-form-item>
-                    <el-form-item label="签名：" prop="autograph" required>
-                        <el-input placeholder="请输入签名，名与姓之间有一个空格" v-model="statementInfo.autograph"></el-input>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text3')"label="签名：" prop="autograph" required>
+                        <el-input :placeholder="$t('openAccount.statementInfo.text4')"  placeholder="请输入签名，名与姓之间有一个空格" v-model="statementInfo.autograph"></el-input>
                     </el-form-item>
-                    <el-form-item label="11 . 勾选“是”表示您同意我们通过电子化的形式（包括通过账户管理终端）而非纸质形式收集及分发税表。" prop="agreement" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text3')"label="11 . 勾选“是”表示您同意我们通过电子化的形式（包括通过账户管理终端）而非纸质形式收集及分发税表。" prop="agreement" required>
                         <el-radio-group v-model="statementInfo.agreement">
                             <el-radio :label="1" style="width: 360px">是</el-radio>
                             <el-radio :label="0" style="width: 360px">否</el-radio>
