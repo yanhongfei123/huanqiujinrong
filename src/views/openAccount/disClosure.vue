@@ -125,7 +125,7 @@
             openProtocols(){
                 if( this.locale == 'zh'){
                     return this.protocols.cnProtocols;
-                }else if(this.locale == 'zh-TW'){
+                }else if(this.locale == 'Ft'){
                     return this.protocols.ftProtocols;
                 }else if(this.locale == 'en'){
                     return this.protocols.enProtocols;
@@ -205,6 +205,14 @@
             color: rgba(60, 63, 77, 1);
             line-height: 58px;
         }
+        .disclosure-link{
+                color: #BE1A21;
+                font-size: 20px;
+                margin-top: 40px;
+                font-family: PingFangSC-Regular;
+                font-weight: 400;
+                line-height: 28px;
+        }
 
         .disclosure-wrapper{
             position: relative;
@@ -213,8 +221,6 @@
                 float: left;
                 width: 400px;
                 margin-top: 40px;
-                color: #BE1A21;
-                font-size: 20px;
                 font-family: PingFangSC-Regular;
                 font-weight: 400;
                 line-height: 28px;

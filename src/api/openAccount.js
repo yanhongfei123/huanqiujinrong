@@ -74,11 +74,20 @@ export function upload(data) {
   })
 }
 
-
+// 获取上传的图片
 export function getUserFile() {
   return request({
     url: '/user/getUserFile',
     method: 'get',
+    data: {}
+  })
+}
+
+// 最后一步确认
+export function updateState() {
+  return request({
+    url: '/user/updateState',
+    method: 'post',
     data: {}
   })
 }

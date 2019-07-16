@@ -109,13 +109,11 @@
     import footerBar from '@/components/footer/footer.vue';
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
     import {parseTime} from '@/utils/index.js';
-    import ElUploadDrag from "element-ui/packages/upload/src/upload-dragger";
     import { upload, getUserFile } from '@/api/openAccount.js'
 
     export default {
         name: 'uploadInfo',
         components: {
-            ElUploadDrag,
             openAccountHeader,
             footerBar,
             openAccountSteps
@@ -130,7 +128,6 @@
                 type: this.$route.query.type,
                 step: 3,
                 labelPosition: 'top',
-                fileList: [],
                 uploadInfoRules: {},
                 uploadInfo: {}
             };
@@ -161,7 +158,7 @@
                 }
                 const formData = new FormData();
                 formData.append("file", file);
-                formData.append("type", 1);
+                formData.append("type", type);
                 upload(formData).then(res => {
                     this[`imageUrl${type}`] = res.data.url;
                 });
@@ -175,7 +172,15 @@
         },
         mounted() {
             getUserFile().then(res => {
-                console.log(res.data)
+                var data = res.data;
+                var host = data.url;
+                var nlist = data.list.filter(item => item.type < 6);
+                if(data.list.length && nlist.length){
+                    nlist.map(item => {
+                        var type = [`imageUrl${item.type}`];
+                        this[type] = host + item.url;
+                    })
+                }
             })
         }
     };
@@ -184,6 +189,7 @@
 <style scoped lang="scss">
   .avatar {
     max-width: 200px;
+    min-height: 120px;
     display:block;
   }
     .el-form-item {

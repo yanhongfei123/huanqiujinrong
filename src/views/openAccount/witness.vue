@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="title">开户见证指引</div>
-            <el-tabs v-model="activeName" @tab-click="handleClick"
+            <el-tabs v-model="activeName"
                      style="width:780px;padding-top: 34px;margin: 0 auto;">
                 <el-tab-pane label="亲临见证" name="first">
                     <div class="tab-title">一.亲临见证</div>
@@ -61,12 +61,14 @@
                                     <el-input v-model="arriveWitForm.addressProof" type="hidden"></el-input>
                                     <el-upload
                                             class="upload"
-                                            action="https://jsonplaceholder.typicode.com/posts/"
+                                            :action="`${config.baseUrl}/file/upload`"
+                                            :data="{ type: 6, imgType: 2 }"
+                                            :headers="{accessToken: token}"
                                             :on-success="handleSuccess"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
                                             :on-change="handleChange"
-                                            :file-list="addressFileList"
+                                            :file-list="addressFileList1"
                                             :before-upload="beforeUpload"
                                             list-type="picture"
                                     >
@@ -83,12 +85,14 @@
                                 <el-form-item label="4.其他文件" prop="otherFile">
                                     <el-upload
                                             class="upload"
-                                            action="https://jsonplaceholder.typicode.com/posts/"
+                                            :action="`${config.baseUrl}/file/upload`"
+                                            :data="{ type: 7, imgType: 2 }"
+                                            :headers="{accessToken: token}"
                                             :on-success="handleSuccess"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
                                             :on-change="handleChange"
-                                            :file-list="otherFileList"
+                                            :file-list="otherFileList1"
                                             :before-upload="beforeUpload"
                                             list-type="picture"
                                     >
@@ -105,7 +109,7 @@
                         重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive
                         Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
                     </div>
-                    <div @click="arriveComplete('arriveWitForm')" class="btn-item btn">完成</div>
+                    <div @click="arriveComplete" class="btn-item btn">完成</div>
                 </el-tab-pane>
                 <el-tab-pane label="当面见证" name="second">
                     <div class="tab-title">一.当面临见证</div>
@@ -147,12 +151,14 @@
                                     <el-input v-model="meetWitForm.addressProof" type="hidden"></el-input>
                                     <el-upload
                                             class="upload"
-                                            action="https://jsonplaceholder.typicode.com/posts/"
+                                            :action="`${config.baseUrl}/file/upload`"
+                                            :data="{ type: 6, imgType: 1 }"
+                                            :headers="{accessToken: token}"
                                             :on-success="handleSuccess"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
                                             :on-change="handleChange"
-                                            :file-list="addressFileList"
+                                            :file-list="addressFileList2"
                                             :before-upload="beforeUpload"
                                             list-type="picture">
                                         <div class="upload-btn">
@@ -168,12 +174,14 @@
                                 <el-form-item label="4.其他文件">
                                     <el-upload
                                             class="upload"
-                                            action="https://jsonplaceholder.typicode.com/posts/"
+                                            :action="`${config.baseUrl}/file/upload`"
+                                            :data="{ type: 7, imgType: 1 }"
+                                            :headers="{accessToken: token}"
                                             :on-success="handleSuccess"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
                                             :on-change="handleChange"
-                                            :file-list="otherFileList"
+                                            :file-list="otherFileList2"
                                             :before-upload="beforeUpload"
                                             list-type="picture">
                                         <div class="upload-btn">
@@ -189,7 +197,7 @@
                         重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive
                         Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
                     </div>
-                    <div @click="meetComplete('meetWitForm')" class="btn-item btn">完成</div>
+                    <div @click="arriveComplete" class="btn-item btn">完成</div>
                 </el-tab-pane>
                 <el-tab-pane label="自行安排见证" name="third">
                     <div class="tab-title">一.合资格见证人士</div>
@@ -227,7 +235,7 @@
                         重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive
                         Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
                     </div>
-                    <div @click="selfWitnessComplete" class="btn-item btn">完成</div>
+                    <div @click="arriveComplete" class="btn-item btn">完成</div>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -236,14 +244,20 @@
 </template>
 
 <script>
-
+    import config from '../../utils/config';
+    import { mapGetters } from "vuex";
+    import {Message} from 'element-ui';
     import openAccountHeader from '@/components/header/openAccountHeader.vue';
     import footerBar from '@/components/footer/footer.vue';
     import openAccountSteps from '@/components/common/openAccountSteps.vue';
     import {parseTime} from '@/utils/index.js';
+    import { upload, getUserFile, updateState } from '@/api/openAccount.js'
 
     export default {
         name: 'witness',
+        computed: {
+            ...mapGetters(["token"]),
+        },
         components: {
             openAccountHeader,
             footerBar,
@@ -251,17 +265,22 @@
         },
         data() {
             return {
+                config:config,
+                imageUrl1: '',
+                imageUrl2: '',
                 type: this.$route.query.type,
                 step: 4,
                 labelPosition: 'top',
                 activeName: 'first',
-                addressFileList: [],
-                otherFileList: [],
+                addressFileList1: [],
+                addressFileList2: [],
+                otherFileList1: [],
+                otherFileList2: [],
                 arriveWitForm: {},
                 meetWitForm: {},
                 witRules: {
                     addressProof: [
-                        { required: true, message: "请上传居住地址证明" }
+                        //{ required: true, message: "请上传居住地址证明" }
                     ]
                 }
             };
@@ -280,41 +299,68 @@
                 console.log(file, fileList);
             },
             beforeUpload(file) {
-                console.log(file);
-                console.log(file.size / (1024 * 1024));
-                if (file.size / (1024 * 1024) > 1) {
-                    this.$alert("文件不能超过10M", "提示", {
-                        confirmButtonText: "确定"
+                var isImg = file.type.indexOf('image/') == -1;
+                var isLt10M = file.size / 1024 / 1024 > 10;
+                if (isImg) {
+                    Message({
+                        message: '不支持该格式的文件',
+                        type: 'warning'
                     });
                     return false;
                 }
-            },
-            handleClick(tab, event) {
-                console.log(tab, event);
+                if (isLt10M) {
+                    Message({
+                        message: '您上传的图片超过10M，请重新选择图片',
+                        type: 'warning'
+                    });
+                  return false;
+                }
+                // const formData = new FormData();
+                // formData.append("file", file);
+                // formData.append("type", 6);
+                // upload(formData).then(res => {
+
+                // });
+
+
             },
             arriveComplete(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后跳转
-                    }
-                });
+                updateState().then(res => {
+                    this.$router.push({name: 'accountPreView'})
+                })
             },
-            meetComplete(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后跳转
-                    }
-                });
-            },
-            selfWitnessComplete() {
-                this.$router.push({name: 'userCenter'})
-            }
         },
         mounted() {
+             getUserFile().then(res => {
+                var data = res.data;
+                var host = data.url;
+                var nlist = data.list.map(item => {
+                    item.url = host + item.url;
+                    return item;
+                })
+
+                var addressFileList1 = nlist.filter(item => (item.type == '6' && item.imgType == '2'));
+                var otherFileList1 = nlist.filter(item => (item.type == '7' && item.imgType == '2'));
+
+                var addressFileList2 = nlist.filter(item => (item.type == '6' && item.imgType == '1'));
+                var otherFileList2 = nlist.filter(item => (item.type == '7' && item.imgType == '1'));
+
+                addressFileList1.length && (this.addressFileList1 = addressFileList1);
+                otherFileList1.length && (this.otherFileList1 = otherFileList1);
+
+                addressFileList2.length && (this.addressFileList2 = addressFileList2);
+                otherFileList2.length && (this.otherFileList2 = otherFileList2);
+
+            });
         }
     };
 </script>
 <style lang="scss">
+  .avatar {
+    max-width: 200px;
+    min-height: 120px;
+    display:block;
+  }
     .el-radio-group {
         margin-top: 20px;
     }
@@ -579,8 +625,17 @@
             line-height: 32px;
         }
 
-        .tab-form {
-
+        .upload-wrap{
+            position: relative;
+            input{
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 1;
+                opacity: 0;
+                width: 180px;
+                height: 120px;
+            }
         }
 
         .upload-btn {

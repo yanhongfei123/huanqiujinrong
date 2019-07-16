@@ -4,9 +4,10 @@ import { Loading, Message, MessageBox } from 'element-ui';
 import store from '@/store';
 import { getToken } from '@/utils/auth';
 import router from '../router';
+import config from './config';
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? 'http://47.91.214.249:8003/' : '/api/', // api的base_url
+  baseURL: process.env.NODE_ENV === 'production' ? config.baseUrl : '/api/', // api的base_url
   timeout: 12000 // request timeout
 });
 var loadingInstance;

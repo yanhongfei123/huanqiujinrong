@@ -49,6 +49,12 @@ body {
   overflow: visible!important;
 }
 html{
+  .el-upload-list {
+    width: 180px;
+  }
+  .el-upload-list--picture .el-upload-list__item-name{
+    display: none;
+  }
   .el-loading-parent--hidden{
     overflow: visible!important;
   }
