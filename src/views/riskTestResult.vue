@@ -50,7 +50,7 @@ export default {
   },
   mounted() {
     getUserInfo().then((res)=>{
-      this.openStatus = res.data.status;
+      this.openStatus = res.data.state;
     })
   }
 };

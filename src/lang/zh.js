@@ -166,11 +166,12 @@ export default {
       text5: '再次诊断',
       text6: '详细设定',
       text7: '注册',
-      text8: '目标金额',
-      text9: '预计投资金额',
-      text10: '每月储备金额',
-      text11: '运用期间',
-      text12: '风险承受能力',
+
+      text9: '初始投资金额',
+      text10: '每月投资金额',
+      text11: '投资时长',
+      text12: '风险等级',
+
       text13: '重新测评',
       text14: '名称',
       text15: '代码',
@@ -178,6 +179,7 @@ export default {
       text17: '预计投资金额',
       text18: '总计',
       text19: '万元',
+      text20: '年',
     }
   },
   contact: '联系我们',

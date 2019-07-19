@@ -162,11 +162,12 @@ export default {
       text5: '再次診斷',
       text6: '詳細設定',
       text7: '注冊',
-      text8: '目標金額',
-      text9: '預計投資金額',
-      text10: '每月儲備金額',
-      text11: '運用期間',
-      text12: '風險承受能力',
+
+      text9: '初始投資金額',
+      text10: '每月投資金額',
+      text11: '投資時長',
+      text12: '風險等級',
+
       text13: '重新測評',
       text14: '名稱',
       text15: '代碼',
@@ -174,6 +175,7 @@ export default {
       text17: '預計投資金額',
       text18: '總計',
       text19: '萬元',
+      text20: '年',
     }
   },
   contact: '聯系我們',

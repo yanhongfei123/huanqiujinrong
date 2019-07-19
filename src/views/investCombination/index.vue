@@ -70,7 +70,7 @@
         },
         created() {
             getUserInfo().then((res)=>{
-                if (res.data.status != 6) {
+                if (res.data.state != 6) {
                     this.$router.push('/accountPreView')
                 }
             })

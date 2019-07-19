@@ -36,7 +36,7 @@
               <div class="btn-openAccount disabled">{{checkStatusObj[openStatus].btnText}}</div>
               <div v-if="openStatus == 1" class="review-tip">
                 {{$t('userCenter.text3')}}
-                <router-link to="/openAccount">{{$t('userCenter.text4')}}</router-link>
+                <router-link to="/openAccount/witness">{{$t('userCenter.text4')}}</router-link>
               </div>
             </div>
           </div>
@@ -265,7 +265,7 @@ export default {
   },
   methods: {
     setUserInfo(data) {
-      this.openStatus = data.status;
+      this.openStatus = data.state;
     },
     goPage(path) {
       this.$router.push(path);

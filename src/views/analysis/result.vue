@@ -24,31 +24,23 @@
           class="tab-item"
         >{{val}}</div>
       </div>
-      <div v-show="oIndex==0" class="wrap1">
-        <div class="l-wrap">
-          <div class="l-item">
-            <div class="myChart" id="myChart4"></div>
-            <div class="des">15万以上的人为稳健型投资</div>
-          </div>
-          <div class="l-item">
-            <div class="myChart" id="myChart5"></div>
-            <div class="des">15万以上的人为稳健型投资</div>
-          </div>
-          <div class="l-item">
-            <div class="myChart" id="myChart6"></div>
-            <div class="des">15万以上的人为稳健型投资</div>
-          </div>
-        </div>
+      <div v-show="oIndex==0" class="wrap wrap2">
         <div id="myChart1"></div>
+        <div class="invest-info">
+          初始资金<span>{{startAmount}}万元</span>，每月投资<span>{{investAmount}}万元</span>，投资<span>{{investYear}}年</span>，则<span>{{investYear}}年</span>后总资产可达<span>{{totalAmount}}万</span>
+        </div>
       </div>
       <div v-show="oIndex==1" class="wrap wrap2">
         <div id="myChart2"></div>
+        <div class="invest-info">
+          初始资金<span>{{startAmount}}万元</span>，每月投资<span>{{investAmount}}万元</span>，投资<span>{{investYear}}年</span>，则<span>{{investYear}}年</span>后总资产可达<span>{{totalAmount}}万</span>
+        </div>
       </div>
       <div v-show="oIndex==2" class="wrap wrap3">
         <div id="myChart3"></div>
       </div>
       <div v-show="oIndex==2" class="content">
-         <InvestList></InvestList>
+        <InvestList></InvestList>
       </div>
 
       <div v-show="oIndex!=2" class="btn-wrap">
@@ -57,38 +49,23 @@
           class="btn-item btn1"
         >{{$t('analysis.result.text5')}}</div>
         <div @click="showmask=true" class="btn-item btn2">{{$t('analysis.result.text6')}}</div>
-        <div
-          @click="$router.push('/register')"
-          class="btn-item btn3"
-        >{{$t('analysis.result.text7')}}</div>
+        <div @click="goPage" class="btn-item btn3">{{$t('analysis.result.text7')}}</div>
       </div>
+
+      <div class="btm-info">说明：1.预测基于假设每月收益率正常分配。2.计算结果不包含手续费或其他相关费用。3.显示的预测值不保证未来的回报。</div>
 
       <div v-show="showmask" id="mask">
         <div class="center">
           <el-button class="close" @click="showmask=false">关闭</el-button>
           <div class="slide-cont">
             <div class="slide-item">
-              <div class="label">{{$t('analysis.result.text8')}}</div>
-              <div class="text">{{$t('analysis.result.text19')}}</div>
-              <el-slider
-                :min="1000"
-                :max="10000"
-                :step="2500"
-                v-model="value1"
-                :show-input-controls="false"
-                show-stops
-                show-input
-                :show-tooltip="false"
-              ></el-slider>
-            </div>
-            <div class="slide-item">
               <div class="label">{{$t('analysis.result.text9')}}</div>
-              <div class="text">{{$t('analysis.result.text19')}}</div>
+              <div class="text">(1-100{{$t('analysis.result.text19')}})</div>
               <el-slider
                 :min="10"
                 :max="400"
                 :step="100"
-                v-model="value2"
+                v-model="startAmount"
                 :show-input-controls="false"
                 show-stops
                 show-input
@@ -97,12 +74,12 @@
             </div>
             <div class="slide-item">
               <div class="label">{{$t('analysis.result.text10')}}</div>
-              <div class="text">{{$t('analysis.result.text19')}}</div>
+              <div class="text">(1-10{{$t('analysis.result.text19')}})</div>
               <el-slider
                 :min="1"
                 :max="20"
                 :step="5"
-                v-model="value3"
+                v-model="investAmount"
                 :show-input-controls="false"
                 show-stops
                 show-input
@@ -111,12 +88,12 @@
             </div>
             <div class="slide-item">
               <div class="label">{{$t('analysis.result.text11')}}</div>
-              <div class="text">{{$t('analysis.result.text19')}}</div>
+              <div class="text">(1-20{{$t('analysis.result.text20')}})</div>
               <el-slider
                 :min="10"
                 :max="30"
                 :step="5"
-                v-model="value4"
+                v-model="investYear"
                 :show-input-controls="false"
                 show-stops
                 show-input
@@ -125,12 +102,12 @@
             </div>
             <div class="slide-item">
               <div class="label">{{$t('analysis.result.text12')}}</div>
-              <div class="text">{{$t('analysis.result.text19')}}</div>
+              <div class="text">(1-5)</div>
               <el-slider
                 :min="1"
                 :max="5"
                 :step="1"
-                v-model="value5"
+                v-model="ristLevel"
                 :show-input-controls="false"
                 show-stops
                 show-input
@@ -145,7 +122,8 @@
 </template>
 
 <script>
-import InvestList from '@/components/vestList/index.vue'
+import { mapGetters } from "vuex";
+import InvestList from "@/components/vestList/index.vue";
 import { toThousandslsFilter, getType } from "@/utils";
 export default {
   name: "result",
@@ -153,6 +131,7 @@ export default {
     InvestList
   },
   computed: {
+    ...mapGetters(["token"]),
     type() {
       return getType(localStorage.getItem("totalScore"));
     },
@@ -166,8 +145,12 @@ export default {
   },
   data() {
     return {
+      startAmount: 50,
+      investAmount: 5,
+      investYear: 10,
+      ristLevel: 3,
+      totalAmount: 200,
       value1: 1000,
-      value2: 10,
       value3: 1,
       value4: 10,
       value5: 1,
@@ -212,6 +195,13 @@ export default {
     };
   },
   methods: {
+    goPage() {
+      if (!this.token) {
+        $router.push("/register");
+      } else {
+        $router.push("/userCenter/myAccount");
+      }
+    },
     changeTab(index) {
       this.oIndex = index;
     },
@@ -281,7 +271,7 @@ export default {
       };
       myChart.setOption(option);
     },
-    drawLine() {
+    drawLine(id) {
       var data = [
         ["2000-06-05", 116, "xxxx"],
         ["2000-06-06", 129],
@@ -317,7 +307,7 @@ export default {
         return item[1];
       });
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById("myChart2"));
+      let myChart = echarts.init(document.getElementById(id));
       // 绘制图表
       var option = {
         backgroundColor: "#fff",
@@ -325,7 +315,7 @@ export default {
           top: "15%",
           left: "0%",
           right: "10%",
-          bottom: '5%',
+          bottom: "5%",
           containLabel: true
         },
         tooltip: {
@@ -442,9 +432,7 @@ export default {
                             fontSize: 14
                             //fontWeight: "bold",
                           },
-                          formatter: function(params) {
-                            
-                          }
+                          formatter: function(params) {}
                         }
                       }
                     },
@@ -477,9 +465,7 @@ export default {
                             lineHeight: 50
                             //fontWeight: "normal",
                           },
-                          formatter: function(params) {
-                            
-                          }
+                          formatter: function(params) {}
                         }
                       }
                     },
@@ -539,105 +525,6 @@ export default {
       };
       myChart.setOption(option);
     },
-    drawCircle(id, color, value) {
-      let myChart = echarts.init(document.getElementById(id));
-      var option = {
-        color: color, //['#1890FF','#F0F2F5'],  //['#1890FF','#F0F2F5'],
-        // 标题组件，包含主标题和副标题
-        // title: {
-        //   show: true,
-        //   text: "执行任务",
-        //   x: "center",
-        //   textStyle: {
-        //     fontSize: "15",
-        //     color: "green",
-        //     fontWeight: "bold"
-        //   }
-        // },
-        //  提示框组件
-        tooltip: {
-          //是否显示提示框组件，包括提示框浮层和 axisPointe
-          show: false,
-          // 触发类型: item:数据项触发，axis：坐标轴触发
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        // 系列列表。每个系列通过 type 决定自己的图表类型
-        series: [
-          {
-            // 系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
-            //name: "任务进度",
-            type: "pie",
-            // 饼图的半径，数组的第一项是内半径，第二项是外半径
-            radius: ["80%", "100%"],
-            // 是否启用防止标签重叠策略，默认开启
-            avoidLabelOverlap: false,
-            hoverAnimation: false,
-            // 标签的视觉引导线样式，在 label 位置 设置为'outside'的时候会显示视觉引导线
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            // label: {
-            //         normal: {
-            //             show: false,
-            //             position: 'center'
-            //         },
-            //         emphasis: {
-            //             show: true,
-            //             textStyle: {
-            //                 fontSize: '28',
-            //                 fontWeight: 'bold'
-            //             }
-            //         }
-            // },
-            data: [
-              {
-                // 数据值
-                value: value,
-                // 数据项名称
-                //name: "完成率", // 完成率
-                //该数据项是否被选中
-                selected: false,
-                // 单个扇区的标签配置
-                label: {
-                  normal: {
-                    // 是显示标签
-                    show: true,
-                    position: "center",
-                    // fontSize: 30,
-                    textStyle: {
-                      color: "#333",
-                      fontSize: 18
-                      //fontWeight: "bold",
-                    },
-                    // 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \n 换行
-                    formatter: "{b}\n{d}%"
-                  },
-                  emphasis: {
-                    show: true,
-                    textStyle: {
-                      fontSize: "14",
-                      fontWeight: "bold"
-                    }
-                  }
-                }
-              },
-              {
-                value: 100 - value,
-                label: {
-                  normal: {
-                    show: false
-                  }
-                }
-              }
-            ]
-          }
-        ]
-      };
-      myChart.setOption(option);
-    },
     getThousand(num) {
       return toThousandslsFilter(num);
     }
@@ -645,16 +532,25 @@ export default {
   created() {},
   mounted() {
     setTimeout(() => {
-      this.drawCircle("myChart4", ["#1890FF", "#F0F2F5"], 30); //#1890FF
-      this.drawCircle("myChart5", ["#2FC25B", "#F0F2F5"], 40); // 2FC25B
-      this.drawCircle("myChart6", ["#FACC14", "#F0F2F5"], 50); // FACC14
-      this.drawLine();
+      this.drawLine("myChart1");
+      this.drawLine("myChart2");
       this.drawPie();
     }, 50);
   }
 };
 </script>
 <style lang="scss" scoped>
+.invest-info {
+  text-align: center;
+  margin: 30px 0;
+  span {
+    color: #D63E2A;
+  }
+}
+.btm-info{
+  width: 650px;
+  margin: 0 auto;
+}
 #mask {
   position: fixed;
   left: 0;
@@ -665,7 +561,7 @@ export default {
   display: flex;
   align-content: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
   .el-button {
     width: 50%;
   }
@@ -693,19 +589,17 @@ export default {
   }
 
   @media screen and (max-height: 880px) {
-    .center{
+    .center {
       text-align: center;
     }
-      .el-button{
-        margin: 100px 0 50px;
-      }
-      .slide-item{
-        display: inline-block;
-        margin: 0 100px 30px;
-      }
+    .el-button {
+      margin: 100px 0 50px;
+    }
+    .slide-item {
+      display: inline-block;
+      margin: 0 100px 30px;
+    }
   }
-
-
 }
 #myChart1 {
   width: 800px;
@@ -771,20 +665,6 @@ export default {
     padding: 80px 0 0 100px;
     box-sizing: border-box;
     background: #fff;
-    display: flex;
-    justify-content: space-between;
-    .l-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 22px;
-      .des {
-        width: 150px;
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.45);
-        line-height: 22px;
-        margin-left: 42px;
-      }
-    }
   }
   .icon1 {
     position: absolute;
@@ -868,8 +748,8 @@ export default {
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid #444857;
-    &.label-cont-btm{
-      margin-top: 40px ;
+    &.label-cont-btm {
+      margin-top: 40px;
       border-bottom: none;
       border-top: 1px solid #444857;
     }

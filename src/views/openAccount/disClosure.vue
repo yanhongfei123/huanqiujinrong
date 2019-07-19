@@ -30,7 +30,7 @@
                                 <el-input v-model="disclosureInfo.signName" placeholder="请输入签名，名与姓之间有一个空格"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" style="margin: 44px 0  0 25px"><div class="sign-date">日期： 2019-06-12</div></el-col>
+                        <el-col :span="6" style="margin: 44px 0  0 25px"><div class="sign-date">日期：{{nowDate | parseTime('{y}-{m}-{d}')}}</div></el-col>
                     </el-row>
                     <div class="important-tips">
                         重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
@@ -77,6 +77,7 @@
                 }
             };
             return {
+                nowDate: +new Date(),
                 locale: Cookies.get('language') || 'zh-TW',
                 type: this.$route.query.type,
                 step: 2,

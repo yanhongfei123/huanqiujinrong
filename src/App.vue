@@ -89,10 +89,10 @@ header {
     margin-top: 65px;
   }
   .el-slider__input {
-    width: 150px;
+    width: 100px;
     position: absolute;
-    right: 60px;
-    top: 0;
+    right: 120px;
+    top: -10px;
   }
   .el-slider__button {
     width: 20px;
