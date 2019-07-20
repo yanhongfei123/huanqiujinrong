@@ -101,46 +101,39 @@
                     </el-form-item>
                     <el-form-item  :label="$t('openAccount.statementInfo.text22')" required>
                         <div class="tax-statement">
-                            <p>本人声明，我已仔细检查了第1-{0}行内的信息，据我所知及所信，此类信息是真实、正确且完整的；如有不实，甘受伪证罪处罚。我进一步以甘受伪证罪处罚为担保，声明以下事项：</p>
-                            <p>
-                                1.本人是本表格相关之收入的受益所有人（或被授权为受益所有人签字），或正在使用该表格作为文件证明本人是一家外国金融机构的所有人或账户持有人，本表第1行中列出的人士不是美国税务居民或美国人。</p>
-                            <p>2.与本表有关之所得系：(i)与在美国境内从事贸易或商业活动无关，(ii)
-                                与在美国境内从事贸易或商业活动有关，但因税收协定而不用纳税，或者(iii)属合伙人分配自其合伙组织之所得。</p>
-                            <p>
-                                3.本表第1行所列个人，就美国与表格第6行所列之协定国家（如有）之间的所得税协定而言，符合该国居民之定义，且对经纪商交易或易货交易，受益所有人是W-8BEN表说明中定义的免税外籍人士。</p>
-                            <p>4.此外，我授权将此表提供给任何一个能够控制、收受或保管以我为受益所有人之所得的扣缴代理人，或任何可以支付或分配以我为受益所有人之所得的扣缴代理人。</p>
-                            <p>本人同意本表之任何声明如有不正确时，会在30天内重新提交新的表格。</p>
-                            <p>除了用以确立您非美国人身份及降低预扣税率的声明外，美国国税局不需要征得您对本文件条款的同意。</p>
+                            <p>{{$t('openAccount.statementInfo.text23')}}</p>
+                            <p>{{$t('openAccount.statementInfo.text24')}}</p>
+                            <p>{{$t('openAccount.statementInfo.text25')}}</p>
+                            <p>{{$t('openAccount.statementInfo.text26')}}</p>
+                            <p>{{$t('openAccount.statementInfo.text27')}}</p>
+                            <p>{{$t('openAccount.statementInfo.text28')}}</p>
+                            <p>{{$t('openAccount.statementInfo.text29')}}</p>
                         </div>
                     </el-form-item>
-                    <el-form-item  :label="$t('openAccount.statementInfo.text3')"label="10.个人税务居住地自我声明 - 仅适用于行1-{0} 及 {1} - {2}:" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text30')" required>
                         <div class="tax-statement">
-                            <p>本人声明，本人在本表中提供的信息，据我所知和所信，是准确完整的。<br>
-                                本人同意，本表中包含的有关账户持有人和账户活动的信息可能会与我们的关联方共享，也可能被用于向<br>
-                                Inland Revenue Department报告，后者在法律允许的范围内可能会与全球其他政府当局共享此类信息。在法律要求的范围内，我<br>
-                                同意共享此类信息，并在必要的程度内免除数据保护或其他适用法律下对此类信息的保护与权利。</p>
+                            <p>{{$t('openAccount.statementInfo.text31')}}</p>
                             <p>日期： <span>{{ statementInfo.date }}</span></p>
-                            <p>客户在此输入签名即表示确认所填写的内容准确或同意税务居住地本人声明(Substitute W-8BEN)条款，本人了解并同意此电子签名等同于手写签名。</p>
+                            <p>{{$t('openAccount.statementInfo.text32')}}</p>
                         </div>
                     </el-form-item>
-                    <el-form-item  :label="$t('openAccount.statementInfo.text3')"label="签名：" prop="autograph" required>
-                        <el-input :placeholder="$t('openAccount.statementInfo.text4')"  placeholder="请输入签名，名与姓之间有一个空格" v-model="statementInfo.autograph"></el-input>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text33')" prop="autograph" required>
+                        <el-input :placeholder="$t('openAccount.statementInfo.text34')" v-model="statementInfo.autograph"></el-input>
                     </el-form-item>
-                    <el-form-item  :label="$t('openAccount.statementInfo.text3')"label="11 . 勾选“是”表示您同意我们通过电子化的形式（包括通过账户管理终端）而非纸质形式收集及分发税表。" prop="agreement" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text35')" prop="agreement" required>
                         <el-radio-group v-model="statementInfo.agreement">
                             <el-radio :label="1" style="width: 360px">是</el-radio>
                             <el-radio :label="0" style="width: 360px">否</el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <div class="important-tips">
-                        重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive
-                        Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
+                        {{$t('openAccount.statementInfo.text36')}}
                     </div>
                 </el-form>
                 <div class="btn-wrap">
-                    <div @click="saveStatementInfo('statementInfoForm')" class="btn-item btn1">保存</div>
-                    <div @click="prev" class="btn-item btn2">上一步</div>
-                    <div @click="next('statementInfoForm')" class="btn-item btn3">本人同意</div>
+                    <div @click="next(false)" class="btn-item btn1">保存</div>
+                    <div @click="prev" class="btn-item btn2">{{$t('openAccount.userInfo.text17')}}</div>
+                    <div @click="next(true)" class="btn-item btn3">本人同意</div>
                 </div>
             </div>
 
@@ -234,6 +227,7 @@
           isUsDiscount: '',
           usCountry: '',
           TIN: '',
+          date: this.date(),
           autograph: '',
           agreement: 1,
         }
@@ -247,36 +241,16 @@
           }
         };
       },
+      date() {
+        return new Date()
+      }
     },
     methods: {
-      saveStatementInfo(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            //...请求接口后提示
-            let params = {
-              discern: this.statementInfo.USDiscern,
-              isUsDiscount: this.statementInfo.isUsDiscount,
-              taxTreaty: this.statementInfo.usCountry,
-              autograph: this.statementInfo.autograph,
-              isElectron: this.statementInfo.agreement,
-            };
-            if(this.statementInfo.USDiscern==1){
-              params.TIN = this.statementInfo.TIN;
-            }
-            if(this.statementInfo.isUsDiscount==1){
-              params.usCountry = this.statementInfo.usCountry;
-            }
-            updateUserBase(params).then(res => {
-              this.$message.success('保存成功');
-            });
-          }
-        });
-      },
       prev() {
         this.$router.replace({ name: 'regulatoryInfo' });
       },
-      next(formName) {
-        this.$refs[formName].validate((valid) => {
+      next(flag) {
+        this.$refs.statementInfoForm.validate((valid) => {
           if (valid) {
             //...请求接口后跳转
             let params = {
@@ -293,6 +267,13 @@
               params.usCountry = this.statementInfo.usCountry;
             }
             updateUserBase(params).then(res => {
+              if(!flag){
+                this.$message({
+                  message: '保存成功',
+                  type: 'success'
+                });
+                return;
+              }
               this.$router.replace({ name: 'disClosure' , query: { type: this.type }});
             });
           }
