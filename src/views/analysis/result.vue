@@ -40,7 +40,7 @@
         <div id="myChart3"></div>
       </div>
       <div v-show="oIndex==2" class="content">
-        <InvestList></InvestList>
+        <InvestList :datas="datas"></InvestList>
       </div>
 
       <div v-show="oIndex!=2" class="btn-wrap">
@@ -62,9 +62,10 @@
               <div class="label">{{$t('analysis.result.text9')}}</div>
               <div class="text">(1-100{{$t('analysis.result.text19')}})</div>
               <el-slider
-                :min="10"
-                :max="400"
-                :step="100"
+                :min="1"
+                :max="100"
+                :step="25"
+                @change="change"
                 v-model="startAmount"
                 :show-input-controls="false"
                 show-stops
@@ -77,9 +78,10 @@
               <div class="text">(1-10{{$t('analysis.result.text19')}})</div>
               <el-slider
                 :min="1"
-                :max="20"
-                :step="5"
+                :max="10"
+                :step="2"
                 v-model="investAmount"
+                @change="change"
                 :show-input-controls="false"
                 show-stops
                 show-input
@@ -90,10 +92,11 @@
               <div class="label">{{$t('analysis.result.text11')}}</div>
               <div class="text">(1-20{{$t('analysis.result.text20')}})</div>
               <el-slider
-                :min="10"
-                :max="30"
+                :min="1"
+                :max="20"
                 :step="5"
                 v-model="investYear"
+                @change="change"
                 :show-input-controls="false"
                 show-stops
                 show-input
@@ -102,12 +105,13 @@
             </div>
             <div class="slide-item">
               <div class="label">{{$t('analysis.result.text12')}}</div>
-              <div class="text">(1-5)</div>
+              <div class="text">(1-5级)</div>
               <el-slider
                 :min="1"
                 :max="5"
                 :step="1"
                 v-model="ristLevel"
+                 @change="change"
                 :show-input-controls="false"
                 show-stops
                 show-input
@@ -125,6 +129,8 @@
 import { mapGetters } from "vuex";
 import InvestList from "@/components/vestList/index.vue";
 import { toThousandslsFilter, getType } from "@/utils";
+import { getForecast, getInvestment } from "@/api/analysis.js";
+import { constants } from 'crypto';
 export default {
   name: "result",
   components: {
@@ -149,63 +155,25 @@ export default {
       investAmount: 5,
       investYear: 10,
       ristLevel: 3,
-      totalAmount: 200,
-      value1: 1000,
-      value3: 1,
-      value4: 10,
-      value5: 1,
+      totalAmount: 0,
       oIndex: 0,
       showmask: false,
-      datas: [
-        {
-          type: "股票类",
-          list: [
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "100%",
-              v4: "354090"
-            },
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "90%",
-              v4: "35090"
-            }
-          ]
-        },
-        {
-          type: "投资类",
-          list: [
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "50%",
-              v4: "3554090"
-            },
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "20%",
-              v4: "3554090"
-            }
-          ]
-        }
-      ]
+      echartLabelList: [],
+      datas: [],
+      assetsTypelist: [],
     };
   },
   methods: {
     goPage() {
       if (!this.token) {
-        $router.push("/register");
+        this.$router.push("/register");
       } else {
-        $router.push("/userCenter/myAccount");
+        this.$router.push("/userCenter/myAccount");
       }
     },
     changeTab(index) {
       this.oIndex = index;
     },
-    drawArea() {},
     drawPie() {
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById("myChart3"));
@@ -271,61 +239,42 @@ export default {
       };
       myChart.setOption(option);
     },
-    drawLine(id) {
-      var data = [
-        ["2000-06-05", 116, "xxxx"],
-        ["2000-06-06", 129],
-        ["2000-06-07", 135],
-        ["2000-06-08", 86],
-        ["2000-06-09", 73],
-        ["2000-06-10", 85],
-        ["2000-06-11", 73],
-        ["2000-06-12", 68],
-        ["2000-06-13", 92],
-        ["2000-06-14", 130],
-        ["2000-06-15", 245],
-        ["2000-06-16", 139],
-        ["2000-06-17", 115],
-        ["2000-06-18", 111],
-        ["2000-06-19", 309],
-        ["2000-06-20", 206],
-        ["2000-06-21", 137],
-        ["2000-06-22", 128],
-        ["2000-06-23", 85],
-        ["2000-06-24", 94],
-        ["2000-06-25", 71],
-        ["2000-06-26", 106],
-        ["2000-06-27", 120],
-        ["2000-06-28", 130],
-        ["2000-06-29", 200]
-      ];
-
+    drawLine(data, id) {
       var dateList = data.map(function(item) {
-        return item[0];
+        return item.year;
       });
       var valueList = data.map(function(item) {
-        return item[1];
+        return item.aountProfit;
       });
+      if (id == 'myChart1') {
+        this.totalAmount = valueList[valueList.length - 1];
+      } else {
+        dateList.reverse();
+      }
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById(id));
+      this.myChart = echarts.init(document.getElementById(id));
       // 绘制图表
       var option = {
         backgroundColor: "#fff",
         grid: {
           top: "15%",
-          left: "0%",
-          right: "10%",
+          left: "3%",
+          right: "5%",
           bottom: "5%",
           containLabel: true
         },
         tooltip: {
           trigger: "axis",
-          formatter: "{b}, 原本: {c}"
+          formatter: "{b}, 总资产: {c}万元"
         },
         xAxis: {
+          name:'年',
+          nameTextStyle :{
+            fontSize: 16,
+          },
           boundaryGap: false,
           type: "category",
-          data: dateList || ["2008", "2010", "2012", "2014", "2016", "2018"],
+          data:  dateList,
           splitLine: {
             show: true
             // lineStyle: {
@@ -341,201 +290,272 @@ export default {
           }
         },
         yAxis: {
+          name:'总资产 (万元)',
+          //nameLocation: '',
+          nameTextStyle :{
+            padding: [100,0,0, 0],
+            fontSize: 16,
+          },
           type: "value",
           //type: 'category',
           splitLine: {
             show: false
           },
           axisLabel: {
-            formatter: "{value}万"
+            formatter: "{value}"
           },
           boundaryGap: false,
-          data: ["0", "10", "20", "30", "40", "50", "60", "70", "80"]
+          //data: ["0", "10", "20", "30", "40", "50", "60", "70", "80"]
         },
 
         series: [
           {
-            name: "哈哈哈",
-            data: valueList || [600, 800, 901, 934, 1290],
+            name: "",
+            data: valueList,
             type: "line",
-            //color: '#ff0000',
-            symbol: "none",
+            symbol: "circle",
             smooth: true,
+            symbolSize: 10,
             lineStyle: {
               normal: {
                 width: 3,
-                color: "#1890FF" // 1890FF
+                color: "#1890FF", // 1890FF,
+                type: 'dotted'
               }
             },
-            markPoint: {
-              //symbol: 'none', // 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
-              itemStyle: {
-                normal: {
-                  color: "#666",
-                  label: {
-                    show: true,
-                    textStyle: {
-                      //color: '#ff0000',
-                      fontSize: 14
-                      //fontWeight: "bold",
-                    },
-                    position: "bottom",
-                    formatter: function(param) {
-                      return "总资产" + param.data.yAxis + "万";
-                    }
-                  }
-                }
-              },
-              symbolSize: [1, 1], // 容器大小
-              symbolOffset: [35, -25], //位置偏移
-              data: [
-                {
-                  //value: '总资产',
-                  xAxis: 24,
-                  yAxis: 200
-                }
-              ]
-              //data: [{coord:[24,85]}],
-            },
-            markLine: {
-              symbol: "none", //去掉警戒线最后面的箭头
-              silent: true,
-              // itemStyle: {
-              //     normal: {
-              //         lineStyle: {
-              //             type: 'solid',
-              //             color: '#D8B088',
-              //             width: 2
-              //         },
-              //         label: {
-              //             //color: '#ff0000',
-              //             show: true,
-              //             position: 'end',
-              //             formatter: function (params) {
-              //                 console.log(params)
-              //             },
-              //         }
-              //     }
-              // },
-              data: [
-                [
-                  {
-                    name: "原本800万",
-                    itemStyle: {
-                      normal: {
-                        show: true,
-                        label: {
-                          show: true,
-                          position: "end",
-                          textStyle: {
-                            color: "#666",
-                            fontSize: 14
-                            //fontWeight: "bold",
-                          },
-                          formatter: function(params) {}
-                        }
-                      }
-                    },
-                    lineStyle: {
-                      normal: {
-                        width: 2,
-                        type: "solid",
-                        color: "#E9E9E9"
-                      }
-                    },
-                    coord: ["2000-06-06", 50]
-                  },
-                  {
-                    coord: ["2000-06-25", 300]
-                  }
-                ],
-                [
-                  {
-                    name: "低谷期",
-                    itemStyle: {
-                      normal: {
-                        show: true,
-                        label: {
-                          show: true,
-                          position: "end",
-                          textStyle: {
-                            color: "#666",
-                            fontSize: 14,
-                            height: 50,
-                            lineHeight: 50
-                            //fontWeight: "normal",
-                          },
-                          formatter: function(params) {}
-                        }
-                      }
-                    },
-                    lineStyle: {
-                      normal: {
-                        width: 2,
-                        type: "solid",
-                        color: "#999"
-                      }
-                    },
-                    coord: ["2000-06-07", 0]
-                  },
-                  {
-                    coord: ["2000-06-07", 350]
-                  }
-                ]
+            // markPoint: {
+            //   //symbol: 'none', // 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+            //   itemStyle: {
+            //     normal: {
+            //       color: "#666",
+            //       label: {
+            //         show: true,
+            //         textStyle: {
+            //           //color: '#ff0000',
+            //           fontSize: 14
+            //           //fontWeight: "bold",
+            //         },
+            //         position: "bottom",
+            //         formatter: function(param) {
+            //           return "总资产" + param.data.yAxis + "万";
+            //         }
+            //       }
+            //     }
+            //   },
+            //   symbolSize: [1, 1], // 容器大小
+            //   symbolOffset: [35, -25], //位置偏移
+            //   data: [
+            //     {
+            //       //value: '总资产',
+            //       xAxis: 24,
+            //       yAxis: 200
+            //     }
+            //   ]
+            //   //data: [{coord:[24,85]}],
+            // },
+            // markLine: {
+            //  // symbol: "none", //去掉警戒线最后面的箭头
+            //   silent: true,
+            //   // itemStyle: {
+            //   //     normal: {
+            //   //         lineStyle: {
+            //   //             type: 'solid',
+            //   //             color: '#D8B088',
+            //   //             width: 2
+            //   //         },
+            //   //         label: {
+            //   //             //color: '#ff0000',
+            //   //             show: true,
+            //   //             position: 'end',
+            //   //             formatter: function (params) {
+            //   //                 console.log(params)
+            //   //             },
+            //   //         }
+            //   //     }
+            //   // },
+            //   data: [
+            //     [
+            //       {
+            //         name: "原本800万",
+            //         itemStyle: {
+            //           normal: {
+            //             show: true,
+            //             label: {
+            //               show: true,
+            //               position: "end",
+            //               textStyle: {
+            //                 color: "#666",
+            //                 fontSize: 14
+            //                 //fontWeight: "bold",
+            //               },
+            //               formatter: function(params) {}
+            //             }
+            //           }
+            //         },
+            //         lineStyle: {
+            //           normal: {
+            //             width: 2,
+            //             type: "solid",
+            //             color: "#E9E9E9"
+            //           }
+            //         },
+            //         coord: ["2000-06-06", 50]
+            //       },
+            //       {
+            //         coord: ["2000-06-25", 300]
+            //       }
+            //     ],
+            //     [
+            //       {
+            //         name: "低谷期",
+            //         itemStyle: {
+            //           normal: {
+            //             show: true,
+            //             label: {
+            //               show: true,
+            //               position: "end",
+            //               textStyle: {
+            //                 color: "#666",
+            //                 fontSize: 14,
+            //                 height: 50,
+            //                 lineHeight: 50
+            //                 //fontWeight: "normal",
+            //               },
+            //               formatter: function(params) {}
+            //             }
+            //           }
+            //         },
+            //         lineStyle: {
+            //           normal: {
+            //             width: 2,
+            //             type: "solid",
+            //             color: "#999"
+            //           }
+            //         },
+            //         coord: ["2000-06-07", 0]
+            //       },
+            //       {
+            //         coord: ["2000-06-07", 350]
+            //       }
+            //     ]
 
-                // [{
-                //     name: 'xxxx',
-                //     coord: ['2000-06-06', 50],
-                // }, {
-                //     name: 'xxxx',
-                //     coord: ['2000-06-25', 300],
-                // }],
+            //     // [{
+            //     //     name: 'xxxx',
+            //     //     coord: ['2000-06-06', 50],
+            //     // }, {
+            //     //     name: 'xxxx',
+            //     //     coord: ['2000-06-25', 300],
+            //     // }],
 
-                // [
-                //     {
-                //         name: '本金800万',
-                //         xAxis: '2000-06-06',
-                //         yAxis: 40,
-                //         symbol: 'none',
-                //     },
-                //     {
-                //         //name: '标线1',
-                //         xAxis: '2000-06-23',
-                //         yAxis: 350,
-                //         symbol: 'none'
-                //     },
-                // ],
-                // [{
-                //         name: '低谷期',
-                //         xAxis: '2000-06-07',
-                //         yAxis: 0,
-                //         symbol: 'none'
-                //     },
-                //     {
-                //         //name: '标线2',
-                //         xAxis: '2000-06-07',
-                //         yAxis: 350,
-                //         symbol: 'none'
-                //     },
-                // ],
-              ]
-            }
+            //     // [
+            //     //     {
+            //     //         name: '本金800万',
+            //     //         xAxis: '2000-06-06',
+            //     //         yAxis: 40,
+            //     //         symbol: 'none',
+            //     //     },
+            //     //     {
+            //     //         //name: '标线1',
+            //     //         xAxis: '2000-06-23',
+            //     //         yAxis: 350,
+            //     //         symbol: 'none'
+            //     //     },
+            //     // ],
+            //     // [{
+            //     //         name: '低谷期',
+            //     //         xAxis: '2000-06-07',
+            //     //         yAxis: 0,
+            //     //         symbol: 'none'
+            //     //     },
+            //     //     {
+            //     //         //name: '标线2',
+            //     //         xAxis: '2000-06-07',
+            //     //         yAxis: 350,
+            //     //         symbol: 'none'
+            //     //     },
+            //     // ],
+            //   ]
+            // }
           }
         ]
       };
-      myChart.setOption(option);
+       this.myChart.setOption(option);
     },
     getThousand(num) {
       return toThousandslsFilter(num);
-    }
+    },
+    change(){
+      this.getForecast(1);
+    },
+    getForecast(type){
+      var params = {
+        type,
+        initAmount: this.startAmount,
+        monthlyAount: this.investAmount,
+        duration: this.investYear,
+        riskGrade: this.ristLevel,
+      };
+      getForecast(params).then(res => {
+        setTimeout(() => {
+          this.showmask = false;
+          this.drawLine(res.data, `myChart${type}`)
+        }, 50);
+      }).catch(res => {
+        this.showmask = false;
+      })
+    },
+    getInvestment(investmentRisk){
+      var params = {
+        investmentRisk,
+      };
+      getInvestment(params).then(res => {
+        var data = res.data;
+        this.datas = [];
+        this.echartLabelList = [];
+console.log(2222222)
+        console.log(this.assetsTypelist);
+
+
+        this.assetsTypelist.map(val => {
+          var type = data.filter(item => item.assetsType == val.dictValue);
+          console.log(type);
+          if(type.length){
+            var percent = (type.length / data.length) * 100;
+            this.echartLabelList.push({
+              percent: percent + '%',
+              assetsType: type[0].dictLabel,
+              assetsTypeFt: type[0].dictLabelFt,
+              assetsTypeEn: type[0].dictLabelEn,
+            });
+
+            this.datas.push({
+              type: {
+                assetsType: type[0].dictLabel,
+                assetsTypeFt: type[0].dictLabelFt,
+                assetsTypeEn: type[0].dictLabelEn,
+              },
+              list: type,
+            })
+
+          };
+        });
+        console.log(11111111111111)
+        console.log(this.echartLabelList)
+         console.log(this.datas)
+      })
+    },
+
   },
-  created() {},
   mounted() {
-    setTimeout(() => {
-      this.drawLine("myChart1");
-      this.drawLine("myChart2");
-      this.drawPie();
-    }, 50);
+    this.getForecast(1);
+    this.getForecast(2);
+    this.getGlobalData("assets_type").then(res => {
+      this.assetsTypelist = res.data.list;
+      this.getGlobalData("investment_risk").then(res => {
+        this.dictValue = res.data.list.filter(item => (item.dictLabel === this.type || item.dictLabelFt === this.type || item.dictLabelEn === this.type))[0].dictValue;
+        this.getInvestment(this.dictValue);
+      });
+    });
   }
 };
 </script>
@@ -585,6 +605,7 @@ export default {
     .text {
       font-size: 20px;
       float: right;
+      color: #C5C5C5
     }
   }
 
@@ -698,8 +719,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 0 100px 100px;
-    .tw-l {
-    }
+
     .tw-r {
       width: 550px;
       height: 318px;

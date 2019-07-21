@@ -7,21 +7,21 @@
       <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}（港币）</div>
     </div>
     <div class="type-list">
-      <div class="item" v-for="(val,index) in data" :key="index">
+      <div class="item" v-for="(val,index) in datas" :key="index">
         <div class="type">{{val.type}}</div>
         <div class="k-list">
           <div class="k-item" v-for="(item,key) in val.list" :key="key">
-            <div class="item1">{{item.v1}}</div>
+            <div class="item1">{{item.assetsName}}</div>
             <div class="item2">
               <span class="hk">HK</span>
-              {{item.v2}}
+              {{item.assetsCode}}
             </div>
-            <div class="item3">{{item.v3}}</div>
+            <div class="item3">{{item.proportion}}</div>
             <div class="speed-cont item4">
               <div class="speed-wrap">
-                <div :style="{width: `${item.v3}`}" class="speed"></div>
+                <div :style="{width: `${item.proportion}%`}" class="speed"></div>
               </div>
-              <div>{{getThousand(item.v4)}}</div>
+              <div>{{getThousand(1000000000)}}</div>
             </div>
           </div>
         </div>
@@ -38,50 +38,22 @@
 <script>
 import { toThousandslsFilter } from "@/utils";
 export default {
+  props:{
+    datas: {
+      default: []
+    }
+  },
   data() {
     return {
-      data: [
-        {
-          type: "股票类",
-          list: [
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "100%",
-              v4: "354090"
-            },
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "90%",
-              v4: "35090"
-            }
-          ]
-        },
-        {
-          type: "投资类",
-          list: [
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "50%",
-              v4: "3554090"
-            },
-            {
-              v1: "领航标普500",
-              v2: "03140",
-              v3: "20%",
-              v4: "3554090"
-            }
-          ]
-        }
-      ]
     };
   },
   methods: {
     getThousand(num) {
       return toThousandslsFilter(num);
     }
+  },
+  mounted(){
+    
   }
 };
 </script>

@@ -207,12 +207,12 @@ export default {
       justify-content: center;
     }
     .l-wrap {
-      // width: 390px;
-      // height: 260px;
-      // margin-right: 60px;
-      // background-position: center;
-      // background-repeat: no-repeat;
-      // background-size: cover;
+      width: 390px;
+      height: 260px;
+      margin-right: 60px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
     .r-wrap {
       width: 730px;
