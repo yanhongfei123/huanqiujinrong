@@ -24,7 +24,8 @@
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item :label="$t('openAccount.addressInfo.text4')" prop="country" required>
-                                <el-select v-model="addressInfo.country" :placeholder="$t('openAccount.addressInfo.text5')"
+                                <el-select v-model="addressInfo.country"
+                                           :placeholder="$t('openAccount.addressInfo.text5')"
                                            style="width: 100%;">
                                     <el-option
                                             v-for="item in countryList"
@@ -37,7 +38,7 @@
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
                             <el-form-item :label="$t('openAccount.addressInfo.text6')" prop="address" required>
-                                <el-input  :placeholder="$t('openAccount.addressInfo.text7')" maxlength="50"
+                                <el-input :placeholder="$t('openAccount.addressInfo.text7')" maxlength="50"
                                           v-model="addressInfo.address"></el-input>
                             </el-form-item>
                         </el-col>
@@ -46,7 +47,8 @@
                     <el-row>
                         <el-col style="width: 380px">
                             <el-form-item :label="$t('openAccount.addressInfo.text9')" prop="taxation" required>
-                                <el-input :placeholder="$t('openAccount.addressInfo.text10')" maxlength="20" v-model="addressInfo.taxation"></el-input>
+                                <el-input :placeholder="$t('openAccount.addressInfo.text10')" maxlength="20"
+                                          v-model="addressInfo.taxation"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col class="tip">{{$t('openAccount.addressInfo.text11')}}</el-col>
@@ -54,8 +56,9 @@
                     <div class="info-title">{{$t('openAccount.addressInfo.text12')}}</div>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item  :label="$t('openAccount.addressInfo.text13')" prop="employmentType" required>
-                                <el-select v-model="addressInfo.employmentType" :placeholder="$t('openAccount.addressInfo.text14')" style="width: 100%;">
+                            <el-form-item :label="$t('openAccount.addressInfo.text13')" prop="employmentType" required>
+                                <el-select v-model="addressInfo.employmentType"
+                                           :placeholder="$t('openAccount.addressInfo.text14')" style="width: 100%;">
                                     <el-option
                                             v-for="item in employmentTypes"
                                             :key="item.dictCode"
@@ -66,15 +69,18 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item  :label="$t('openAccount.addressInfo.text15')" prop="employmentCompay" required>
-                                <el-input :placeholder="$t('openAccount.addressInfo.text16')" maxlength="20" v-model="addressInfo.employmentCompay"></el-input>
+                            <el-form-item :label="$t('openAccount.addressInfo.text15')" prop="employmentCompay"
+                                          required>
+                                <el-input :placeholder="$t('openAccount.addressInfo.text16')" maxlength="20"
+                                          v-model="addressInfo.employmentCompay"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item  :label="$t('openAccount.addressInfo.text17')" prop="businessType" required>
-                                <el-select v-model="addressInfo.businessType" :placeholder="$t('openAccount.addressInfo.text18')" style="width: 100%;">
+                            <el-form-item :label="$t('openAccount.addressInfo.text17')" prop="businessType" required>
+                                <el-select v-model="addressInfo.businessType"
+                                           :placeholder="$t('openAccount.addressInfo.text18')" style="width: 100%;">
                                     <el-option
                                             v-for="item in businessTypes"
                                             :key="item.dictCode"
@@ -85,14 +91,15 @@
                             </el-form-item>
                         </el-col>
                         <el-col style="width: 380px;margin-left: 20px;">
-                            <el-form-item  :label="$t('openAccount.addressInfo.text19')" prop="post" required>
-                                <el-input :placeholder="$t('openAccount.addressInfo.text20')" maxlength="10" v-model="addressInfo.post"></el-input>
+                            <el-form-item :label="$t('openAccount.addressInfo.text19')" prop="post" required>
+                                <el-input :placeholder="$t('openAccount.addressInfo.text20')" maxlength="10"
+                                          v-model="addressInfo.post"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col style="width: 380px">
-                            <el-form-item  :label="$t('openAccount.addressInfo.text21')" prop="businessAddr" required>
+                            <el-form-item :label="$t('openAccount.addressInfo.text21')" prop="businessAddr" required>
                                 <el-input :placeholder="$t('openAccount.addressInfo.text22')" maxlength="50"
                                           v-model="addressInfo.businessAddr"></el-input>
                             </el-form-item>
@@ -100,9 +107,9 @@
                     </el-row>
                 </el-form>
                 <div class="btn-wrap">
-                    <div @click="saveAddressInfo('addressInfoForm')" class="btn-item btn1">保存</div>
+                    <div @click="next(false)" class="btn-item btn1">保存</div>
                     <div @click="prev" class="btn-item btn2">{{$t('openAccount.userInfo.text17')}}</div>
-                    <div @click="next('addressInfoForm')" class="btn-item btn3">{{$t('openAccount.userInfo.text18')}}</div>
+                    <div @click="next(true)" class="btn-item btn3">{{$t('openAccount.userInfo.text18')}}</div>
                 </div>
             </div>
 
@@ -112,105 +119,99 @@
 </template>
 
 <script>
-    import openAccountHeader from '@/components/header/openAccountHeader.vue';
-    import footerBar from '@/components/footer/footer.vue';
-    import openAccountSteps from '@/components/common/openAccountSteps.vue';
-    import {getUserInfo} from '@/api/index';
-    import {saveUserBase, getUserBase} from '@/api/openAccount';
+  import openAccountHeader from '@/components/header/openAccountHeader.vue';
+  import footerBar from '@/components/footer/footer.vue';
+  import openAccountSteps from '@/components/common/openAccountSteps.vue';
+  import { getUserInfo } from '@/api/index';
+  import { getUserBase, saveUserBase } from '@/api/openAccount';
 
-    export default {
-        name: 'addressInfo',
-        components: {
-            openAccountHeader,
-            footerBar,
-            openAccountSteps
+  export default {
+    name: 'addressInfo',
+    components: {
+      openAccountHeader,
+      footerBar,
+      openAccountSteps
+    },
+    data() {
+      return {
+        type: this.$route.query.type,
+        step: 1,
+        labelPosition: 'top',
+        countryList: [],
+        employmentTypes: [],
+        businessTypes: [],
+        addressInfoRules: {
+          addr: [
+            { required: true, message: '请输入居住地址' },
+          ],
+          country: [
+            { required: true, message: '请选择通讯地址所在国家/地区', trigger: 'blur' }
+          ],
+          address: [
+            { required: true, message: '请输入详细通讯地址' },
+          ],
+          taxation: [
+            { required: true, message: '请输入纳税识别号' },
+          ],
+          employmentType: [
+            { required: true, message: '请选择就业类型', trigger: 'change' }
+          ],
+          businessType: [
+            { required: true, message: '请选择商业性质', trigger: 'change' }
+          ],
+          employmentCompay: [
+            { required: true, message: '请输入雇佣单位名称' },
+          ],
+          post: [
+            { required: true, message: '请输入职位' },
+          ],
+          businessAddr: [
+            { required: true, message: '请输入单位详细地址' },
+          ],
         },
-        data() {
-            return {
-                type: this.$route.query.type,
-                step: 1,
-                labelPosition: 'top',
-                countryList: [],
-                employmentTypes: [],
-                businessTypes: [],
-                addressInfoRules: {
-                    addr: [
-                        {required: true, message: "请输入居住地址"},
-                    ],
-                    country: [
-                        {required: true, message: '请选择通讯地址所在国家/地区', trigger: 'blur'}
-                    ],
-                    address: [
-                        {required: true, message: "请输入详细通讯地址"},
-                    ],
-                    taxation: [
-                        {required: true, message: "请输入纳税识别号"},
-                    ],
-                    employmentType: [
-                        {required: true, message: '请选择就业类型', trigger: 'change'}
-                    ],
-                    businessType: [
-                        {required: true, message: '请选择商业性质', trigger: 'change'}
-                    ],
-                    employmentCompay: [
-                        {required: true, message: "请输入雇佣单位名称"},
-                    ],
-                    post: [
-                        {required: true, message: "请输入职位"},
-                    ],
-                    businessAddr: [
-                        {required: true, message: "请输入单位详细地址"},
-                    ],
-                },
-                addressInfo: {},
-            };
-        },
-        methods: {
-            saveAddressInfo(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后提示
-                        saveUserBase(this.addressInfo).then(() => {
-                            this.$message({
-                                message: '保存成功',
-                                type: 'success'
-                            });
-                        });
-                    }
+        addressInfo: {},
+      };
+    },
+    methods: {
+      prev() {
+        this.$router.replace({ name: 'userInfo' });
+      },
+      next(flag) {
+        this.$refs.addressInfoForm.validate((valid) => {
+          if (valid) {
+            //...请求接口后跳转
+            saveUserBase(this.addressInfo).then(() => {
+              if (!flag) {
+                this.$message({
+                  message: '保存成功',
+                  type: 'success'
                 });
-            },
-            prev() {
-                this.$router.replace({name: 'userInfo'});
-            },
-            next(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后跳转
-                        saveUserBase(this.addressInfo).then(() => {
-                            this.$router.replace({name: 'regulatoryInfo', query: { type: this.type }});
-                        });
-                    }
-                });
-            }
-        },
-        mounted() {
-            let allDictData = ['country_type', 'sys_employment', 'nature_business'];
-            let allPromise = allDictData.map(item => this.getGlobalData(item));
-            Promise.all(allPromise).then(res => {
-                console.log(res);
-                this.countryList = res[0].data.list;
-                this.employmentTypes = res[1].data.list;
-                this.businessTypes = res[2].data.list;
-            }).then(() => {
-                getUserBase().then(res => {
-                    console.log(res);
-                    if(res.data){
-                        this.addressInfo = res.data;
-                    }
-                })
+                return;
+              }
+              this.$router.replace({ name: 'regulatoryInfo', query: { type: this.type } });
             });
-        }
-    };
+          }
+        });
+      }
+    },
+    mounted() {
+      let allDictData = ['country_type', 'sys_employment', 'nature_business'];
+      let allPromise = allDictData.map(item => this.getGlobalData(item));
+      Promise.all(allPromise).then(res => {
+        console.log(res);
+        this.countryList = res[0].data.list;
+        this.employmentTypes = res[1].data.list;
+        this.businessTypes = res[2].data.list;
+      }).then(() => {
+        getUserBase().then(res => {
+          console.log(res);
+          if (res.data) {
+            this.addressInfo = res.data;
+          }
+        });
+      });
+    }
+  };
 </script>
 
 <style scoped lang="scss">

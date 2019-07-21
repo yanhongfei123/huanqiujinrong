@@ -597,17 +597,6 @@
             changeInvestTarget(value) {
                 console.log(value)
             },
-            saveRegulatoryInfo(formName) {//添加规管
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        //...请求接口后提示
-                        saveUserRegulation(this.regulatoryInfo).then(res=>{
-                            console.log(res);
-                            this.$message.success('保存成功');
-                        });
-                    }
-                });
-            },
             prev() {
                 this.$router.replace({name: 'addressInfo'});
             },
