@@ -113,7 +113,7 @@
                     <el-form-item  :label="$t('openAccount.statementInfo.text30')" required>
                         <div class="tax-statement">
                             <p>{{$t('openAccount.statementInfo.text31')}}</p>
-                            <p>日期： <span>{{ statementInfo.date }}</span></p>
+                            <p>日期： <span>{{ date | parseTime('{y}-{m}-{d}')}}</span></p>
                             <p>{{$t('openAccount.statementInfo.text32')}}</p>
                         </div>
                     </el-form-item>
@@ -173,6 +173,7 @@
         };
 
       return {
+        date: +new Date(),
         type: this.$route.query.type,
         step: 2,
         labelPosition: 'top',
@@ -227,7 +228,6 @@
           isUsDiscount: '',
           usCountry: '',
           TIN: '',
-          date: this.date(),
           autograph: '',
           agreement: 1,
         }
@@ -239,11 +239,8 @@
           disabledDate(time) {
             return time.getTime() > Date.now();//开始时间不选时，结束时间最大值小于等于当天
           }
-        };
+        }
       },
-      date() {
-        return new Date()
-      }
     },
     methods: {
       prev() {
