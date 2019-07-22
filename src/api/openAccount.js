@@ -12,7 +12,7 @@ export function saveUserInfo(data) {
 export function getUserInfo(data) {
   return request({
     url: '/user/getUser',
-    method: 'get',
+    method: 'post',
     data
   })
 }
@@ -30,7 +30,7 @@ export function saveUserBase(data) {
 export function getUserBase(data) {
   return request({
     url: '/user/getUserBase',
-    method: 'get',
+    method: 'post',
     data: data
   })
 }
@@ -48,7 +48,7 @@ export function saveUserRegulation(data) {
 export function getUserRegulation(data) {
   return request({
     url: '/user/getUserRegulation',
-    method: 'get',
+    method: 'post',
     data: data
   })
 }
@@ -78,7 +78,7 @@ export function upload(data) {
 export function getUserFile() {
   return request({
     url: '/user/getUserFile',
-    method: 'get',
+    method: 'post',
     data: {}
   })
 }

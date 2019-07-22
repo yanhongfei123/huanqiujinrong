@@ -61,7 +61,7 @@ export function findPassword(data) {
 export function getUserInfo(data) {
   return request({
     url: '/user/selectOne',
-    method: 'get',
+    method: 'post',
     data
   })
 }
