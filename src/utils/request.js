@@ -13,10 +13,10 @@ const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? config.baseUrl : '/api/', // api的base_url
   timeout: 30 * 1000 // request timeout
 });
-var loadingInstance = {};
+var loadingInstance;
 
 service.interceptors.request.use(config => {
-  loadingInstance[config.url] = Loading.service({
+  loadingInstance = Loading.service({
     lock: true,
     background: 'rgba(0, 0, 0, 0.5)'
   });
@@ -35,9 +35,8 @@ service.interceptors.request.use(config => {
   }
   return config;
 }, error => {
- // loadingInstance.close();
+  loadingInstance.close();
   // Do something with request error
-  document.body.removeChild(document.querySelector('.el-loading-mask'));
   console.log(error); // for debug
   Promise.reject(error);
 });
@@ -50,7 +49,7 @@ service.interceptors.response.use(
    * 以下代码均为样例，请结合自生需求加以修改，若不需要，则可删除
    */
   response => {
-    loadingInstance[response.config.url.substr(4)].close();
+    loadingInstance.close();
     const res = response.data;
     const whitelist = ['/home', '/find'];// 列表里的页面没登录不自动跳转
     if (res.code !== '0000') {
@@ -102,8 +101,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-   // loadingInstance.close();
-   document.body.removeChild(document.querySelector('.el-loading-mask'));
+    loadingInstance.close();
     console.log('err' + error); // for debug
     let message = Cookies.get('language') == 'Ft' ? '服務器繁忙，請稍後重試...' : '服务器繁忙，请稍后重试...';
     Message({
