@@ -8,7 +8,7 @@
     </div>
     <div class="type-list">
       <div class="item" v-for="(val,index) in datas" :key="index">
-        <div class="type">{{val.type}}</div>
+        <div class="type">{{val.type | filterByLanguage('assetsType')}}</div>
         <div class="k-list">
           <div class="k-item" v-for="(item,key) in val.list" :key="key">
             <div class="item1">{{item.assetsName}}</div>
@@ -19,7 +19,7 @@
             <div class="item3">{{item.proportion}}</div>
             <div class="speed-cont item4">
               <div class="speed-wrap">
-                <div :style="{width: `${item.proportion}%`}" class="speed"></div>
+                <div :style="{width: item.proportion }" class="speed"></div>
               </div>
               <div>{{getThousand(1000000000)}}</div>
             </div>

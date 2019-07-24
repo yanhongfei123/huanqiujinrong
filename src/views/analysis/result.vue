@@ -27,17 +27,39 @@
       <div v-show="oIndex==0" class="wrap wrap2">
         <div id="myChart1"></div>
         <div class="invest-info">
-          初始资金<span>{{startAmount}}万元</span>，每月投资<span>{{investAmount}}万元</span>，投资<span>{{investYear}}年</span>，则<span>{{investYear}}年</span>后总资产可达<span>{{totalAmount}}万</span>
+          初始资金
+          <span>{{startAmount}}万元</span>，每月投资
+          <span>{{investAmount}}万元</span>，投资
+          <span>{{investYear}}年</span>，则
+          <span>{{investYear}}年</span>后总资产可达
+          <span>{{totalAmount}}万</span>
         </div>
       </div>
       <div v-show="oIndex==1" class="wrap wrap2">
         <div id="myChart2"></div>
         <div class="invest-info">
-          初始资金<span>{{startAmount}}万元</span>，每月投资<span>{{investAmount}}万元</span>，投资<span>{{investYear}}年</span>，则<span>{{investYear}}年</span>后总资产可达<span>{{totalAmount}}万</span>
+          初始资金
+          <span>{{startAmount}}万元</span>，每月投资
+          <span>{{investAmount}}万元</span>，投资
+          <span>{{investYear}}年</span>，则
+          <span>{{investYear}}年</span>后总资产可达
+          <span>{{totalAmount}}万</span>
         </div>
       </div>
       <div v-show="oIndex==2" class="wrap wrap3">
+        <span id="type">进取型</span>
         <div id="myChart3"></div>
+        <div class="legend">
+          <div
+            v-for="(val,index) in colors"
+            :key="index"
+            class="legend-item clear"
+          >
+            <div :style="{backgroundColor:val}" class="color fl"></div>
+            <div class="pecent fl">股票60.00%</div>
+            <!-- <div class="type">股票</div> -->
+          </div>
+        </div>
       </div>
       <div v-show="oIndex==2" class="content">
         <InvestList :datas="datas"></InvestList>
@@ -111,7 +133,7 @@
                 :max="5"
                 :step="1"
                 v-model="ristLevel"
-                 @change="change"
+                @change="change"
                 :show-input-controls="false"
                 show-stops
                 show-input
@@ -130,7 +152,7 @@ import { mapGetters } from "vuex";
 import InvestList from "@/components/vestList/index.vue";
 import { toThousandslsFilter, getType } from "@/utils";
 import { getForecast, getInvestment } from "@/api/analysis.js";
-import { constants } from 'crypto';
+import { constants } from "crypto";
 export default {
   name: "result",
   components: {
@@ -151,6 +173,7 @@ export default {
   },
   data() {
     return {
+      colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
       startAmount: 50,
       investAmount: 5,
       investYear: 10,
@@ -159,8 +182,17 @@ export default {
       oIndex: 0,
       showmask: false,
       echartLabelList: [],
-      datas: [],
-      assetsTypelist: [],
+      datas: [
+        // {
+        //   type:{
+        //     assetsType: '',
+        //     assetsTypeFt: '',
+        //     assetsTypeEn: '',
+        //   },
+        //   list: []
+        // }
+      ],
+      assetsTypelist: []
     };
   },
   methods: {
@@ -176,7 +208,8 @@ export default {
     },
     drawPie() {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById("myChart3"));
+      let domType = document.getElementById("type");
+      this.myChart = echarts.init(document.getElementById("myChart3"));
       // 绘制图表
       var option = {
         // title : {
@@ -188,7 +221,7 @@ export default {
         grid: {
           top: "0%",
           left: "0%",
-          right: "15%"
+          right: "0"
           //bottom: '3%',
         },
         //backgroundColor: "#fff",
@@ -196,19 +229,19 @@ export default {
           trigger: "item",
           formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
-        legend: {
-          orient: "vertical",
-          x: "520",
-          y: "center",
-          itemGap: 40,
-          data: ["40%", "50%", "10%"]
-        },
+        // legend: {
+        //   orient: "vertical",
+        //   x: "520",
+        //   y: "center",
+        //   itemGap: 40,
+        //   data: ["40%", "50%", "10%"]
+        // },
         series: [
           {
             name: "投资类型",
             type: "pie",
-            radius: ["56%", "74%"],
-            center: ["30%", "50%"],
+            radius: ["65%", "88%"],
+            center: ["48%", "50%"],
             data: [
               { value: 40, name: "40%" },
               { value: 30, name: "50%" },
@@ -237,7 +270,28 @@ export default {
           }
         ]
       };
-      myChart.setOption(option);
+      this.myChart.setOption(option);
+      this.myChart.on("mouseover", e => {
+        //当检测到鼠标悬停事件，取消默认选中高亮
+        domType.innerHTML = e.dataIndex;
+        this.myChart.dispatchAction({
+          type: "downplay",
+          seriesIndex: 0,
+          dataIndex: [0, 1, 2]
+        });
+        this.myChart.dispatchAction({
+          type: "highlight",
+          seriesIndex: 0,
+          dataIndex: e.dataIndex
+        });
+      });
+      this.myChart.on("mouseout", e => {
+        this.myChart.dispatchAction({
+          type: "downplay",
+          seriesIndex: 0,
+          dataIndex: e.dataIndex
+        });
+      });
     },
     drawLine(data, id) {
       var dateList = data.map(function(item) {
@@ -246,7 +300,7 @@ export default {
       var valueList = data.map(function(item) {
         return item.aountProfit;
       });
-      if (id == 'myChart1') {
+      if (id == "myChart1") {
         this.totalAmount = valueList[valueList.length - 1];
       } else {
         dateList.reverse();
@@ -268,13 +322,13 @@ export default {
           formatter: "{b}, 总资产: {c}万元"
         },
         xAxis: {
-          name:'年',
-          nameTextStyle :{
-            fontSize: 16,
+          name: "年",
+          nameTextStyle: {
+            fontSize: 16
           },
           boundaryGap: false,
           type: "category",
-          data:  dateList,
+          data: dateList,
           splitLine: {
             show: true
             // lineStyle: {
@@ -290,11 +344,11 @@ export default {
           }
         },
         yAxis: {
-          name:'总资产 (万元)',
+          name: "总资产 (万元)",
           //nameLocation: '',
-          nameTextStyle :{
-            padding: [100,0,0, 0],
-            fontSize: 16,
+          nameTextStyle: {
+            padding: [100, 0, 0, 0],
+            fontSize: 16
           },
           type: "value",
           //type: 'category',
@@ -304,7 +358,7 @@ export default {
           axisLabel: {
             formatter: "{value}"
           },
-          boundaryGap: false,
+          boundaryGap: false
           //data: ["0", "10", "20", "30", "40", "50", "60", "70", "80"]
         },
 
@@ -320,9 +374,9 @@ export default {
               normal: {
                 width: 3,
                 color: "#1890FF", // 1890FF,
-                type: 'dotted'
+                type: "dotted"
               }
-            },
+            }
             // markPoint: {
             //   //symbol: 'none', // 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
             //   itemStyle: {
@@ -479,80 +533,90 @@ export default {
           }
         ]
       };
-       this.myChart.setOption(option);
+      this.myChart.setOption(option);
+
     },
     getThousand(num) {
       return toThousandslsFilter(num);
     },
-    change(){
+    change() {
       this.getForecast(1);
     },
-    getForecast(type){
+    getForecast(type) {
       var params = {
         type,
         initAmount: this.startAmount,
         monthlyAount: this.investAmount,
         duration: this.investYear,
-        riskGrade: this.ristLevel,
+        riskGrade: this.ristLevel
       };
-      getForecast(params).then(res => {
-        setTimeout(() => {
+      getForecast(params)
+        .then(res => {
+          setTimeout(() => {
+            this.showmask = false;
+            this.drawLine(res.data, `myChart${type}`);
+          }, 50);
+        })
+        .catch(res => {
           this.showmask = false;
-          this.drawLine(res.data, `myChart${type}`)
-        }, 50);
-      }).catch(res => {
-        this.showmask = false;
-      })
+        });
     },
-    getInvestment(investmentRisk){
+    getInvestment(investmentRisk) {
       var params = {
-        investmentRisk,
+        investmentRisk
       };
       getInvestment(params).then(res => {
         var data = res.data;
         this.datas = [];
         this.echartLabelList = [];
-console.log(2222222)
+        console.log(2222222);
+        console.log(data);
         console.log(this.assetsTypelist);
-
 
         this.assetsTypelist.map(val => {
           var type = data.filter(item => item.assetsType == val.dictValue);
           console.log(type);
-          if(type.length){
+          if (type.length) {
             var percent = (type.length / data.length) * 100;
             this.echartLabelList.push({
-              percent: percent + '%',
-              assetsType: type[0].dictLabel,
-              assetsTypeFt: type[0].dictLabelFt,
-              assetsTypeEn: type[0].dictLabelEn,
+              percent: percent + "%",
+              assetsType: val.dictLabel,
+              assetsTypeFt: val.dictLabelFt,
+              assetsTypeEn: val.dictLabelEn
             });
 
             this.datas.push({
               type: {
-                assetsType: type[0].dictLabel,
-                assetsTypeFt: type[0].dictLabelFt,
-                assetsTypeEn: type[0].dictLabelEn,
+                assetsType: val.dictLabel,
+                assetsTypeFt: val.dictLabelFt,
+                assetsTypeEn: val.dictLabelEn
               },
-              list: type,
-            })
-
-          };
+              list: type
+            });
+          }
         });
-        console.log(11111111111111)
-        console.log(this.echartLabelList)
-         console.log(this.datas)
-      })
-    },
-
+        console.log(11111111111111);
+        console.log(this.echartLabelList);
+        console.log(this.datas);
+      });
+    }
   },
   mounted() {
+    setTimeout(() => {
+      this.drawPie();
+    }, 50);
+
     this.getForecast(1);
     this.getForecast(2);
     this.getGlobalData("assets_type").then(res => {
       this.assetsTypelist = res.data.list;
       this.getGlobalData("investment_risk").then(res => {
-        this.dictValue = res.data.list.filter(item => (item.dictLabel === this.type || item.dictLabelFt === this.type || item.dictLabelEn === this.type))[0].dictValue;
+        this.dictValue = res.data.list.filter(
+          item =>
+            item.dictLabel === this.type ||
+            item.dictLabelFt === this.type ||
+            item.dictLabelEn === this.type
+        )[0].dictValue;
         this.getInvestment(this.dictValue);
       });
     });
@@ -564,10 +628,10 @@ console.log(2222222)
   text-align: center;
   margin: 30px 0;
   span {
-    color: #D63E2A;
+    color: #d63e2a;
   }
 }
-.btm-info{
+.btm-info {
   width: 650px;
   margin: 0 auto;
 }
@@ -605,7 +669,7 @@ console.log(2222222)
     .text {
       font-size: 20px;
       float: right;
-      color: #C5C5C5
+      color: #c5c5c5;
     }
   }
 
@@ -632,11 +696,50 @@ console.log(2222222)
   height: 400px;
   margin: 0 auto;
 }
-#myChart3 {
+
+.wrap3 {
+  position: relative;
   width: 800px;
-  height: 400px;
-  margin: 0 auto;
+  margin: 0 auto -60px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  #type {
+    position: absolute;
+    top: 45%;
+    left: 178px;
+    font-size:28px;
+    font-weight:600;
+    color:rgba(20,20,22,1);
+
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    .color {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
+
+.legend {
+  margin-left: 130px;
+}
+.pecent {
+  font-size: 20px;
+  color: rgba(20, 20, 22, 1);
+  line-height: 28px;
+  margin-left: 30px;
+}
+
+#myChart3 {
+  width: 400px;
+  height: 400px;
+  float: left;
+}
+
 .myChart {
   width: 100px;
   height: 100px;
