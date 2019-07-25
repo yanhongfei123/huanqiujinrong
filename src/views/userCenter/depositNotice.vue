@@ -10,7 +10,7 @@
         <el-radio v-model="radio" label="1">{{$t('userCenter.depositNotice.text3')}}</el-radio>
       </div>
       <div class>
-        <el-radio disabled v-model="radio" label="2">{{$t('userCenter.depositNotice.text4')}}</el-radio>
+        <el-radio v-model="radio" label="2">{{$t('userCenter.depositNotice.text4')}}</el-radio>
       </div>
     </div>
     <div class="item mar0">
@@ -18,8 +18,10 @@
         <span>*</span>
         2.{{$t('userCenter.depositNotice.text5')}}
       </div>
-      <div class="address shadow">
-        <el-input :placeholder="$t('userCenter.depositNotice.text6')" v-model="address" clearable></el-input>
+      <div class="address">
+        <el-input-number v-model="amount" :step="100" :min="100" :max="9999999999"></el-input-number>
+
+        <!-- <el-input type="tel" maxlength="10"  :placeholder="$t('userCenter.depositNotice.text6')" v-model="amount" clearable></el-input> -->
       </div>
     </div>
     <div class="item mar0">
@@ -28,24 +30,14 @@
         3.{{$t('userCenter.depositNotice.text7')}})：
       </div>
       <div class="upload-wrap">
-        <el-upload
-          class="upload"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :on-success="handleSuccess"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :on-change="handleChange"
-          :file-list="fileList"
-          :before-upload="beforeUpload"
-          :show-file-list="false"
-          list-type="picture-card"
-        >
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <div v-else class="upload-btn">
-            <div class="add"></div>
-            <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
+          <div class="upload-wrap">
+              <input ref="uploadFile" @change="change($event)" class="file" type="file" name="file">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <div v-else class="upload-btn">
+                  <div class="add"></div>
+                  <div class="text">{{$t('userCenter.depositNotice.text8')}}</div>
+              </div>
           </div>
-        </el-upload>
       </div>
     </div>
     <div class="item mar0">
@@ -59,27 +51,86 @@
         ></el-input>
       </div>
     </div>
-    <div class="submit">{{$t('userCenter.depositNotice.text11')}}</div>
+    <div @click="submit" class="submit">{{$t('userCenter.depositNotice.text11')}}</div>
   </div>
 </template>
 <script>
+import { Message } from 'element-ui';
+import config from '../../utils/config';
+import { upload, getUserFile } from '@/api/openAccount.js'
+import { editRemittanceNotice } from '@/api/userCenter.js'
 export default {
   data() {
     return {
       imageUrl: '',
       radio: "1",
-      address: "",
+      amount: "",
       textarea: "",
       fileList: []
     };
   },
   methods: {
+    submit(){
+      if(this.imageUrl == ''){
+        Message({
+            message: '请上传凭证',
+            type: 'warning'
+        });
+        return;
+      }
+      console.log(this.radio)
+      var params = {
+        remark: this.textarea,
+        voucherUrl: this.imageUrl,
+        currency: this.radio,
+        money: this.amount,
+      };
+      editRemittanceNotice(params).then(res => {
+        Message({
+            message: '保存成功',
+            type: 'success'
+        });
+        setTimeout(()=>{
+          this.$router.push('/accountPreView');
+        }, 2000);
+      });
+
+
+    },
+    change(e) {
+        var file = e.target.files;
+        this.uploadImg(file[0]);
+    },
+    uploadImg(file) {
+        var file = this.$refs.uploadFile.files[0];
+        var isImg = file.type.indexOf('image/') == -1;
+        var isLt10M = file.size / 1024 / 1024 > 10;
+        if (isImg) {
+            Message({
+                message: '不支持该格式的文件',
+                type: 'warning'
+            });
+            return;
+        }
+        if (isLt10M) {
+            Message({
+                message: '您上传的图片超过10M，请重新选择图片',
+                type: 'warning'
+            });
+          return
+        }
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("type", 8);
+        upload(formData).then(res => {
+            this.imageUrl = res.data.url;
+        });
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     handlePreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
+
     },
     handleSuccess(response, file, fileList) {
       console.log(response, file, fileList);
@@ -142,9 +193,23 @@ export default {
     margin-bottom: 8px;
   }
   .avatar {
-    max-width: 400px;
+    max-width: 180px;
     display:block;
   }
+
+  .upload-wrap{
+      position: relative;
+      input{
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: 1;
+          opacity: 0;
+          width: 180px;
+          height: 120px;
+      }
+  }
+
   .upload-btn {
     display: flex;
     flex-direction: column;

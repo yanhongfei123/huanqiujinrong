@@ -7,7 +7,7 @@
       <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}（港币）</div>
     </div>
     <div class="type-list">
-      <div class="item" v-for="(val,index) in datas" :key="index">
+      <div class="item" v-for="(val,index) in datas.datas" :key="index">
         <div class="type">{{val.type | filterByLanguage('assetsType')}}</div>
         <div class="k-list">
           <div class="k-item" v-for="(item,key) in val.list" :key="key">
@@ -21,7 +21,7 @@
               <div class="speed-wrap">
                 <div :style="{width: item.proportion }" class="speed"></div>
               </div>
-              <div>{{getThousand(1000000000)}}</div>
+              <div>{{getThousand(item.amount)}}</div>
             </div>
           </div>
         </div>
@@ -30,17 +30,20 @@
     <div class="label-cont label-cont-btm">
       <div class="label label1">{{$t('analysis.result.text18')}}</div>
       <div class="label label2"></div>
-      <div class="label label3">100.00%</div>
-      <div :style="{textIndent: '203px'}" class="label label4">{{ getThousand(525465666)}}</div>
+      <div class="label label3">{{ datas.totalPercent }}</div>
+      <div :style="{textIndent: '203px'}" class="label label4">{{ getThousand(datas.totalAmount)}}</div>
     </div>
   </div>
 </template>
 <script>
 import { toThousandslsFilter } from "@/utils";
+import { getMyAccount } from "@/api/";
 export default {
   props:{
     datas: {
-      default: []
+      datas: [],
+      totalPercent: 0,
+      totalAmount: 0,
     }
   },
   data() {
@@ -50,10 +53,12 @@ export default {
   methods: {
     getThousand(num) {
       return toThousandslsFilter(num);
-    }
+    },
   },
   mounted(){
-    
+      getMyAccount().then(res => {
+
+      })
   }
 };
 </script>

@@ -56,6 +56,8 @@ export default {
       let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,16}$/;
       if (value == "") {
         callback(new Error(this.$t("setting.resetPwd.error.text2")));
+      } else if (value === this.resetForm.oldPassword){
+        callback(new Error(this.$t("setting.resetPwd.error.text6")));
       } else if (!pwdReg.test(value)) {
         callback(new Error(this.$t("setting.resetPwd.error.text3")));
       } else {

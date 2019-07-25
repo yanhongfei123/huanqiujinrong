@@ -74,3 +74,11 @@ export function saveRiskTest(data) {
   })
 }
 
+export function getMyAccount() {
+  return request({
+    url: '/userAccouny/myAccount',
+    method: 'post',
+  })
+}
+
+

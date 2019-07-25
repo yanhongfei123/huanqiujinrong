@@ -17,13 +17,3 @@ export function getInvestment(data) {
     data
   })
 }
-
-
-// 存款通知
-export function editRemittanceNotice(data) {
-  return request({
-    url: '/userAccount/editRemittanceNotice',
-    method: 'post',
-    data
-  })
-}

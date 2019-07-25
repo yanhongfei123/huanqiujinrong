@@ -47,16 +47,12 @@
         </div>
       </div>
       <div v-show="oIndex==2" class="wrap wrap3">
-        <span id="type">进取型</span>
+        <span id="type">{{type}}</span>
         <div id="myChart3"></div>
         <div class="legend">
-          <div
-            v-for="(val,index) in colors"
-            :key="index"
-            class="legend-item clear"
-          >
-            <div :style="{backgroundColor:val}" class="color fl"></div>
-            <div class="pecent fl">股票60.00%</div>
+          <div v-for="(val,index) in echartLabelList" :key="index" class="legend-item clear">
+            <div :style="{backgroundColor: val.color}" class="color fl"></div>
+            <div class="pecent fl">{{ val | filterByLanguage('assetsType')}} {{ val.percent }}</div>
             <!-- <div class="type">股票</div> -->
           </div>
         </div>
@@ -173,7 +169,7 @@ export default {
   },
   data() {
     return {
-      colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
+      colors: ["#D51D26", "#E2C6AB", "#B9BBC0", "#1AA6D6", "#FF7800"],
       startAmount: 50,
       investAmount: 5,
       investYear: 10,
@@ -182,17 +178,9 @@ export default {
       oIndex: 0,
       showmask: false,
       echartLabelList: [],
-      datas: [
-        // {
-        //   type:{
-        //     assetsType: '',
-        //     assetsTypeFt: '',
-        //     assetsTypeEn: '',
-        //   },
-        //   list: []
-        // }
-      ],
-      assetsTypelist: []
+      datas: {},
+      assetsTypelist: [],
+      echartData: []
     };
   },
   methods: {
@@ -242,11 +230,12 @@ export default {
             type: "pie",
             radius: ["65%", "88%"],
             center: ["48%", "50%"],
-            data: [
-              { value: 40, name: "40%" },
-              { value: 30, name: "50%" },
-              { value: 30, name: "10%" }
-            ],
+            data: this.echartData,
+            // data: [
+            //   { value: 880, name: "40%" },
+            //   { value: 30, name: "50%" },
+            //   { value: 30, name: "10%" }
+            // ],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -273,7 +262,7 @@ export default {
       this.myChart.setOption(option);
       this.myChart.on("mouseover", e => {
         //当检测到鼠标悬停事件，取消默认选中高亮
-        domType.innerHTML = e.dataIndex;
+        // domType.innerHTML = e.dataIndex;
         this.myChart.dispatchAction({
           type: "downplay",
           seriesIndex: 0,
@@ -534,7 +523,6 @@ export default {
         ]
       };
       this.myChart.setOption(option);
-
     },
     getThousand(num) {
       return toThousandslsFilter(num);
@@ -567,25 +555,33 @@ export default {
       };
       getInvestment(params).then(res => {
         var data = res.data;
-        this.datas = [];
-        this.echartLabelList = [];
-        console.log(2222222);
-        console.log(data);
-        console.log(this.assetsTypelist);
+        var datas = [];
+        var echartData = [];
+        var echartLabelList = [];
 
-        this.assetsTypelist.map(val => {
+        this.assetsTypelist.map((val, index) => {
           var type = data.filter(item => item.assetsType == val.dictValue);
           console.log(type);
           if (type.length) {
-            var percent = (type.length / data.length) * 100;
-            this.echartLabelList.push({
+            var percent = ((type.length / data.length) * 100).toFixed(2);
+            type.map(item => {
+              item.amount = 100000 * parseFloat(item.proportion);
+            });
+
+            echartData.push({
+              value: type.length,
+              name: percent + "%"
+            });
+
+            echartLabelList.push({
+              color: this.colors[index],
               percent: percent + "%",
               assetsType: val.dictLabel,
               assetsTypeFt: val.dictLabelFt,
               assetsTypeEn: val.dictLabelEn
             });
 
-            this.datas.push({
+            datas.push({
               type: {
                 assetsType: val.dictLabel,
                 assetsTypeFt: val.dictLabelFt,
@@ -595,17 +591,30 @@ export default {
             });
           }
         });
-        console.log(11111111111111);
-        console.log(this.echartLabelList);
-        console.log(this.datas);
+
+        var i = 0;
+        data.map(item => {
+          i += parseFloat(item.proportion);
+        });
+
+        var totalPercent = i + "%";
+        var totalAmount = 100000 * parseFloat(totalPercent);
+
+        this.echartLabelList = echartLabelList;
+        this.datas = {
+          datas,
+          totalPercent,
+          totalAmount
+        };
+        this.echartData = echartData;
+
+        setTimeout(() => {
+          this.drawPie();
+        }, 50);
       });
     }
   },
   mounted() {
-    setTimeout(() => {
-      this.drawPie();
-    }, 50);
-
     this.getForecast(1);
     this.getForecast(2);
     this.getGlobalData("assets_type").then(res => {
@@ -706,12 +715,11 @@ export default {
   align-items: center;
   #type {
     position: absolute;
-    top: 45%;
-    left: 178px;
-    font-size:28px;
-    font-weight:600;
-    color:rgba(20,20,22,1);
-
+    top: 44%;
+    left: 152px;
+    font-size: 28px;
+    font-weight: 600;
+    color: rgba(20, 20, 22, 1);
   }
   .legend-item {
     display: flex;
