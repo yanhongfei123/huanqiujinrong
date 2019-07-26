@@ -73,8 +73,8 @@ export default {
         }, 100);
       } else {
         this.getScore(index);
-        localStorage.setItem("totalScore", this.totalScore);
-        this.$router.push("/analysis/result");
+        //localStorage.setItem("totalScore", this.totalScore);
+        this.$router.push("/analysis/result?totalScore=" + this.totalScore);
       }
     },
     getPrevSub() {

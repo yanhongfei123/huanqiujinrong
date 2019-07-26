@@ -103,8 +103,8 @@ export default {
         score: this.totalScore,
       }
       saveRiskTest(params).then(res=>{
-        localStorage.setItem("totalScore", this.totalScore);
-        this.$router.push("/riskTestResult");
+        //localStorage.setItem("totalScore", this.totalScore);
+        this.$router.push("/riskTestResult?totalScore=" + this.totalScore);
       })
     }
   },

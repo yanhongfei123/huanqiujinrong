@@ -294,7 +294,7 @@
               this.statementInfo.addr = data.data.addr;
               this.statementInfo.country = data.data.country;
               this.statementInfo.isUsDiscount = parseInt(data.data.isUsDiscount);
-              this.statementInfo.autograph = data.data.autograph;
+              this.statementInfo.autograph = data.data.autograph || '';
               this.statementInfo.USDiscern = parseInt(data.data.discern);
               this.statementInfo.agreement = data.data.isElectron;
             });

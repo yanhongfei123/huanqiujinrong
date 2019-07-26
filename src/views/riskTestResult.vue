@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     type() {
-      return getType(localStorage.getItem("totalScore"));
+      return getType(this.$route.query.totalScore);
     }
   },
   methods: {

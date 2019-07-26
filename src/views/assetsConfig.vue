@@ -11,13 +11,13 @@
             <div class="tw-l">
               <div class="info">
                 您即将买卖的是在
-                <span>香港交易所</span>上市的，受
-                <span>香港证监会</span>监督的交易所买卖基金，您的风险承受类型为
+                <span>{{ isHkJis }}</span>上市的，受
+                <span>{{ isHk }}证监会</span>监督的交易所买卖基金，您的风险承受类型为
               </div>
-              <div class="result">稳健型</div>
+              <div class="result">{{ type }}</div>
               <div class="btm-info">
-                投资金额（港币）：
-                <span>100000</span>
+                投资金额（{{ currencyText }}）：
+                <span>{{ totalAmount }}</span>
               </div>
             </div>
             <div class="tw-r"></div>
@@ -27,7 +27,7 @@
             class="des-info"
           >说明：我们将实时监控市场，确保以目标配比执行，但市场波动可能导致交易结果与目标配比不同。以上资产预估仅供参考，实际投资金额以买入结果为准。</div>
         </div>
-        <InvestList></InvestList>
+        <InvestList :datas="datas"></InvestList>
         <div class="box-wrap">
           <p v-if="error1" class="error">{{error1}}</p>
           <el-checkbox
@@ -45,45 +45,136 @@
   </div>
 </template>
 <script>
+import { Message } from 'element-ui';
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
-//import footerBar from "@/components/footer/footer.vue";
 import InvestList from "@/components/vestList/index.vue";
+import { updateAccount, getMyAccount } from '@/api/userCenter.js';
+import { getType, getTypeByLevel } from "@/utils";
+import { getInvestment } from "@/api/analysis.js";
 export default {
   name: "assetsConfig",
+  computed: {
+    type() {
+      return getTypeByLevel(this.level);
+    },
+    isHkJis(){
+      return this.currencyType == '1' ? this.$t('assetsConfig.text1') : this.$t('assetsConfig.text2');
+    },
+    isHk(){
+      return this.currencyType == '1' ? this.$t('assetsConfig.text3') : this.$t('assetsConfig.text4');
+    },
+    currencyText(){
+      return this.currencyType == '1' ? this.$t('currency1') : this.$t('currency2');
+    }
+
+  },
   components: {
     userCenterHeader,
-    //footerBar,
     InvestList
   },
   data() {
     return {
+      id: '',
+      level: '1',
+      currencyType: '',
+      totalAmount: 0,
       checked: false,
       password: "",
       error1: '',
       error2: '',
+      datas: {},
+      assetsTypelist: [],
     };
   },
   methods:{
     startConfig(){
       var reg = /^\d{6}$/;
-      if(!this.checked){
-        this.error1 = '请勾选上方承诺';
-      } else {
-        this.error1 = ''
+      this.error1 = !this.checked ? '请勾选上方承诺' : '';
+      this.error2 = !reg.test(this.password) ? '请输入正确的交易密码' : ''
+      if(!this.error1 && !this.error2){
+        var params = {
+          investmentId: this.id,
+          dealPwd: this.password,
+        };
+        updateAccount(params).then(res => {
+          Message({
+            message: '配置申请已提交',
+            type: "success"
+          });
+          setTimeout(()=>{
+            this.$router.push('/accountPreView');
+          }, 2000);
+        })
       }
-      if(!reg.test(this.password)){
-        this.error2 = '请输入正确的交易密码';
-      }else {
-        this.error2 = ''
-      }
+    },
+    getInvestment(investmentRisk) {
+      var params = {
+        investmentRisk
+      };
+      getInvestment(params).then(res => {
+        var data = res.data;
+        var datas = [];
+        this.id = data[0].id;
 
-      if(!error1 && !error2){
-        alert('配置申请已提交')
-        setTimeout(()=>{
-          this.$router.push('/accountPreView');
-        }, 2000);
-      }
+        this.assetsTypelist.map((val, index) => {
+          var type = data.filter(item => item.assetsType == val.dictValue);
+          console.log(type);
+          if (type.length) {
+            var percent = ((type.length / data.length) * 100).toFixed(2);
+            type.map(item => {
+              item.amount = 100000 * parseFloat(item.proportion) / 100;
+            });
+
+            datas.push({
+              type: {
+                assetsType: val.dictLabel,
+                assetsTypeFt: val.dictLabelFt,
+                assetsTypeEn: val.dictLabelEn
+              },
+              list: type
+            });
+          }
+        });
+
+        var i = 0;
+        data.map(item => {
+          i += parseFloat(item.proportion);
+        });
+
+        var totalPercent = i + "%";
+        var totalAmount = 100000 * parseFloat(totalPercent) / 100;
+        this.totalAmount = totalAmount;
+
+        this.datas = {
+          datas,
+          totalPercent,
+          totalAmount
+        };
+      });
     }
+  },
+
+  mounted(){
+    this.getGlobalData("assets_type").then(res => {
+      this.assetsTypelist = res.data.list;
+      this.getGlobalData("investment_risk").then(res => {
+        var arr = res.data.list.filter(
+          item =>
+            item.dictLabel === this.type ||
+            item.dictLabelFt === this.type ||
+            item.dictLabelEn === this.type
+        );
+        if(arr.length){
+          this.getInvestment(arr[0].dictValue);
+        }
+      });
+    });
+
+    getMyAccount().then(res => {
+      var { currency, risk } = res.data;
+      this.currencyType = currency;
+      this.level = risk;
+    });
   }
 };
 </script>

@@ -125,7 +125,7 @@ export default {
       if (value == "") {
         callback(new Error(this.$t("setTransPas.error.text8")));
       } else if (!pwdReg.test(value)) {
-        callback(new Error(this.$t("setTransPas.error.text8")));
+        callback(new Error(this.$t("setTransPas.error.text6")));
       } else {
         callback();
       }
@@ -244,7 +244,6 @@ export default {
     sendSmsCode() {
       if (this.timer) return;
       this.account = this.regForm.account;
-      this.$refs.regForm.resetFields();
       var rules =
         this.type === "mobile" ? this.regMobileRules : this.regEmailRules;
       this.rules = rules;

@@ -1,7 +1,7 @@
 <template>
   <div class="user-container">
     <header>
-      <userCenterHeader path="/userCenter/myAccount"></userCenterHeader>
+      <userCenterHeader @getUserInfo="getUserInfo" path="/userCenter/myAccount"></userCenterHeader>
     </header>
     <div @click="hideMenu($event)" class="user-content">
       <div class="content">
@@ -27,10 +27,12 @@
                 <router-link to="/userCenter/depositNotice">{{$t('userCenter.text13')}}</router-link>
               </dd>
             </dl>
-            <div class="line"></div>
-            <div :class="[$route.path==='/userCenter/extractFunds'?'active':'']" class="item item5">
+
+            <div v-if="show" class="line"></div>
+            <div v-if="show" :class="[$route.path==='/userCenter/extractFunds'?'active':'']" class="item item5">
               <router-link to="/userCenter/extractFunds">{{$t('userCenter.text14')}}</router-link>
             </div>
+
             <div class="line"></div>
             <div :class="[$route.path==='/userCenter/fundRecords'?'active':'']" class="item item6">
               <router-link to="/userCenter/fundRecords">{{$t('userCenter.text15')}}</router-link>
@@ -58,7 +60,7 @@ export default {
   },
   data() {
     return {
-
+      show: false,
     };
   },
   computed: {},
@@ -68,6 +70,11 @@ export default {
     },
     hideMenu(flag) {
       this.$store.dispatch("showMenu", false);
+    },
+    getUserInfo(data){
+      if(data.state == 6){
+        this.show = true;
+      }
     }
   },
   mounted() {}

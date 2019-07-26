@@ -291,7 +291,7 @@
                     }
                 ],
                 userInfo: {
-                    currency: '1'
+                    currency: ''
                 },
                 userInfoRules: {
                     surnameChina: [
@@ -372,15 +372,15 @@
             let allDictData = ['sys_user_sex', 'Marriage', 'currency_type', 'account_type', 'deposit_type' ];
             let allPromise = allDictData.map(item => this.getGlobalData(item));
             Promise.all(allPromise).then(res => {
-                console.log(res);
                 this.genders = res[0].data.list;
                 this.maritalStatus = res[1].data.list;
-                this.currencyTypes = res[2].data.list;
+                this.currencyTypes = res[2].data.list.filter(item => item.dictValue != this.type);
+                console.log(this.currencyTypes)
+
                 this.accountTypes = res[3].data.list;
                 this.depositTypes = res[4].data.list;
             }).then(() => {
                 getUserInfo().then(res => {
-                    console.log(res);
                     if(res.data) {
                         this.userInfo = res.data;
                     }

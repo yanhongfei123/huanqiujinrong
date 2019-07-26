@@ -4,7 +4,7 @@
       <div class="label label1">{{$t('analysis.result.text14')}}</div>
       <div class="label label2">{{$t('analysis.result.text15')}}</div>
       <div class="label label3">{{$t('analysis.result.text16')}}</div>
-      <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}（港币）</div>
+      <div :style="{textIndent: '72px'}" class="label label4">{{$t('analysis.result.text17')}}（{{ currency }}）</div>
     </div>
     <div class="type-list">
       <div class="item" v-for="(val,index) in datas.datas" :key="index">
@@ -13,7 +13,7 @@
           <div class="k-item" v-for="(item,key) in val.list" :key="key">
             <div class="item1">{{item.assetsName}}</div>
             <div class="item2">
-              <span class="hk">HK</span>
+              <span class="hk">{{ isHK }}</span>
               {{item.assetsCode}}
             </div>
             <div class="item3">{{item.proportion}}</div>
@@ -37,8 +37,16 @@
 </template>
 <script>
 import { toThousandslsFilter } from "@/utils";
-import { getMyAccount } from "@/api/";
+import { getMyAccount } from "@/api/userCenter";
 export default {
+  computed:{
+    currency(){
+      return this.currencyType == '1' ? this.$t('currency1') : this.$t('currency2');
+    },
+    isHK(){
+      return this.currencyType == '1' ? 'HK' : 'UK';
+    }
+  },
   props:{
     datas: {
       datas: [],
@@ -48,6 +56,7 @@ export default {
   },
   data() {
     return {
+      currencyType: '2',
     };
   },
   methods: {
@@ -56,9 +65,9 @@ export default {
     },
   },
   mounted(){
-      getMyAccount().then(res => {
-
-      })
+    getMyAccount().then(res => {
+      this.currencyType = res.data.currency;
+    })
   }
 };
 </script>

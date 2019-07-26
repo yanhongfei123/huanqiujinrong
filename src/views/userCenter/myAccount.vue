@@ -6,17 +6,17 @@
         <div class="tb-wrap">
           <div class="tbl-item tbl-item1">
             <div class="label">{{$t('userCenter.myAccount.text2')}}</div>
-            <div class="acount">398741100</div>
+            <div class="acount">{{ money }}</div>
           </div>
           <div class="tbl-item">
             <div class="label">
-              {{$t('userCenter.myAccount.text3')}}（港币）
+              {{$t('userCenter.myAccount.text3')}}（{{ currency }}）
               <tips
                 top="3px"
                 right="-20px"
               >{{$t('userCenter.myAccount.text4')}}（产品名称）{{$t('userCenter.myAccount.text4_1')}}</tips>
             </div>
-            <div class="acount">39870</div>
+            <div class="acount">{{ frozenMoney }}</div>
           </div>
         </div>
       </div>
@@ -26,61 +26,97 @@
           <router-link to="/">{{$t('userCenter.myAccount.text6')}}</router-link>
         </div>
         <div class="tb-wrap">
-          <div class="tbl-item tbl-item1">
+          <div v-show="bond" class="tbl-item tbl-item1">
             <div class="label">{{$t('userCenter.myAccount.text7')}}</div>
-            <div class="acount">xyz39870</div>
+            <div class="acount">{{ bond }}</div>
           </div>
-          <div class="tbl-item">
+          <div v-show="userName" class="tbl-item">
             <div class="label">{{$t('userCenter.myAccount.text8')}}</div>
-            <div class="acount">xyz39870</div>
+            <div class="acount">{{ userName }}</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="btm-wrap">
+    <div class="btm-wrap myAcount">
       <div class="type">三. {{$t('userCenter.myAccount.text9')}}</div>
       <div class="q-list">
-        <div class="q-item" v-for="(val,index) in qList" :key="index">
-          <div :class="[val.showanswer?'show':'']" class="icon"></div>
-          <div @click="val.showanswer=!val.showanswer" class="q-title">{{val.title}}</div>
-          <div :class="[val.showanswer?'height-auto':'']" class="q-answer">{{val.answer}}</div>
+        <div class="q-item" v-for="(val,index) in fqList" :key="index">
+          <div :class="[val.isshow?'show':'']" class="icon"></div>
+          <div @click="val.isshow=!val.isshow" class="q-title">{{val | filterByLanguage('helpTitle')}}</div>
+          <div :class="[val.isshow?'height-auto':'']" class="q-answer">{{val | filterByLanguage('helpContent')}}</div>
         </div>
       </div>
+      <el-pagination
+        @current-change="currentChange"
+        v-if="total > 1"
+        background
+        layout="prev, pager, next"
+        :page-size="1"
+        :current-page="currentPage"
+        :total="total"
+      ></el-pagination>
     </div>
   </div>
 </template>
 <script>
 import Tips from "../../components/tips.vue";
-
+import { getMyAccount } from '@/api/userCenter.js'
+import { getQuestionList } from "@/api/article";
 export default {
+  computed:{
+    currency(){
+      return this.currencyType == '1' ? this.$t('currency1') : this.$t('currency2');
+    },
+  },
   name: "account",
   components: {
     Tips
   },
   data() {
     return {
-      qList: [
-        {
-          showanswer: false,
-          title: "最低投资金额是多少？",
-          answer:
-            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
-        },
-        {
-          showanswer: false,
-          title: "最低投资金额是多少？",
-          answer:
-            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
-        },
-        {
-          showanswer: false,
-          title: "最低投资金额是多少？",
-          answer:
-            "最低投资金额为100,000港币。由于在香港上市的ETF的最低投资金额要求，设立这个投资门槛是为了确保客户能组成一个多元分散的投资组合。"
-        }
-      ]
+      total:0,
+      currentPage: 1,
+      fqList: [],
+      frozenMoney: 0,
+      money: 0,
+      userName: '',
+      bond: '',
+      currencyType: '2',
     };
-  }
+  },
+  methods:{
+    getQuestionList(pageNum){
+      getQuestionList({
+        helpType: '1',
+        pageNum,
+      }).then(res => {
+        var list = res.data.list;
+        list.map(item => {
+          item.isshow = false;
+          return item;
+        });
+        this.fqList = list;
+        this.total = res.data.pages;
+      });
+    },
+    currentChange(pageNum){
+      this.currentPage = pageNum;
+      this.getQuestionList(pageNum)
+    },
+  },
+  beforeMount(){
+    this.getQuestionList(1);
+    getMyAccount().then(res => {
+      var { frozenMoney, money, currency, bond, userName } = res.data;
+      this.currencyType = currency;
+      this.frozenMoney = frozenMoney;
+      this.money = money;
+      this.bond = bond;
+      this.userName = userName;
+
+    })
+  },
+
 };
 </script>
 <style lang="scss" scoped>
@@ -133,6 +169,7 @@ export default {
     }
   }
   .btm-wrap {
+     padding-bottom: 20px;
     .type {
       margin: 0;
       border: none;

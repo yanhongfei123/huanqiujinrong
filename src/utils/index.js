@@ -23,6 +23,39 @@ export function filterOpenStatus(state) {
   }
 }
 
+export function getTypeByLevel(level) {
+  var type;
+  var lang = i18n.locale;
+  var item = question.typeList.filter(item => item.riskLevel == level);
+  if(item.length){
+    switch (lang) {
+      case "zh":
+        type = item[0].type;
+        break;
+      case "Ft":
+        type = item[0].typeft;
+        break;
+      default:
+        type = item[0].typeen;
+        break;
+    }
+  }
+  return type;
+}
+
+export function getLevel(score) {
+  var level;
+  question.typeList.map(item => {
+    var scoreList = item.score.split("-");
+    var minScore = parseInt(scoreList[0]);
+    var maxScore = parseInt(scoreList[1]);
+    if (score >= minScore && score <= maxScore) {
+      level = item.riskLevel;
+    }
+  });
+  return level;
+}
+
 export function getType(score) {
   var type;
   var lang = i18n.locale;

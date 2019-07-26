@@ -146,7 +146,7 @@
 <script>
 import { mapGetters } from "vuex";
 import InvestList from "@/components/vestList/index.vue";
-import { toThousandslsFilter, getType } from "@/utils";
+import { toThousandslsFilter, getType, getLevel } from "@/utils";
 import { getForecast, getInvestment } from "@/api/analysis.js";
 import { constants } from "crypto";
 export default {
@@ -157,7 +157,7 @@ export default {
   computed: {
     ...mapGetters(["token"]),
     type() {
-      return getType(localStorage.getItem("totalScore"));
+      return getType(this.$route.query.totalScore);
     },
     typeList() {
       return [
@@ -173,7 +173,7 @@ export default {
       startAmount: 50,
       investAmount: 5,
       investYear: 10,
-      ristLevel: 3,
+      ristLevel: getLevel(this.$route.query.totalScore),
       totalAmount: 0,
       oIndex: 0,
       showmask: false,
@@ -565,7 +565,7 @@ export default {
           if (type.length) {
             var percent = ((type.length / data.length) * 100).toFixed(2);
             type.map(item => {
-              item.amount = 100000 * parseFloat(item.proportion);
+              item.amount = 100000 * parseFloat(item.proportion) / 100;
             });
 
             echartData.push({
@@ -598,7 +598,7 @@ export default {
         });
 
         var totalPercent = i + "%";
-        var totalAmount = 100000 * parseFloat(totalPercent);
+        var totalAmount = 100000 * parseFloat(totalPercent) / 100;
 
         this.echartLabelList = echartLabelList;
         this.datas = {
@@ -620,13 +620,15 @@ export default {
     this.getGlobalData("assets_type").then(res => {
       this.assetsTypelist = res.data.list;
       this.getGlobalData("investment_risk").then(res => {
-        this.dictValue = res.data.list.filter(
+        var arr = res.data.list.filter(
           item =>
             item.dictLabel === this.type ||
             item.dictLabelFt === this.type ||
             item.dictLabelEn === this.type
-        )[0].dictValue;
-        this.getInvestment(this.dictValue);
+        );
+        if(arr.length){
+          this.getInvestment(arr[0].dictValue);
+        }
       });
     });
   }

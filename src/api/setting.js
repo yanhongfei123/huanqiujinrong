@@ -12,7 +12,7 @@ export function resetPassword(data) {
 // 设置/修改交易密码
 export function resetDealPWD(data) {
   return request({
-    url: '/userAccount/resetDealPWD',
+    url: '/user/resetDealPWD',
     method: 'post',
     data,
   })

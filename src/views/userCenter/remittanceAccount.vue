@@ -3,10 +3,10 @@
     <div class="item">
       <div class="label">1.{{$t('userCenter.remittanceAccount.text1')}}</div>
       <div class="radio-wrap">
-        <el-radio v-model="radio1" label="1">{{$t('userCenter.remittanceAccount.text2')}}</el-radio>
+        <el-radio :disabled="radio == 2" v-model="radio" label="1">{{$t('userCenter.remittanceAccount.text2')}}</el-radio>
       </div>
       <div class>
-        <el-radio disabled v-model="radio1" label="2">{{$t('userCenter.remittanceAccount.text3')}}</el-radio>
+        <el-radio :disabled="radio == 1" v-model="radio" label="2">{{$t('userCenter.remittanceAccount.text3')}}</el-radio>
       </div>
     </div>
     <div class="item">
@@ -85,12 +85,19 @@
   </div>
 </template>
 <script>
+import { getMyAccount } from '@/api/userCenter.js'
 export default {
   data() {
     return {
-      radio1: "1",
-      radio2: "1"
+      radio: 0,
+      radio2: '1',
+      disabled: false,
     };
+  },
+  beforeMount(){
+    getMyAccount().then(res => {
+      this.radio = '1' || res.data.currency;
+    })
   }
 };
 </script>

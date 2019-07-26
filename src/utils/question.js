@@ -3,31 +3,36 @@ export default {
       typeen: "Conservative type",
       typeft: "保守型",
       type: "保守型",
-      score: "6-9"
+      score: "6-9",
+      riskLevel: 1,
     },
     {
       typeen: "Cautious type",
       typeft: "謹慎型",
       type: "谨慎型",
-      score: "10-13"
+      score: "10-13",
+      riskLevel: 2,
     },
     {
       typeen: "Robust type",
       typeft: "穩健型",
       type: "稳健型",
-      score: "14-17"
+      score: "14-17",
+      riskLevel: 3,
     },
     {
       typeen: "entreprenant",
       typeft: "進取型",
       type: "进取型",
-      score: "18-21"
+      score: "18-21",
+      riskLevel: 4,
     },
     {
       typeen:'"Radical type"',
       typeft: "激進型",
       type: "激进型",
-      score: "22-24"
+      score: "22-24",
+      riskLevel: 5,
     }
   ],
   questionList: [{
@@ -168,12 +173,12 @@ export default {
       ]
     },
     {
-      fqft: "假設有兩種投資：投資A預期收益爲10%,可能最大虧損爲5%；投資B預期收益爲30%,可能晨大虧損爲15%。您會怎麽選擇？",
-      fq: "假设有两种投资：投资A预期收益为10%,可能最大亏损为5%；投资B预期收益为30%,可能晨大亏损为15%。您会怎么选择？",
+      fqft: "假設有兩種投資：投資A預期收益爲10%,可能最大虧損爲5%；投資B預期收益爲30%,可能最大虧損爲15%。您會怎麽選擇？",
+      fq: "假设有两种投资：投资A预期收益为10%,可能最大亏损为5%；投资B预期收益为30%,可能最大亏损为15%。您会怎么选择？",
       asall: [{
           score: 1,
-          asft: "全部投資于收荒較小且風險較小的A",
-          as: "全部投资于收荒较小且风险较小的A",
+          asft: "全部投資于收益較小且風險較小的A",
+          as: "全部投资于收益较小且风险较小的A",
           checked: false
         },
         {

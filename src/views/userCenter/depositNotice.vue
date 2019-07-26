@@ -78,7 +78,6 @@ export default {
         });
         return;
       }
-      console.log(this.radio)
       var params = {
         remark: this.textarea,
         voucherUrl: this.imageUrl,
@@ -126,37 +125,19 @@ export default {
             this.imageUrl = res.data.url;
         });
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-
-    },
-    handleSuccess(response, file, fileList) {
-      console.log(response, file, fileList);
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    handleChange(file, fileList) {
-      console.log(file, fileList);
-    },
-    beforeUpload(file) {
-        const isImg = file.type.indexOf('image/') != -1;
-        const isLt10M = file.size / 1024 / 1024 < 1;
-        var msg = '';
-
-        if (!isImg) {
-          msg = '请上传.jpg,.jpeg,.png格式的图片'
-        } else if (!isLt10M) {
-          msg = '图片大小不能超过10MB!';
+  },
+  beforeMount(){
+      getUserFile().then(res => {
+        var data = res.data;
+        var host = data.url;
+        var nlist = data.list.filter(item => item.type == 8);
+        if(data.list.length && nlist.length){
+          this.imageUrl = host + nlist[0].url;
         }
-        if(msg){
-          this.$alert(msg, "提示", {
-            confirmButtonText: "我知道了"
-          });
-        }
-        return isImg && isLt10M;
-    }
+      })
   }
+
+
 };
 </script>
 <style lang="scss" scoped>

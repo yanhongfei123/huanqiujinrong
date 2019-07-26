@@ -154,6 +154,11 @@ header {
   .el-pagination.is-background .el-pager li:hover {
     //color: #d51d26;
   }
+  .myAcount{
+    .el-pagination {
+      margin-top: 30px;
+    }
+  }
   .el-pagination {
     text-align: center;
     margin-top: 60px;
