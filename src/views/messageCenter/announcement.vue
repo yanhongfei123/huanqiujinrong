@@ -3,10 +3,10 @@
     <div class="article-list">
       <div v-for="(val,index) in articleList" :key="index" class="article-item">
         <div class="r-wrap">
-          <div class="title">{{val.title}}</div>
-          <div class="des">{{val.des}}</div>
+          <div class="title">{{val | filterByLanguage('noticeTitle')}}</div>
+          <div class="des">{{val | filterByLanguage('noticeContent')}}</div>
           <div class="b-wrap">
-            <div class="time">{{val.time}}</div>
+            <div class="time">{{val.createTime | parseTime}}</div>
           </div>
         </div>
       </div>

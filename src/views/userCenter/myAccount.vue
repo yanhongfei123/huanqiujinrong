@@ -22,7 +22,7 @@
       </div>
       <div class="item">
         <div class="type">
-          一. {{$t('userCenter.myAccount.text5')}}
+          二. {{$t('userCenter.myAccount.text5')}}
           <router-link to="/">{{$t('userCenter.myAccount.text6')}}</router-link>
         </div>
         <div class="tb-wrap">

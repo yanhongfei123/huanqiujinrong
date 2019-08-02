@@ -288,7 +288,7 @@ export default {
             sendCode(params).then(res => {
               this.getSmsCodeHandler();
               Message({
-                message: 'signin.sendSuccess',
+                message: this.$t('signin.sendSuccess'),
                 type: "success"
               });
             });
