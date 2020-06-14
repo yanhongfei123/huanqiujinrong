@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
+const Why = () => import('@/views/why.vue'); //首页
 const Home = () => import('@/views/home.vue'); //首页
 const Contact = () => import('@/views/contact.vue'); // 联系我们
 const Introduction = () => import('@/views/introduction.vue'); //介绍
@@ -15,7 +16,7 @@ const Analys = () => import('@/views/analysis/analysis.vue'); //
 const Find = () => import('@/views/find.vue'); //
 const Article = () => import('@/views/article.vue'); //文章详情
 const Organization = () => import('@/views/organization.vue'); //机构
-const Product = () => import('@/views/product.vue'); //产品
+const Product = () => import('@/views/products.vue'); //产品
 const Operation = () => import('@/views/operation.vue'); //如何运作
 
 const Register = () => import('@/views/signin/register.vue'); //注册
@@ -64,6 +65,11 @@ const UploadInfo = () => import('@/views/openAccount/uploadInfo.vue'); //开户-
 const Witness = () => import('@/views/openAccount/witness.vue'); //开户-见证
 
 const routes = [
+	{
+	    path: '/why',
+		name: 'why',
+	    component: Why,
+	},
     {
         path: '/register',
         name: 'register',

@@ -2,7 +2,8 @@ export default {
   nav: {
     home: '首頁',
     operation: '如何運作',
-    product: '產品 ',
+	why: '為何選擇ETF',
+    product: '投資產品 ',
     find: '發現 ',
     organization: '機構',
     analysis: '免費分析',

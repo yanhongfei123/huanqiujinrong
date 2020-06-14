@@ -159,6 +159,7 @@ import Tips from "@/components/tips.vue";
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
 import { getUserInfo } from "@/api";
+import { getAccountDetail } from "@/api/myAccount.js";
 
 export default {
   name: "accountPreview",
@@ -229,7 +230,7 @@ export default {
   },
   data() {
     return {
-      openStatus: 0,
+      openStatus: 6,
       colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
       data: [
         {
@@ -265,7 +266,7 @@ export default {
   },
   methods: {
     setUserInfo(data) {
-      this.openStatus = data.state;
+      //this.openStatus = data.state;
     },
     goPage(path) {
       this.$router.push(path);
@@ -383,7 +384,10 @@ export default {
   mounted() {
     setTimeout(()=>{
       this.drawPie();
-    }, 100)
+    }, 100);
+    getAccountDetail().then(res => {
+      
+    })
   },
 };
 </script>

@@ -4,15 +4,20 @@
     <div class="nav-cont flex">
       <div class="nav-bar flex">
         <div :class="[path === '/home' ? 'active' : '', 'nav-item']" @click="goPage('/home')">{{$t('nav.home')}}</div>
-        <div
+		<div
+		  :class="[path === '/product' ? 'active' : '', 'nav-item']"
+		  @click="goPage('/product')"
+		>{{$t('nav.product')}}</div>
+		<div
+		  :class="[path === '/why' ? 'active' : '', 'nav-item']"
+		  @click="goPage('/why')"
+		>{{$t('nav.why')}}</div>
+<!--        <div
           :class="[path === '/operation' ? 'active' : '','nav-item']"
           @click="goPage('/operation')"
-        >{{$t('nav.operation')}}</div>
-        <div
-          :class="[path === '/product' ? 'active' : '', 'nav-item']"
-          @click="goPage('/product')"
-        >{{$t('nav.product')}}</div>
-        <div :class="[path === '/find' ? 'active' : '', 'nav-item']" @click="goPage('/find')">{{$t('nav.find')}}</div>
+        >{{$t('nav.operation')}}</div> -->
+
+<!--        <div :class="[path === '/find' ? 'active' : '', 'nav-item']" @click="goPage('/find')">{{$t('nav.find')}}</div>
         <div
           :class="[path === '/organization' ? 'active' : '', 'nav-item']"
           @click="goPage('/organization')"
@@ -20,7 +25,7 @@
         <div
           :class="[path === '/analysis/analys' ? 'active' : '', 'nav-item']"
           @click="goPage('/analysis/analys')"
-        >{{$t('nav.analysis')}}</div>
+        >{{$t('nav.analysis')}}</div> -->
       </div>
 
       <div class="user-wrap">
@@ -41,15 +46,17 @@
         </ul>
       </div>
       <div v-if="!token" class="nav-m flex">
-        <div class="hover" @click="goPage('/login')">{{$t('nav.login')}}</div>
+        <div class="hover" @click="goPage('/login')">{{$t('nav.login')}}/</div>
         <div class="hover" @click="goPage('/register')">{{$t('nav.register')}}</div>
       </div>
 
-      <div class="nav-r flex">
+<!--      <div class="nav-r flex">
         <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">简</div>
         <div class="line"></div>
         <div :class="[$i18n.locale === 'Ft'?'active':'']" class="hover" @click="setLanguage('Ft')">繁</div>
       </div>
+	  -->
+	  
     </div>
   </div>
 </template>
@@ -195,8 +202,7 @@ export default {
   width: 1180px;
   height: 82px;
   margin: 0 auto;
-  color: #3c3f4d;
-  font-weight: 600;
+  color: rgba(47, 81, 108, 1);
   font-size: 24px;
   line-height: 24px;
   letter-spacing: 1px;
@@ -205,6 +211,7 @@ export default {
   justify-content: space-between;
   .flex {
     display: flex;
+	align-items: center;
   }
   .logo {
     width: 179px;
@@ -215,9 +222,12 @@ export default {
   .nav-item {
     cursor: pointer;
     margin-right: 40px;
-    opacity: 0.7;
   }
   .nav-m {
+	justify-content: center;
+	width: 283px;
+	height: 50px;
+	background-color: rgba(42, 219, 192, 1);
     cursor: pointer;
     margin-right: 40px;
     div {
@@ -238,7 +248,7 @@ export default {
     }
   }
   .active,.nav-r .active  {
-    color: #141416;
+    //color: #141416;
     opacity: 1;
   }
   .hover:hover,
