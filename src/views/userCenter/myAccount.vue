@@ -23,7 +23,7 @@
       <div class="item">
         <div class="type">
           二. {{$t('userCenter.myAccount.text5')}}
-          <router-link to="/">{{$t('userCenter.myAccount.text6')}}</router-link>
+          <!-- <router-link to="/">{{$t('userCenter.myAccount.text6')}}</router-link> -->
         </div>
         <div class="tb-wrap">
           <div v-show="bond" class="tbl-item tbl-item1">

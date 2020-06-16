@@ -230,7 +230,7 @@ export default {
   },
   data() {
     return {
-      openStatus: 6,
+      openStatus: 0,
       colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
       data: [
         {
@@ -266,7 +266,7 @@ export default {
   },
   methods: {
     setUserInfo(data) {
-      //this.openStatus = data.state;
+      this.openStatus = data.state;
     },
     goPage(path) {
       this.$router.push(path);

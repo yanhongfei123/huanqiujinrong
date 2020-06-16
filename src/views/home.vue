@@ -15,7 +15,7 @@
 			<div class="section2">
 				<div class="com-width content">
 					<div class="left">
-						<div class="text">关于我们</div>
+						<div class="text">關於我們</div>
 						<div class="text2">
 							ETF.COOL 是香港的新浪潮投資平台，專為如你一樣的年輕專業人士而設。
 						</div>
@@ -24,7 +24,7 @@
 						</div>
 						<div class="text4">我們根據諾貝爾得獎研究建立投資組合，讓你從發達以及新興市場增長中獲得收益。
 						</div>
-						<div class="btn"></div>
+						<a class="btn" href="/#/product"></a>
 					</div>
 					<img src="../assets/images/home/4.png" alt="">
 				</div>
@@ -32,9 +32,9 @@
 
 			<div class="section3">
 				<img src="../assets/images/home/7.png" alt="">
-				<div @click="goPage" class="start">立即开始</div>
+				<div @click="goPage" class="start">立刻開始</div>
 				<div class="content">
-					<div class="title">如何开始</div>
+					<div class="title">如何開始？</div>
 					<div class="item">
 						<div class="icon icon1"></div>
 						<div class="text">
@@ -73,13 +73,13 @@
 					</div>
 					<div class="item">
 						<img src="../assets/images/home/0.png" alt="">
-						<div class="text2">受證監會發牌許可</div>
-						<div class="text3">證明我們符合香港證券及期貨事務監察委員會的資本、規格、審計和報告要求 </div>
+						<div class="text2">安全監管</div>
+						<div class="text3"> 你的資產將分別存放在於交通銀行（香港）的隔離託管帳戶、以及香港盈透證券的證券清算帳戶中。</div>
 					</div>
 					<div class="item">
 						<img src="../assets/images/home/8.png" alt="">
-						<div class="text2">受證監會發牌許可</div>
-						<div class="text3">證明我們符合香港證券及期貨事務監察委員會的資本、規格、審計和報告要求 </div>
+						<div class="text2">帳戶保障</div>
+						<div class="text3">你的帳戶受投資者賠償基金計劃保障。另外，我們亦要求你設置雙重身分認證，以保護你的帳戶。 </div>
 					</div>
 				</div>
 			</div>
@@ -165,7 +165,7 @@
 		},
 		methods: {
 			goPage() {
-				var path = this.token ? '/openAccount' : '/register'
+				var path = this.token ? '/openAccount' : '/login'
 				this.$router.push(path);
 			},
 			hideMenu(flag) {
@@ -264,6 +264,7 @@
 		}
 
 		.btn {
+			display: block;
 			width: 365px;
 			height: 109px;
 			background: url(../assets/images/home/15.png) no-repeat center;

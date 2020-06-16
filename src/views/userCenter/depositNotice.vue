@@ -86,7 +86,7 @@ export default {
       };
       editRemittanceNotice(params).then(res => {
         Message({
-            message: '保存成功',
+            message: '提交成功',
             type: 'success'
         });
         setTimeout(()=>{

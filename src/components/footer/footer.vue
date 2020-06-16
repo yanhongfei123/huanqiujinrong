@@ -28,9 +28,9 @@
 				<img src="../../assets/images/home/i.png" alt="">
 			</li>
 			<li class="link">
-				<a href="">首页</a><span>|</span>
-				<a href="">投资产品</a><span>|</span>
-				<a href="">为何选择ETC</a>
+				<a href="/#/honme">首页</a><span>|</span>
+				<a href="/#/product">投资产品</a><span>|</span>
+				<a href="/#/why">为何选择ETC</a>
 			</li>
           </ul>
         </div>

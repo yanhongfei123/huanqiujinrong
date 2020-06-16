@@ -6,11 +6,11 @@
         <div class="content">
             <leftImage></leftImage>
             <div class="tab-wrap fr">
-            <div
+<!--            <div
                 @click="changeType('mobile')"
                 class="item"
                 :class="[type=='mobile'?'active':'']"
-            >手机号码</div>
+            >手机号码</div> -->
             <div
                 @click="changeType('email')"
                 class="item"
@@ -190,7 +190,7 @@
                 timer: null, // 定时器
                 disabledBtn: false,
                 btnText: '',
-                type: "mobile", // mobile ，  email
+                type: "email", // mobile ，  email
                 options: [
                     {
                     value: 1,

@@ -13,11 +13,11 @@
           <div class="page-trans">
             <div class="content">
               <div class="tab-wrap">
-                <div
+<!--                <div
                   @click="changeType('mobile')"
                   class="item"
                   :class="[type=='mobile'?'active':'']"
-                >手机号码</div>
+                >手机号码</div> -->
                 <div
                   @click="changeType('email')"
                   class="item"
@@ -168,7 +168,7 @@ export default {
       disabledBtn: false,
       btnText: "",
       rules: {},
-      type: "mobile", // mobile ，  email
+      type: "email", // mobile ，  email
       options: [
         {
           value: 1,

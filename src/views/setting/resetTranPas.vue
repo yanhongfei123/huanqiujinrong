@@ -2,7 +2,7 @@
   <div class="page-resettrans">
     <div class="content">
       <div class="tab-wrap">
-        <div @click="changeType('mobile')" class="item" :class="[type=='mobile'?'active':'']">手机号码</div>
+        <!-- <div @click="changeType('mobile')" class="item" :class="[type=='mobile'?'active':'']">手机号码</div> -->
         <div @click="changeType('email')" class="item" :class="[type=='email'?'active':'']">邮箱</div>
       </div>
       <!-- 邮箱 -->
@@ -137,7 +137,7 @@ export default {
       disabledBtn: false,
       btnText: "",
       rules: {},
-      type: "mobile", // mobile ，  email
+      type: "email", // mobile ，  email
       options: [
         {
           value: 1,

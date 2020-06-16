@@ -24,6 +24,8 @@ service.interceptors.request.use(config => {
   // Do something before request is sent
   if (store.getters.token) {
     config.headers['accessToken'] = getToken();
+	console.log('token==', getToken())
+	config.headers['Content-Type'] = 'application/json;charset=UTF-8';
   } else if (config.url.indexOf('login') == -1) {
     // MessageBox.confirm('请先登录', '提示', {
     //   confirmButtonText: '去登录',

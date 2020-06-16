@@ -40,7 +40,6 @@ export default {
   methods: {
     goPage(path) {
       if (path) {
-        alert(path)
         this.$router.push(path);
       }else{
         var url = this.openStatus == 6 ? '/accountPreView' : '/setTransPas';
