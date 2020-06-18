@@ -90,7 +90,7 @@ export default {
             type: 'success'
         });
         setTimeout(()=>{
-          this.$router.push('/accountPreView');
+          this.$router.push('/accountPreView'); // setTransPas
         }, 2000);
       });
 

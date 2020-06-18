@@ -13,7 +13,7 @@
       </div>
       <div class="btn-wrap">
         <div @click="goPage('/riskTest')" class="restart">{{$t('riskTestResult.text4')}}</div>
-        <div @click="goPage('')" class="next">{{$t('riskTestResult.text5')}}</div>
+        <div @click="goPage('/investCombination/accountDetail')" class="next">{{$t('riskTestResult.text6')}}</div>
       </div>
     </div>
   </div>

@@ -36,7 +36,8 @@
         </div>
         <div class="dis-label">二.输入交易密码</div>
         <div class="pas-label">交易密码：</div>
-        <el-input maxlength="6" v-model="password" placeholder="请输入6位交易密码"></el-input>
+        <el-input type="password" maxlength="6" v-model="password" placeholder="请输入6位交易密码"></el-input>
+		<p class="forget"><a href="/#/setting/resetTranPas">修改密码</a></p>
         <p v-if="error2" class="error">{{error2}}</p>
         <div @click="startConfig" class="btn-openAccount">开启我的资产配置</div>
       </div>
@@ -51,6 +52,7 @@ import InvestList from "@/components/vestList/index.vue";
 import { updateAccount, getMyAccount } from '@/api/userCenter.js';
 import { getType, getTypeByLevel } from "@/utils";
 import { getInvestment } from "@/api/analysis.js";
+import { getAccountDetail } from "@/api/myAccount.js";
 export default {
   name: "assetsConfig",
   computed: {
@@ -155,30 +157,39 @@ export default {
   },
 
   mounted(){
-    this.getGlobalData("assets_type").then(res => {
-      this.assetsTypelist = res.data.list;
-      this.getGlobalData("investment_risk").then(res => {
-        var arr = res.data.list.filter(
-          item =>
-            item.dictLabel === this.type ||
-            item.dictLabelFt === this.type ||
-            item.dictLabelEn === this.type
-        );
-        if(arr.length){
-          this.getInvestment(arr[0].dictValue);
-        }
-      });
-    });
-
     getMyAccount().then(res => {
       var { currency, risk } = res.data;
       this.currencyType = currency;
-      this.level = risk;
+      //this.level = risk;
+	  getAccountDetail().then(res=>{
+		  this.level = res.data.risk;
+		  this.getGlobalData("assets_type").then(res => {
+		    this.assetsTypelist = res.data.list;
+		    this.getGlobalData("investment_risk").then(res => {
+		      var arr = res.data.list.filter(
+		        item =>
+		          item.dictLabel === this.type ||
+		          item.dictLabelFt === this.type ||
+		          item.dictLabelEn === this.type
+		      );
+		      if(arr.length){
+		        this.getInvestment(arr[0].dictValue);
+		      }
+		    });
+		  });
+	  });
     });
   }
 };
 </script>
 <style lang="scss" scoped>
+	.forget{
+		a{
+			color: #ff0000;
+			text-decoration: underline;
+		}
+		margin-top: 10px;
+	}
 .assetsConfig {
   background: #f9f9f9;
   .content {

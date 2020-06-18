@@ -256,13 +256,13 @@ export default {
       progressTitle: '提交开户信息',
       btnText: '请前往开户',
     },
+	{
+	  progressTitle: '风险测评',
+	  btnText: '请前往风险评测',
+	},
       {
         progressTitle: '注入资金',
         btnText: '请前往注入资金',
-      },
-      {
-        progressTitle: '风险测评',
-        btnText: '请前往风险评测',
       },
       {
         progressTitle: '开始配置',
@@ -445,6 +445,7 @@ export default {
     text3: '测评时间',
     text4: '重新评测',
     text5: '确认并进行资产配置',
+	text6: '查看投资组合建议',
   },
   investCombination: {
     labelAmount: '投资金额（港币）',
@@ -518,6 +519,7 @@ export default {
     text4: '偏离度',
     text5: '受正常的ETF价格波动影响，您的投资组合的权重会发生偏移，当偏移超过8%时，系统会自动发出调仓通知。',
     text6: '上述投资组合建议仅供客户参考，交易数量及价格以实际交易明细为准。',
+	text7: '去注入资金',
   },
   history: {
     text1: '账户收益',

@@ -14,10 +14,11 @@
             <div
               :class="[index <= state ? 'active' : '']"
               class="progress"
-              v-for="(val, key, index) in openStatusList"
-              :key="key"
+              v-for="(val, index) in openStatusList"
+              :key="index"
             >
               <div class="num">{{index + 1}}</div>
+			  <!-- <p>{{key}}</p> -->
               <p>{{val.progressTitle}}</p>
             </div>
           </div>
@@ -25,8 +26,10 @@
           <div
             v-if="(openStatus==0 || openStatus==3 || openStatus==4 || openStatus==5)"
             class="btn-openAccount active"
-            @click="goPage(openStatusList[openStatus].path)"
-          >{{ openStatusList[openStatus].btnText }}</div>
+            @click="goPage(openStatusList[oIndex].path)"
+          >{{ openStatusList[oIndex].btnText }}</div>
+		  
+		  <!-- 4待评测   3 待入金 -->
 
           <!-- 1开户审核中 -3 入金审核中  -5 资产配置审核中 -->
           <div v-if="(openStatus == 1 || openStatus == -3 || openStatus == -5)" class="review-ctn">
@@ -161,6 +164,8 @@ import footerBar from "@/components/footer/footer.vue";
 import { getUserInfo } from "@/api";
 import { getAccountDetail } from "@/api/myAccount.js";
 
+// 0待申请开户  2开户拒绝  4待风险测评   3待入金    5待配置   6已配置
+
 export default {
   name: "accountPreview",
   components: {
@@ -169,6 +174,20 @@ export default {
     footerBar
   },
   computed: {
+	oIndex() {
+		if (this.openStatus == 0) {
+		  return 0;
+		}
+		if (this.openStatus == 3) {
+		  return 2;
+		}
+		if (this.openStatus == 4) {
+		  return 1;
+		}
+		if (this.openStatus == 5) {
+		  return 3;
+		}
+	},
     state() {
       if (this.openStatus == 0 || this.openStatus == 1) {
         return 0;
@@ -178,38 +197,60 @@ export default {
         this.openStatus == 3 ||
         this.openStatus == -3
       ) {
-        return 1;
+        return 2;
       }
       if (this.openStatus == 4) {
-        return 2;
+        return 1;
       }
       if (this.openStatus == 5 || this.openStatus == -5) {
         return 3;
       }
     },
     openStatusList() {
-      return {
-        "0": {
-          progressTitle: this.$t("userCenter.openStatusList[0].progressTitle"),
-          btnText: this.$t("userCenter.openStatusList[0].btnText"),
-          path: "/openAccount"
-        },
-        "3": {
-          progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
-          btnText: this.$t("userCenter.openStatusList[1].btnText"),
-          path: "/userCenter/guide"
-        },
-        "4": {
-          progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
-          btnText: this.$t("userCenter.openStatusList[2].btnText"),
-          path: "/riskTest"
-        },
-        "5": {
-          progressTitle: this.$t("userCenter.openStatusList[3].progressTitle"),
-          btnText: this.$t("userCenter.openStatusList[3].btnText"),
-          path: "/setTransPas"
-        }
-      };
+		return [
+			{
+			  progressTitle: this.$t("userCenter.openStatusList[0].progressTitle"),
+			  btnText: this.$t("userCenter.openStatusList[0].btnText"),
+			  path: "/openAccount"
+			},
+			{
+			  progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
+			  btnText: this.$t("userCenter.openStatusList[1].btnText"),
+			  path: "/riskTest"
+			},
+			{
+			  progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
+			  btnText: this.$t("userCenter.openStatusList[2].btnText"),
+			  path: "/userCenter/guide"
+			},
+			{
+			  progressTitle: this.$t("userCenter.openStatusList[3].progressTitle"),
+			  btnText: this.$t("userCenter.openStatusList[3].btnText"),
+			  path: ""  // assetsConfig
+			}
+		]
+  //     return {
+  //       "0": {
+  //         progressTitle: this.$t("userCenter.openStatusList[0].progressTitle"),
+  //         btnText: this.$t("userCenter.openStatusList[0].btnText"),
+  //         path: "/openAccount"
+  //       },
+		// "4": {
+		//   progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
+		//   btnText: this.$t("userCenter.openStatusList[1].btnText"),
+		//   path: "/riskTest"
+		// },
+  //       "3": {
+  //         progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
+  //         btnText: this.$t("userCenter.openStatusList[2].btnText"),
+  //         path: "/userCenter/guide"
+  //       },
+  //       "5": {
+  //         progressTitle: this.$t("userCenter.openStatusList[3].progressTitle"),
+  //         btnText: this.$t("userCenter.openStatusList[3].btnText"),
+  //         path: "/setTransPas"
+  //       }
+  //     };
     },
     checkStatusObj() {
       return {
@@ -269,7 +310,18 @@ export default {
       this.openStatus = data.state;
     },
     goPage(path) {
-      this.$router.push(path);
+	  if(path == ''){
+		  getAccountDetail().then(res => {
+		    var data = res.data;
+			if(data.isPwd == '1'){ // 没有设置自交易密码
+				this.$router.push('/setTransPas');
+			} else {
+				this.$router.push('/assetsConfig');
+			}
+		  })
+	  } else {
+		  this.$router.push(path);
+	  }
     },
     hideMenu(flag) {
       this.$store.dispatch("showMenu", false);
@@ -385,9 +437,9 @@ export default {
     setTimeout(()=>{
       this.drawPie();
     }, 100);
-    getAccountDetail().then(res => {
-      
-    })
+	getAccountDetail().then(res => {
+	  
+	})
   },
 };
 </script>

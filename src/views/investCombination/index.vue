@@ -8,7 +8,7 @@
                 <div class="title">{{$t('userCenter.text1')}}</div>
 				<!-- 已经进行了资产配置就显示个人中心主页，否则显示当前进度条状态 -->
 				
-				<div v-if="openStatus != 6">
+				<div v-if="false">
 				  <div class="progress-ctn">
 				    <div
 				      :class="[index <= state ? 'active' : '']"
@@ -50,7 +50,7 @@
 				    </p>
 				  </div>
 				</div>
-                <div v-show="openStatus == 6">
+                <div>
 					<div class="main">
 					    <div class="wrap1">
 					        <div class="item">
@@ -186,7 +186,7 @@
 			  this.$router.push(path);
 			},
 			setUserInfo(data) {
-			  this.openStatus = data.state;
+			  //this.openStatus = data.state;
 			},
             changeTab(path) {
                 this.$router.push(path)

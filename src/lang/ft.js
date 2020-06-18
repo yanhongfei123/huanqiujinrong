@@ -442,6 +442,7 @@ export default {
     text3: '測評時間',
     text4: '重新評測',
     text5: '確認並進行資産配置',
+	text6: '查看投資組合建議',
   },
   investCombination: {
     labelAmount: '投資金額（港幣）',
@@ -515,6 +516,7 @@ export default {
     text4: '偏離度',
     text5: '受正常的ETF價格波動影響，您的投資組合的權重會發生偏移，當偏移超過8%時，系統會自動發出調倉通知。',
     text6: '上述投資組合建議僅供客戶參考，交易數量及價格以實際交易明細爲准。',
+	text7: '去註入資金',
   },
   history: {
     text1: '賬戶收益',

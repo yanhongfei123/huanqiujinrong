@@ -30,8 +30,8 @@
 							<div class="text">香港交易所是全球最開放的金融市場之一，亦是你打入中國市場的最佳門戶。只需少量資金，ETF COOL即可助你從中國蓬勃的經濟發展中獲得收益。</div>
 						</div>
 						<div class="item">
-							<div class="title">香港ETF組合</div>
-							<div class="text">香港交易所是全球最開放的金融市場之一，亦是你打入中國市場的最佳門戶。只需少量資金，ETF COOL即可助你從中國蓬勃的經濟發展中獲得收益。</div>
+							<div class="title">美國ETF組合</div>
+							<div class="text">作為世界上最成熟和活躍的金融創新中心，美國證券交易所將為你提供前所未有的機會。你可以投資於全球每個角落，擴大投資範圍。</div>
 						</div>
 					</div>
 					<div class="btm">
@@ -104,13 +104,16 @@
 
 	export default {
 		name: "home",
+		computed: {
+			...mapGetters(["token"]),
+		},
 		components: {
 			headerNav,
 			footerBar,
 		},
 		methods: {
 			goPage() {
-				var path = this.token ? '/openAccount' : '/register'
+				var path = this.token ? '/openAccount' : '/login'
 				this.$router.push(path);
 			},
 			hideMenu(flag) {

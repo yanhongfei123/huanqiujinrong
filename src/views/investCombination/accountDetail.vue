@@ -46,6 +46,9 @@
     </div>
     <InvestList></InvestList>
     <div class="btm-info tc">{{$t('accountDetail.text6')}}</div>
+	<div class="btn-wrap">
+	  <div @click="goPage('/userCenter/myAccount')" class="next">{{$t('accountDetail.text7')}}</div>
+	</div>
   </div>
 </template>
 <script>
@@ -107,6 +110,9 @@ export default {
     }, 50);
   },
   methods: {
+	goPage(path) {
+	  this.$router.push(path);
+	},  
     changeTab(index) {
       this.oIndex = index;
     },
@@ -230,9 +236,28 @@ export default {
   .content {
     padding-top: 40px;
   }
+  .btn-wrap {
+    text-align: center;
+    margin-top: 50px;
+    div {
+      width: 240px;
+      height: 48px;
+      font-size: 18px;
+      line-height: 48px;
+      margin: 0 20px;
+      cursor: pointer;
+      display: inline-block;
+      background-position: center;
+      background-size: contain;
+    }
+    .next {
+      color: #fff;
+      background-image: url("../../assets/images//other_btn/btn_red240_48.png");
+    }
+  }
   .main {
     width: 1020px;
-    margin: 55px auto 100px;
+    margin: 55px auto 50px;
   }
   .title {
     font-size: 40px;
