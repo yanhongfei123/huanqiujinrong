@@ -50,12 +50,12 @@
         <div class="hover" @click="goPage('/register')">{{$t('nav.register')}}</div>
       </div>
 
-<!--      <div class="nav-r flex">
-        <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">简</div>
+     <div class="nav-r flex">
+        <div :class="[$i18n.locale === 'En'?'active':'']" class="hover" @click="setLanguage('En')">英</div>
         <div class="line"></div>
         <div :class="[$i18n.locale === 'Ft'?'active':'']" class="hover" @click="setLanguage('Ft')">繁</div>
       </div>
-	  -->
+	 
 	  
     </div>
   </div>

@@ -47,6 +47,7 @@
         <div class="des tl">{{$t('userCenter.extractFunds.text13')}}</div>
         <div class="pas-wrap">
           <el-input
+		     type="password"
             maxlength="6"
             :placeholder="$t('userCenter.extractFunds.text16')"
             v-model="password"

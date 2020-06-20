@@ -15,7 +15,7 @@
               {{`${index + 1}.`}} {{item | renderFq}}
             </div>
             <div
-              class="radio-wrap fl"
+              class="radio-wrap"
               @click="chooseAnswer(val, item.asall,index)"
               v-for="(val, i) in item.asall"
               :key="i"
@@ -66,7 +66,7 @@ export default {
     return {
       showmask: false,
       isshow: false,
-      answer: [0, 0, 0, 0, 0, 0],
+      answer: new Array(question.questionList.length).fill(0),
       questionList: deepClone(question.questionList),
       letterMap: {
         0: "A",
@@ -98,12 +98,21 @@ export default {
     goPage() {
       const type = getType(this.totalScore);
       const arr = this.investmentRisk.filter(item => (item.dictLabel == type || item.dictLabelEn == type || item.dictLabelFt == type))
-      const params = {
+      var list = this.answer.map((score, index) => {
+		  var ans = this.questionList[index].asall.filter(item => item.score === score)[0];
+		  return {
+			  question: this.questionList[index].fq,
+			  solution: ans.as,
+			  fraction: ans.score,
+		  }
+	  })
+	  const params = {
         riskType: arr[0].dictValue,
         score: this.totalScore,
+		answer: JSON.stringify(list)
       }
       saveRiskTest(params).then(res=>{
-        //localStorage.setItem("totalScore", this.totalScore);
+        localStorage.setItem("totalScore", this.totalScore);
         this.$router.push("/riskTestResult?totalScore=" + this.totalScore);
       })
     }
@@ -131,10 +140,10 @@ export default {
     }
   }
   .radio-wrap {
-    width: 370px;
     margin: 0 0 20px 0;
     display: flex;
     align-items: center;
+	padding-left: 28px;
     .as {
       font-size: 16px;
       color: rgba(60, 63, 77, 1);

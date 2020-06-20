@@ -32,7 +32,7 @@
               >{{$t('accountDetail.text3')}}</tips>
             </span>
           </div>
-          <div class="rw-amount rw-amount">进取型</div>
+          <div class="rw-amount rw-amount">{{ type }}</div>
           <div class="line"></div>
           <div class="rw-label rw-label1">
             <span>
@@ -53,7 +53,7 @@
 </template>
 <script>
 
-import { toThousandslsFilter } from "@/utils";
+import { toThousandslsFilter, getType } from "@/utils";
 import Tips from "@/components/tips.vue";
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
@@ -61,6 +61,11 @@ import InvestList from '@/components/vestList/index.vue'
 
 export default {
   name: "accountPreview",
+  computed: {
+    type() {
+      return getType(localStorage.getItem("totalScore") || 0);
+    }
+  },
   components: {
     Tips,
     userCenterHeader,

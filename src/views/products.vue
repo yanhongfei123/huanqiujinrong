@@ -6,32 +6,32 @@
 		<div @click="hideMenu($event)">
 			<div class="com-width section1">
 				<div class="text">ETF COOL</div>
-				<div class="text2">投資產品 </div>
-				<div class="text3">每個人都有自己的目標，也許是你夢寐以求的公寓、孩子的高等教育、或是到你最喜歡的國家旅行。無論你的目標是什麼，ETF COOL都能助你實現。</div>
+				<div class="text2">{{$t('product.text2')}} </div>
+				<div class="text3">{{$t('product.text3')}}</div>
 				<img src="../assets/images/product/1.png" alt="">
 			</div>
 			<div class="section2">
 				<div class="top">
-				  <div><img src="../assets/images/product/2.png" alt="">低管理費用 </div>
-				  <div><img src="../assets/images/product/3.png" alt="">低管理費用 </div>
-				  <div><img src="../assets/images/product/4.png" alt="">全球分散投資 </div>
+				  <div><img src="../assets/images/product/2.png" alt="">{{$t('product.text4')}} </div>
+				  <div><img src="../assets/images/product/3.png" alt="">{{$t('product.text5')}} </div>
+				  <div><img src="../assets/images/product/4.png" alt="">{{$t('product.text6')}} </div>
 				</div>
-				<div class="text">我們的投資組合根據諾貝爾得獎研究而設計，投資組合策略包括發達和新興市場的股票投資，以及世界各地政府、機構和企業的債券投資。我們的投資優化過程由客觀數據支持，為你推薦的投資組合亦傾向於市值較小但極具價值的股票和投資。</div>
+				<div class="text"> {{$t('product.text7')}}</div>
 			</div>
 			<div class="section3">
 				<div class="com-width">
 					<div class="top">
 						<img src="../assets/images/product/6.png" alt="">
-						<div class="text">全球核心投資</div>
+						<div class="text">{{$t('product.text8')}}</div>
 					</div>
 					<div class="mid">
 						<div class="item">
-							<div class="title">香港ETF組合</div>
-							<div class="text">香港交易所是全球最開放的金融市場之一，亦是你打入中國市場的最佳門戶。只需少量資金，ETF COOL即可助你從中國蓬勃的經濟發展中獲得收益。</div>
+							<div class="title">{{$t('product.text9')}}</div>
+							<div class="text">{{$t('product.text10')}}</div>
 						</div>
 						<div class="item">
-							<div class="title">美國ETF組合</div>
-							<div class="text">作為世界上最成熟和活躍的金融創新中心，美國證券交易所將為你提供前所未有的機會。你可以投資於全球每個角落，擴大投資範圍。</div>
+							<div class="title">{{$t('product.text11')}}</div>
+							<div class="text">{{$t('product.text12')}}</div>
 						</div>
 					</div>
 					<div class="btm">
@@ -41,22 +41,22 @@
 				</div>
 			</div>
 			<div class="section4">
-				<div class="text">無論你偏好哪個核心組合，你都可以自由選擇以下不同的基金組合：</div>
+				<div class="text">{{$t('product.text13')}}</div>
 				<div class="list">
 					<div class="item">
 						<img src="../assets/images/product/10.png" alt="">
-						<div class="text2">保守組合</div>
-						<div class="text3">主要由債券基金組成，專注於現金收益，不受市場波動影響 </div>
+						<div class="text2">{{$t('product.text14')}}</div>
+						<div class="text3">{{$t('product.text15')}} </div>
 					</div>
 					<div class="item">
 						<img src="../assets/images/product/11.png" alt="">
-						<div class="text2">均衡組合</div>
-						<div class="text3">由股票和債券基金組成，追求增長之餘，亦會保持穩定的現金流</div>
+						<div class="text2">{{$t('product.text16')}}</div>
+						<div class="text3">{{$t('product.text17')}}</div>
 					</div>
 					<div class="item">
 						<img src="../assets/images/product/12.png" alt="">
-						<div class="text2">增長組合</div>
-						<div class="text3">主要由股票基金組成。在風險可控的情況下，增長是優先考慮因素</div>
+						<div class="text2">{{$t('product.text18')}}</div>
+						<div class="text3">{{$t('product.text19')}}</div>
 					</div>
 				</div>
 			</div>
@@ -66,27 +66,27 @@
 					<div class="com-width">
 						<div class="top">
 							<img src="../assets/images/product/7.png" alt="">
-							<div class="text">主題投資組合</div>
+							<div class="text">{{$t('product.text20')}}</div>
 						</div>
-						<div class="text2">(即將推出) 了解以下主題投資機會，助你增強投資組合，投資於你認為重要的議題上。</div>
+						<div class="text2">{{$t('product.text21')}}</div>
 						<div class="list">
-							<div><img src="../assets/images/product/13.png" alt="">電子汽車</div>
-							<div><img src="../assets/images/product/14.png" alt="">雲端運算 </div>
-							<div><img src="../assets/images/product/15.png" alt="">綠色能源 </div>
-							<div><img src="../assets/images/product/16.png" alt="">生物科技 </div>
+							<div><img src="../assets/images/product/13.png" alt="">{{$t('product.text22')}}</div>
+							<div><img src="../assets/images/product/14.png" alt="">{{$t('product.text23')}} </div>
+							<div><img src="../assets/images/product/15.png" alt="">{{$t('product.text24')}} </div>
+							<div><img src="../assets/images/product/16.png" alt="">{{$t('product.text25')}} </div>
 						</div>
 					</div>
 				</div>
 			</div>
 			
 			<div class="section6">
-				<div class="title">立刻展開你的智酷投資之旅</div>
+				<div class="title">{{$t('product.text26')}}</div>
 				<div class="list">
-					<div><img src="../assets/images/product/18.png" alt="">建立你的個人檔案</div>
-					<div><img src="../assets/images/product/19.png" alt="">獲得投資建議  </div>
-					<div><img src="../assets/images/product/17.png" alt="">見證你的投資增長 </div>
+					<div><img src="../assets/images/product/18.png" alt="">{{$t('product.text27')}}</div>
+					<div><img src="../assets/images/product/19.png" alt="">{{$t('product.text28')}}  </div>
+					<div><img src="../assets/images/product/17.png" alt="">{{$t('product.text29')}} </div>
 				</div>
-				<div @click="goPage" class="start"></div>
+				<div @click="goPage" class="start">{{$t('product.text30')}}</div>
 			</div>
 			
 		</div>
@@ -208,7 +208,7 @@
 			}
 			.text{
 				color: rgba(25, 25, 25, 0.73);
-				font-size: 150px;
+				font-size: 130px;
 				display: inline-block;
 				vertical-align: bottom;
 			}
@@ -256,7 +256,7 @@
 		}
 		.list{
 			display: flex;
-			align-items: center;
+			
 			justify-content: center;
 		}
 		.item {
@@ -311,7 +311,7 @@
 			}
 			.text{
 				color: rgba(25, 25, 25, 0.73);
-				font-size: 150px;
+				font-size: 127px;
 				display: inline-block;
 				vertical-align: bottom;
 			}
@@ -325,6 +325,7 @@
 		}
 		.list{
 			margin-top: 200px;
+			overflow:hidden;
 			> div {
 				width: 40%;
 				margin-right: 20px;
@@ -363,8 +364,12 @@
 		.start {
 			width: 356px;
 			height: 109px;
-			background: url('../assets/images/home/14.png') no-repeat center;
-			background-size: cover;
+			line-height: 109px;
+			text-align: center;
+			border: 5px solid rgba(42, 219, 192, 1);
+			opacity: 1;
+			color: rgba(42, 219, 192, 1);
+			font-size: 40px;
 			margin: 80px auto 240px;
 		}
 	}

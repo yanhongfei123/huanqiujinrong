@@ -1,15 +1,15 @@
 <template>
   <div class="footer">
 	  <div class="top">
-		  <div><img src="../../assets/images/home/18.png" alt="">低廉管理費用 </div>
-		  <div><img src="../../assets/images/home/17.png" alt="">無資金閉鎖期 </div>
-		  <div><img src="../../assets/images/home/16.png" alt="">全球分散投資 </div>
+		  <div><img src="../../assets/images/home/18.png" alt="">{{$t('footer.text1')}} </div>
+		  <div><img src="../../assets/images/home/17.png" alt="">{{$t('footer.text2')}} </div>
+		  <div><img src="../../assets/images/home/16.png" alt="">{{$t('footer.text3')}} </div>
 	  </div>
     <div class="footer-content">
       <div class="f-top">
         <div class="f-top-l">
           <ul class="l-ul">
-			 <li class="contact"> 联络我们</li> 
+			 <li class="contact"> {{$t('footer.text4')}}</li> 
             <li>
 <!--              <div class="label">{{$t('footer.text1')}} :</div> -->
               <div>+852XXXXXXX</div>
@@ -20,7 +20,7 @@
             </li>
             <li>
               <!-- <div class="label">{{$t('footer.text3')}} :</div> -->
-              <div class="address">{{$t('footer.text4')}}</div>
+              <div class="address">{{$t('footer.text5')}}</div>
             </li>
 			<li>
 				<img src="../../assets/images/home/f.png" alt="">
@@ -28,15 +28,13 @@
 				<img src="../../assets/images/home/i.png" alt="">
 			</li>
 			<li class="link">
-				<a href="/#/honme">首页</a><span>|</span>
-				<a href="/#/product">投资产品</a><span>|</span>
-				<a href="/#/why">为何选择ETC</a>
+				<a href="/#/honme">{{$t('footer.text6')}}</a><span>|</span>
+				<a href="/#/product">{{$t('footer.text7')}}</a><span>|</span>
+				<a href="/#/why">{{$t('footer.text8')}}</a>
 			</li>
           </ul>
         </div>
-        <div class="f-top-r">
-			過往表現並不代表未來表現。投資涉及各種風險，包括但不限於市場、匯率、波動性、流動性、信貸/交易對手、評估退化、監管和政治領域。在進行任何投資之前，你應該仔細閱讀投資基金提供的文檔，以獲取詳細的產品信息和風險因素。如果你對此網站或任何銷售文檔有疑問，應尋求獨立的專業建議。
-        </div>
+        <div class="f-top-r">{{$t('footer.text9')}}</div>
       </div>
     </div>
   </div>

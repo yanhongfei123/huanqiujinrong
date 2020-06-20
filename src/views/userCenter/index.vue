@@ -28,8 +28,8 @@
               </dd>
             </dl>
 
-            <div v-if="show" class="line"></div>
-            <div v-if="show" :class="[$route.path==='/userCenter/extractFunds'?'active':'']" class="item item5">
+            <div v-if="true" class="line"></div>
+            <div v-if="true" :class="[$route.path==='/userCenter/extractFunds'?'active':'']" class="item item5">
               <router-link to="/userCenter/extractFunds">{{$t('userCenter.text14')}}</router-link>
             </div>
 
