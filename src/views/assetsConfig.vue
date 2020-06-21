@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       id: '',
-      level: '1',
+      level: '0',
       currencyType: '',
       totalAmount: 0,
       checked: false,

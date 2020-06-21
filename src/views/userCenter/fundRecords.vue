@@ -4,7 +4,9 @@
       <div class="label">{{$t('userCenter.fundRecords.text1')}}</div>
       <div class="date-wrap">
         <el-date-picker
+		  @change="onChange"
           v-model="date"
+		  value-format="yyyy-MM-dd"
           type="daterange"
           range-separator="～"
           :start-placeholder="$t('userCenter.fundRecords.text2')"
@@ -18,7 +20,7 @@
         <th class="select-wrap">
           <span>{{$t('userCenter.fundRecords.text5')}}</span>
           <span class="icon"></span>
-          <el-select @change="selectChange" v-model="value" placeholder="请选择">
+          <el-select @change="selectChange" v-model="type" placeholder="请选择">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -51,12 +53,17 @@
 </template>
 
 <script>
+	import { getUserWithdrawal } from "@/api/myAccount.js";
+	var date = new Date().toLocaleDateString().replace(/\//g, '-');
 export default {
   name: "records",
   data() {
     return {
-      total: 20000,
-      date: [],
+      total: 0,
+      date: [date, date],
+	  type: '',
+	  pageNo: 1,
+	  pageSize: 5,
       options: [
         {
           value: "选项1",
@@ -80,47 +87,38 @@ export default {
         }
       ],
       value: "选项1",
-      data: [
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        }
-      ]
+      data: []
     };
   },
   methods: {
     selectChange(item) {
-
+		console.log(item)
+		this.onQueryList(); 
     },
+	onChange(e){
+		this.onQueryList(); 
+	},
     currentChange(currentpage) {
-      console.log(currentpage);
-    }
+	  this.pageNo = currentpage;
+	  this.onQueryList(); 
+    },
+	onQueryList(){
+		var params = {
+			startTime: this.date[0],
+			endTime: this.date[1],
+			//type: this.type,
+			pageNo: this.pageNo,
+			pageSize: this.pageSize,
+		};
+		getUserWithdrawal(params).then(res=>{
+			this.data = res.data;
+			//this.total = 
+		});
+	}
   },
-  mounted() {}
+  mounted() {
+	 this.onQueryList(); 
+  }
 };
 </script>
 <style lang="scss" scoped>

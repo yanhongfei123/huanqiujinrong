@@ -3,7 +3,7 @@
     <div class="wrap2 clear">
       <div class="l-w fl">
         <div class="fl w2-title">{{$t('accountPreview.text6')}}</div>
-        <div @click="$router.push('/riskTest')" class="fr detail pointer">{{$t('accountDetail.text1')}}</div>
+        <!-- <div @click="$router.push('/riskTest')" class="fr detail pointer">{{$t('accountDetail.text1')}}</div> -->
         <span id="type">进取型</span>
         <div id="echarts"></div>
         <div class="legend">

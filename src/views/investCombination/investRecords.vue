@@ -3,6 +3,8 @@
         <div class="date-wrap" v-show="activeName != 'statement'">
             <el-date-picker
                     v-model="date"
+					@change="onChange"
+					value-format="yyyy-MM-dd"
                     type="daterange"
                     range-separator="～"
                     :start-placeholder="$t('userCenter.fundRecords.text2')"
@@ -122,13 +124,18 @@
 </template>
 
 <script>
+	import { getUserContract } from "@/api/myAccount.js";
+	var date = new Date().toLocaleDateString().replace(/\//g, '-');
     export default {
         name: "investRecords",
         data() {
             return {
                 activeName: 'history',
                 total: 20000,
-                date: [],
+				date: [date, date],
+				type: '',
+				pageNo: 1,
+				pageSize: 5,
                 options: [
                     {
                         value: "选项1",
@@ -152,36 +159,7 @@
                     }
                 ],
                 value: "选项1",
-                historyList: [
-                    {
-                        date: "2019-04-30",
-                        type: "交易",
-                        origin: "BMO亚洲投资债",
-                        bi: "港币",
-                        amount: "352015255"
-                    },
-                    {
-                        date: "2019-04-30",
-                        type: "交易",
-                        origin: "BMO亚洲投资债",
-                        bi: "港币",
-                        amount: "352015255"
-                    },
-                    {
-                        date: "2019-04-30",
-                        type: "交易",
-                        origin: "BMO亚洲投资债",
-                        bi: "港币",
-                        amount: "352015255"
-                    },
-                    {
-                        date: "2019-04-30",
-                        type: "交易",
-                        origin: "BMO亚洲投资债",
-                        bi: "港币",
-                        amount: "352015255"
-                    }
-                ],
+                historyList: [],
                 statementList: [
                     {
                         date: "2019-04-30",
@@ -236,12 +214,12 @@
             }
         },
         methods: {
-            selectChange(item) {
-                this.showLoading();
-                setTimeout(() => {
-                    this.hideLoading();
-                }, 2000);
-            },
+            // selectChange(item) {
+            //     this.showLoading();
+            //     setTimeout(() => {
+            //         this.hideLoading();
+            //     }, 2000);
+            // },
             showLoading() {
                 this.loading = this.$loading({
                     lock: true,
@@ -253,10 +231,33 @@
             hideLoading() {
                 this.loading.close();
             },
-            currentChange(currentpage) {
-                console.log(currentpage);
-            }
-        }
+			selectChange(item) {
+				console.log(item)
+				this.onQueryList();
+			},
+			onChange(e){
+				this.onQueryList();
+			},
+			currentChange(currentpage) {
+			  this.pageNo = currentpage;
+			  this.onQueryList(); 
+			},
+			onQueryList(){
+				var params = {
+					startTime: this.date[0],
+					endTime: this.date[1],
+					//type: this.type,
+					pageNo: this.pageNo,
+					pageSize: this.pageSize,
+				};
+				getUserContract(params).then(res=>{
+					this.historyList = res.data;
+				});
+			}
+        },
+		mounted() {
+			 this.onQueryList(); 
+		}
     }
 </script>
 <style scoped lang="scss">
