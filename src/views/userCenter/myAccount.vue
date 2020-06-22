@@ -184,12 +184,13 @@ export default {
     }
     .q-answer {
       height: 0;
-      overflow: hidden;
+      overflow-y: auto;
       font-size: 14px;
       color: rgba(60, 63, 77, 1);
       line-height: 20px;
       &.height-auto {
-        height: 40px;
+		  max-height: 100px;
+		  min-height: 60px;
         margin-bottom: 20px;
         transition: height 0.3s;
         -webkit-transition: height 0.3s;

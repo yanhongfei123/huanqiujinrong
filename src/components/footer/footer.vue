@@ -12,15 +12,15 @@
 			 <li class="contact"> {{$t('footer.text4')}}</li> 
             <li>
 <!--              <div class="label">{{$t('footer.text1')}} :</div> -->
-              <div>+852XXXXXXX</div>
+              <div>电话：+852 6728 2812</div>
             </li>
             <li>
              <!-- <div class="label">{{$t('footer.text2')}} :</div> -->
-              <div>12345678901@163.com</div>
+              <div>邮箱：support@etfcool.com</div>
             </li>
             <li>
               <!-- <div class="label">{{$t('footer.text3')}} :</div> -->
-              <div class="address">{{$t('footer.text5')}}</div>
+              <div class="address">地址：{{$t('footer.text5')}}</div>
             </li>
 			<li>
 				<img src="../../assets/images/home/f.png" alt="">

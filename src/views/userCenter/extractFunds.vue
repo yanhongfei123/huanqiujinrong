@@ -7,14 +7,14 @@
 					<div class="type">{{$t('userCenter.extractFunds.text2')}}</div>
 					<div class="amount">
 						HKD
-						<span>39,870.00</span>
+						<span>0</span>
 					</div>
 				</div>
 				<div class="item fl">
 					<div class="type">{{$t('userCenter.extractFunds.text3')}}</div>
 					<div class="amount">
 						USD
-						<span>39,870.00</span>
+						<span>0</span>
 					</div>
 				</div>
 			</div>
@@ -87,7 +87,7 @@
 					return;
 				}
 				var params = {
-					password: this.password,
+					dealPwd: this.password,
 				};
 				updateUserWithdrawal(params).then(res=>{
 					Message({
@@ -182,14 +182,16 @@
 
 		.q-answer {
 			height: 0;
-			overflow: hidden;
+			overflow-y: auto;
 			font-size: 14px;
 			color: rgba(60, 63, 77, 1);
 			line-height: 20px;
 
 			&.height-auto {
-				height: 40px;
+				max-height: 100px;
+				min-height: 60px;
 				margin-bottom: 20px;
+				text-align: justify;
 				transition: height 0.3s;
 				-webkit-transition: height 0.3s;
 			}

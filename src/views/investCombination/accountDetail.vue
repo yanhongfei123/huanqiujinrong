@@ -34,13 +34,13 @@
           </div>
           <div class="rw-amount rw-amount">{{ type }}</div>
           <div class="line"></div>
-          <div class="rw-label rw-label1">
+<!--          <div class="rw-label rw-label1">
             <span>
               {{$t('accountDetail.text4')}}
               <tips top="0" right="-20px">{{$t('accountDetail.text5')}}</tips>
             </span>
           </div>
-          <div class="rw-amount rw-amount">12.18%</div>
+          <div class="rw-amount rw-amount">12.18%</div> -->
         </div>
       </div>
     </div>
