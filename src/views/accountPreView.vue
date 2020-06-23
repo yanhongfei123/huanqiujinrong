@@ -59,7 +59,7 @@
           <div class="wrap1">
             <div class="item">
               <div class="label">{{$t('accountPreview.text1')}}（港币）</div>
-              <div class="amount">3,000,000.00</div>
+              <div class="amount">0</div>
             </div>
             <div class="item">
               <div class="label">
@@ -68,7 +68,7 @@
                   <tips top="0" right="-20px">{{$t('accountPreview.text3')}}</tips>
                 </span>
               </div>
-              <div class="amount">3,000,000.00</div>
+              <div class="amount">0</div>
             </div>
             <div class="item">
               <div class="label">
@@ -80,7 +80,7 @@
                   >{{$t('accountPreview.text5')}}</tips>
                 </span>
               </div>
-              <div class="amount">3,000,000.00</div>
+              <div class="amount">0</div>
             </div>
           </div>
           <div class="wrap2 clear">
@@ -178,29 +178,27 @@ export default {
 		if (this.openStatus == 0) {
 		  return 0;
 		}
-		if (this.openStatus == 3) {
-		  return 2;
+		if (this.openStatus == 3 || this.openStatus == 2) {
+		  return 1;
 		}
 		if (this.openStatus == 4) {
-		  return 1;
+		  return 2;
 		}
 		if (this.openStatus == 5) {
 		  return 3;
 		}
 	},
     state() {
-      if (this.openStatus == 0 || this.openStatus == 1) {
+      if (this.openStatus == 0 || this.openStatus == 1 || this.openStatus == 2 ) {
         return 0;
       }
       if (
-        this.openStatus == 2 ||
-        this.openStatus == 3 ||
-        this.openStatus == -3
+        this.openStatus == 3
       ) {
-        return 2;
-      }
-      if (this.openStatus == 4) {
         return 1;
+      }
+      if (this.openStatus == 4 || this.openStatus == -3) {
+        return 2;
       }
       if (this.openStatus == 5 || this.openStatus == -5) {
         return 3;
@@ -214,13 +212,13 @@ export default {
 			  path: "/openAccount"
 			},
 			{
-			  progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
-			  btnText: this.$t("userCenter.openStatusList[1].btnText"),
+			  progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
+			  btnText: this.$t("userCenter.openStatusList[2].btnText"),
 			  path: "/riskTest"
 			},
 			{
-			  progressTitle: this.$t("userCenter.openStatusList[2].progressTitle"),
-			  btnText: this.$t("userCenter.openStatusList[2].btnText"),
+			  progressTitle: this.$t("userCenter.openStatusList[1].progressTitle"),
+			  btnText: this.$t("userCenter.openStatusList[1].btnText"),
 			  path: "/userCenter/guide"
 			},
 			{

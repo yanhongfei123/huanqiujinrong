@@ -55,7 +55,7 @@
 					    <div class="wrap1">
 					        <div class="item">
 					            <div class="label">{{$t('investCombination.labelAmount')}}</div>
-					            <div class="amount">3,000,000.00</div>
+					            <div class="amount">0</div>
 					        </div>
 					        <div class="item">
 					            <div class="label">
@@ -64,7 +64,7 @@
 					                    <tips top="0" right="-20px">{{$t('investCombination.tipIncome')}}</tips>
 					                </span>
 					            </div>
-					            <div class="amount">3,000,000.00</div>
+					            <div class="amount">0</div>
 					        </div>
 					        <div class="item">
 					            <div class="label">
@@ -72,7 +72,7 @@
 					                    <tips top="0" right="-20px">{{$t('investCombination.tipIncomeRate')}}</tips>
 					                </span>
 					            </div>
-					            <div class="amount">3,000,000.00</div>
+					            <div class="amount">0</div>
 					        </div>
 					    </div>
 					    <div class="tab-wrap">

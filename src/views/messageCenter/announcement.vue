@@ -42,7 +42,11 @@ export default {
       getUserNotice({
         pageNum
       }).then(res => {
-        this.articleList = res.data.list;
+        this.articleList = res.data.list.map(item=>{
+			item.noticeContent = item.noticeContent.replace('<p>', '').replace('</p>', '');
+			return item;
+		});
+		
         this.total = res.data.pages;
       });
     },

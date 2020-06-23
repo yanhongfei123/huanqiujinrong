@@ -3,7 +3,7 @@
     <div class="wrap2 clear">
       <div class="l-w fl">
         <div class="fl w2-title">{{$t('accountPreview.text6')}}</div>
-        <div @click="$router.push('/riskTest')" class="fr detail pointer">{{$t('accountDetail.text1')}}</div>
+        <!-- <div @click="$router.push('/riskTest')" class="fr detail pointer">{{$t('accountDetail.text1')}}</div> -->
         <span id="type">进取型</span>
         <div id="echarts"></div>
         <div class="legend">
@@ -32,15 +32,15 @@
               >{{$t('accountDetail.text3')}}</tips>
             </span>
           </div>
-          <div class="rw-amount rw-amount">进取型</div>
+          <div class="rw-amount rw-amount">{{ type }}</div>
           <div class="line"></div>
-          <div class="rw-label rw-label1">
+<!--          <div class="rw-label rw-label1">
             <span>
               {{$t('accountDetail.text4')}}
               <tips top="0" right="-20px">{{$t('accountDetail.text5')}}</tips>
             </span>
           </div>
-          <div class="rw-amount rw-amount">12.18%</div>
+          <div class="rw-amount rw-amount">12.18%</div> -->
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
 </template>
 <script>
 
-import { toThousandslsFilter } from "@/utils";
+import { toThousandslsFilter, getType } from "@/utils";
 import Tips from "@/components/tips.vue";
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
@@ -61,6 +61,11 @@ import InvestList from '@/components/vestList/index.vue'
 
 export default {
   name: "accountPreview",
+  computed: {
+    type() {
+      return getType(localStorage.getItem("totalScore") || 0);
+    }
+  },
   components: {
     Tips,
     userCenterHeader,

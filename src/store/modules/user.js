@@ -63,6 +63,7 @@ const user = {
               logout(Cookies.get('accessToken')).then(() => {
                 commit('SET_TOKEN', '');
                 Cookies.remove('accessToken');
+				Cookies.remove('language');
                 resolve();
               }).catch(error => {
                 reject(error);

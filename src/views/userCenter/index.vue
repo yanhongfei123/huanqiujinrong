@@ -17,7 +17,7 @@
               <dd class="item2" :class="[$route.path==='/userCenter/guide'?'active':'']">
                 <router-link to="/userCenter/guide">{{$t('userCenter.text11')}}</router-link>
               </dd>
-              <dd
+<!--              <dd
                 class="item3"
                 :class="[$route.path==='/userCenter/remittanceAccount'?'active':'']"
               >
@@ -25,13 +25,13 @@
               </dd>
               <dd class="item4" :class="[$route.path==='/userCenter/depositNotice'?'active':'']">
                 <router-link to="/userCenter/depositNotice">{{$t('userCenter.text13')}}</router-link>
-              </dd>
+              </dd> -->
             </dl>
 
-            <div v-if="show" class="line"></div>
-            <div v-if="show" :class="[$route.path==='/userCenter/extractFunds'?'active':'']" class="item item5">
+<!--            <div v-if="true" class="line"></div>
+            <div v-if="true" :class="[$route.path==='/userCenter/extractFunds'?'active':'']" class="item item5">
               <router-link to="/userCenter/extractFunds">{{$t('userCenter.text14')}}</router-link>
-            </div>
+            </div> -->
 
             <div class="line"></div>
             <div :class="[$route.path==='/userCenter/fundRecords'?'active':'']" class="item item6">

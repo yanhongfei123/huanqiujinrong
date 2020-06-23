@@ -13,7 +13,7 @@
       </div>
       <div class="btn-wrap">
         <div @click="goPage('/riskTest')" class="restart">{{$t('riskTestResult.text4')}}</div>
-        <div @click="goPage('/investCombination/accountDetail')" class="next">{{$t('riskTestResult.text6')}}</div>
+        <div @click="goDetail" class="next">{{$t('riskTestResult.text6')}}</div>
       </div>
     </div>
   </div>
@@ -38,6 +38,9 @@ export default {
     }
   },
   methods: {
+	goDetail(){
+		this.$router.push('/investCombination/accountDetail?totalScore=' + this.$route.query.totalScore);
+	} ,
     goPage(path) {
       if (path) {
         this.$router.push(path);

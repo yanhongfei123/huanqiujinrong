@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       id: '',
-      level: '1',
+      level: '0',
       currencyType: '',
       totalAmount: 0,
       checked: false,
@@ -166,15 +166,17 @@ export default {
 		  this.getGlobalData("assets_type").then(res => {
 		    this.assetsTypelist = res.data.list;
 		    this.getGlobalData("investment_risk").then(res => {
+				console.log(this.type)
 		      var arr = res.data.list.filter(
-		        item =>
-		          item.dictLabel === this.type ||
-		          item.dictLabelFt === this.type ||
-		          item.dictLabelEn === this.type
+		        item => item.dictValue == this.level
+		          // item.dictLabel === this.type ||
+		          // item.dictLabelFt === this.type ||
+		          // item.dictLabelEn === this.type
 		      );
 		      if(arr.length){
 		        this.getInvestment(arr[0].dictValue);
 		      }
+			  console.log(arr)
 		    });
 		  });
 	  });

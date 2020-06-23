@@ -303,7 +303,7 @@
                                     type: 'success'
                                 });
                                 setTimeout(() => {
-                                    this.$router.push('/userCenter');
+                                    this.$router.push('/accountPreView');
                                 }, 1000);
                             }).catch(() => {
                                 //this.$refs.loginForm.resetFields();
