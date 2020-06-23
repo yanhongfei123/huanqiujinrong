@@ -14,18 +14,19 @@
             <div class="line"></div>
             <dl>
               <dt>{{$t('userCenter.text10')}}</dt>
-              <dd class="item2" :class="[$route.path==='/userCenter/guide'?'active':'']">
+<!--              <dd class="item2" :class="[$route.path==='/userCenter/guide'?'active':'']">
                 <router-link to="/userCenter/guide">{{$t('userCenter.text11')}}</router-link>
-              </dd>
-<!--              <dd
+              </dd> -->
+<!--             <dd
                 class="item3"
                 :class="[$route.path==='/userCenter/remittanceAccount'?'active':'']"
               >
                 <router-link to="/userCenter/remittanceAccount">{{$t('userCenter.text12')}}</router-link>
-              </dd>
+              </dd> -->
+			 
               <dd class="item4" :class="[$route.path==='/userCenter/depositNotice'?'active':'']">
                 <router-link to="/userCenter/depositNotice">{{$t('userCenter.text13')}}</router-link>
-              </dd> -->
+              </dd> 
             </dl>
 
 <!--            <div v-if="true" class="line"></div>

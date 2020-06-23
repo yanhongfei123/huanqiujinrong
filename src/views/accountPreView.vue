@@ -87,7 +87,7 @@
             <div class="l-w fl">
               <div class="fl w2-title">{{$t('accountPreview.text6')}}</div>
               <div
-                @click="$router.push('/investCombination/accountDetail')"
+                @click="$router.push('/assetsConfig')"
                 class="fr detail pointer"
               >{{$t('accountPreview.text7')}}</div>
               <span id="type">进取型</span>
@@ -110,7 +110,7 @@
               <div class="w2-title">{{$t('accountPreview.text15')}}</div>
               <div class="cont">
                 <div class="rw-label rw-label1">{{$t('accountPreview.text16')}}（港币）</div>
-                <div class="rw-amount rw-amount">3,000,000.00</div>
+                <div class="rw-amount rw-amount">0</div>
                 <div class="line"></div>
                 <div class="rw-label rw-label1">{{$t('accountPreview.text17')}}</div>
                 <div class="rw-amount rw-amount">12.18%</div>
@@ -150,6 +150,9 @@
                 </tr>
               </tbody>
             </table>
+			<div class="nodata" v-if="data.length === 0">
+				~暂无记录
+			</div>
           </div>
         </div>
       </div>
@@ -272,34 +275,7 @@ export default {
       openStatus: 0,
       colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
       data: [
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        }
+ 
       ]
     };
   },
@@ -445,6 +421,11 @@ export default {
 <style lang="scss" scoped>
 .account-preview {
   background: #f9f9f9;
+  .nodata{
+  	text-align: center;
+  	padding: 100px 0 50px;
+  	font-size: 20px;
+  }
   .content {
     padding-top: 40px;
   }

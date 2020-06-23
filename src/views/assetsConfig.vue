@@ -109,15 +109,12 @@ export default {
         })
       }
     },
-    getInvestment(investmentRisk) {
-      var params = {
-        investmentRisk
-      };
-      getInvestment(params).then(res => {
+    getInvestment() {
+      getInvestment().then(res => {
         var data = res.data;
         var datas = [];
         this.id = data[0].id;
-
+			console.log('assetsTypelist==',this.assetsTypelist)
         this.assetsTypelist.map((val, index) => {
           var type = data.filter(item => item.assetsType == val.dictValue);
           console.log(type);
@@ -157,28 +154,27 @@ export default {
   },
 
   mounted(){
+	this.getInvestment();  
+	  
     getMyAccount().then(res => {
       var { currency, risk } = res.data;
       this.currencyType = currency;
       //this.level = risk;
 	  getAccountDetail().then(res=>{
 		  this.level = res.data.risk;
-		  this.getGlobalData("assets_type").then(res => {
-		    this.assetsTypelist = res.data.list;
-		    this.getGlobalData("investment_risk").then(res => {
-				console.log(this.type)
-		      var arr = res.data.list.filter(
-		        item => item.dictValue == this.level
-		          // item.dictLabel === this.type ||
-		          // item.dictLabelFt === this.type ||
-		          // item.dictLabelEn === this.type
-		      );
-		      if(arr.length){
-		        this.getInvestment(arr[0].dictValue);
-		      }
-			  console.log(arr)
-		    });
-		  });
+		  // this.getGlobalData("assets_type").then(res => {
+		  //   this.assetsTypelist = res.data.list;
+		  //   this.getGlobalData("investment_risk").then(res => {
+				// console.log(this.type)
+		  //     var arr = res.data.list.filter(
+		  //       item => item.dictValue == this.level
+		  //     );
+		  //     if(arr.length){
+		  //       this.getInvestment(arr[0].dictValue);
+		  //     }
+			 //  console.log(arr)
+		  //   });
+		  // });
 	  });
     });
   }

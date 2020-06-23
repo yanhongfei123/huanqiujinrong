@@ -51,7 +51,7 @@ export default {
     text2: ' No lockup period ',
     text3: 'Global diversification ',
     text4: 'Contact Us',
-    text5: 'address',
+    text5: 'Suite 101, 19 Floor, Two International Finance Center IFC2, 8 Finance Street, Central Hong Kong',
     text6: 'Home',
     text7: 'Product ',
     text8: 'Why ETF',
