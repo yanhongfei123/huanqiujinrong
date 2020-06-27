@@ -80,6 +80,19 @@ export function getType(score) {
   return type;
 }
 
+export function getConfigType(score) {
+  var type;
+  question.typeList.map(item => {
+    var scoreList = item.score.split("-");
+    var minScore = parseInt(scoreList[0]);
+    var maxScore = parseInt(scoreList[1]);
+    if (score >= minScore && score <= maxScore) {
+		type = score >= item.mScore ? item.tag2 : item.tag1;
+    }
+  });
+  return type;
+}
+
 export function toThousandslsFilter(num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }

@@ -4,19 +4,19 @@
       <div class="l-w fl">
         <div class="fl w2-title">{{$t('accountPreview.text6')}}</div>
         <!-- <div @click="$router.push('/riskTest')" class="fr detail pointer">{{$t('accountDetail.text1')}}</div> -->
-        <span id="type">进取型</span>
+        <span id="type">{{ type }}</span>
         <div id="echarts"></div>
         <div class="legend">
           <div
             @mouseover="highlight(index)"
             @mouseout="downplay(index)"
-            v-for="(val,index) in colors"
+            v-for="(item,index) in investList"
             :key="index"
             class="legend-item"
           >
-            <div :style="{backgroundColor:val}" class="color"></div>
-            <div class="pecent">60.00%</div>
-            <div class="type">股票</div>
+            <div :style="{backgroundColor:colors[index]}" class="color"></div>
+            <div class="pecent">{{ item.value }}</div>
+            <div class="type">{{ item.name }}</div>
           </div>
         </div>
       </div>
@@ -44,16 +44,19 @@
         </div>
       </div>
     </div>
-    <InvestList></InvestList>
+    <!-- <InvestList></InvestList> -->
     <div class="btm-info tc">{{$t('accountDetail.text6')}}</div>
 	<div class="btn-wrap">
 	  <div @click="goPage('/userCenter/myAccount')" class="next">{{$t('accountDetail.text7')}}</div>
 	</div>
   </div>
-</template>
+</template> 
 <script>
 
-import { toThousandslsFilter, getType } from "@/utils";
+import i18n from '@/lang';
+import { getInvestment } from "@/api/analysis.js";
+import { getType, getTypeByLevel, getConfigType, toThousandslsFilter } from "@/utils";
+import { getAccountDetail } from "@/api/myAccount.js";
 import Tips from "@/components/tips.vue";
 import userCenterHeader from "@/components/header/userCenterHeader.vue";
 import footerBar from "@/components/footer/footer.vue";
@@ -63,7 +66,7 @@ export default {
   name: "accountPreview",
   computed: {
     type() {
-      return getType(localStorage.getItem("totalScore") || 0);
+      return getTypeByLevel(this.level); //getType(localStorage.getItem("totalScore") || 0);
     }
   },
   components: {
@@ -76,45 +79,67 @@ export default {
     return {
       oIndex: 0,
       typeList: ["组合详情", "历史表现", "组合分析", "投资记录"],
-      colors: ["#D51D26", "#E2C6AB", "#B9BBC0"],
-      data: [
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        },
-        {
-          date: "2019-04-30",
-          type: "交易",
-          origin: "BMO亚洲投资债",
-          bi: "港币",
-          amount: "352015255"
-        }
-      ],
+      colors: ["#D51D26", "#E2C6AB", "#B9BBC0", '#333333', '#f5f5f5'],
+	  echartData: [],
+	  investList: [],
+      data: [],
+	  level: '0',
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.drawPie();
-    }, 50);
+	getAccountDetail().then(res=>{
+	  this.level = res.data.risk;
+	  this.getGlobalData("assets_type").then(res => {
+		this.assetsTypelist = res.data.list;
+		this.getInvestment(); 
+	  });
+	});
   },
   methods: {
+	getInvestment() {
+	  getInvestment().then(res => {
+	    var data = res.data;
+	    var datas = [];
+		var investList = [];
+		var t = getConfigType(data.userScore);
+		var sysInvestments = data.sysInvestments.filter(item => item.investmentName.includes(t));
+		var sysAssetsInvestments = sysInvestments[0].sysAssetsInvestments;
+		console.log(sysInvestments)
+	
+	    this.id = sysInvestments[0].id;
+	    this.assetsTypelist.map((val, index) => {
+	      var type = sysAssetsInvestments.filter(item => item.assetsType == val.dictValue);
+	      console.log(type);
+	      if (type.length) {
+			var value = 0;
+			type.map(item => {
+				value += parseFloat(item.proportion); 
+			});  
+	        datas.push({
+	          // type: {
+	          //   assetsType: val.dictLabel,
+	          //   assetsTypeFt: val.dictLabelFt,
+	          //   assetsTypeEn: val.dictLabelEn
+	          // },
+	          value: value,
+			  name: value + '%',
+	        });
+			investList.push({
+			  name: i18n.locale == 'Ft' ? val.dictLabelFt : val.dictLabelEn,
+			  value: value + '%',
+			});
+	      }
+	    });
+		
+		this.echartData = datas;
+		this.investList = investList;
+		
+		setTimeout(() => {
+		  this.drawPie();
+		}, 50);
+
+	  });
+	},  
 	goPage(path) {
 	  this.$router.push(path);
 	},  
@@ -173,17 +198,16 @@ export default {
         //   itemGap: 40,
         //   data: ["60%", "30%", "10%"]
         // },
+		// { value: 60, name: "60%" },
+		// { value: 30, name: "111" },
+		// { value: 10, name: "10%" }
         series: [
           {
             name: "投资类型",
             type: "pie",
             radius: ["40%", "54%"],
             center: ["50%", "40%"],
-            data: [
-              { value: 60, name: "60%" },
-              { value: 30, name: "30%" },
-              { value: 10, name: "10%" }
-            ],
+            data: this.echartData,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -211,7 +235,7 @@ export default {
       this.myChart.on("mouseover", e => {
         //当检测到鼠标悬停事件，取消默认选中高亮
         console.log(e);
-        domType.innerHTML = e.dataIndex;
+        //domType.innerHTML =   this.echartData[e.dataIndex].name;
         this.myChart.dispatchAction({
           type: "downplay",
           seriesIndex: 0,

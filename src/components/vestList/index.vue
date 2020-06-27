@@ -86,11 +86,12 @@ export default {
       border-top: 1px solid #444857;
     }
     .label {
-      text-align: center;
+      //text-align: center;
       font-size: 20px;
       color: #141416;
       line-height: 28px;
       font-weight: bold;
+	   text-indent: 60px;
     }
     .label1 {
       flex: 1;
@@ -119,12 +120,13 @@ export default {
       background: #fff;
     }
     .k-item {
-      text-align: center;
+      //text-align: center;
       display: flex;
       justify-content: space-around;
       color: #141416;
       font-size: 20px;
       margin-bottom: 42px;
+	  text-indent: 60px;
       .item1 {
         flex: 1;
       }

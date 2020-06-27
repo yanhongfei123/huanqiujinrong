@@ -75,24 +75,35 @@ export default {
 	  background: rgba(25, 25, 25, 0.73);
 	  div{
 		  margin: 0 20px;
-		  font-size: 40px;
+		  font-size: 30px;
 		  display: flex;
 		  align-items: center;
 		  img {
+			  width: 45px;
 			  margin-right: 20px;
 		  }
 	  }
   }
+  
+  	@media screen and (max-width: 1700px) {
+		.footer-content {
+			width: 1500px!important;
+		}
+	}
+  
   .footer-content {
     width: 1600px;
-	height: 550px;
+	height: 430px;
     margin: 0 auto;
     font-size: 16px;
     color: #fff;
     .l-ul {
-	  font-size: 30px;
+	  font-size: 22px;
       li {
         margin-bottom: 10px;
+		img{
+			width: 30px;
+		}
       }
 	  .contact{
 		  margin-bottom: 40px;
@@ -115,7 +126,7 @@ export default {
     }
     .f-top {
       overflow: hidden;
-	  padding-top: 100px;
+	  padding-top: 70px;
       .f-top-l {
         float: left;
 		width: 800px;
@@ -123,7 +134,8 @@ export default {
       .f-top-r {
         float: right;
 		width: 674px;
-		font-size: 30px;
+		font-size: 22px;
+		line-height: 40px;
       }
     }
   }

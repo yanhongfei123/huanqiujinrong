@@ -15,9 +15,11 @@
                         <span>*</span> Whatsapp: +852 5100 6766，<span>*</span> Wechat: （产品名称）team，<span>*</span>Email:
                         cs@（产品名称）.com，<span>*</span>现场将必须提交的文件提交到我们办公室
                     </div>
-                    <div class="label">您必须提交的文件（支持.jpg, .jpeg,
-                        .png格式，单个文件小于10M）1.香港居民身份证影印本（包括正反面）2.护照影印本（包括照片页和署名页）3.居住地址证明影印本（最近三个月内银行信件或水电煤单）
-                    </div>
+                    <div class="label">您必须提交的文件</div>
+					<div class="label-info">*香港居民身份证影印本（包括正反面）</div>
+					<div class="label-info">*护照影印本（包括照片页和署名页）</div>
+					<div class="label-info">*居住地址证明影印本（最近三个月内银行信件或水电煤单）</div>
+					<div class="warn"> 支持.jpg .jpeg .png合适,单个文件小于10M</div>
                     <el-row>
                         <el-col style="width: 400px;">
                             <el-form-item label="1.香港居民身份证正面照片:" prop="frontIdCard">
@@ -72,7 +74,7 @@
                     </el-row>
                     <el-row>
                         <el-col style="width: 430px;">
-                            <el-form-item label="3.5.居住地址证明照片（例：三个月内同名银行信件或水电煤单）:" prop="frontIdCard">
+                            <el-form-item label="5.居住地址证明照片（例：三个月内同名银行信件或水电煤单）:" prop="frontIdCard">
                                 <div class="upload-wrap">
                                     <input ref="uploadFile5" @change="change($event, 5)" class="file" type="file" name="file">
                                     <img v-if="imageUrl5" :src="imageUrl5" class="avatar">
@@ -256,13 +258,20 @@
             }
 
             .label {
-                margin-bottom: 30px;
+                margin-bottom: 15px;
                 font-size: 16px;
                 font-family: SourceHanSansSC-Regular;
                 font-weight: 400;
                 color: rgba(60, 63, 77, 1);
                 line-height: 32px;
             }
+			.label-info{
+				margin-bottom: 5px;
+			}
+			.warn{
+				margin: 40px 0 30px;
+				color: #ff0000;
+			}
         }
 
         .upload-wrap{

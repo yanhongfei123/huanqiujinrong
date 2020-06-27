@@ -174,7 +174,7 @@
     },
     methods: {
       prev() {
-        this.$router.replace({ name: 'userInfo' });
+		window.location.href = window.location.href.replace('addressInfo', 'userInfo');
       },
       next(flag) {
         this.$refs.addressInfoForm.validate((valid) => {

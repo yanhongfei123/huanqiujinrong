@@ -182,10 +182,10 @@ export default {
 		  return 0;
 		}
 		if (this.openStatus == 3 || this.openStatus == 2) {
-		  return 1;
+		  return 2;
 		}
 		if (this.openStatus == 4) {
-		  return 2;
+		  return 1;
 		}
 		if (this.openStatus == 5) {
 		  return 3;
@@ -196,11 +196,11 @@ export default {
         return 0;
       }
       if (
-        this.openStatus == 3
+        this.openStatus == 4
       ) {
         return 1;
       }
-      if (this.openStatus == 4 || this.openStatus == -3) {
+      if (this.openStatus == 3 || this.openStatus == -3) {
         return 2;
       }
       if (this.openStatus == 5 || this.openStatus == -5) {

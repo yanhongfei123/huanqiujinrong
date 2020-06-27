@@ -114,17 +114,16 @@ export default {
       getInvestment().then(res => {
         var data = res.data;
         var datas = [];
-		var t = getConfigType(data.userScore);
-		var sysInvestments = data.sysInvestments.filter(item => item.investmentName.includes(t));
-		var sysAssetsInvestments = sysInvestments[0].sysAssetsInvestments;
+		var type = getConfigType(data.userScore);
+		var sysInvestments = data.sysInvestments.filter(item => item.investmentName.includes(type));
 		console.log(sysInvestments)
 
         this.id = sysInvestments[0].id;
         this.assetsTypelist.map((val, index) => {
-          var type = sysAssetsInvestments.filter(item => item.assetsType == val.dictValue);
+          var type = sysInvestments.filter(item => item.assetsType == val.dictValue);
           console.log(type);
           if (type.length) {
-            //var percent = ((type.length / data.length) * 100).toFixed(2);
+            var percent = ((type.length / data.length) * 100).toFixed(2);
             type.map(item => {
               item.amount = 100000 * parseFloat(item.proportion) / 100;
             });
@@ -139,11 +138,9 @@ export default {
             });
           }
         });
-		
-		console.log(datas)
 
         var i = 0;
-        sysAssetsInvestments.map(item => {
+        data.map(item => {
           i += parseFloat(item.proportion);
         });
 
@@ -156,21 +153,20 @@ export default {
           totalPercent,
           totalAmount
         };
-		
-		console.log(this.datas)
       });
     }
   },
 
-  mounted(){ 
+  mounted(){
+	this.getInvestment();  
+	  
     getMyAccount().then(res => {
-      var { currency } = res.data;
+      var { currency, risk } = res.data;
       this.currencyType = currency;
 	  getAccountDetail().then(res=>{
 		  this.level = res.data.risk;
 		  this.getGlobalData("assets_type").then(res => {
 		    this.assetsTypelist = res.data.list;
-			this.getInvestment(); 
 		  });
 	  });
     });

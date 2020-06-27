@@ -100,13 +100,16 @@
 
 	export default {
 		name: "home",
+		computed: {
+			...mapGetters(["token"]),
+		},
 		components: {
 			headerNav,
 			footerBar,
 		},
 		methods: {
 			goPage() {
-				var path = this.token ? '/openAccount' : '/register'
+				var path = this.token ? '/openAccount' : '/login';
 				this.$router.push(path);
 			},
 			hideMenu(flag) {
@@ -129,10 +132,31 @@
 		width: 1600px;
 		margin: 0 auto;
 	}
+	
+	@media screen and (max-width: 1700px) {
+		.com-width {
+			width: 1500px;
+			margin: 0 auto;
+		}
+		.section3 {
+			.content{
+				width: 1500px!important;
+			}
+			
+			.item1 img{
+				width: 700px!important;
+			}
+			.item1 .r-cont{
+				width: 750px!important;
+			}
+			.item2 img{
+				width: 800px!important;
+			}
+		}
+	}
 
 	.section1 {
-		height: 1088px;
-		margin-top: 120px;
+		height: 900px;
 		position: relative;
 		z-index: 10;
 
@@ -140,12 +164,12 @@
 			position: absolute;
 			right: -180px;
 			top: 0;
-			width: 1300px;
+			width: 1000px;
 		}
 
 		.text {
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 150px;
+			font-size: 100px;
 			padding-top: 120px;
 
 			span {
@@ -155,15 +179,15 @@
 
 		.text3 {
 			color: rgba(82, 73, 73, 0.73);
-			font-size: 46px;
-			margin-top: 50px;
+			font-size: 30px;
+			margin-top: 40px;
 			width: 680px;
 		}
 
 	}
 
 	.section2 {
-		height: 922px;
+		height: 860px;
 		margin-top: -360px;
 		position: relative;
 		background: url(../assets/images/why/8.png) no-repeat center;
@@ -182,14 +206,17 @@
 		}
 
 		div {
+			width: 1000px;
 			position: relative;
-			font-size: 40px;
+			margin: 0 auto;
+			font-size: 30px;
 			color: #FFFFFF;
 
 			img {
+				width: 50px;
 				position: absolute;
-				left: -84px;
-				top: -66px;
+				left: 83px;
+				top: -30px;
 			}
 		}
 
@@ -210,6 +237,7 @@
 			overflow: hidden;
 
 			img {
+				width: 700px;
 				float: left;
 				padding-top: 70px;
 			}
@@ -219,18 +247,18 @@
 				float: right;
 
 				.title {
-					font-size: 100px;
+					font-size: 60px;
 					color: rgba(25, 25, 25, 0.73);
 					margin-bottom: 18px;
 				}
 
 				.text {
-					font-size: 42px;
+					font-size: 30px;
 					color: rgba(82, 73, 73, 0.73)
 				}
 
 				.text2 {
-					margin-top: 80px;
+					margin-top: 60px;
 				}
 			}
 		}
@@ -238,9 +266,11 @@
 		.item2 {
 			position: relative;
 			overflow: hidden;
-			padding-bottom: 200px;
+			padding-bottom: 150px;
+
 
 			img {
+				width: 900px;
 				float: right;
 			}
 
@@ -251,13 +281,13 @@
 				width: 750px;
 
 				.title {
-					font-size: 100px;
+					font-size: 60px;
 					color: rgba(25, 25, 25, 0.73);
 					margin-bottom: 42px;
 				}
 
 				dl {
-					font-size: 42px;
+					font-size: 30px;
 					margin-bottom: 55px;
 					color: rgba(82, 73, 73, 0.73);
 
@@ -272,12 +302,12 @@
 
 	.section5 {
 		text-align: center;
-		height: 900px;
+		height: 700px;
 
 		.title {
-			height: 266px;
+			height: 210px;
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 100px;
+			font-size: 60px;
 			margin-bottom: 20px;
 			font-weight: bold;
 		}
@@ -295,17 +325,17 @@
 
 			img {
 				display: inline-block;
-				width: 208px;
-				margin-bottom: 50px;
+				width: 150px;
+				margin-bottom: 30px;
 			}
 
 			.text2 {
-				font-size: 45px;
+				font-size: 35px;
 				font-weight: bold;
 			}
 
 			.text3 {
-				font-size: 42px;
+				font-size: 30px;
 				text-align: justify;
 			}
 		}
@@ -313,12 +343,12 @@
 
 
 	.section6 {
-		margin-top: 150px;
+		margin-top: 100px;
 
 		.title {
 			text-align: center;
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 100px;
+			font-size: 60px;
 			font-weight: bold;
 		}
 
@@ -329,9 +359,10 @@
 			justify-content: center;
 
 			>div {
+				margin: 0 20px;
 				display: flex;
 				align-items: center;
-				font-size: 50px;
+				font-size: 30px;
 				color: rgba(25, 25, 25, 0.73);
 				font-weight: bold;
 			}

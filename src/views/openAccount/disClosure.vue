@@ -26,7 +26,7 @@
                          :model="disclosureInfo" ref="disclosureInfoForm" :rules="disclosureInfoRules">
                     <el-row>
                         <el-col :span="18" style="width:380px">
-                            <el-form-item label="签名：" prop="signName" required>
+                            <el-form-item label="签名：" prop="signName">
                                 <el-input v-model="disclosureInfo.signName" placeholder="请输入签名，名与姓之间有一个空格"></el-input>
                             </el-form-item>
                         </el-col>

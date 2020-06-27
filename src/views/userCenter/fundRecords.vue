@@ -86,8 +86,8 @@
 						list,
 						total
 					} = res.data;
-					this.data = list;
-					this.total = total;
+					//this.data = list;
+					//this.total = total;
 				});
 			}
 		},
