@@ -1,13 +1,16 @@
 <template>
   <div class>
     <div class="article-list">
-      <div @click="goArticle(val)" v-for="(val,index) in articleList" :key="index" class="article-item">
+      <div @click="goArticle(val.articleId)" v-for="(val,index) in articleList" :key="index" class="article-item">
         <div class="r-wrap">
-          <div class="title">{{val | filterByLanguage('articleTitle')}}</div>
-          <div class="des">{{val | filterByLanguage('articleAbstract')}}</div>
+<!--          <div class="title">{{val | filterByLanguage('articleTitle')}}</div>
+          <div class="des">{{val | filterByLanguage('articleAbstract')}}</div> -->
+		  <div class="title">{{val.articleTitle}}</div>
+		  <div class="des">{{val.articleAbstract}}</div>
           <div class="b-wrap">
             <div class="time">{{val.createTime | parseTime}}</div>
-            <div class="has-read">{{$t('messageCenter.text2')}}：{{filterType(val.articleType)}}</div>
+            <!-- <div class="has-read">{{$t('messageCenter.text2')}}：{{filterType(val.articleType)}}</div> -->
+			<div class="has-read">{{$t('messageCenter.text2')}}：{{filterType(val.articleType)}}</div>
           </div>
         </div>
       </div>

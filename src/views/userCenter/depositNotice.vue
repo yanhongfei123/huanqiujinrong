@@ -84,6 +84,7 @@ export default {
         currency: this.radio,
         money: this.amount,
       };
+	  console.log(params)
       editRemittanceNotice(params).then(res => {
         Message({
             message: '提交成功',

@@ -28,9 +28,9 @@
 			</thead>
 			<tbody>
 				<tr v-for="(val,index) in data" :key="index">
-					<td>{{val.create_time}}</td>
+					<td>{{formateDate(val.create_time)}}</td>
 					<td>{{val.type}}</td>
-					<td>{{val.currency}}</td>
+					<td>{{val.currency == 1 ? '港币' : '美元'}}</td>
 					<td>{{val.money}}</td>
 				</tr>
 			</tbody>
@@ -47,7 +47,12 @@
 	import {
 		getUserWithdrawal
 	} from "@/api/myAccount.js";
-	var date = new Date().toLocaleDateString().replace(/\//g, '-');
+	import { parseTime } from '@/utils';
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	date = year + '-' + (month < 10 ? '0' + month : month) + '-' + day;
 	export default {
 		name: "records",
 		data() {
@@ -62,6 +67,19 @@
 			};
 		},
 		methods: {
+			formate(n){
+				return n < 10 ? '0' + n : n;
+			},
+			formateDate(time){
+				var date = time ? new Date(time) : new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				var h = date.getHours();
+				var m = date.getMinutes();
+				var s = date.getSeconds();
+				return year + '-' + this.formate(month) + '-' + day + '  '  + this.formate(h) + ':' + this.formate(m) + ':' + this.formate(s);
+			},
 			selectChange(item) {
 				console.log(item)
 				this.onQueryList();
@@ -86,13 +104,20 @@
 						list,
 						total
 					} = res.data;
-					//this.data = list;
-					//this.total = total;
+					list.map(item => {
+						var type = this.typeList.filter(val => val.dictValue == item.type );
+						item.type = type[0] && type[0].dictLabel;
+					})
+					this.data = list;
+					this.total = total;
 				});
 			}
 		},
 		mounted() {
-			this.onQueryList();
+			this.getGlobalData("notice_type ").then(res => {
+				this.typeList = res.data.list;
+				this.onQueryList();
+			});
 		}
 	};
 </script>

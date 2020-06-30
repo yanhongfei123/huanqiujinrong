@@ -4,7 +4,8 @@
       <headerNav path="/find"></headerNav>
     </header>
     <div class="com-width">
-      <h1 class="title">{{article | filterByLanguage('articleTitle')}}</h1>
+      <!-- <h1 class="title">{{article | filterByLanguage('articleTitle')}}</h1> -->
+	  <h1 class="title">{{article.articleTitle}}</h1>
       <div class="art-info">
         {{$t('messageCenter.text2')}}:
         <span>{{filterType(article.articleType)}}</span>
@@ -13,8 +14,10 @@
       </div>
       <div
         class="art-content"
-        v-html="filterContent(article, 'articleContent')"
-      ></div>
+      >
+	  <div v-html="article.articleContent"></div>
+	  <img :src="article.url" alt="">
+	  </div>
     </div>
     <footerBar></footerBar>
   </div>
@@ -91,8 +94,8 @@ export default {
     padding: 60px 0;
     text-align: center;
     img {
-      margin-bottom: 30px;
-      //display: block;
+      margin: 30px;
+	  //max-width: 500px;
     }
     p{
       line-height:30px;

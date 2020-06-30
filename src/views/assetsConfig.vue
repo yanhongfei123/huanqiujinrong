@@ -1,7 +1,7 @@
 <template>
   <div class="assetsConfig">
     <header>
-      <userCenterHeader path="/accountPreView"></userCenterHeader>
+      <userCenterHeader @getUserInfo="setUserInfo" path="/accountPreView"></userCenterHeader>
     </header>
     <div class="content">
       <div class="com-width">
@@ -39,7 +39,7 @@
         <el-input type="password" maxlength="6" v-model="password" placeholder="请输入6位交易密码"></el-input>
 		<p class="forget"><a href="/#/setting/resetTranPas">修改密码</a></p>
         <p v-if="error2" class="error">{{error2}}</p>
-        <div @click="startConfig" class="btn-openAccount">开启我的资产配置</div>
+        <div @click="startConfig" :class="[openStatus == 6 ? 'disabled': '']" class="btn-openAccount">开启我的资产配置</div>
       </div>
     </div>
     <!-- <footerBar></footerBar> -->
@@ -79,6 +79,7 @@ export default {
     return {
       id: '',
       level: '0',
+	  openStatus: 0,
       currencyType: '1',
       totalAmount: 0,
       checked: false,
@@ -90,7 +91,14 @@ export default {
     };
   },
   methods:{
+	setUserInfo(data) {
+		this.openStatus = data.state;
+	},  
     startConfig(){
+	if (this.openStatus == 6) {
+		console.log(this.openStatus)
+		return
+	}	
       var reg = /^\d{6}$/;
       this.error1 = !this.checked ? '请勾选上方承诺' : '';
       this.error2 = !reg.test(this.password) ? '请输入正确的交易密码' : ''
@@ -302,6 +310,22 @@ export default {
       border: 40px solid transparent;
       border-left-color: #be1a21;
     }
+	
+	&.disabled {
+		background-color: #c6c8cc;
+	
+		&:before {
+			background-color: #9c9fa6;
+		}
+	
+		&:after {
+			border-left-color: #9c9fa6;
+		}
+	}
+	
+	&.active {
+		margin: 120px auto 0;
+	}
   }
 }
 </style>
