@@ -279,6 +279,19 @@
 		methods: {
 			setUserInfo(data) {
 				this.openStatus = data.state;
+				if (data.state == 6) {
+					getAccountDetail().then(res => {
+						this.level = res.data.risk;
+						this.money = res.data.money;
+						this.getGlobalData("assets_type").then(res => {
+							this.assetsTypelist = res.data.list;
+							this.$nextTick(() =>{
+								this.getInvestment();
+							})
+							//this.getInvestment();
+						});
+					});
+				}
 			},
 			goPage(path) {
 				if (path == '') {
@@ -437,18 +450,7 @@
 			},
 		},
 		mounted() {
-			console.log(this.$refs.echartss)
-			getAccountDetail().then(res => {
-				this.level = res.data.risk;
-				this.money = res.data.money;
-				this.getGlobalData("assets_type").then(res => {
-					this.assetsTypelist = res.data.list;
-					this.$nextTick(() =>{
-						this.getInvestment();
-					})
-					//this.getInvestment();
-				});
-			});
+
 		},
 	};
 </script>

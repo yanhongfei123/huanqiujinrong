@@ -32,7 +32,7 @@
       <div class="error">
         <span v-show="isshow">{{this.$t('riskTest.text6')}}</span>
       </div>
-      <div v-if="showmask" class="mask">
+      <div v-show="showmask" class="mask">
         <div class="content">
           <div @click="showmask=false" class="close"></div>
           <div class="icon-waring"></div>
@@ -76,8 +76,20 @@ export default {
       }
     };
   },
-  computed: {},
+  computed: {
+	  questionLists() {
+	    return [
+	      // this.$t("analysis.result.text2"),
+	      // this.$t("analysis.result.text3"),
+	      // this.$t("analysis.result.text4")
+	    ];
+	  }
+  },
   methods: {
+	setLanguage(lang) {
+	  this.$i18n.locale = lang;
+	  this.$store.dispatch("setLanguage", lang);
+	},
     chooseAnswer(item, asall, index) {
       asall.map(val => (val.checked = false));
       item.checked = true;
@@ -118,6 +130,7 @@ export default {
     }
   },
   async mounted() {
+	this.setLanguage('Ft');  
     var res = await this.getGlobalData("investment_risk");
     this.investmentRisk = res.data.list;
   }
@@ -222,6 +235,7 @@ export default {
     z-index: 100;
     width: 100%;
     height: 100%;
+	display: block;
     background: rgba(0, 0, 0, 0.5);
     .content {
       position: relative;

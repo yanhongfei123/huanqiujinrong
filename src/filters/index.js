@@ -26,7 +26,8 @@ export function renderFq(sub) {
     case "Ft":
       return sub["fqft"];
     default:
-      return sub["fqen"];
+      //return sub["fqen"];
+	   return sub["fqft"];
   }
 }
 
@@ -38,7 +39,8 @@ export function renderAnswer(item) {
     case "Ft":
       return item["asft"] ? item["asft"] : item["as"];
     default:
-      return item["asen"];
+      //return item["asen"];
+	  return item["asft"]
   }
 }
 

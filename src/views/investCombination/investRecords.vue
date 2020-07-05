@@ -29,10 +29,10 @@
 						</thead>
 						<tbody>
 							<tr v-for="(val,index) in historyList" :key="index">
-								<td>{{val.date}}</td>
+								<td>{{formateDate(val.createTime)}}</td>
 								<td>{{val.secType}}</td>
-								<td>{{val.origin}}</td>
-								<td>{{val.bi}}</td>
+								<td>{{val.symbol}}</td>
+								<td>{{val.currency == 1 ? '港币' : '美元'}}</td>
 								<td>{{val.strike}}</td>
 							</tr>
 						</tbody>
@@ -108,14 +108,14 @@
 	import {
 		getUserContract
 	} from "@/api/myAccount.js";
-	var date = new Date().toLocaleDateString().replace(/\//g, '-');
+	//var date = new Date().toLocaleDateString().replace(/\//g, '-');
 	export default {
 		name: "investRecords",
 		data() {
 			return {
 				activeName: 'history',
 				total: 0,
-				date: [date, date],
+				date: [],
 				type: '',
 				pageNo: 1,
 				pageSize: 5,
@@ -200,6 +200,19 @@
 			//         this.hideLoading();
 			//     }, 2000);
 			// },
+			formate(n){
+				return n < 10 ? '0' + n : n;
+			},
+			formateDate(time){
+				var date = time ? new Date(time) : new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				var h = date.getHours();
+				var m = date.getMinutes();
+				var s = date.getSeconds();
+				return year + '-' + this.formate(month) + '-' + day + '  '  + this.formate(h) + ':' + this.formate(m) + ':' + this.formate(s);
+			},
 			showLoading() {
 				this.loading = this.$loading({
 					lock: true,

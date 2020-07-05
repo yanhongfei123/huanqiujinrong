@@ -221,11 +221,11 @@
           ]
         },
         statementInfo: {
-          nationality: '中国香港',
+          nationality: '中國香港',
           birthday: '',
           country: '',
           USDiscern: '',
-          taxCountry: '中国香港',
+          taxCountry: '中國香港',
           isUsDiscount: '',
           usCountry: '',
           TIN: '',
@@ -245,7 +245,7 @@
     },
     methods: {
       prev() {
-        this.$router.replace({ name: 'regulatoryInfo' });
+        this.$router.replace({ name: 'regulatoryInfo?type=' + this.type });
       },
       next(flag) {
         this.$refs.statementInfoForm.validate((valid) => {

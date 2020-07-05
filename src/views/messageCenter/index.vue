@@ -63,6 +63,7 @@ export default {
     }
   },
   created() {
+	  console.log(this.$route)
     getMyMsg({
       pageNum: 1,
     }).then(res=>{

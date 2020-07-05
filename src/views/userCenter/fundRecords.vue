@@ -58,7 +58,7 @@
 		data() {
 			return {
 				total: 0,
-				date: [date, date],
+				date: [],
 				type: '',
 				pageNo: 1,
 				pageSize: 5,

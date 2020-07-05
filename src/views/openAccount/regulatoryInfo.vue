@@ -598,7 +598,7 @@
                 console.log(value)
             },
             prev() {
-                this.$router.replace({name: 'addressInfo'});
+                this.$router.replace({name: 'addressInfo?type=' + this.type});
             },
             next(flag) {
                console.log(this.regulatoryInfo);
