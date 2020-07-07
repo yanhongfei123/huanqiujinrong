@@ -16,6 +16,7 @@ const service = axios.create({
 var loadingInstance;
 
 service.interceptors.request.use(config => {
+  loadingInstance = null;	
   loadingInstance = Loading.service({
     lock: true,
     background: 'rgba(0, 0, 0, 0.5)'

@@ -165,10 +165,10 @@
                 });
             },
             escapeStep() {
-                this.$router.replace({name: 'witness?type='+ this.type});
+				 this.$router.replace({ name: 'witness' , query: { type: this.type }});
             },
             goDisclosure() {
-                this.$router.replace({name: 'disClosure?type=' + this.type});
+				this.$router.replace({ name: 'disClosure' , query: { type: this.type }});
             },
         },
         mounted() {

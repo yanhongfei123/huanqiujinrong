@@ -22,7 +22,7 @@
                   @click="changeType('email')"
                   class="item"
                   :class="[type=='email'?'active':'']"
-                >邮箱</div>
+                >{{$t('setTransPas.text88')}}</div>
               </div>
               <!-- 邮箱 -->
               <el-form class="form" :model="regForm" :rules="rules" ref="regForm">

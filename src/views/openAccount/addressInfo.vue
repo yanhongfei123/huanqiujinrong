@@ -133,6 +133,13 @@
       openAccountSteps
     },
     data() {
+		let validTax=(rule,value,callback)=>{
+			let reg= /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,16}$/;
+			if(!reg.test(value)){callback(new Error('格式不正确'))
+			}else{
+				callback()
+			}
+		};	
       return {
         type: this.$route.query.type,
         step: 1,
@@ -152,6 +159,7 @@
           ],
           taxation: [
             { required: true, message: '请输入纳税识别号' },
+			{validator:validTax, trigger:'blur'}
           ],
           employmentType: [
             { required: true, message: '请选择就业类型', trigger: 'change' }

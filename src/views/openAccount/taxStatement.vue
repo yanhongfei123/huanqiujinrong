@@ -245,7 +245,7 @@
     },
     methods: {
       prev() {
-        this.$router.replace({ name: 'regulatoryInfo?type=' + this.type });
+		this.$router.replace({ name: 'regulatoryInfo' , query: { type: this.type }});
       },
       next(flag) {
         this.$refs.statementInfoForm.validate((valid) => {

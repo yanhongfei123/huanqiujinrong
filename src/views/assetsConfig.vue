@@ -5,41 +5,41 @@
     </header>
     <div class="content">
       <div class="com-width">
-        <div class="title">资产配置</div>
+        <div class="title">{{$t('assetsConfig.text1')}}</div>
         <div class="main">
           <div class="top-wrap">
             <div class="tw-l">
               <div class="info">
-                您即将买卖的是在
+                {{$t('assetsConfig.text2')}}
                 <span>{{ isHkJis }}</span>上市的，受
-                <span>{{ isHk }}证监会</span>监督的交易所买卖基金，您的风险承受类型为
+                <span>{{ isHk }}{{$t('assetsConfig.text3')}}</span>{{$t('assetsConfig.text4')}}
               </div>
               <div class="result">{{ type }}</div>
               <div class="btm-info">
-                投资金额（{{ currencyText }}）：
+                {{$t('assetsConfig.text5')}}（{{ currencyText }}）：
                 <span>{{ totalAmount }}</span>
               </div>
             </div>
             <div class="tw-r"></div>
           </div>
-          <div class="dis-label">一.目标组合配置（系统根据您的风险承受类型，为您推荐）</div>
+          <div class="dis-label">{{$t('assetsConfig.text6')}}</div>
           <div
             class="des-info"
-          >说明：我们将实时监控市场，确保以目标配比执行，但市场波动可能导致交易结果与目标配比不同。以上资产预估仅供参考，实际投资金额以买入结果为准。</div>
+          >{{$t('assetsConfig.text7')}}</div>
         </div>
         <InvestList :datas="datas"></InvestList>
         <div class="box-wrap">
           <p v-if="error1" class="error">{{error1}}</p>
           <el-checkbox
             v-model="checked"
-          >您已阅读并了解以上投资组合的相关信息，同时我司向您推荐的投资组合或基金也是依据您的风险测评结果及个人投资目标，更在您能承受的风险水平范围。</el-checkbox>
+          >{{$t('assetsConfig.text8')}}</el-checkbox>
         </div>
-        <div class="dis-label">二.输入交易密码</div>
-        <div class="pas-label">交易密码：</div>
-        <el-input type="password" maxlength="6" v-model="password" placeholder="请输入6位交易密码"></el-input>
-		<p class="forget"><a href="/#/setting/resetTranPas">修改密码</a></p>
+        <div class="dis-label">{{$t('assetsConfig.text9')}}</div>
+        <div class="pas-label">{{$t('assetsConfig.text10')}}</div>
+        <el-input type="password" maxlength="6" v-model="password" :placeholder="$t('assetsConfig.text11')"></el-input>
+		<p class="forget"><a href="/#/setting/resetTranPas">{{$t('assetsConfig.text12')}}</a></p>
         <p v-if="error2" class="error">{{error2}}</p>
-        <div @click="startConfig" :class="[openStatus == 6 ? 'disabled': '']" class="btn-openAccount">开启我的资产配置</div>
+        <div @click="startConfig" :class="[openStatus == 6 ? 'disabled': '']" class="btn-openAccount">{{$t('assetsConfig.text13')}}</div>
       </div>
     </div>
     <!-- <footerBar></footerBar> -->
@@ -61,10 +61,10 @@ export default {
       return getTypeByLevel(this.level);
     },
     isHkJis(){
-      return this.currencyType == '1' ? this.$t('assetsConfig.text1') : this.$t('assetsConfig.text2');
+      return this.currencyType == '1' ? this.$t('assetsConfig.text14') : this.$t('assetsConfig.text15');
     },
     isHk(){
-      return this.currencyType == '1' ? this.$t('assetsConfig.text3') : this.$t('assetsConfig.text4');
+      return this.currencyType == '1' ? this.$t('assetsConfig.text16') : this.$t('assetsConfig.text17');
     },
     currencyText(){
       return this.currencyType == '1' ? this.$t('currency1') : this.$t('currency2');
@@ -100,8 +100,8 @@ export default {
 		return
 	}	
       var reg = /^\d{6}$/;
-      this.error1 = !this.checked ? '请勾选上方承诺' : '';
-      this.error2 = !reg.test(this.password) ? '请输入正确的交易密码' : ''
+      this.error1 = !this.checked ? '請勾選上方承諾' : '';
+      this.error2 = !reg.test(this.password) ? '請輸入正確的交易密碼' : ''
       if(!this.error1 && !this.error2){
         var params = {
           investmentId: this.id,
@@ -109,7 +109,7 @@ export default {
         };
         updateAccount(params).then(res => {
           Message({
-            message: '配置申请已提交',
+            message: '配置申請已提交',
             type: "success"
           });
           setTimeout(()=>{

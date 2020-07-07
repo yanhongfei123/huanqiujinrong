@@ -3,7 +3,7 @@
     <div class="content">
       <div class="tab-wrap">
         <!-- <div @click="changeType('mobile')" class="item" :class="[type=='mobile'?'active':'']">手机号码</div> -->
-        <div @click="changeType('email')" class="item" :class="[type=='email'?'active':'']">邮箱</div>
+        <div @click="changeType('email')" class="item" :class="[type=='email'?'active':'']">{{$t('setTransPas.text88')}}</div>
       </div>
       <!-- 邮箱 -->
       <el-form class="form" :model="regForm" :rules="rules" ref="regForm">

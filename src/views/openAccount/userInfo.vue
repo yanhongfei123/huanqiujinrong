@@ -6,7 +6,7 @@
 		<div class="content">
 			<div class="title">{{$t('openAccount.userInfo.text1')}}</div>
 			<div class="info-wrapper">
-				<div class="tips" v-if="type==1"><label>* </label>{{$t('openAccount.userInfo.text2')}}</div>
+				<div class="tips" v-if="$route.query.type==1"><label>* </label>{{$t('openAccount.userInfo.text2')}}</div>
 				<div class="tips" v-else><label>* </label>{{$t('openAccount.userInfo.text3')}}</div>
 				<openAccountSteps :step=step></openAccountSteps>
 				<div class="info-title">{{$t('openAccount.userInfo.text4')}}</div>
