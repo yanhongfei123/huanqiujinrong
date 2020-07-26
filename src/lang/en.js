@@ -513,7 +513,9 @@ export default {
         assetType: '資金類型',
         asset: '對應資産',
         currency: '幣種',
-        amount: '金額',
+        amount: '市場價值',
+		buyAmount: '購買量',
+		totalMoney: '買入總金額',
         placeholder: '請選擇'
       },
       statement: {

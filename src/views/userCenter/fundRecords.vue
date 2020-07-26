@@ -38,7 +38,7 @@
 		<div class="nodata" v-if="data.length === 0">
 			~暂无记录
 		</div>
-		<el-pagination v-if="total" @current-change="currentChange" background layout="prev, pager, next" :total="total/5"></el-pagination>
+		<el-pagination v-if="total" @current-change="currentChange" background layout="prev, pager, next" :total="total"></el-pagination>
 
 	</div>
 </template>

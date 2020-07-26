@@ -26,6 +26,8 @@
 							<th>{{$t('investCombination.historyRecords.history.asset')}}</th>
 							<th>{{$t('investCombination.historyRecords.history.currency')}}</th>
 							<th>{{$t('investCombination.historyRecords.history.amount')}}</th>
+							<th>{{$t('investCombination.historyRecords.history.buyAmount')}}</th>
+							<th>{{$t('investCombination.historyRecords.history.totalMoney')}}</th>
 						</thead>
 						<tbody>
 							<tr v-for="(val,index) in historyList" :key="index">
@@ -33,11 +35,13 @@
 								<td>{{val.secType}}</td>
 								<td>{{val.symbol}}</td>
 								<td>{{val.currency == 1 ? '港币' : '美元'}}</td>
-								<td>{{val.strike}}</td>
+								<td>{{val.marketValue}}</td>
+								<td>{{val.position}}</td>
+								<td>{{(parseFloat(val.position) * parseFloat(val.averageCost)).toFixed(2)}}</td>
 							</tr>
 						</tbody>
 					</table>
-					<el-pagination v-if="total" @current-change="currentChange" background layout="prev, pager, next" :total="total/5"></el-pagination>
+					<el-pagination v-if="total" @current-change="currentChange" background layout="prev, pager, next" :total="total"></el-pagination>
 				</div>
 				<div class="nodata" v-if="historyList.length === 0">
 					~暂无记录
@@ -239,7 +243,7 @@
 				var params = {
 					startTime: this.date[0],
 					endTime: this.date[1],
-					pageNo: 1,
+					pageNo: this.pageNo,
 					pageSize: 5,
 				};
 				getUserContract(params).then(res => {
