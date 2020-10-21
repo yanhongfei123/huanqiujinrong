@@ -6,18 +6,20 @@
         <div class="content">
             <div class="title">{{$t('openAccount.chooseMarket.text1')}}</div>
             <div class="desc">{{$t('openAccount.chooseMarket.text2')}}</div>
+			<div class="desc">{{$t('openAccount.chooseMarket.text21')}}</div>
+			<div class="desc">{{$t('openAccount.chooseMarket.text22')}}</div>
             <div class="market-wrapper">
                 <div class="market-item market-us">
                     <div class="market-img"></div>
                     <p class="market-info">{{$t('openAccount.chooseMarket.text3')}}上市交易的ETF</p>
                     <p class="market-info">{{$t('openAccount.chooseMarket.text4')}} 50,000 USD</p>
-                    <div class="btn btn-confirm" @click="selectMarket(1)" data-type="1">{{$t('openAccount.chooseMarket.text5')}}</div>
+                    <div class="btn btn-confirm" @click="selectMarket(2)" data-type="1">{{$t('openAccount.chooseMarket.text5')}}</div>
                 </div>
                 <div class="market-item market-hk">
                     <div class="market-img"></div>
                     <p class="market-info">香港上市交易的ETF</p>
                     <p class="market-info">{{$t('openAccount.chooseMarket.text4')}} 100,000 HKD</p>
-                    <div class="btn btn-confirm" @click="selectMarket(2)" data-type="2">{{$t('openAccount.chooseMarket.text5')}}</div>
+                    <div class="btn btn-confirm" @click="selectMarket(1)" data-type="2">{{$t('openAccount.chooseMarket.text5')}}</div>
                 </div>
             </div>
         </div>
@@ -68,10 +70,11 @@
             font-weight: 500;
             color: rgba(60, 63, 77, 1);
             line-height: 58px;
+			margin-bottom: 40px;
         }
 
         .desc {
-            padding: 40px 0 60px;
+            padding: 0 0 30px;
             font-size: 16px;
             font-family: PingFangSC-Regular;
             font-weight: 400;

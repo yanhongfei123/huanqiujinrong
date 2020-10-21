@@ -22,7 +22,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://47.91.214.249:8003/', //对应自己的接口
+        target: 'https://api.etfcool.com/', //对应自己的接口 http://47.91.214.249:8003/
         changeOrigin: true,
         ws: true,
         pathRewrite: {

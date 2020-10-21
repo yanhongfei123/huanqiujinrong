@@ -8,10 +8,10 @@
         <div class="title">{{$t('messageCenter.text1')}}</div>
         <div class="user-wrap">
           <div class="l-wrap">
-            <div :class="[$route.path==='/messageCenter/announcement'?'active':'']" class="item item1">
+<!--            <div :class="[$route.path==='/messageCenter/announcement'?'active':'']" class="item item1">
               <router-link to="/messageCenter/announcement">{{$t('message.text1')}}</router-link>
             </div>
-            <div class="line"></div>
+            <div class="line"></div> -->
             <div :class="[$route.path==='/messageCenter/informationPush'?'active':'']" class="item item2">
               <router-link to="/messageCenter/informationPush">{{$t('message.text2')}}</router-link>
             </div>
@@ -63,6 +63,7 @@ export default {
     }
   },
   created() {
+	  console.log(this.$route)
     getMyMsg({
       pageNum: 1,
     }).then(res=>{

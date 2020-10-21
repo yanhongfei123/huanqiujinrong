@@ -181,6 +181,16 @@
 		width: 1600px;
 		margin: 0 auto;
 	}
+	
+	@media screen and (max-width: 1700px) {
+		.com-width {
+			width: 1500px!important;
+		}
+		.section2 img {
+			width: 850px!important;
+		}
+		
+	}
 
 
 	.section1 {
@@ -194,7 +204,7 @@
 			position: absolute;
 			right: 0;
 			top: 0;
-			width: 900px;
+			width: 800px;
 			//height: 973px;
 		}
 
@@ -202,9 +212,9 @@
 			position: relative;
 			z-index: 999;
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 100px;
-			padding-top: 120px;
-			line-height: 120px;
+			font-size: 60px;
+			padding-top: 70px;
+			line-height: 70px;
 
 			span {
 				color: rgba(42, 219, 192, 1);
@@ -225,7 +235,7 @@
 
 		.item {
 			color: rgba(82, 73, 73, 0.73);
-			font-size: 50px;
+			font-size: 40px;
 		}
 
 	}
@@ -241,6 +251,7 @@
 		align-items: center;
 
 		img {
+			width: 900px;
 			position: absolute;
 			right: 0;
 			top: 50%;
@@ -252,7 +263,7 @@
 		}
 
 		.text {
-			font-size: 100px;
+			font-size: 60px;
 			color: #fff;
 			margin-bottom: 35px;
 
@@ -260,19 +271,19 @@
 
 		.text2 {
 			color: rgba(82, 73, 73, 0.73);
-			font-size: 42px;
+			font-size: 30px;
 			font-weight: bold;
 		}
 
 		.text3 {
 			color: rgba(82, 73, 73, 0.73);
-			font-size: 38px;
-			margin: 60px 0;
+			font-size: 30px;
+			margin: 40px 0;
 		}
 
 		.text4 {
 			color: rgba(82, 73, 73, 0.73);
-			font-size: 38px;
+			font-size: 30px;
 		}
 
 		.btn {
@@ -296,11 +307,11 @@
 		.content {
 			position: absolute;
 			left: 42%;
-			top: 158px;
+			top: 100px;
 
 			.title {
 				padding-left: 40px;
-				font-size: 100px;
+				font-size: 60px;
 				color: rgba(25, 25, 25, 0.73);
 				margin-bottom: 60px;
 			}
@@ -330,7 +341,7 @@
 				}
 
 				.text {
-					font-size: 35px;
+					font-size: 30px;
 					color: rgba(25, 25, 25, 0.73);
 				}
 			}
@@ -338,6 +349,7 @@
 		}
 
 		img {
+			width: 850px;
 			position: absolute;
 			left: 0;
 			bottom: -230px;
@@ -361,13 +373,18 @@
 
 
 	.section4 {
-		height: 922px;
+		height: 900px;
 		position: relative;
 		background: url(../assets/images/home/13.png) no-repeat center;
 		background-size: cover;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		
+		img{
+			width: 100px;
+			height: 100px;
+		}
 
 		.content {
 			text-align: center;
@@ -378,7 +395,7 @@
 		}
 
 		div {
-			font-size: 40px;
+			font-size: 30px;
 			color: #FFFFFF;
 		}
 
@@ -389,12 +406,12 @@
 
 	.section5 {
 		text-align: center;
-		height: 1111px;
+		height: 960px;
 
 		.title {
 			padding-top: 80px;
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 100px;
+			font-size: 60px;
 			margin-bottom: 20px;
 			font-weight: bold;
 		}
@@ -403,7 +420,7 @@
 			width: 1440px;
 			margin: 0 auto;
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 38px;
+			font-size: 30px;
 			margin-bottom: 106px;
 		}
 
@@ -420,17 +437,18 @@
 
 			img {
 				display: inline-block;
-				width: 208px;
-				margin-bottom: 29px;
+				width: 150px;
+				margin-bottom: 20px;
 			}
 
 			.text2 {
-				font-size: 36px;
+				font-size: 30px;
 				font-weight: bold;
+				margin-bottom: 5px;
 			}
 
 			.text3 {
-				font-size: 28px;
+				font-size: 20px;
 				text-align: justify;
 			}
 		}

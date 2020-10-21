@@ -12,7 +12,7 @@ export function getForecast(data) {
 // 投资组合
 export function getInvestment(data) {
   return request({
-    url: '/index/getInvestment',
+    url: '/user/getInvestment',
     method: 'post',
     data
   })

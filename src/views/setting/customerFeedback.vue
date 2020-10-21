@@ -1,9 +1,8 @@
 <template>
   <div class="address-wrap">
     <div class="item item1">{{$t('setting.address.text1')}}</div>
-    <div class="item item1">{{$t('setting.address.text2')}}</div>
-    <div class="item item2">+852 XXXXXXX</div>
-    <div class="item item3">info@etf.cool</div>
+    <div class="item item2">+852 6728 2812</div>
+    <div class="item item3">support@etfcool.com</div>
   </div>
 </template>
 <script>

@@ -4,42 +4,38 @@
             <openAccountHeader></openAccountHeader>
         </header>
         <div class="content">
-            <div class="title">网上开户</div>
+            <div class="title">{{$t('openAccount.disClosure.text1')}}</div>
             <div class="info-wrapper">
-                <div class="tips"><label>* </label>您正在申请的是{{type==1?'美国':'香港'}}上市交易的ETF</div>
+                <div class="tips"><label>* </label>{{$t('openAccount.disClosure.text2')}}{{type==1?'美國':'香港'}}上市交易的ETF</div>
                 <openAccountSteps :step=step></openAccountSteps>
-                <div class="info-title title1">一.总协议与披露</div>
-                <p class="title-desc">
-                    （产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive
-                    Brokers Hong Kong Limited)。以下协议虽由（产品名称）展示，但（产品名称）并不作为协议当事人。请客户在谨慎阅读协议条款后确认。</p>
-                <div class="info-title">二.（产品名称）客户协议</div>
-                <p class="title-desc">您正在申请开通（产品名称）智能投顾账户，请您阅读并确认同意下列协议：</p>
-                <div class="disclosure-link" @click="goPdf(item.pdfUrl)">客户协议书</div>
-                <div class="info-title">三. 盈透证券开户协议</div>
-                <p class="title-desc">您正在申请开通盈透证券交易账户，请您阅读并确认同意以下由盈透证券提供的各项协议：</p>
+                <div class="info-title title1">{{$t('openAccount.disClosure.text3')}}</div>
+                <p class="title-desc">{{$t('openAccount.disClosure.text4')}}</p>
+                <div class="info-title">{{$t('openAccount.disClosure.text5')}}</div>
+                <p class="title-desc">{{$t('openAccount.disClosure.text6')}}</p>
+                <div class="disclosure-link" @click="goPdf(item.pdfUrl)">{{$t('openAccount.disClosure.text7')}}</div>
+                <div class="info-title">{{$t('openAccount.disClosure.text8')}}</div>
+                <p class="title-desc">{{$t('openAccount.disClosure.text9')}}</p>
                 <ul class="disclosure-wrapper">
                     <li class="disclosure-link" v-for="(item, index) in openProtocols" :key="index" @click="goPdf(item.pdfUrl)" >{{item.text}}</li>
                 </ul>
-                <div class="info-title">四. 签名确认</div>
-                <p class="title-desc">客户在此输入签名即表示确认所填写的内容准确或同意以上所有条款 ,本人了解并同意此电子签名等同于手写签名。</p>
+                <div class="info-title">{{$t('openAccount.disClosure.text10')}}</div>
+                <p class="title-desc">{{$t('openAccount.disClosure.text11')}}</p>
                 <el-form title="合规信息" class="form" :label-position="labelPosition" label-width="80px"
                          :model="disclosureInfo" ref="disclosureInfoForm" :rules="disclosureInfoRules">
                     <el-row>
                         <el-col :span="18" style="width:380px">
-                            <el-form-item label="签名：" prop="signName" required>
-                                <el-input v-model="disclosureInfo.signName" placeholder="请输入签名，名与姓之间有一个空格"></el-input>
+                            <el-form-item :label="$t('openAccount.disClosure.text12')" prop="signName">
+                                <el-input v-model="disclosureInfo.signName" :placeholder="$t('openAccount.disClosure.text13')"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="6" style="margin: 44px 0  0 25px"><div class="sign-date">日期：{{nowDate | parseTime('{y}-{m}-{d}')}}</div></el-col>
                     </el-row>
-                    <div class="important-tips">
-                        重要提示：（产品名称）作为智能投资顾问服务提供商，为帮助客户完成底层资产交易需与第三方证券交易商合作。因此您的开户信息将被发送至第三方开立证券交易账户。（产品名称）的第三方合作券商为盈透证券有限公司（Interactive Brokers Hong Kong Limited)。盈透证券在香港证监会的监管下从事第一类活动-证券交易，中央编号为ADI249，将为（产品名称）的客户进行底层交易及提供交易明细或交易结单。
-                    </div>
+                    <div class="important-tips">{{$t('openAccount.disClosure.text14')}}</div>
 
                 </el-form>
                 <div class="btn-wrap">
                     <div @click="saveInfo('disclosureInfoForm')" class="btn-item btn1">保存</div>
-                    <div @click="goPrev" class="btn-item btn2">上一步</div>
+                    <div @click="goPrev" class="btn-item btn2">{{$t('openAccount.disClosure.text15')}}</div>
                     <div @click="agree('disclosureInfoForm')" class="btn-item btn3">本人同意</div>
                 </div>
             </div>
@@ -152,7 +148,7 @@
                 });
             },
             goPrev() {
-                this.$router.replace({name: 'taxStatement'});
+                this.$router.replace({name: 'taxStatement', query: { type: this.type }});
             },
             agree(formName) {
                 this.$refs[formName].validate((valid) => {

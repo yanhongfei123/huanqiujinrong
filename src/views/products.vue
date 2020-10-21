@@ -134,15 +134,23 @@
 		width: 1600px;
 		margin: 0 auto;
 	}
+	
+	@media screen and (max-width: 1700px) {
+		.com-width {
+			width: 1500px!important;
+		}
+		
+	}
 
 	.section1 {
-		height: 1095px;
+		height: 850px;
 		margin-top: 120px;
 		position: relative;
 		overflow: hidden;
 		z-index: 10;
 
 		img {
+			width: 660px;
 			position: absolute;
 			right: 0;
 			top: 0;
@@ -150,45 +158,46 @@
 
 		.text {
 			color: rgba(42, 219, 192, 1);
-			font-size: 150px;
-			padding-top: 220px;
+			font-size: 110px;
+			padding-top: 20px;
 		}
 		.text2 {
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 150px;
-			margin: -40px 0 0px;
+			font-size: 90px;
+			margin: -30px 0 0px;
 		}
 		.text3 {
 			color: rgba(82, 73, 73, 0.73);
-			font-size: 46px;
-			margin-top: 50px;
+			font-size: 30px;
+			margin-top: 20px;
 			width: 680px;
 		}		
 
 	}
 	
 	.section2{
-		height: 1023px;
+		height: 700px;
 		.top{
 			padding-top: 190px;
 			display: flex;
 			justify-content: center;
-			font-size: 50px;
+			font-size: 35px;
 			color: rgba(82, 73, 73, 0.73);
 			font-weight: bold;
 			img{
+				width: 150px;
 				margin-right: 20px;
 			}
 			
 			div{
 				display: flex;
 				align-items: center;
-				margin: 0 20px;
+				margin: 0 30px;
 			}
 		}
 		.text{
 			width: 1490px;
-			font-size: 47px;
+			font-size: 24px;
 			margin: 108px auto;
 			color: rgba(82, 73, 73, 0.73);
 		    text-align: center;
@@ -196,19 +205,20 @@
 	}
 	
 	.section3{
-		height: 1495px;
+		height: 1430px;
 		background: url('../assets/images/product/5.png') no-repeat center;
 		background-size: cover;
 		.top{
 			padding-top: 50px;
 			margin-bottom: 50px;
 			img{
+				width: 80px;
 				vertical-align: bottom;
 				margin-right: 74px;
 			}
 			.text{
 				color: rgba(25, 25, 25, 0.73);
-				font-size: 130px;
+				font-size: 100px;
 				display: inline-block;
 				vertical-align: bottom;
 			}
@@ -221,11 +231,11 @@
 				margin-right: 170px;
 				.title{
 					color: #FFFFFF;
-					font-size: 100px;
+					font-size: 60px;
 				}
 				.text{
 					color: rgba(82, 73, 73, 0.73);
-					font-size: 42px;
+					font-size: 26px;
 					margin-top: 50px;
 				}
 			}
@@ -237,21 +247,21 @@
 			left: -50px;
 			display: flex;
 			img{
-				width: 700px;
-				margin-right: 73px;
+				width: 600px;
+				margin-right: 220px;
 			}
 		}
 		
 	}
 	.section4{
 		text-align: center;
-		height: 1000px;
+		height: 600px;
 		margin-top: 100px;
 		.text{
 			width: 1440px;
 			margin: 0 auto;
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 45px;
+			font-size: 35px;
 			margin-bottom: 106px;
 		}
 		.list{
@@ -265,17 +275,17 @@
 			margin: 0 37px;
 			img {
 				display: inline-block;
-				width: 220px;
-				margin-bottom: 34px;
+				width: 150px;
+				margin-bottom: 20px;
 			}
 			.text2{
-				font-size: 65px;
+				font-size: 30px;
 				font-weight: bold;
 				margin-bottom: 24px;
 				color: rgba(25, 25, 25, 0.73);
 			}
 			.text3{
-				font-size: 42px;
+				font-size: 20px;
 				text-align: justify;
 				color: rgba(82, 73, 73, 0.73);
 			}
@@ -285,7 +295,7 @@
 	
 	.section5{
 		position: relative;
-		height: 1234px;
+		height: 1000px;
 		margin-top: 100px;
 
 		.content{
@@ -296,35 +306,36 @@
 		}
 		.block{
 			position: absolute;
-			width: 150%;
+			width: 115%;
 			left: -10%;
 			top: 50px;
-			height: 1000px;
+			height: 800px;
 			background-color: rgba(42, 219, 192, 1);
-			transform: rotate(-8deg);
+			transform: rotate(-7deg);
 		}
 		
 		.top{
 			img{
+				width: 100px;
 				vertical-align: bottom;
 				margin-right: 74px;
 			}
 			.text{
 				color: rgba(25, 25, 25, 0.73);
-				font-size: 127px;
+				font-size: 100px;
 				display: inline-block;
 				vertical-align: bottom;
 			}
 		}
 		
 		.text2{
-			font-size: 45px;
+			font-size: 32px;
 			color: rgba(25, 25, 25, 0.73);
 			width: 1323px;
-			padding-left: 245px;
+			padding-left: 175px;
 		}
 		.list{
-			margin-top: 200px;
+			margin-top: 140px;
 			overflow:hidden;
 			> div {
 				width: 40%;
@@ -333,7 +344,7 @@
 				float: left;
 				display: flex;
 				align-items: center;
-				font-size: 100px;
+				font-size: 60px;
 				color: rgba(25, 25, 25, 0.73);
 			}
 		}
@@ -341,11 +352,11 @@
 	}
 	
 	.section6{
-		margin-top: 150px;
+		margin-top: 100px;
 		.title{
 			text-align: center;
 			color: rgba(25, 25, 25, 0.73);
-			font-size: 100px;
+			font-size: 60px;
 			font-weight: bold;
 		}
 		.list{
@@ -354,9 +365,10 @@
 			align-items: center;
 			justify-content: center;
 			> div {
+				margin:  0 20px;
 				display: flex;
 				align-items: center;
-				font-size: 50px;
+				font-size: 30px;
 				color: rgba(25, 25, 25, 0.73);
 				font-weight: bold;
 			}

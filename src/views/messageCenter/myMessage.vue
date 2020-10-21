@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="no-data tc" v-if="articleList.length == 0">暂无消息</div>
+      <div class="no-data tc" v-if="articleList.length == 0">{{ $t("msgCenter.text9") }}</div>
     </div>
     <el-pagination
       @current-change="currentChange"

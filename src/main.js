@@ -7,6 +7,8 @@ import store from './store'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import i18n from './lang' // Internationalization
+import Cookies from 'js-cookie';
+//import './utils/map.js';
 
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 Vue.use(VueAwesomeSwiper);
@@ -27,9 +29,21 @@ Object.keys(filters).forEach(key => {
 
 Vue.config.productionTip = false;
 
+router.beforeEach((to, from, next) => {
+	console.log(to)
+	if (!['/home', '/product', '/why'].includes(to.path)) {
+		Cookies.set('language', 'Ft')
+	}
+	next()
+});
+
+
 // 路由跳转后页面回到顶部
 router.afterEach((to, from, next) => {
     window.scrollTo(0, 0);
+	if (!['/home', '/product', '/why'].includes(to.path)) {
+		Cookies.set('language', 'Ft')
+	}
 });
 
 new Vue({

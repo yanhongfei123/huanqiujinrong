@@ -5,13 +5,14 @@
             <div class="nav-bar flex"></div>
             <div class="nav-m flex hover">
                 <div :class="[path === '/login' ? 'active' : '']" class="hover" @click="goPage('login')">{{$t('nav.login')}}</div>
-                <div :class="[path === '/register' ? 'active' : '']"
+                <div class="line"></div>
+				<div :class="[path === '/register' ? 'active' : '']"
                      class="hover"
                      @click="goPage('register')">{{$t('nav.register')}}</div>
             </div>
             <div class="nav-r flex">
-                <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">{{$t('nav.zh')}}</div>
-                <div class="line"></div>
+<!--                <div :class="[$i18n.locale === 'zh'?'active':'']" class="hover" @click="setLanguage('zh')">{{$t('nav.zh')}}</div>
+                <div class="line"></div> -->
                 <div :class="[$i18n.locale === 'Ft'?'active':'']" class="hover" @click="setLanguage('Ft')">繁</div>
             </div>
         </div>
@@ -84,6 +85,9 @@
         .nav-m {
             cursor: pointer;
             margin-right: 40px;
+			div {
+				margin-right: 15px;
+			}
         }
         .nav-r {
             cursor: pointer;

@@ -8,12 +8,12 @@
           @click="goPage('/accountPreView')"
         >{{$t('userCenterNav.account')}}</div>
         <div
-		   v-show="state == 4 || state == 5 || state == 6 || state == -5"
+		   v-show="state == 3 || state == 5 || state == 6 || state == -5"
           :class="[path === '/investCombination/accountDetail' ? 'active' : '','nav-item']"
           @click="goPage('/investCombination/accountDetail')"
         >{{$t('userCenterNav.operation')}}</div>
         <div
-		  v-show="state == 4 || state == 5 || state == 6 || state == -5"
+		  v-show="state == 3 || state == 5 || state == 6 || state == -5"
           :class="[path === '/userCenter/myAccount' ? 'active' : '', 'nav-item']"
           @click="goPage('/userCenter/myAccount')"
         >{{$t('userCenterNav.myAccount')}}</div>
@@ -40,12 +40,12 @@
         <div class="hover" @click="goPage('/register')">{{$t('nav.register')}}</div>
       </div>
       <div class="nav-r flex">
-        <div
+<!--        <div
           :class="[$i18n.locale === 'zh'?'active':'']"
           class="hover"
           @click="setLanguage('zh')"
         >{{$t('nav.zh')}}</div>
-        <div class="line"></div>
+        <div class="line"></div> -->
         <div :class="[$i18n.locale === 'Ft'?'active':'']" class="hover" @click="setLanguage('Ft')">繁</div>
       </div>
     </div>

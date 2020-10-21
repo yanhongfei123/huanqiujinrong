@@ -106,18 +106,19 @@
                             <p>{{$t('openAccount.statementInfo.text25')}}</p>
                             <p>{{$t('openAccount.statementInfo.text26')}}</p>
                             <p>{{$t('openAccount.statementInfo.text27')}}</p>
-                            <p>{{$t('openAccount.statementInfo.text28')}}</p>
-                            <p>{{$t('openAccount.statementInfo.text29')}}</p>
+                            <p class="weight">{{$t('openAccount.statementInfo.text28')}}</p>
+                            <p class="weight">{{$t('openAccount.statementInfo.text29')}}</p>
                         </div>
                     </el-form-item>
                     <el-form-item  :label="$t('openAccount.statementInfo.text30')" required>
                         <div class="tax-statement">
-                            <p>{{$t('openAccount.statementInfo.text31')}}</p>
+                            <p :style="{ margin:0 }">{{$t('openAccount.statementInfo.text31')}}</p>
+							<p>{{$t('openAccount.statementInfo.text311')}}</p>
                             <p>日期： <span>{{ date | parseTime('{y}-{m}-{d}')}}</span></p>
                             <p>{{$t('openAccount.statementInfo.text32')}}</p>
                         </div>
                     </el-form-item>
-                    <el-form-item  :label="$t('openAccount.statementInfo.text33')" prop="autograph" required>
+                    <el-form-item  :label="$t('openAccount.statementInfo.text33')" prop="autograph">
                         <el-input :placeholder="$t('openAccount.statementInfo.text34')" v-model="statementInfo.autograph"></el-input>
                     </el-form-item>
                     <el-form-item  :label="$t('openAccount.statementInfo.text35')" prop="agreement" required>
@@ -220,11 +221,11 @@
           ]
         },
         statementInfo: {
-          nationality: '中国香港',
+          nationality: '中國香港',
           birthday: '',
           country: '',
           USDiscern: '',
-          taxCountry: '中国香港',
+          taxCountry: '中國香港',
           isUsDiscount: '',
           usCountry: '',
           TIN: '',
@@ -244,7 +245,7 @@
     },
     methods: {
       prev() {
-        this.$router.replace({ name: 'regulatoryInfo' });
+		this.$router.replace({ name: 'regulatoryInfo' , query: { type: this.type }});
       },
       next(flag) {
         this.$refs.statementInfoForm.validate((valid) => {
@@ -309,6 +310,10 @@
     .el-radio-group {
         margin-top: 20px;
     }
+	
+	.weight{
+		font-weight: bold;
+	}
 
 </style>
 

@@ -4,6 +4,9 @@ export default {
       typeft: "保守型",
       type: "保守型",
       score: "0-18",
+	  mScore: 15,
+	  tag1: '_A1',
+	  tag2: '_A2',
       riskLevel: 1,
     },
     {
@@ -11,6 +14,9 @@ export default {
       typeft: "謹慎型",
       type: "谨慎型",
       score: "19-24",
+	  mScore: 22,
+	  tag1: '_B1',
+	  tag2: '_B2',
       riskLevel: 2,
     },
     {
@@ -18,6 +24,9 @@ export default {
       typeft: "穩健型",
       type: "稳健型",
       score: "25-30",
+	  mScore: 28,
+	  tag1: '_C1',
+	  tag2: '_C2',
       riskLevel: 3,
     },
     {
@@ -25,6 +34,9 @@ export default {
       typeft: "進取型",
       type: "进取型",
       score: "31-36",
+	  mScore: 34,
+	  tag1: '_D1',
+	  tag2: '_D2',
       riskLevel: 4,
     },
     {
@@ -32,6 +44,9 @@ export default {
       typeft: "激進型",
       type: "激进型",
       score: "37-44",
+	  mScore: 40,
+	  tag1: '_E1',
+	  tag2: '_E2',
       riskLevel: 5,
     }
   ],

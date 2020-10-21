@@ -12,7 +12,7 @@
         <div class="tw-r"></div>
       </div>
       <div class="btn-wrap">
-        <div @click="goPage('/riskTest')" class="restart">{{$t('riskTestResult.text4')}}</div>
+        <!-- <div @click="goPage('/riskTest')" class="restart">{{$t('riskTestResult.text4')}}</div> -->
         <div @click="goDetail" class="next">{{$t('riskTestResult.text6')}}</div>
       </div>
     </div>
