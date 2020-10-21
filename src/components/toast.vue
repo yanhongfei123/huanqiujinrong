@@ -26,9 +26,8 @@
      left: 50%;
      top:40%;
      z-index: 100;
-     width: 3rem;
      font-size: 0.28rem;
-     padding: 0.2rem 0;
+     padding: 1rem;
      margin-left: -1.5rem;
      color: #fff;
      border-radius: 0.1rem;

@@ -103,7 +103,7 @@
     import footerBar from '@/components/footer/footer.vue';
     import leftImage from '@/components/common/leftImage.vue';
     import {login, sendCode} from '@/api';
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
 
     export default {
         name: 'login',
@@ -225,6 +225,9 @@
             }
         },
         methods: {
+            ...mapActions('personal/userInfo', {
+                Login: 'Login',
+            }),
             changeType(type) {
                 this.type = type;
                 this.$refs.loginForm.resetFields();
@@ -296,7 +299,23 @@
                             } else {
                                 params['phone'] = account;
                             }
-                            this.$store.dispatch('Login',params).then((res) => {
+
+                            // this.$store.dispatch('Login',params).then((res) => {
+                            //     console.log(res);
+                            //     Message({
+                            //         message: this.$t('signin.loginSuccess'),
+                            //         type: 'success'
+                            //     });
+                            //     setTimeout(() => {
+                            //         this.$router.push('/accountPreView');
+                            //     }, 1000);
+                            // }).catch(() => {
+                            //     //this.$refs.loginForm.resetFields();
+                            //     //this.resetCountdown();
+                            // });
+
+                            // 换一种写法
+                            this.Login(params).then((res) => {
                                 console.log(res);
                                 Message({
                                     message: this.$t('signin.loginSuccess'),
@@ -309,6 +328,8 @@
                                 //this.$refs.loginForm.resetFields();
                                 //this.resetCountdown();
                             });
+
+
                         }
                     });
                 });

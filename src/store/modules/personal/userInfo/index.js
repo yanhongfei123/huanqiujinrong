@@ -8,16 +8,19 @@ import {
 } from '@/utils/auth'
 import Cookies from 'js-cookie';
 
-const user = {
+const userInfo = {
     namespaced: true,
     state: {
+        title: '我是title',
         showmenu: false,
         token: getToken(),
         language: Cookies.get('language') || 'zh',
         userInfo: {},
     },
     getters: {
-        
+        token: state => state.token,
+        showmenu: state => state.showmenu,
+        title: state => state.title,
     },
     mutations: {
         SHOW_MENU: (state, showmenu) => {
@@ -65,29 +68,29 @@ const user = {
         // 登出
         LogOut({ commit, dispatch }) {
             return new Promise((resolve, reject) => {
-              logout(Cookies.get('accessToken')).then(() => {
-                commit('SET_TOKEN', '');
-                Cookies.remove('accessToken');
-				Cookies.remove('language');
-                resolve();
-              }).catch(error => {
-                reject(error);
-              });
+                logout(Cookies.get('accessToken')).then(() => {
+                    commit('SET_TOKEN', '');
+                    Cookies.remove('accessToken');
+                    Cookies.remove('language');
+                    resolve();
+                }).catch(error => {
+                    reject(error);
+                });
             });
         },
 
         GetUserInfo({ commit, dispatch }) {
             return new Promise((resolve, reject) => {
-              getUserInfo().then((res) => {
-                commit('SET_USERINFO', res.data);
-                resolve();
-              }).catch(error => {
-                reject(error);
-              });
+                getUserInfo().then((res) => {
+                    commit('SET_USERINFO', res.data);
+                    resolve();
+                }).catch(error => {
+                    reject(error);
+                });
             });
         },
 
     }
 };
 
-export default user;
+export default userInfo;

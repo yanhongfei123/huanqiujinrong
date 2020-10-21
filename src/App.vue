@@ -5,12 +5,12 @@
         <router-view/>
       </transition>
     </keep-alive>
-    <Toast v-if="showtoast" :content="title"/>
+    <Toast :content="title"/>
   </div>
 </template>
 <script>
 import { getToken } from '@/utils/auth';
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Toast from "@/components/toast.vue";
 export default {
   name: "app",
@@ -21,14 +21,23 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["showtoast", "title"]),
+    ...mapGetters(["showtoast"]),
+    ...mapGetters('personal/userInfo', {
+      token: 'token',
+      title: 'title',
+      showmenu: 'showmenu',
+    }),
     _showtoast() {
       return this.$store.state.user.showtoast;
     }
   },
   created() {
+    console.log('this.title===', this.title)
   },
   methods: {
+    ...mapActions('personal/record', {
+      showMenu: 'showMenu'
+    }),
 
   }
 };

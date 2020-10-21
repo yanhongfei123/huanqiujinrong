@@ -55,7 +55,9 @@ export default {
       this.$router.push(path);
     }
   },
-  mounted() {}
+  mounted() {
+    console.log('footer');
+  }
 };
 </script>
 
